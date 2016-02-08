@@ -12,10 +12,6 @@
     "type": "git",
     "url": ""
   },
-  "engines": {
-    "node": "0.10",
-    "npm": "2.12"
-  },
   "keywords": [
     "react",
     "webpack",
