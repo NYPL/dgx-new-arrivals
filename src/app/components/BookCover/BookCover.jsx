@@ -37,6 +37,7 @@ class BookCover extends React.Component {
   render() {
     return (
       <img
+        width={this.state.naturalWidth}
         id={`cover-${this.props.id}`}
         className={`${this.props.className} ${this.state.errorStatus}`}
         ref="coverImage"

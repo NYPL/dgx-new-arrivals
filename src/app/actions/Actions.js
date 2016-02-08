@@ -1,8 +1,8 @@
 // ACTIONS
-import alt from 'dgx-alt-center';
+import alt from '../alt.js';
 
 class Actions {
-  updateRecommendedRecentReleasesData(data) {
+  updateNewArrivalsData(data) {
     this.dispatch(data);
   }
 };

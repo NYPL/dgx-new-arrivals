@@ -8,7 +8,7 @@ import ReactDOMServer from 'react-dom/server';
 import DocMeta from 'react-doc-meta';
 
 import Iso from 'iso';
-import alt from 'dgx-alt-center';
+import alt from './src/app/alt.js';
 
 import appConfig from './appConfig.js';
 import analytics from './analytics.js';
@@ -68,8 +68,6 @@ app.get('/', (req, res) => {
     isProduction: isProduction,
     gaCode: analytics.google.code(isProduction),
     webpackPort: WEBPACK_DEV_PORT,
-    appEnv: process.env.APP_ENV,
-    apiUrl: res.locals.data.completeApiUrl
   });
 
 });

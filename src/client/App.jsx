@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import alt from 'dgx-alt-center';
+import alt from '../app/alt.js';
 import Iso from 'iso';
 
 import './styles/main.scss';

@@ -1,20 +1,20 @@
 import Actions from '../actions/Actions.js';
-import alt from 'dgx-alt-center';
+import alt from '../alt.js';
 
-class HomepageStore {
+class NewArrivalsStore {
   constructor() {
     this.bindListeners({
-      handleRecommendedRecentReleasesData: Actions.UPDATE_RECOMMENDED_RECENT_RELEASES_DATA,
+      handleNewArrivals: Actions.UPDATE_NEW_ARRIVALS_DATA,
     });
 
     this.on('init', () => {
-      this.recommendedRecentReleasesData = []
+      this.newArrivalsData = []
     });
   }
 
-  handleRecommendedRecentReleasesData(data) {
-    this.recommendedRecentReleasesData = data;
+  handleNewArrivals(data) {
+    this.newArrivalsData = data;
   }
 }
 
-export default alt.createStore(HomepageStore, 'HomepageStore');
+export default alt.createStore(NewArrivalsStore, 'NewArrivalsStore');

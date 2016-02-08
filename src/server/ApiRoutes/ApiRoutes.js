@@ -2,56 +2,30 @@ import express from 'express';
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
 
-import { HeaderItemModel, HomepageModel } from 'dgx-model-data';
+// import { HeaderItemModel, HomepageModel } from 'dgx-model-data';
 import { api, homepageApi, headerApi } from '../../../appConfig.js';
 
 let router = express.Router(),
   appEnvironment = process.env.APP_ENV || 'production',
-  apiRoot = api.root[appEnvironment],
-  headerOptions = createOptions(headerApi),
-  homepageOptions = createOptions(homepageApi);
+  apiRoot = api.root[appEnvironment];
 
-function createOptions(api) {
-  return {
-    endpoint: `${apiRoot}${api.endpoint}`,
-    includes: api.includes,
-    filters: api.filters,
-  };
-}
 
-function fetchApiData(url) {
-  return axios.get(url);
-}
+function NewArrivalsApp(req, res, next) {
+  const tempUrl = 'http://10.224.6.14:8080/';
 
-function getHeaderData() {
-  const headerApiUrl = parser.getCompleteApi(headerOptions);
-  return fetchApiData(headerApiUrl);
-}
-
-function HomepageApp(req, res, next) {
-  const homepageApiUrl = parser.getCompleteApi(homepageOptions);
-
-  axios.all([getHeaderData(), fetchApiData(homepageApiUrl)])
-    .then(axios.spread((headerData, homepageData) => {
-      let homepageParsed = parser.parse(homepageData.data, homepageOptions),
-        homepageModelData = HomepageModel.build(homepageParsed),
-        headerParsed = parser.parse(headerData.data, headerOptions),
-        headerModelData = HeaderItemModel.build(headerParsed);
+  axios.get(tempUrl)
+    .then(homepageData => {
+      // let homepageParsed = parser.parse(homepageData.data, homepageOptions),
+      // const homepageModelData = HomepageModel.build(homepageParsed);
 
       res.locals.data = {
-        HomepageStore: {
-          recommendedRecentReleasesData: homepageModelData.RecommendedRecentReleases,
+        NewArrivalsStore: {
+          newArrivalsData: homepageData.data,
         },
-        HeaderStore: {
-          headerData: headerModelData,
-        },
-        // Set the API URL here so we can access it when we
-        // render in the EJS file.
-        completeApiUrl: ''
       };
 
       next();
-    }))
+    })
     .catch(error => {
       console.log('error calling API : ' + error);
       console.log('Attempted to call : ' + completeApiUrl);
@@ -67,6 +41,6 @@ function HomepageApp(req, res, next) {
 
 router
   .route('/')
-  .get(HomepageApp);
+  .get(NewArrivalsApp);
 
 export default router;
