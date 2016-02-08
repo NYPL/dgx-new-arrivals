@@ -15,30 +15,38 @@ function NewArrivalsApp(req, res, next) {
   // const tempUrl = 'http://10.224.6.14:8080/';
   const tempUrl = '/newArrivalsData';
 
-  axios.get(tempUrl)
-    .then(homepageData => {
-      // let homepageParsed = parser.parse(homepageData.data, homepageOptions),
-      // const homepageModelData = HomepageModel.build(homepageParsed);
+  res.locals.data = {
+    NewArrivalsStore: {
+      newArrivalsData: tempData.data,
+    },
+  };
 
-      res.locals.data = {
-        NewArrivalsStore: {
-          newArrivalsData: homepageData.data,
-        },
-      };
+  next();
 
-      next();
-    })
-    .catch(error => {
-      console.log('error calling API : ' + error);
-      console.log('Attempted to call : ' + completeApiUrl);
+//   axios.get(tempUrl)
+//     .then(homepageData => {
+//       // let homepageParsed = parser.parse(homepageData.data, homepageOptions),
+//       // const homepageModelData = HomepageModel.build(homepageParsed);
+// console.log(homepageData);
+//       res.locals.data = {
+//         NewArrivalsStore: {
+//           newArrivalsData: homepageData.data,
+//         },
+//       };
 
-      res.locals.data = {
-        Store: {
-          _storeVar: []
-        },
-      };
-      next();
-    }); /* end Axios call */
+//       next();
+//     })
+//     .catch(error => {
+//       console.log('error calling API : ' + error);
+//       console.log('Attempted to call : ' + completeApiUrl);
+
+//       res.locals.data = {
+//         Store: {
+//           _storeVar: []
+//         },
+//       };
+//       next();
+//     }); /* end Axios call */
 }
 
 router
