@@ -1,6 +1,7 @@
 import express from 'express';
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
+import tempData from '../../../temp.js';
 
 // import { HeaderItemModel, HomepageModel } from 'dgx-model-data';
 import { api, homepageApi, headerApi } from '../../../appConfig.js';
@@ -11,7 +12,8 @@ let router = express.Router(),
 
 
 function NewArrivalsApp(req, res, next) {
-  const tempUrl = 'http://10.224.6.14:8080/';
+  // const tempUrl = 'http://10.224.6.14:8080/';
+  const tempUrl = '/newArrivalsData';
 
   axios.get(tempUrl)
     .then(homepageData => {
@@ -42,5 +44,14 @@ function NewArrivalsApp(req, res, next) {
 router
   .route('/')
   .get(NewArrivalsApp);
+
+router
+  .route('/newArrivalsData')
+  .get((req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+
+    res.json(tempData);
+  });
 
 export default router;
