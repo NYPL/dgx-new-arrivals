@@ -27,8 +27,12 @@ class App extends React.Component {
       genres: [],
     };
 
+    this._generateItemsToDisplay = this._generateItemsToDisplay.bind(this);
     this._selectChange = this._selectChange.bind(this);
     this._selectGenreChange = this._selectGenreChange.bind(this);
+    this._getAttrList = this._getAttrList.bind(this);
+    this._createLabel = this._createLabel.bind(this);
+    this._createSelectObj = this._createSelectObj.bind(this);
   }
 
   // Event listeners
@@ -51,7 +55,7 @@ class App extends React.Component {
     let data = this.state.all;
 
     if (value.length) {
-      data = _.where(this.state.all, {contentType: value})
+      data = _.where(this.state.all, {contentType: value.toUpperCase()})
     } 
 
     this.setState({
@@ -61,9 +65,15 @@ class App extends React.Component {
   }
 
   _selectGenreChange(genres) {
-    console.log(`Selected: ${genres}`);
+    console.log(`Selected genre: ${genres}`);
+    let data = this.state.all;
+
+    if (genres.length) {
+      data = _.where(this.state.all, {genre: genres})
+    } 
 
     this.setState({
+      filtered: data,
       genres
     });
   }
@@ -93,17 +103,45 @@ class App extends React.Component {
 
     return bookCoverItems;
   }
+
+  _createLabel(str) {
+    const key = str.replace(/[_]/g, '-');
+    return key;
+  }
+
+  _createSelectObj(list) {
+    const arr = _.map(list, l => {
+        const obj = {};
+        obj.value = l;
+        obj.label = this._createLabel(l);
+
+        return obj;
+      });
+
+    return arr;
+  }
+
+  _getAttrList(list, attr) {
+    const values = _.chain(list)
+      .pluck(attr)
+      .unique()
+      .value();
+
+    return this._createSelectObj(values);
+  }
   
   render() {
     const newArrivals = this.state.filtered;
+    const allArrivals = this.state.all;
     const settings = {
         dots: true,
         mobileFirst: true,
-        infinite: false,
+        infinite: true,
         speed: 300,
         slidesToShow: 6,
         slidesToScroll: 6,
         slickGoTo: 1,
+        lazyLoad: true,
         // responsive: [
         //   {
         //     breakpoint: 320,
@@ -148,18 +186,15 @@ class App extends React.Component {
         // ]
       };
     const items = this._generateItemsToDisplay(newArrivals);
-    let opts = [
-        {value: 'BOOK_TEXT', label: 'Books'},
-        {value: 'DVD', label: 'DVDs'},
-        {value: 'MUSIC_NON_CD', label: 'Music'},
-      ];
-    const genres = [
-        {value: 'fiction', label: 'Fiction'},
-        {value: 'non_fiction', label: 'Non-Fiction'},
-        {value: 'science_fiction', label: 'Science Fiction'},
-        {value: 'horror', label: 'Horror'},
-        {value: 'mystery', label: 'Mystery'},
-      ];
+    const opts = this._getAttrList(allArrivals, 'contentType');
+    const genres = this._getAttrList(allArrivals, 'genre');
+
+    // Used when the opts, genre, format, etc, are being
+    // computed
+    let isLoading = true;
+    if (newArrivals.length) {
+      isLoading = false;
+    }
 
     return (
       <div className='app-wrapper'>
@@ -167,6 +202,7 @@ class App extends React.Component {
           <Select name='form-field'
             options={opts}
             onChange={this._selectChange}
+            isLoading={isLoading}
             searchable={false}
             value={this.state.value}
             simpleValue
@@ -176,6 +212,7 @@ class App extends React.Component {
         <div className='select-wrapper'>
           <Select name='form-field'
             options={genres}
+            isLoading={isLoading}
             onChange={this._selectGenreChange}
             searchable={false}
             value={this.state.genres}
