@@ -10,7 +10,7 @@ import App from '../app/components/Application/Application.jsx';
 
 window.onload = () => {
   // Render Isomorphically
-  Iso.bootstrap((state, meta, container) => {
+  Iso.bootstrap((state, container) => {
     let node = document.getElementById('app');
 
     console.log('Application rendered Isomorphically.');
