@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import _ from 'underscore';
 
@@ -20,15 +21,29 @@ class App extends React.Component {
     this.state = {
       all: _.flatten(store.newArrivalsData),
     };
+
+    this.isoOptions = {
+      itemSelector: '.book-item',
+      masonry: {
+        columnWidth: 250,
+        isResizable: true,
+        isFitWidth: true,
+        gutter: 10
+      },
+    };
   }
 
   // Event listeners
   componentDidMount() {
     NewArrivalsStore.listen(this._onChange);
+    this._createIsotopeContainer();
   }
 
   componentWillUnmount() {
     NewArrivalsStore.unlisten(this._onChange);
+    if (this.iso != null) {
+      this.iso.destroy();
+    }
   }
 
   _onChange() {
@@ -57,12 +72,17 @@ class App extends React.Component {
     return books;
   }
 
+  _createIsotopeContainer() {
+    if (this.iso == null) {
+      this.iso = new Isotope(ReactDOM.findDOMNode(this.refs.isotopeContainer), this.isoOptions);
+    }
+  }
   
   render() {
     const books = this._generateItemsToDisplay();
 
     return (
-      <div className='app-wrapper'>
+      <div className="app-wrapper" ref="isotopeContainer">
         {books}
       </div>
     );
