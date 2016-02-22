@@ -1,8 +1,8 @@
 import express from 'express';
 import tempData from '../../../temp.js';
-import test from '../../../appConfig.js';
+import config from '../../../appConfig.js';
 
-const api = test.api;
+const {api} = config;
 
 let router = express.Router(),
   appEnvironment = process.env.APP_ENV || 'production',
