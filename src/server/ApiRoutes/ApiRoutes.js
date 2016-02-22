@@ -2,12 +2,11 @@ import express from 'express';
 import tempData from '../../../temp.js';
 import config from '../../../appConfig.js';
 
-const {api} = config;
+const { api } = config;
 
-let router = express.Router(),
-  appEnvironment = process.env.APP_ENV || 'production',
-  apiRoot = api.root[appEnvironment];
-
+const router = express.Router();
+const appEnvironment = process.env.APP_ENV || 'production';
+const apiRoot = api.root[appEnvironment];
 
 function NewArrivalsApp(req, res, next) {
   // const tempUrl = 'http://10.224.6.14:8080/';
