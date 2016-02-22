@@ -1,8 +1,8 @@
 import express from 'express';
 import tempData from '../../../temp.js';
+import test from '../../../appConfig.js';
 
-// import { HeaderItemModel, HomepageModel } from 'dgx-model-data';
-import { api, homepageApi, headerApi } from '../../../appConfig.js';
+const api = test.api;
 
 let router = express.Router(),
   appEnvironment = process.env.APP_ENV || 'production',

@@ -17,6 +17,7 @@ import WebpackDevServer from 'webpack-dev-server';
 import webpackConfig from './webpack.config.js';
 
 import Application from './src/app/components/Application/Application.jsx';
+import apiRoutes from './src/server/ApiRoutes/ApiRoutes.js';
 
 const ROOT_PATH = __dirname;
 const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');
@@ -25,8 +26,6 @@ const VIEWS_PATH = path.resolve(ROOT_PATH, 'src/views');
 const WEBPACK_DEV_PORT = appConfig.webpackDevServerPort || 3000;
 
 let isProduction = process.env.NODE_ENV === 'production',
-  // Assign API Routes
-  apiRoutes = require('./src/server/ApiRoutes/ApiRoutes.js'),
   app = express();
 
 app.use(compress());
