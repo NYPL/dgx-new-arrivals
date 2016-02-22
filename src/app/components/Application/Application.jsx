@@ -1,12 +1,9 @@
 import React from 'react';
-import Slick from 'react-slick';
 
 import _ from 'underscore';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import BookCover from '../BookCover/BookCover.jsx';
-
-import Select from 'react-select';
 
 let styles = {
   bookItemsWidth: {
@@ -132,62 +129,6 @@ class App extends React.Component {
   
   render() {
     const newArrivals = this.state.filtered;
-    const allArrivals = this.state.all;
-    const settings = {
-        dots: true,
-        mobileFirst: true,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 6,
-        slidesToScroll: 6,
-        slickGoTo: 1,
-        lazyLoad: true,
-        // responsive: [
-        //   {
-        //     breakpoint: 320,
-        //     settings: {
-        //       slidesToShow: 2,
-        //       slidesToScroll: 2
-        //     }
-        //   },
-        //   {
-        //     breakpoint: 600,
-        //     settings: {
-        //       slidesToShow: 3,
-        //       slidesToScroll: 3
-        //     }
-        //   },
-        //   {
-        //     breakpoint: 768,
-        //     settings: {
-        //       slidesToShow: 4,
-        //       slidesToScroll: 4
-        //     }
-        //   },
-        //   {
-        //     breakpoint: 1024,
-        //     settings: {
-        //       slidesToShow: 5,
-        //       slidesToScroll: 5,
-        //       infinite: true,
-        //       dots: true
-        //     }
-        //   },
-        //   {
-        //     breakpoint: 1500,
-        //     settings: {
-        //       slidesToShow: 6,
-        //       slidesToScroll: 6
-        //     }
-        //   },
-        //   // You can unslick at a given breakpoint now by adding:
-        //   // settings: "unslick"
-        //   // instead of a settings object
-        // ]
-      };
-    const items = this._generateItemsToDisplay(newArrivals);
-    const opts = this._getAttrList(allArrivals, 'contentType');
-    const genres = this._getAttrList(allArrivals, 'genre');
 
     // Used when the opts, genre, format, etc, are being
     // computed
@@ -199,30 +140,8 @@ class App extends React.Component {
     return (
       <div className='app-wrapper'>
         <div className='select-wrapper'>
-          <Select name='form-field'
-            options={opts}
-            onChange={this._selectChange}
-            isLoading={isLoading}
-            searchable={false}
-            value={this.state.value}
-            simpleValue
-            placeholder='Format'
-            multi={true} />
+          Test
         </div>
-        <div className='select-wrapper'>
-          <Select name='form-field'
-            options={genres}
-            isLoading={isLoading}
-            onChange={this._selectGenreChange}
-            searchable={false}
-            value={this.state.genres}
-            simpleValue
-            placeholder='Genre'
-            multi={true} />
-        </div>
-        <Slick {...settings}>
-          {items}
-        </Slick>
       </div>
     );
   }
