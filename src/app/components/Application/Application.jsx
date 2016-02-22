@@ -139,9 +139,7 @@ class App extends React.Component {
 
     return (
       <div className='app-wrapper'>
-        <div className='select-wrapper'>
-          Test
-        </div>
+        Test
       </div>
     );
   }
