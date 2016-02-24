@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom';
 import _ from 'underscore';
 
 import NewArrivalsStore from '../../stores/Store.js';
-import BookCover from '../BookCover/BookCover.jsx';
+import Isotopes from '../Isotopes/Isotopes.jsx';
+import DisplayBtns from '../DisplayBtns/DisplayBtns.jsx';
 
 let styles = {
   bookItemsWidth: {
@@ -16,74 +17,41 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    const store = NewArrivalsStore.getState(); 
-
+    const store = NewArrivalsStore.getState();
     this.state = {
-      all: _.flatten(store.newArrivalsData),
+      // all: _.flatten(store.newArrivalsData),
+      all: store.newArrivalsData.bibItems,
+      displayType: store.displayType,
     };
 
-    this.isoOptions = {
-      itemSelector: '.book-item',
-      masonry: {
-        columnWidth: 250,
-        isResizable: true,
-        isFitWidth: true,
-        gutter: 10
-      },
-    };
+    this._onChange = this._onChange.bind(this);
   }
 
   // Event listeners
   componentDidMount() {
     NewArrivalsStore.listen(this._onChange);
-    this._createIsotopeContainer();
   }
 
   componentWillUnmount() {
     NewArrivalsStore.unlisten(this._onChange);
-    if (this.iso != null) {
-      this.iso.destroy();
-    }
   }
 
   _onChange() {
-    this.setState({});
+    this.setState({
+      displayType: NewArrivalsStore.getState().displayType
+    });
   }
 
-  _generateItemsToDisplay() {
-    const bookCoverItems = _.chain(NewArrivalsStore.getState().newArrivalsData)
-      .flatten()
-      .value();
-
-    const books = bookCoverItems.map((element, i) => {
-        const target = '#';
-        return (
-          <li className='book-item' key={i}>
-            <a href={target} className="bookItem">
-              <BookCover
-                imgSrc={element.imageURL}
-                alt=""
-                className="cover-image" />
-            </a>
-          </li>
-        );
-      });
-
-    return books;
-  }
-
-  _createIsotopeContainer() {
-    if (this.iso == null) {
-      this.iso = new Isotope(ReactDOM.findDOMNode(this.refs.isotopeContainer), this.isoOptions);
-    }
-  }
-  
   render() {
-    const books = this._generateItemsToDisplay();
+    const books = this.state.all;
+    let displayType = this.state.displayType;
 
     return (
-      <div className="app-wrapper" ref="isotopeContainer">
-        {books}
+      <div className="app-wrapper">
+        <DisplayBtns />
+        <Isotopes
+          booksArr={books}
+          displayType={displayType} />
       </div>
     );
   }

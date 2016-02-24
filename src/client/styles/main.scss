@@ -1,21 +1,5 @@
-
-@import '~react-select/scss/default.scss';
+@import './components/Isotopes';
 
 #app {
   margin: 0;
-}
-
-.select {
-  &-wrapper {
-    display: inline-block;
-    width: 400px;
-  }
-}
-
-.slick {
-  &-slide {
-    img {
-      max-width: 150px;
-    }
-  }
 }
