@@ -8,3 +8,16 @@
 #app {
   margin: 0;
 }
+
+.pagination {
+  display: block !important;
+  text-align: center;
+}
+
+.pagination > li {
+  display: inline-block !important;
+}
+
+.pagination .break a {
+    cursor: default;
+}

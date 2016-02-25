@@ -31,6 +31,10 @@ class Isotopes extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    this.iso.arrange();
+  }
+
   // Event listeners
   componentDidMount() {
     this._createIsotopeContainer();
@@ -50,10 +54,9 @@ class Isotopes extends React.Component {
     const books = bookCoverItems.map((element, i) => {
         const target = '#';
         const bookCover = (<a href={target} className="bookItem">
-                  <BookCover
-                    imgSrc={element.imageUrls[0]}
-                    alt=""
-                    className="cover-image" />
+                    <img
+                      width="150"
+                      src={element.imageUrls[0]}/>
                 </a>);
         const bookListItem = (<div>
             <h2>{element.title}</h2>
@@ -71,9 +74,10 @@ class Isotopes extends React.Component {
     if (this.iso != null) {
       setTimeout(() => {
         this.iso.arrange();
-      }, 100);
+      }, 800);
     }
 
+// console.log(books);
     return books;
   }
 

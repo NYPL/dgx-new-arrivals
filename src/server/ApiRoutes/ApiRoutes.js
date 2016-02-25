@@ -36,9 +36,24 @@ function NewArrivalsApp(req, res, next) {
     }); /* end axios call */
 }
 
+function SelectPage(req, res) {
+  const page = req.params.page;
+  const tempUrl = `http://10.224.6.14:8087/categories/1?days=20&pageNum=${page}`;
+
+  axios
+    .get(tempUrl)
+    .then(response => {
+      res.json(response.data);
+    }); /* end axios call */
+}
+
 router
   .route('/')
   .get(NewArrivalsApp);
+
+router
+  .route('/:page')
+  .get(SelectPage);
 
 router
   .route('/newArrivalsData')

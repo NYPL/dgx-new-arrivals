@@ -1,13 +1,12 @@
-// ACTIONS
-import alt from '../alt.js';
+import alt from 'dgx-alt-center';
 
 class Actions {
   updateNewArrivalsData(data) {
-    return data;
+    this.dispatch(data);
   }
 
   updateBookDisplay(displayType) {
-    return displayType;
+    this.dispatch(displayType);
   }
 };
 

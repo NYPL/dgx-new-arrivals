@@ -1,5 +1,5 @@
 import Actions from '../actions/Actions.js';
-import alt from '../alt.js';
+import alt from 'dgx-alt-center';
 
 class NewArrivalsStore {
   constructor() {
