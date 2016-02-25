@@ -1,0 +1,60 @@
+.BookDisplayButtons {
+  &-List {
+    margin-bottom: 25px;
+    text-align: center;
+
+    li {
+      border-radius: 23px;
+      border: 2px solid $text-gray;
+      display: inline-block;
+      margin: 0 3%;
+      width: 125px;
+
+      // @include breakpoint($min, $post-mobile-phone) {
+      //   display: block;
+      //   margin: 0px auto 10px auto;
+      // }
+
+      a {
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+        padding: 14px 22px 12px 15px;
+        width: 100px;
+        color: $text-gray;
+      }
+
+      .icon {
+        padding: 3px 10px 5px 15px;
+      }
+    }
+
+    .active {
+      border: 2px solid $lib-blue;
+
+      a {
+        color: $lib-blue;
+      }
+
+      .BookDisplayButtons-grid-icon {
+        background: url('#{$staffPicksUrl}src/client/images/icons/SmallBookBlue.svg') no-repeat;
+      }
+
+      .BookDisplayButtons-list-icon {
+        background: url('#{$staffPicksUrl}src/client/images/icons/SmallListIconBlue.svg') no-repeat;
+      }
+    }
+
+    &.list {
+      margin-bottom: 10px;
+    }
+  }
+
+  &-grid-icon {
+    background: url('#{$staffPicksUrl}src/client/images/icons/SmallBookGray.svg') no-repeat;
+  }
+
+  &-list-icon {
+    background: url('#{$staffPicksUrl}src/client/images/icons/SmallListIconGray.svg') no-repeat;
+  }
+}
