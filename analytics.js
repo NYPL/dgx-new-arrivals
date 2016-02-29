@@ -4,8 +4,8 @@ const Google = {
   // is_prod is true, or the dev property if is_prod is false
   code(is_prod) {
     const codes = {
-      production: "UA-1420324-3",
-      dev: "UA-1420324-122"
+      production: 'UA-1420324-3',
+      dev: 'UA-1420324-122'
     };
 
     if (is_prod === true) {

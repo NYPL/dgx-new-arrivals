@@ -2,6 +2,8 @@ import express from 'express';
 import tempData from '../../../temp.js';
 import config from '../../../appConfig.js';
 
+import axios from 'axios';
+
 const { api } = config;
 
 const router = express.Router();
@@ -9,21 +11,49 @@ const appEnvironment = process.env.APP_ENV || 'production';
 const apiRoot = api.root[appEnvironment];
 
 function NewArrivalsApp(req, res, next) {
-  // const tempUrl = 'http://10.224.6.14:8080/';
-  const tempUrl = '/newArrivalsData';
+  const tempUrl = 'http://10.224.6.14:8087/categories/1?days=22&pageNum=6';
+  // const tempUrl = '/newArrivalsData';
 
-  res.locals.data = {
-    NewArrivalsStore: {
-      newArrivalsData: tempData.data,
-    },
-  };
+  axios
+    .get(tempUrl)
+    .then(response => {
+      // console.log(response.data);
+      // const data = response.data;
+      // const categoryName = data.name;
+      // const totalItems = data.totalItems;
+      // const items = data.bibItems;
+      // const links = data._links;
 
-  next();
+      res.locals.data = {
+        NewArrivalsStore: {
+          newArrivalsData: response.data,
+          displayType: 'grid',
+        },
+      };
+
+      next();
+
+    }); /* end axios call */
+}
+
+function SelectPage(req, res) {
+  const page = req.params.page;
+  const tempUrl = `http://10.224.6.14:8087/categories/1?days=22&pageNum=${page}`;
+
+  axios
+    .get(tempUrl)
+    .then(response => {
+      res.json(response.data);
+    }); /* end axios call */
 }
 
 router
   .route('/')
   .get(NewArrivalsApp);
+
+router
+  .route('/:page')
+  .get(SelectPage);
 
 router
   .route('/newArrivalsData')
