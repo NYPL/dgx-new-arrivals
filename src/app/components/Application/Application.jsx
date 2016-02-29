@@ -5,8 +5,8 @@ import _ from 'underscore';
 import ReactPaginate from 'react-paginate';
 import axios from 'axios';
 
-// import Header from 'dgx-header-component';
-// import Footer from 'dgx-react-footer';
+import Header from 'dgx-header-component';
+import Footer from 'dgx-react-footer';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -72,6 +72,7 @@ class App extends React.Component {
 
     return (
       <div>
+        <Header />
         <div className="app-wrapper">
           <DisplayBtns />
           <Isotopes
@@ -88,6 +89,8 @@ class App extends React.Component {
                        subContainerClassName={"pages pagination"}
                        activeClassName={"active"} />
         </div>
+
+        <Footer />
       </div>
     );
   }
