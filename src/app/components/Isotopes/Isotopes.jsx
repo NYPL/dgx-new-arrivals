@@ -53,10 +53,11 @@ class Isotopes extends React.Component {
 
     const books = bookCoverItems.map((element, i) => {
         const target = '#';
+        // <img
+        //   width="150"
+        //   src={element.imageUrls[0]}/>
         const bookCover = (<a href={target} className="bookItem">
-                    <img
-                      width="150"
-                      src={element.imageUrls[0]}/>
+                    <BookCover imgSrc={element.imageUrls[0]} />
                 </a>);
         const bookListItem = (<div>
             <h2>{element.title}</h2>

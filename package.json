@@ -1,7 +1,7 @@
 {
-  "name": "caladan",
-  "version": "0.1.0",
-  "description": "Isomorphic React boilerplate",
+  "name": "newArrivals",
+  "version": "1.0.0",
+  "description": "NYPL New Arrivals",
   "main": "index.js",
   "scripts": {
     "start": "node index",
@@ -20,7 +20,6 @@
     "hot",
     "reload"
   ],
-  "author": "Edwin Guzman",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com//issues"

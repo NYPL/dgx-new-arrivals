@@ -11,7 +11,7 @@ const appEnvironment = process.env.APP_ENV || 'production';
 const apiRoot = api.root[appEnvironment];
 
 function NewArrivalsApp(req, res, next) {
-  const tempUrl = 'http://10.224.6.14:8087/categories/1?days=22&pageNum=6';
+  const tempUrl = 'http://10.224.6.14:8087/categories/1?days=26&itemCount=10&pageNum=1';
   // const tempUrl = '/newArrivalsData';
 
   axios
@@ -38,7 +38,7 @@ function NewArrivalsApp(req, res, next) {
 
 function SelectPage(req, res) {
   const page = req.params.page;
-  const tempUrl = `http://10.224.6.14:8087/categories/1?days=22&pageNum=${page}`;
+  const tempUrl = `http://10.224.6.14:8087/categories/1?days=26&itemCount=10&pageNum=${page}`;
 
   axios
     .get(tempUrl)
