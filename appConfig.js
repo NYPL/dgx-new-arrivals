@@ -11,20 +11,6 @@ export default {
       production: 'https://refinery.nypl.org',
     },
   },
-  homepageApi: {
-    endpoint: '/api/nypl/ndo/v0.1/site-data/containers',
-    includes: [
-      'slots.current-item.rectangular-image.full-uri',
-      'slots.current-item.banner-image.full-uri',
-      'slots.current-item.book-cover-image',
-      // Should be children.slots but slots comes from above....
-      'children.slots.current-item.rectangular-image',
-    ],
-    filters: {
-      // These slug names are under the 'slug' attributes for each container
-      slug: 'recommended-recent-releases'
-    },
-  },
   headerApi: {
     endpoint: '/api/nypl/ndo/v0.1/site-data/header-items',
     includes: [

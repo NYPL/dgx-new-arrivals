@@ -3,38 +3,91 @@ import tempData from '../../../temp.js';
 import config from '../../../appConfig.js';
 
 import axios from 'axios';
+import parser from 'jsonapi-parserinator';
 
-const { api } = config;
+import Model from 'dgx-model-data';
+
+const { HeaderItemModel } = Model;
+const { api, headerApi } = config;
 
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
 const apiRoot = api.root[appEnvironment];
+const headerOptions = createOptions(headerApi);
+
+function createOptions(api) {
+  return {
+    endpoint: `${apiRoot}${api.endpoint}`,
+    includes: api.includes,
+    filters: api.filters,
+  };
+}
+
+function fetchApiData(url) {
+  return axios.get(url);
+}
+
+function getHeaderData() {
+  const headerApiUrl = parser.getCompleteApi(headerOptions);
+  return fetchApiData(headerApiUrl);
+}
 
 function NewArrivalsApp(req, res, next) {
   const tempUrl = 'http://10.224.6.14:8087/categories/1?days=26&itemCount=10&pageNum=1';
   // const tempUrl = '/newArrivalsData';
 
-  axios
-    .get(tempUrl)
-    .then(response => {
-      // console.log(response.data);
-      // const data = response.data;
-      // const categoryName = data.name;
-      // const totalItems = data.totalItems;
-      // const items = data.bibItems;
-      // const links = data._links;
+  axios.all([getHeaderData(), fetchApiData(tempUrl)])
+    .then(axios.spread((headerData, newArrivalsData) => {
+      const headerParsed = parser.parse(headerData.data, headerOptions);
+      const headerModelData = HeaderItemModel.build(headerParsed)
 
       res.locals.data = {
-        NewArrivalsStore: {
-          newArrivalsData: response.data,
-          displayType: 'grid',
+        HeaderStore: {
+          headerData: headerModelData,
         },
+        NewArrivalsStore: {
+          displayType: 'grid',
+          newArrivalsData: newArrivalsData.data,
+        },
+        completeApiUrl: ''
       };
 
       next();
+    }))
+    .catch(error => {
+      console.log('error calling API : ' + error);
+      console.log('Attempted to call : ' + completeApiUrl);
 
-    }); /* end axios call */
+      res.locals.data = {
+        Store: {
+          _storeVar: []
+        },
+      };
+      next();
+    }); /* end Axios call */
 }
+
+//   axios
+//     .get(tempUrl)
+//     .then(response => {
+//       // console.log(response.data);
+//       // const data = response.data;
+//       // const categoryName = data.name;
+//       // const totalItems = data.totalItems;
+//       // const items = data.bibItems;
+//       // const links = data._links;
+
+//       res.locals.data = {
+//         NewArrivalsStore: {
+//           newArrivalsData: response.data,
+//           displayType: 'grid',
+//         },
+//       };
+
+//       next();
+
+//     }); /* end axios call */
+// }
 
 function SelectPage(req, res) {
   const page = req.params.page;
