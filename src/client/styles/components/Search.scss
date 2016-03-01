@@ -32,3 +32,16 @@
     @include grid-span(3, 1);
   }
 }
+
+.newArrivals {
+  &-container {
+    @include grid-span(3);
+    @include add-grid(3);
+
+    border-top: 2px solid red;
+
+    h4 {
+      font-size: 14px;
+    }
+  }
+}

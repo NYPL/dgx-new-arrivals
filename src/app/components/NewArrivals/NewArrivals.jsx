@@ -55,8 +55,8 @@ class NewArrivals extends React.Component {
     const displayType = this.state.displayType;
 
     return (
-      <div className="nyplNewArrivalsApp">
-        <h2>Browse New Releases</h2>
+      <div className="newArrivals-container">
+        <h4>Browse New Releases</h4>
         <ToggleDisplay />
         <Isotopes
           booksArr={books}

@@ -12,7 +12,7 @@ let styles = {
     width: '100%',
   },
   gridWidth: {
-    width: '150px'
+    width: '130px'
   },
 };
 
@@ -23,9 +23,9 @@ class Isotopes extends React.Component {
     this.isoOptions = {
       itemSelector: '.book-item',
       masonry: {
-        columnWidth: 150,
+        columnWidth: 130,
         isResizable: true,
-        isFitWidth: true,
+        // isFitWidth: true,
         gutter: 10
       },
     };
@@ -59,7 +59,7 @@ class Isotopes extends React.Component {
         // <BookCover imgSrc={element.imageUrls[0]} />
         const bookCover = (<a href={target} className="bookItem">
                     <img
-                      width="150"
+                      width="130"
                       src={element.imageUrls[0]}/>
                 </a>);
         const bookListItem = (<div>
