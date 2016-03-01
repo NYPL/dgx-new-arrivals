@@ -1,30 +1,120 @@
 import express from 'express';
 import tempData from '../../../temp.js';
-import test from '../../../appConfig.js';
+import config from '../../../appConfig.js';
 
-const api = test.api;
+import axios from 'axios';
+import parser from 'jsonapi-parserinator';
 
-let router = express.Router(),
-  appEnvironment = process.env.APP_ENV || 'production',
-  apiRoot = api.root[appEnvironment];
+import Model from 'dgx-model-data';
 
+const { HeaderItemModel } = Model;
+const { api, headerApi } = config;
+
+const router = express.Router();
+const appEnvironment = process.env.APP_ENV || 'production';
+const apiRoot = api.root[appEnvironment];
+const headerOptions = createOptions(headerApi);
+
+function createOptions(api) {
+  return {
+    endpoint: `${apiRoot}${api.endpoint}`,
+    includes: api.includes,
+    filters: api.filters,
+  };
+}
+
+function fetchApiData(url) {
+  return axios.get(url);
+}
+
+function getHeaderData() {
+  const headerApiUrl = parser.getCompleteApi(headerOptions);
+  return fetchApiData(headerApiUrl);
+}
 
 function NewArrivalsApp(req, res, next) {
-  // const tempUrl = 'http://10.224.6.14:8080/';
-  const tempUrl = '/newArrivalsData';
+  const category = 1;
+  const days = 26;
+  const itemCount = 15;
+  const pageNum = 4;
+  const tempUrl = `http://10.224.6.14:8087/categories/${category}?` +
+    `days=${days}&itemCount=${itemCount}&pageNum=${pageNum}`;
 
-  res.locals.data = {
-    NewArrivalsStore: {
-      newArrivalsData: tempData.data,
-    },
-  };
+  axios.all([getHeaderData(), fetchApiData(tempUrl)])
+    .then(axios.spread((headerData, newArrivalsData) => {
+      const headerParsed = parser.parse(headerData.data, headerOptions);
+      const headerModelData = HeaderItemModel.build(headerParsed)
 
-  next();
+      res.locals.data = {
+        HeaderStore: {
+          headerData: headerModelData,
+        },
+        NewArrivalsStore: {
+          displayType: 'grid',
+          newArrivalsData: newArrivalsData.data,
+        },
+        completeApiUrl: ''
+      };
+
+      next();
+    }))
+    .catch(error => {
+      console.log('error calling API : ' + error);
+      console.log('Attempted to call : ' + completeApiUrl);
+
+      res.locals.data = {
+        Store: {
+          _storeVar: []
+        },
+      };
+      next();
+    }); /* end Axios call */
+}
+
+//   axios
+//     .get(tempUrl)
+//     .then(response => {
+//       // console.log(response.data);
+//       // const data = response.data;
+//       // const categoryName = data.name;
+//       // const totalItems = data.totalItems;
+//       // const items = data.bibItems;
+//       // const links = data._links;
+
+//       res.locals.data = {
+//         NewArrivalsStore: {
+//           newArrivalsData: response.data,
+//           displayType: 'grid',
+//         },
+//       };
+
+//       next();
+
+//     }); /* end axios call */
+// }
+
+function SelectPage(req, res) {
+  const pageNum = req.params.page;
+  const category = 1;
+  const days = 26;
+  const itemCount = 15;
+  const tempUrl = `http://10.224.6.14:8087/categories/${category}?` +
+    `days=${days}&itemCount=${itemCount}&pageNum=${pageNum}`;
+
+  axios
+    .get(tempUrl)
+    .then(response => {
+      res.json(response.data);
+    }); /* end axios call */
 }
 
 router
   .route('/')
   .get(NewArrivalsApp);
+
+router
+  .route('/:page')
+  .get(SelectPage);
 
 router
   .route('/newArrivalsData')

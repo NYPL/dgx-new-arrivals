@@ -21,9 +21,8 @@
     <meta name="twitter:site" content="@nypl">
     <meta name="twitter:creator" content="@nypl">
     <meta name="twitter:image" content="">
-
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.3.15/slick.css" />
     
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <% if (isProduction) { %>
     <!-- Minified Styles -->
     <link rel="stylesheet" type="text/css" href="/styles.css">
@@ -33,6 +32,9 @@
   <body>
     <div id="app"><%- app %></div>
   </body>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.min.js"></script>
 
 <% if (isProduction) { %>
   <script async src="/bundle.js"></script>

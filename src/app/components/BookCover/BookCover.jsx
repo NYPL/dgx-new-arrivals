@@ -11,7 +11,7 @@ class BookCover extends React.Component {
         // Show the place holder if the book cover's ISBN is not available
         this.props.imgSrc : this.props.placeHolderEndpoint,
       // The original width of the source image
-      naturalWidth: 120,
+      naturalWidth: 150,
       errorStatus: '',
     };
   }
@@ -37,7 +37,7 @@ class BookCover extends React.Component {
   render() {
     return (
       <img
-        width={this.state.naturalWidth}
+        width="150"
         id={`cover-${this.props.id}`}
         className={`${this.props.className} ${this.state.errorStatus}`}
         ref="coverImage"
