@@ -28,6 +28,6 @@ window.onload = () => {
   Iso.bootstrap((state, container) => {
     console.log('Application rendered Isomorphically.');
     alt.bootstrap(state);
-    ReactDOM.render(<App />, container);
+    ReactDOM.render(React.createElement(App), container);
   });
 };

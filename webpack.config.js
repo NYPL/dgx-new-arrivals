@@ -100,7 +100,10 @@ if (ENV === 'production') {
         {
           test: /\.jsx?$/,
           exclude: /(node_modules|bower_components)/,
-          loaders: ['babel']
+          loader: 'babel',
+          query: {
+            presets: ['es2015', 'react']
+          }
         },
         {
           test: /\.scss$/,
