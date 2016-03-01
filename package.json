@@ -59,7 +59,7 @@
     "react-dom": "^0.14.7",
     "react-ga": "^1.2.0",
     "react-hot-loader": "^1.2.8",
-    "react-onclickout": "^1.2.1",
+    "react-onclickout": "^2.0.4",
     "react-paginate": "^0.5.4",
     "react-tappable": "^0.8.0",
     "rootpath": "^0.1.2",
