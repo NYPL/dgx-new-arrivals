@@ -5,12 +5,14 @@ class NewArrivalsStore {
   constructor() {
     this.bindListeners({
       handleNewArrivals: Actions.UPDATE_NEW_ARRIVALS_DATA,
-      updateBookDisplay: Actions.UPDATE_BOOK_DISPLAY,
+      updateDisplayView: Actions.UPDATE_DISPLAY_VIEW,
+      toggleFilters: Actions.TOGGLE_FILTERS,
     });
 
     this.on('init', () => {
       this.newArrivalsData = [];
       this.displayType =  'grid';
+      this.toggleFilter = false;
     });
   }
 
@@ -18,8 +20,12 @@ class NewArrivalsStore {
     this.newArrivalsData = data;
   }
 
-  updateBookDisplay(displayType) {
+  updateDisplayView(displayType) {
     this.displayType = displayType;
+  }
+
+  toggleFilters(filter) {
+    this.toggleFilter = filter;
   }
 }
 

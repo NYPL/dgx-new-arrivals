@@ -11,7 +11,7 @@ import Footer from 'dgx-react-footer';
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 import Isotopes from '../Isotopes/Isotopes.jsx';
-import DisplayBtns from '../DisplayBtns/DisplayBtns.jsx';
+import ToggleDisplay from '../ToggleDisplay/ToggleDisplay.jsx';
 
 let styles = {
   bookItemsWidth: {
@@ -57,37 +57,32 @@ class App extends React.Component {
       .get(`/${page}`)
       .then(response => {
         Actions.updateNewArrivalsData(response.data);
-
-        // if (this.state.displayType === 'grid')
-        //   Actions.updateBookDisplay('list');
-        // else
-        //   Actions.updateBookDisplay('grid');
       }); /* end axios call */
 
   };
 
   render() {
     const books = this.state.all;
-    let displayType = this.state.displayType;
+    const displayType = this.state.displayType;
+    const pagination = (<ReactPaginate previousLabel={"<"}
+      nextLabel={">"}
+      breakLabel={<li className="break"><a href="">...</a></li>}
+      pageNum={10}
+      marginPagesDisplayed={1}
+      pageRangeDisplayed={3}
+      clickCallback={this.handlePageClick.bind(this)}
+      containerClassName={"pagination"}
+      subContainerClassName={"pages pagination"}
+      activeClassName={"active"} />);
 
     return (
       <div>
         <Header />
         <div className="app-wrapper">
-          <DisplayBtns />
+          <ToggleDisplay />
           <Isotopes
             booksArr={books}
             displayType={displayType} />
-           <ReactPaginate previousLabel={"<"}
-                       nextLabel={">"}
-                       breakLabel={<li className="break"><a href="">...</a></li>}
-                       pageNum={10}
-                       marginPagesDisplayed={1}
-                       pageRangeDisplayed={3}
-                       clickCallback={this.handlePageClick.bind(this)}
-                       containerClassName={"pagination"}
-                       subContainerClassName={"pages pagination"}
-                       activeClassName={"active"} />
         </div>
 
         <Footer />

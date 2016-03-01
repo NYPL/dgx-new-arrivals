@@ -33,8 +33,12 @@ function getHeaderData() {
 }
 
 function NewArrivalsApp(req, res, next) {
-  const tempUrl = 'http://10.224.6.14:8087/categories/1?days=26&itemCount=10&pageNum=1';
-  // const tempUrl = '/newArrivalsData';
+  const category = 1;
+  const days = 26;
+  const itemCount = 15;
+  const pageNum = 4;
+  const tempUrl = `http://10.224.6.14:8087/categories/${category}?` +
+    `days=${days}&itemCount=${itemCount}&pageNum=${pageNum}`;
 
   axios.all([getHeaderData(), fetchApiData(tempUrl)])
     .then(axios.spread((headerData, newArrivalsData) => {
@@ -90,8 +94,12 @@ function NewArrivalsApp(req, res, next) {
 // }
 
 function SelectPage(req, res) {
-  const page = req.params.page;
-  const tempUrl = `http://10.224.6.14:8087/categories/1?days=26&itemCount=10&pageNum=${page}`;
+  const pageNum = req.params.page;
+  const category = 1;
+  const days = 26;
+  const itemCount = 15;
+  const tempUrl = `http://10.224.6.14:8087/categories/${category}?` +
+    `days=${days}&itemCount=${itemCount}&pageNum=${pageNum}`;
 
   axios
     .get(tempUrl)

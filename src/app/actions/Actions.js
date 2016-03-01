@@ -5,8 +5,12 @@ class Actions {
     this.dispatch(data);
   }
 
-  updateBookDisplay(displayType) {
+  updateDisplayView(displayType) {
     this.dispatch(displayType);
+  }
+
+  toggleFilters(toggle) {
+    this.dispatch(toggle);
   }
 };
 
