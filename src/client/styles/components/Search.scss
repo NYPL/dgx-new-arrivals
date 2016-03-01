@@ -1,17 +1,34 @@
 .search {
-  &Form {
+  &-container {
+    @include grid-span(1);
+    @include add-grid(3);
+
+    h3 {
+      @include grid-span(3);
+    }
+
+    .advanceSearch {
+      text-align: right;
+    }
   }
 
-  &Select {
-    width: 100px;
+  &-form {
+    @include grid-span(3);
+    @include add-grid(3);
+
+    margin: 10px 0;
   }
 
-  &Field {
-    width: 190px;
+  &-select {
+    @include grid-span(1, 1);
   }
 
-  &Button {
+  &-field {
+    @include grid-span(2, 2);
+  }
+
+  &-button {
     margin-top: 10px;
-    width: 100%;
+    @include grid-span(3, 1);
   }
 }

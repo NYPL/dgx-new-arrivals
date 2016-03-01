@@ -77,25 +77,25 @@ class Search extends React.Component {
   render() {
     const dropdown = <Dropdown list={colours} selected={colours[0]} />;
     return (
-      <div>
+      <div className="search-container">
         <h3>I want to browse...</h3>
 
-        <div className="searchForm">
-          <select value="books" className="searchSelect">
+        <div className="search-form">
+          <select value="books" className="search-select">
             <option value="books">Books</option>
             <option value="dvds">DVDs</option>
             <option value="music">Music</option>
           </select>
           
-          <input placeholder="Search the catalog" className="searchField"/>
+          <input placeholder="Search the catalog" className="search-field"/>
 
           <button
-            className="searchButton">
+            className="search-button">
             Search
           </button>
         </div>
 
-        Advance Search >
+        <p className="advanceSearch"><a href="#">Advance Search ></a></p>
 
       </div>
     );
