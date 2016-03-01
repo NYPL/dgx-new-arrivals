@@ -79,6 +79,7 @@ class App extends React.Component {
       <div>
         <Header />
         <div className="app-wrapper">
+          <h3>Browse New Arrivals</h3>
           <ToggleDisplay />
           <Isotopes
             booksArr={books}
