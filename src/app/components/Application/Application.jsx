@@ -12,6 +12,7 @@ import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 import Isotopes from '../Isotopes/Isotopes.jsx';
 import ToggleDisplay from '../ToggleDisplay/ToggleDisplay.jsx';
+import Search from '../Search/Search.jsx';
 
 let styles = {
   bookItemsWidth: {
@@ -76,10 +77,13 @@ class App extends React.Component {
       activeClassName={"active"} />);
 
     return (
-      <div>
+      <div className="nyplNewArrivalsApp">
         <Header />
-        <div className="app-wrapper">
-          <h3>Browse New Arrivals</h3>
+
+        <div className="nyplNewArrivals">
+          <Search />
+
+          Browse New Releases
           <ToggleDisplay />
           <Isotopes
             booksArr={books}

@@ -1,0 +1,17 @@
+.search {
+  &Form {
+  }
+
+  &Select {
+    width: 100px;
+  }
+
+  &Field {
+    width: 190px;
+  }
+
+  &Button {
+    margin-top: 10px;
+    width: 100%;
+  }
+}

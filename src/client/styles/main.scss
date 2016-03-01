@@ -4,12 +4,14 @@
 
 @import './components/Isotopes';
 @import './components/DisplayBtns';
+@import './components/Dropdown';
+@import './components/Search';
 
 @import "~dgx-header-component/dist/styles/main";
 @import '~dgx-react-footer/dist/styles/styles';
 
-#app {
-  margin: 0;
+.nyplNewArrivals {
+  margin: 0 10px;
 }
 
 .pagination {
