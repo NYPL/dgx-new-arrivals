@@ -6,69 +6,67 @@ $border-colour: #DDD;
 
 .dropdown-container {
   height: 100%;
+  border-radius: 5px;
 
   &.show {
     .dropdown-list {
-      // .transform(scale(1, 1));
       display: block;
     }
   }
 
   .dropdown-display {
-    float:left;
-    width:100%;
-    background:white;
+    border-top-left-radius: 3px;
+    float: left;
+    width: 100%;
+    background: white;
     height: 100%;
     cursor: pointer;
-    padding: 5px 0;
+    padding: 4px 0;
     border: none;
-    border-right: solid 1px $border-colour;
 
     > span {
-      font-size: $font-size;
-      width:100%;
-      position:relative;
-      // padding-right: $icon-width + $spacing*2;
-      padding-left: $spacing;
+        font-size: 14px;
+        width: 100%;
+        position: relative;
+        padding: 8px 30px 0 15px;
+        border-right: 2px solid #837e77;
+        height: 40px;
+        display: block;
+    }
+
+    &.clicked {
+      background-color: #9c9890;
+      color: white;
     }
   }
 
   .dropdown-list {
     float: left;
-    width:100%;
-    position:relative;
+    width: 100%;
+    position: relative;
     display: none;
-    // .transform(scale(1, 0));
-    // .transition(-webkit-transform ease 250ms);
-    // .transition(transform ease 250ms);
+    color: white;
 
     > div {
-      position:absolute;
-      width:100%;
-      z-index:2;
-      cursor:pointer;
-      background:white;
+      position: absolute;
+      width: 100%;
+      z-index: 2;
+      cursor: pointer;
+      background-color: #9c9890;
+      border-bottom-right-radius: 3px;
+      border-bottom-left-radius: 3px;
 
       > div {
         float: left;
-        width:100%;
-        padding:0 $spacing;
+        width: 100%;
+        height: 36px;
+        padding: 0 $spacing;
         font-size: $font-size;
-        border:solid 1px $border-colour;
-        border-top:none;
+        border-top: none;
 
-        &:hover {
-          background:#F0F0F0;
-        }
-
-        &.selected {
-          background: $select-colour;
-          color:white;
-        }
-
-        >span {
-          float:left;
-          width:100%;
+        > span {
+          float: left;
+          width: 100%;
         }
       }
     }

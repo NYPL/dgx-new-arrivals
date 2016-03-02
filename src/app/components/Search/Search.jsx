@@ -31,9 +31,13 @@ class Dropdown extends React.Component {
 
   renderListItems() {
     return this.props.list.map((item, i) => {
+      if (this.state.selected === item) {
+        return;
+      }
+
       return (
         <div key={i} onClick={this.select.bind(this, item)}>
-          <span>{item.name}</span>
+          <span>{item}</span>
         </div>
       );
     });
@@ -42,7 +46,7 @@ class Dropdown extends React.Component {
   render() {
     return (<div className={"dropdown-container search-select " + (this.state.listVisible ? " show" : "")}>
         <div className={"dropdown-display" + (this.state.listVisible ? " clicked": "")} onClick={this.show}>
-          <span style={{ color: this.state.selected.hex }}>{this.state.selected.name}</span>
+          <span>{this.state.selected}</span>
         </div>
         <div className="dropdown-list">
           <div>
@@ -52,18 +56,6 @@ class Dropdown extends React.Component {
       </div>);
   }
 }
-
-var colours = [{
-    name: "Red",
-    hex: "#F21B1B"
-}, {
-    name: "Blue",
-    hex: "#1B66F2"
-}, {
-    name: "Green",
-    hex: "#07BA16"
-}];
-
 
 class Search extends React.Component {
   constructor(props) {
@@ -75,7 +67,8 @@ class Search extends React.Component {
   }
 
   render() {
-    const dropdown = <Dropdown list={colours} selected={colours[0]} />;
+    const options = ['books', 'any', 'music', 'dvds'];
+    const dropdown = <Dropdown list={options} selected={options[0]} />;
     const select = <select value="books" className="search-select">
               <option value="books">Books</option>
               <option value="dvds">DVDs</option>
