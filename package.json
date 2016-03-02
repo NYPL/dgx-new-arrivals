@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "dist": "NODE_ENV=production webpack --config webpack.config.js",
-    "postinstall": "npm run dist"
+    "dist": "NODE_ENV=production webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
