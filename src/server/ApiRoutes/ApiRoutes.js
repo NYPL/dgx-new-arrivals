@@ -35,7 +35,7 @@ function getHeaderData() {
 function NewArrivalsApp(req, res, next) {
   const category = 1;
   const days = 26;
-  const itemCount = 15;
+  const itemCount = 18;
   const pageNum = 4;
   const tempUrl = `http://10.224.6.14:8087/categories/${category}?` +
     `days=${days}&itemCount=${itemCount}&pageNum=${pageNum}`;
@@ -71,33 +71,11 @@ function NewArrivalsApp(req, res, next) {
     }); /* end Axios call */
 }
 
-//   axios
-//     .get(tempUrl)
-//     .then(response => {
-//       // console.log(response.data);
-//       // const data = response.data;
-//       // const categoryName = data.name;
-//       // const totalItems = data.totalItems;
-//       // const items = data.bibItems;
-//       // const links = data._links;
-
-//       res.locals.data = {
-//         NewArrivalsStore: {
-//           newArrivalsData: response.data,
-//           displayType: 'grid',
-//         },
-//       };
-
-//       next();
-
-//     }); /* end axios call */
-// }
-
 function SelectPage(req, res) {
   const pageNum = req.params.page;
   const category = 1;
   const days = 26;
-  const itemCount = 15;
+  const itemCount = 18;
   const tempUrl = `http://10.224.6.14:8087/categories/${category}?` +
     `days=${days}&itemCount=${itemCount}&pageNum=${pageNum}`;
 

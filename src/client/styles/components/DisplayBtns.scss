@@ -1,28 +1,45 @@
 .ToggleDisplay {
   list-style-type: none;
+  display: inline-block;
+  float: right;
 
   li {
     display: inline-block;
+
+    &:nth-child(2) {
+      margin-left: 5px;
+    }
   }
 }
 
 .PillButton {
   border-radius: 23px;
-  border: 2px solid #bfbfbf;
-  color: #bfbfbf;
+  border: 2px solid $PRIMARY_COLOR;
+  color: $PRIMARY_COLOR;
   display: inline-block;
   background-color: white;
-  width: 100px;
+  // width: 100px;
+  width: 35px;
+  height: 35px;
   padding: 5px 0px;
 
+  @include min-screen($tablet-portrait) {
+    width: 100px;
+  }
+
   .icon {
-    padding: 0px 10px 0px 15px;
+    padding: 0 0 0 20px;
+    // padding: 0px 10px 0px 15px;
   }
 
   &-title {
     display: none;
     font-size: 12px;
     text-transform: uppercase;
+
+    @include min-screen($tablet-portrait) {
+      display: inline-block;
+    }
   }
 }
 
@@ -42,7 +59,7 @@
 
 .filters {
   &.active {
-    background-color: #bfbfbf;
+    background-color: $PRIMARY_COLOR;
     color: #fff;
   }
 }

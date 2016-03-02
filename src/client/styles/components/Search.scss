@@ -17,6 +17,12 @@
     @include add-grid(3);
 
     margin: 10px 0;
+
+    .inputs {
+      border: 2px solid #837e77;
+      height: 40px;
+      border-radius: 5px;
+    }
   }
 
   &-select {
@@ -25,11 +31,21 @@
 
   &-field {
     @include grid-span(2, 2);
+
+    border: none;
+    padding: 8px 5px;
+    font-style: italic;
   }
 
   &-button {
-    margin-top: 10px;
     @include grid-span(3, 1);
+    
+    margin-top: 10px;
+    background-color: #1da1d4;
+    border: none;
+    height: 40px;
+    border-radius: 5px;
+    color: white;
   }
 }
 
@@ -38,10 +54,13 @@
     @include grid-span(3);
     @include add-grid(3);
 
-    border-top: 2px solid red;
+    border-top: 2px solid $PRIMARY_COLOR;
+    padding-top: 10px;
 
     h4 {
-      font-size: 14px;
+      font-size: 16px;
+      color: $PRIMARY_COLOR;
+      display: inline-block;
     }
   }
 }

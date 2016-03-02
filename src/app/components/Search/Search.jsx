@@ -40,7 +40,7 @@ class Dropdown extends React.Component {
   }
 
   render() {
-    return (<div className={"dropdown-container" + (this.state.listVisible ? " show" : "")}>
+    return (<div className={"dropdown-container search-select " + (this.state.listVisible ? " show" : "")}>
         <div className={"dropdown-display" + (this.state.listVisible ? " clicked": "")} onClick={this.show}>
           <span style={{ color: this.state.selected.hex }}>{this.state.selected.name}</span>
         </div>
@@ -76,18 +76,21 @@ class Search extends React.Component {
 
   render() {
     const dropdown = <Dropdown list={colours} selected={colours[0]} />;
+    const select = <select value="books" className="search-select">
+              <option value="books">Books</option>
+              <option value="dvds">DVDs</option>
+              <option value="music">Music</option>
+            </select>;
     return (
       <div className="search-container">
         <h3>I want to browse...</h3>
 
         <div className="search-form">
-          <select value="books" className="search-select">
-            <option value="books">Books</option>
-            <option value="dvds">DVDs</option>
-            <option value="music">Music</option>
-          </select>
-          
-          <input placeholder="Search the catalog" className="search-field"/>
+          <div className="inputs">
+            {dropdown}
+            
+            <input placeholder="Search the catalog" className="search-field"/>
+          </div>
 
           <button
             className="search-button">
