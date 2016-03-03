@@ -3,6 +3,7 @@
   border-radius: 5px;
   text-transform: uppercase;
   font-size: 12px;
+  @include Kievit-Medium;
 
   &.show {
     .dropdown-list {
@@ -12,27 +13,30 @@
 
   .dropdown-display {
     border-top-left-radius: 3px;
-    float: left;
-    width: 100%;
     background: white;
-    height: 100%;
+    height: 80%;
     cursor: pointer;
     padding: 3px 0;
-    border: none;
 
     span:first-child {
-      width: 100%;
-      position: relative;
-      padding: 12px 30px 0 15px;
       border-right: 2px solid #837e77;
-      height: 40px;
+      height: 25px;
+      padding: 18px 0 0 10px;
       display: block;
+
+      @include min-screen($tablet-portrait) {
+        padding-left: 20px;
+      }
     }
     span:last-child {
       font-size: 16px;
       position: relative;
       top: -30px;
-      right: -70px;
+      right: -55px;
+
+      @include min-screen($tablet-portrait) {
+        right: -70px;
+      }
     }
 
     &.clicked {

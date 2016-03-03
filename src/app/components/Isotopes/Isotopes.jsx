@@ -68,7 +68,7 @@ class Isotopes extends React.Component {
         const listDisplay = displayType === 'grid' ? styles.gridWidth : styles.listWidth;
 
         return (
-          <li className='book-item' key={i} >
+          <li className='book-item' key={i} style={listDisplay}>
             {displayType === 'grid' ? bookCover : bookListItem}
           </li>
         );

@@ -86,14 +86,11 @@ class Search extends React.Component {
         <h3>I want to browse...</h3>
 
         <div className="search-form">
-          <div className="inputs">
-            {dropdown}
-            
-            <input placeholder="Search the catalog" className="search-field"/>
-          </div>
-
+          {dropdown}
+          <input placeholder="Search the catalog" className="search-field"/>
           <button
             className="search-button">
+            <span className="nypl-icon-magnifier-fat"></span>
             Search
           </button>
         </div>
