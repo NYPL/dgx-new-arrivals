@@ -1,5 +1,6 @@
 import React from 'react';
 import Radium from 'radium';
+import cx from 'classnames';
 
 class Dropdown extends React.Component {
   constructor(props) {
@@ -44,9 +45,15 @@ class Dropdown extends React.Component {
   }
 
   render() {
+    const iconClass = cx({
+      'nypl-icon-wedge-up': this.state.listVisible,
+      'nypl-icon-wedge-down': !this.state.listVisible
+    });
+
     return (<div className={"dropdown-container search-select " + (this.state.listVisible ? " show" : "")}>
         <div className={"dropdown-display" + (this.state.listVisible ? " clicked": "")} onClick={this.show}>
           <span>{this.state.selected}</span>
+          <span className={`${iconClass} icon`}></span>
         </div>
         <div className="dropdown-list">
           <div>
