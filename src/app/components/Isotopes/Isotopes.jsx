@@ -4,10 +4,7 @@ import ReactDOM from 'react-dom';
 import _ from 'underscore';
 import BookCover from '../BookCover/BookCover.jsx';
 
-let styles = {
-  bookItemsWidth: {
-    width: '4500px',
-  },
+const styles = {
   listWidth: {
     width: '100%',
   },
@@ -47,23 +44,18 @@ class Isotopes extends React.Component {
   }
 
   _generateItemsToDisplay(booksArr, displayType) {
-    const bookCoverItems = _.chain(booksArr)
-      .flatten()
-      .value();
+    const bookCoverItems = _.chain(booksArr).flatten().value();
 
     const books = bookCoverItems.map((element, i) => {
         const target = '#';
-        // <img
-        //   width="150"
-        //   src={element.imageUrls[0]}/>
+        // <img src={element.imageUrls[0]}/>
         // <BookCover imgSrc={element.imageUrls[0]} />
         const bookCover = (<a href={target} className="bookItem">
-                    <img
-                      src={element.imageUrls[0]}/>
+                    <BookCover imgSrc={element.imageUrls[0]}/>
                 </a>);
         const bookListItem = (<div>
             <h2>{element.title}</h2>
-            <p>By: {element.genre}</p>
+            <p>By: {element.title}</p>
           </div>);
         const listDisplay = displayType === 'grid' ? styles.gridWidth : styles.listWidth;
 
@@ -80,7 +72,6 @@ class Isotopes extends React.Component {
       }, 800);
     }
 
-// console.log(books);
     return books;
   }
 

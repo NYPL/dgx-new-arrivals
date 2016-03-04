@@ -12,24 +12,20 @@ class DropDown extends React.Component {
       selected: this.props.selected,
     };
 
-    this.select = this.select.bind(this);
-    this.show = this.show.bind(this);
-    this.hide = this.hide.bind(this);
+    this.selectDropDownItem = this.selectDropDownItem.bind(this);
+    this.toggleDropDown = this.toggleDropDown.bind(this);
   }
 
-  select(item) {
+  selectDropDownItem(item) {
     this.state.selected = item;
+    this.toggleDropDown();
     Actions.updateDropDownValue(this.state.selected);
   }
 
-  show() {
-    this.setState({ listVisible: true });
-    document.addEventListener('click', this.hide);
-  }
-
-  hide() {
-    this.setState({ listVisible: false });
-    document.removeEventListener('click', this.hide);
+  toggleDropDown() {
+    this.setState({
+      listVisible: !this.state.listVisible
+    });
   }
 
   renderListItems() {
@@ -39,7 +35,7 @@ class DropDown extends React.Component {
       }
 
       return (
-        <div key={i} onClick={this.select.bind(this, item)}>
+        <div key={i} onClick={this.selectDropDownItem.bind(this, item)}>
           <span>{item}</span>
         </div>
       );
@@ -51,10 +47,12 @@ class DropDown extends React.Component {
       'nypl-icon-wedge-up': this.state.listVisible,
       'nypl-icon-wedge-down': !this.state.listVisible
     });
+    const visibleClass = cx({ 'show' : this.state.listVisible });
 
-    return (<div className={"dropdown-container search-select " + (this.state.listVisible ? " show" : "")}>
-        <div className={"dropdown-display" + (this.state.listVisible ? " clicked": "")}
-          onClick={this.show}>
+    return (
+      <div className={`dropdown-container search-select ${visibleClass}`}>
+        <div className="dropdown-display"
+          onClick={this.toggleDropDown}>
           <span>{this.state.selected}</span>
           <span className={`${iconClass} icon`}></span>
         </div>

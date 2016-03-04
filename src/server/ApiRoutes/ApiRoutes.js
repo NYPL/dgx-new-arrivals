@@ -1,5 +1,4 @@
 import express from 'express';
-import tempData from '../../../temp.js';
 import config from '../../../appConfig.js';
 
 import axios from 'axios';
