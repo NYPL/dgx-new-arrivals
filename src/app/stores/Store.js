@@ -7,12 +7,14 @@ class NewArrivalsStore {
       handleNewArrivals: Actions.UPDATE_NEW_ARRIVALS_DATA,
       updateDisplayView: Actions.UPDATE_DISPLAY_VIEW,
       toggleFilters: Actions.TOGGLE_FILTERS,
+      updateDropDownValue: Actions.UPDATE_DROP_DOWN_VALUE,
     });
 
     this.on('init', () => {
       this.newArrivalsData = [];
       this.displayType =  'grid';
       this.toggleFilter = false;
+      this.dropDownValue = '';
     });
   }
 
@@ -26,6 +28,10 @@ class NewArrivalsStore {
 
   toggleFilters(filter) {
     this.toggleFilter = filter;
+  }
+
+  updateDropDownValue(value) {
+    this.dropDownValue = value;
   }
 }
 
