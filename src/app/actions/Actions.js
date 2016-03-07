@@ -12,6 +12,10 @@ class Actions {
   toggleFilters(toggle) {
     this.dispatch(toggle);
   }
+
+  updateDropDownValue(value) {
+    this.dispatch(value);
+  }
 };
 
 export default alt.createActions(Actions);

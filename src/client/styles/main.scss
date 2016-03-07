@@ -1,26 +1,39 @@
+/*
+Import utils and fonts
+*/
+@import 'utils/mixins';
+@import 'utils/colors';
+@import 'utils/utils';
+@import "utils/fonts";
+@import 'utils/variables';
+@import 'utils/animations';
 
+/*
+Import singularity and breakpoints
+*/
+@import "~singularitygs/stylesheets/singularitygs";
+@import "~breakpoint-sass/stylesheets/breakpoint";
 
-@import './utils/variables';
+/*
+Import Normalize and Grid settings for nyplHomepage App
+*/
+@import "utils/normalize";
+@import "utils/gridSettings";
 
-@import './components/Isotopes';
-@import './components/DisplayBtns';
-
+/*
+Import style rules from NYPL React module components
+*/
 @import "~dgx-header-component/dist/styles/main";
 @import '~dgx-react-footer/dist/styles/styles';
 
-#app {
-  margin: 0;
-}
+/*
+Import style rules from App components
+*/
+@import 'components/Isotopes';
+@import 'components/DisplayBtns';
+@import 'components/Dropdown';
+@import 'components/Search';
 
-.pagination {
-  display: block !important;
-  text-align: center;
-}
 
-.pagination > li {
-  display: inline-block !important;
-}
-
-.pagination .break a {
-    cursor: default;
+.nyplNewArrivals {
 }

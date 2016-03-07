@@ -1,0 +1,46 @@
+/*
+Set up grid
+*/
+// NOTE: Using default declarations to easily adapt to overrides
+// http://sass-lang.com/documentation/file.SASS_REFERENCE.html#variable_defaults_
+$app-max-width: 1313px !default;
+
+$tablet-portrait: 768px !default;
+$tablet-landscape: 1024px !default;
+$desktop: 1313px !default;
+
+$mobile-padding-left-right: 14px !default;
+$tablet-portrait-padding-left-right: 34px !default;
+$tablet-landscape-padding-left-right: 20px !default;
+$mobile-margin-top-bottom: 15px !default;
+
+%baseGrid {
+  max-width: $app-max-width;
+  padding: 0 $mobile-padding-left-right;
+  display: block;
+  @extend %clearfix;
+
+  @include min-screen($tablet-portrait) {
+    padding: 0 $tablet-portrait-padding-left-right;
+  }
+
+  @include min-screen($tablet-landscape) {
+    padding: 0 $tablet-landscape-padding-left-right;
+  }
+  /* Mobile Layout (1 Column) */
+  @include add-grid(1);
+
+  /* Tablet Portrait Layout (7 Columns) */
+  @include layout-at(7, $tablet-portrait) {
+  }
+
+  /* Tablet Landscape/Desktop Layout (9 Columns) */
+  @include layout-at(9, $tablet-landscape) {
+  }
+}
+
+// Using SASS @extend to setup our grid rules and apply specfic margins for both.
+.nyplGrid {
+  @extend %baseGrid;
+  margin: $mobile-margin-top-bottom auto;
+}

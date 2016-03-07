@@ -1,0 +1,83 @@
+.dropdown-container {
+  height: 100%;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-size: 12px;
+  @include Kievit-Medium;
+
+  &.show {
+    .dropdown-list {
+      display: block;
+    }
+
+    .dropdown-display {
+      background-color: #9c9890;
+      color: white;
+    }
+  }
+
+  .dropdown-display {
+    border-top-left-radius: 3px;
+    background: white;
+    height: 80%;
+    cursor: pointer;
+    padding: 3px 0;
+
+    span:first-child {
+      border-right: 2px solid #837e77;
+      height: 25px;
+      padding: 18px 0 0 10px;
+      display: block;
+
+      @include min-screen($tablet-portrait) {
+        padding-left: 20px;
+      }
+    }
+    span:last-child {
+      font-size: 16px;
+      position: relative;
+      top: -30px;
+      right: -55px;
+
+      @include min-screen($tablet-portrait) {
+        right: -70px;
+      }
+    }
+
+    &.clicked {
+      background-color: #9c9890;
+      color: white;
+    }
+  }
+
+  .dropdown-list {
+    float: left;
+    width: 100%;
+    position: relative;
+    display: none;
+    color: white;
+
+    > div {
+      position: absolute;
+      width: 100%;
+      z-index: 2;
+      cursor: pointer;
+      background-color: #9c9890;
+      border-bottom-right-radius: 3px;
+      border-bottom-left-radius: 3px;
+
+      > div {
+        float: left;        
+        padding: 5px 15px;
+        width: 100%;
+        height: 36px;
+        border-top: none;
+
+        > span {
+          float: left;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

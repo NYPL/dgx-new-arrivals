@@ -1,8 +1,17 @@
 .isotopeGrid {
+  // @include grid-span(3);
   opacity: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   list-style: none;
+  margin-top: 20px;
 }
 
 .book-item {
   margin-bottom: 10px;
+
+  img {
+    width: 140px;
+  }
 }
