@@ -37,6 +37,7 @@
     float: left;
     border: 2px solid #837e77;
     border-right: none;
+    border-radius: 5px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     height: 50px;
@@ -87,24 +88,6 @@
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
       height: 54px;
-    }
-  }
-}
-
-.newArrivals {
-  &-container {
-    @include grid-span(3);
-    @include add-grid(3);
-
-    border-top: 2px solid $PRIMARY_COLOR;
-    padding-top: 10px;
-
-    h4 {
-      font-size: 16px;
-      color: $PRIMARY_COLOR;
-      display: inline-block;
-      margin: 0;
-      @include Kievit-Medium;
     }
   }
 }

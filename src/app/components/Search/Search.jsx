@@ -7,6 +7,9 @@ import Actions from '../../actions/Actions.js';
 
 import DropDown from '../DropDown/DropDown.jsx';
 
+/**
+ * The main container for the top Search section of the New Arrivals app.
+ */
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -19,8 +22,6 @@ class Search extends React.Component {
       noAnimationBefore: true,
     };
 
-    this._onChange = this._onChange.bind(this);
-    this._onClick = this._onClick.bind(this);
     this._inputChange = this._inputChange.bind(this);
     this._submitSearchRequest = this._submitSearchRequest.bind(this);
     this._triggerSubmit = this._triggerSubmit.bind(this);
@@ -39,18 +40,16 @@ class Search extends React.Component {
     NewArrivalsStore.unlisten(this._onChange);
   }
 
-  // Update the state of the class
   _onChange() {}
 
   /**
    *  _inputChange(field, event)
    * Listen to the changes on keywords input field and option input fields.
    * Grab the event value, and change the state.
-   * The parameter indicates which input field has been changed.
-   * Passng event as the argument here as FireFox doesn't accept event
-   * as a global variable.
    *
-   * @param {String} field  {Event Object} event
+   * @param {String} field - Input field context.
+   * @param {Event Object} event - Passing event as the argument here
+   * as FireFox doesn't accept event as a global variable.
    */
   _inputChange(field, event) {
     this.setState({ searchKeywords: event.target.value });
@@ -58,9 +57,8 @@ class Search extends React.Component {
 
   /**
    * _submitSearchRequest(value)
-   * Submit the search request based on the values of the input fields.
    *
-   * @param {String} value
+   * @param {String} value - The value from the input field.
    */
   _submitSearchRequest(value) {
     // Store the data that the user entered
@@ -76,6 +74,7 @@ class Search extends React.Component {
     let requestUrl;
     let format = '';
 
+    // Hardcoding the URL values for the different facet selections.
     switch (NewArrivalsStore.getState().dropDownValue) {
       case 'books':
         format = '__Ff%3Afacetmediatype%3Aa%3Aa%3ABOOKLw%3D%3DTEXT%3A%3A';
@@ -158,6 +157,8 @@ class Search extends React.Component {
   /**
    * _setCatalogUrl(searchString, catalogBaseUrl)
    * Returns the final URL for the catalog search.
+   * @param {string} SearchString - The value that was search including search facets.
+   * @param {string} catalogBaseUrl - The URL of the catalog.
    */
   _setCatalogUrl(searchString, catalogBaseUrl) {
     const catalogUrl = catalogBaseUrl || 'http://www.nypl.org/search/apachesolr_search/';
@@ -172,6 +173,7 @@ class Search extends React.Component {
    * base64_encoding_map includes special characters that need to be
    * encoded using base64 - these chars are "=","/", "\", "?"
    * character : base64 encoded 
+   * @param {string} string - The string that needs to be encoded.
    */
   _encoreEncodeSearchString(string) {
     const base64_enc_map = {
@@ -195,10 +197,12 @@ class Search extends React.Component {
 
   /**
    * _setEncoreUrl(searchInput, baseUrl, language)
-   * Returns the final URL for encore search which,
-   * is first encoded, then concatenated by the
-   * base encore root url. An optional scope and
-   * language may be concatenated as well.
+   * Returns the final URL for encore search which, is first encoded, then concatenated by the
+   * base encore root url. An optional scope and language may be concatenated as well.
+   * @param {string} searchInput - The value of what will be searched.
+   * @param {string} baseUrl - The root URL of Encore.
+   * @param {string} language - What language should be used.
+   * @param {string} scopeString
    */
   _setEncoreUrl(searchInput, baseUrl, language, scopeString) {
     const searchTerm = this._encoreEncodeSearchString(searchInput);
@@ -216,8 +220,10 @@ class Search extends React.Component {
   /**
    * _encoreAddScope(baseUrl, searchString, scopeString)
    * Enchances the encore url with a possible scope.
-   * If no scope is set, adds the required string to
-   * be returned as the final url.
+   * If no scope is set, adds the required string to be returned as the final url.
+   * @param {string} baseUrl - The root URL of Encore.
+   * @param {string} searchInput - The value of what will be searched.
+   * @param {string} scopeString
    */
   _encoreAddScope(baseUrl, searchString, scopeString) {
     return scopeString ? 
@@ -225,20 +231,15 @@ class Search extends React.Component {
       `${baseUrl}C__S${searchString}__Orightresult__U`;
   }
 
-  _onClick(toggleValue) {
-    this.props.onClick(toggleValue);
-  }
-
   render() {
-    const options = ['books', 'any', 'music', 'dvds'];
+    const options = ['any', 'books', 'music', 'dvds'];
     const pulseAnimation = cx({
         'keywords-pulse-fade-in': this.state.placeholderAnimation === 'initial',
         'keywords-pulse': this.state.placeholderAnimation === 'sequential'
       });
 
     // Need to update when the state updates:
-    const advanceKeywords = this.state.keywords ? 
-      `&searchString=${this.state.keywords}` : '';
+    const advanceKeywords = this.state.keywords ? `&searchString=${this.state.keywords}` : '';
     const advanceURL = `http://browse.nypl.org/iii/encore/home?` +
       `lang=eng&suite=def&advancedSearch=true${advanceKeywords}`;
 

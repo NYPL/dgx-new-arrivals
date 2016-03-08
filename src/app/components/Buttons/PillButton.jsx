@@ -1,17 +1,35 @@
 import React from 'react';
 import Radium from 'radium';
 
+/**
+ * Button used to display an icon and text. Should be updated with an svg
+ * instead of font icon.
+ * @extends {React}
+ */
 class PillButton extends React.Component {
+  /**
+   * constructor
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
 
     this._onClick = this._onClick.bind(this);
   }
 
+  /**
+   * Handle click event on the button. Triggers the `onClick` function
+   * that is passed to this component.
+   * @param {string} toggleValue - A boolean or string value passed to the
+   * Alt Actions.
+   */
   _onClick(toggleValue) {
     this.props.onClick(toggleValue);
   }
 
+  /**
+   * Renders the component.
+   */
   render() {
     return (
       <button

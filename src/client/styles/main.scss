@@ -29,11 +29,9 @@ Import style rules from NYPL React module components
 /*
 Import style rules from App components
 */
-@import 'components/Isotopes';
-@import 'components/DisplayBtns';
-@import 'components/Dropdown';
 @import 'components/Search';
-
-
-.nyplNewArrivals {
-}
+@import 'components/DropDown';
+@import 'components/Isotopes';
+@import 'components/NewArrivals';
+@import 'components/PillButton';
+@import 'components/ToggleDisplay';

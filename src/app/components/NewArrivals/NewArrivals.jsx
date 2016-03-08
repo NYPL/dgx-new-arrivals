@@ -8,6 +8,9 @@ import Actions from '../../actions/Actions.js';
 import Isotopes from '../Isotopes/Isotopes.jsx';
 import ToggleDisplay from '../ToggleDisplay/ToggleDisplay.jsx';
 
+/**
+ * Renders the main section of the New Arrivals app.
+ */
 class NewArrivals extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +25,6 @@ class NewArrivals extends React.Component {
     this._onChange = this._onChange.bind(this);
   }
 
-  // Event listeners
   componentDidMount() {
     NewArrivalsStore.listen(this._onChange);
   }
@@ -37,18 +39,6 @@ class NewArrivals extends React.Component {
       all: NewArrivalsStore.getState().newArrivalsData.bibItems
     });
   }
-
-  handlePageClick(data) {
-    const page = data.selected + 1;
-    const tempUrl = `http://10.224.6.14:8087/categories/1?days=20&pageNum=${page}`;
-
-    axios
-      .get(`/${page}`)
-      .then(response => {
-        Actions.updateNewArrivalsData(response.data);
-      }); /* end axios call */
-
-  };
 
   render() {
     const books = this.state.all;
