@@ -1,0 +1,17 @@
+.newArrivals {
+  &-container {
+    @include grid-span(3);
+    @include add-grid(3);
+
+    border-top: 2px solid $PRIMARY_COLOR;
+    padding-top: 10px;
+
+    h4 {
+      font-size: 16px;
+      color: $PRIMARY_COLOR;
+      display: inline-block;
+      margin: 0;
+      @include Kievit-Medium;
+    }
+  }
+}

@@ -1,11 +1,12 @@
 import express from 'express';
-import config from '../../../appConfig.js';
-
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
 
 import Model from 'dgx-model-data';
 
+import config from '../../../appConfig.js';
+
+// Syntax that both ES6 and Babel 6 support
 const { HeaderItemModel } = Model;
 const { api, headerApi } = config;
 
@@ -59,7 +60,7 @@ function NewArrivalsApp(req, res, next) {
     }))
     .catch(error => {
       console.log('error calling API : ' + error);
-      console.log('Attempted to call : ' + completeApiUrl);
+      console.log('Attempted to call : ' + tempUrl);
 
       res.locals.data = {
         Store: {
@@ -71,10 +72,10 @@ function NewArrivalsApp(req, res, next) {
 }
 
 function SelectPage(req, res) {
-  const pageNum = req.params.page;
-  const category = 1;
-  const days = 26;
-  const itemCount = 18;
+  const category = req.params.page || 1;
+  const days = req.params.days || 26;
+  const itemCount = req.params.itemCount || 18;
+  const pageNum = req.params.page || 4;
   const tempUrl = `http://10.224.6.14:8087/categories/${category}?` +
     `days=${days}&itemCount=${itemCount}&pageNum=${pageNum}`;
 
@@ -82,6 +83,14 @@ function SelectPage(req, res) {
     .get(tempUrl)
     .then(response => {
       res.json(response.data);
+    })
+    .catch(error => {
+      console.log('error calling API : ' + error);
+      console.log('Attempted to call : ' + tempUrl);
+
+      res.json({
+        error
+      });
     }); /* end axios call */
 }
 
@@ -90,16 +99,8 @@ router
   .get(NewArrivalsApp);
 
 router
-  .route('/:page')
+  .route('/category=:category&days=:days&itemCount=:itemCount&pageNum=:page&')
   .get(SelectPage);
 
-router
-  .route('/newArrivalsData')
-  .get((req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-
-    res.json(tempData);
-  });
 
 export default router;

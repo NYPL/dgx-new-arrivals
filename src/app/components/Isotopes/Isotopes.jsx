@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import _ from 'underscore';
+
 import BookCover from '../BookCover/BookCover.jsx';
 
 const styles = {
@@ -13,6 +14,11 @@ const styles = {
   },
 };
 
+
+/**
+ * Isotopes grid container component
+ * @extends {React}
+ */
 class Isotopes extends React.Component {
   constructor(props) {
     super(props);
@@ -28,21 +34,35 @@ class Isotopes extends React.Component {
     };
   }
 
+  /**
+   * Arrange the grid once we get new props for the component.
+   */
   componentDidUpdate(prevProps) {
     this.iso.arrange();
   }
 
-  // Event listeners
+  /**
+   * Once the component mounts, initialize the instance of Isotopes.
+   */
   componentDidMount() {
     this._createIsotopeContainer();
   }
 
+  /**
+   * When the component unmounts, destroy the instance of Isotopes.
+   */
   componentWillUnmount() {
     if (this.iso != null) {
       this.iso.destroy();
     }
   }
 
+  /**
+   * Generate a list item that is either a book cover or the title and author.
+   * The BookCover component is being used but should be updated.
+   * @param {array} booksArr - Array of book item objects.
+   * @param {string} displayType - Either 'grid' or 'list'.
+   */
   _generateItemsToDisplay(booksArr, displayType) {
     const bookCoverItems = _.chain(booksArr).flatten().value();
 
@@ -75,6 +95,9 @@ class Isotopes extends React.Component {
     return books;
   }
 
+  /**
+   * Create the Isotopes Instance if it doesn't already exist.
+   */
   _createIsotopeContainer() {
     if (this.iso == null) {
       $('.isotopeGrid').css('opacity', '1');

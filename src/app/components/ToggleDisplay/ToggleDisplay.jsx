@@ -8,6 +8,10 @@ import PillButton from '../Buttons/PillButton.jsx';
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
+/**
+ * Displays the two buttons that are used to toggle the Isotopes grid and displays the filters.
+ * @extends {React}
+ */
 class ToggleDisplay extends React.Component {
   constructor(props) {
     super(props);
@@ -28,14 +32,25 @@ class ToggleDisplay extends React.Component {
     NewArrivalsStore.unlisten(this._onChange);
   }
 
+  /**
+   * Triggers the Alt Action to update the Isotopes grid display.
+   * @param {string} displayType - Display either 'grid' or 'list'.
+   */
   _handleDisplayView(displayType) {
     Actions.updateDisplayView(displayType);
   }
 
+  /**
+   * Triggers the Alt Action to trigger displaying the filters.
+   * @param {boolean} view
+   */
   _handleFilterView(view) {
     Actions.toggleFilters(view);
   }
 
+  /**
+   * Close the filter list if it is displaying using react-onclickout.
+   */
   _handleOnClickOut(e) {
     if (this.state.toggleFilter) {
       Actions.toggleFilters(false);
@@ -54,7 +69,6 @@ class ToggleDisplay extends React.Component {
     });
     // Display the opposite 
     const displayTitle = gridActive ? 'list' : 'grid';
-
     const filterActive = this.state.toggleFilter;
     const filterIconClass = filterActive ? ' active' : '';
     const filterTitle = 'Filter';

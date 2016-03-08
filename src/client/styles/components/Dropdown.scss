@@ -1,6 +1,4 @@
 .dropdown-container {
-  height: 100%;
-  border-radius: 5px;
   text-transform: uppercase;
   font-size: 12px;
   @include Kievit-Medium;
@@ -57,8 +55,11 @@
     display: none;
     color: white;
 
-    > div {
+    ul {
+      list-style: none;
       position: absolute;
+      padding: 0;
+      margin: 0;
       width: 100%;
       z-index: 2;
       cursor: pointer;
@@ -66,14 +67,14 @@
       border-bottom-right-radius: 3px;
       border-bottom-left-radius: 3px;
 
-      > div {
+      li {
         float: left;        
-        padding: 5px 15px;
+        padding: 10px 0 0px 15px;
         width: 100%;
         height: 36px;
         border-top: none;
 
-        > span {
+        span {
           float: left;
           width: 100%;
         }
