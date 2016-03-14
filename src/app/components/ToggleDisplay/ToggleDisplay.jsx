@@ -8,6 +8,21 @@ import PillButton from '../Buttons/PillButton.jsx';
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
+class Filter extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className={`filter-wrapper ${this.props.active}`}>
+
+      </div>
+    );
+  }
+}
+
+
 /**
  * Displays the two buttons that are used to toggle the Isotopes grid and displays the filters.
  * @extends {React}
@@ -93,6 +108,7 @@ class ToggleDisplay extends React.Component {
               toggleValue={!filterActive}
               onClick={this._handleFilterView}
             />
+            <Filter active={filterIconClass} />
           </ClickOutHandler>
         </li>
       </ul>
