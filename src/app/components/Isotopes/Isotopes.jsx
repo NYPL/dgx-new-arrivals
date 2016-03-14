@@ -64,14 +64,14 @@ class Isotopes extends React.Component {
    * @param {string} displayType - Either 'grid' or 'list'.
    */
   _generateItemsToDisplay(booksArr, displayType) {
-    const bookCoverItems = _.chain(booksArr).flatten().value();
+    const bookCoverItems = booksArr; //_.chain(booksArr).flatten().value();
 
     const books = bookCoverItems.map((element, i) => {
         const target = '#';
         // <img src={element.imageUrls[0]}/>
         // <BookCover imgSrc={element.imageUrls[0]} />
         const bookCover = (<a href={target} className="bookItem">
-                    <BookCover imgSrc={element.imageUrls[0]}/>
+                  <img src={element.imageUrl[0]}/>
                 </a>);
         const bookListItem = (<div>
             <h2>{element.title}</h2>
