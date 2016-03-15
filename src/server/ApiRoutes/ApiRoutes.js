@@ -34,7 +34,7 @@ function getHeaderData() {
 
 function NewArrivalsApp(req, res, next) {
   const itemCount = '18';
-  const days = '55';
+  const days = '60';
   const tempUrl = `${newArrivalsApi.bibItems}?&itemCount=${itemCount}&days=${days}`;
 
   axios.all([getHeaderData(), fetchApiData(tempUrl)])

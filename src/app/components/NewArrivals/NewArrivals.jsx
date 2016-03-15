@@ -57,7 +57,7 @@ class NewArrivals extends React.Component {
     return (
       <div className="newArrivals-container">
         <h4>Browse New Releases</h4>
-        <ul>
+        <ul style={{cursor: 'pointer', display: 'inline-block'}}>
           <li onClick={this._updateBooks.bind(this, 'BOOK/TEXT', 18)}>BOOK/TEXT</li>
           <li onClick={this._updateBooks.bind(this, 'E-BOOK', 18)}>E-BOOK</li>
           <li onClick={this._updateBooks.bind(this, 'LARGE%20PRINT', 18)}>LARGE PRINT</li>
