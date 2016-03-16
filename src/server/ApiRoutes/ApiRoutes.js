@@ -8,7 +8,7 @@ import config from '../../../appConfig.js';
 
 // Syntax that both ES6 and Babel 6 support
 const { HeaderItemModel } = Model;
-const { api, headerApi } = config;
+const { api, headerApi, newArrivalsApi } = config;
 
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
@@ -33,12 +33,9 @@ function getHeaderData() {
 }
 
 function NewArrivalsApp(req, res, next) {
-  const category = 1;
-  const days = 26;
-  const itemCount = 18;
-  const pageNum = 4;
-  const tempUrl = `http://10.224.6.14:8087/categories/${category}?` +
-    `days=${days}&itemCount=${itemCount}&pageNum=${pageNum}`;
+  const itemCount = '18';
+  const days = '60';
+  const tempUrl = `${newArrivalsApi.bibItems}?&itemCount=${itemCount}&days=${days}`;
 
   axios.all([getHeaderData(), fetchApiData(tempUrl)])
     .then(axios.spread((headerData, newArrivalsData) => {
@@ -72,12 +69,15 @@ function NewArrivalsApp(req, res, next) {
 }
 
 function SelectPage(req, res) {
-  const category = req.params.page || 1;
-  const days = req.params.days || 26;
-  const itemCount = req.params.itemCount || 18;
-  const pageNum = req.params.page || 4;
-  const tempUrl = `http://10.224.6.14:8087/categories/${category}?` +
-    `days=${days}&itemCount=${itemCount}&pageNum=${pageNum}`;
+  const query = req.query;
+  const audience = query.language || '';
+  const bibNumber = query.bibNumber || '';
+  const days = query.days || '';
+  const format = query.format || '';
+  const language = query.language || '';
+  const pageNum = query.pageNum || '1';
+  const itemCount = query.itemCount || '18';
+  const tempUrl = `${newArrivalsApi.bibItems}?&format=${format}&itemCount=${itemCount}`;
 
   axios
     .get(tempUrl)
@@ -99,7 +99,7 @@ router
   .get(NewArrivalsApp);
 
 router
-  .route('/category=:category&days=:days&itemCount=:itemCount&pageNum=:page&')
+  .route('/api')
   .get(SelectPage);
 
 
