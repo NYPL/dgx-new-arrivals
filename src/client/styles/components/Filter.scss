@@ -1,5 +1,6 @@
 .filter {
   &-wrapper {
+    color: #fff;
     display: none;
 
     &.active {
@@ -8,9 +9,32 @@
       position: fixed;
       top: 0;
       left: 0;
-      background: grey;
+      background-color: #737069;
       z-index: 5;
       display: block;
+    }
+  }
+}
+
+.FilterList {
+  width: 100%;
+  float: left;
+
+  .inner {
+    padding: 0 20px;
+
+    h3 {
+      border-top: 2px solid #fff;
+      padding: 10px 0 0 0;
+    }
+  }
+
+  ul {
+
+    li {
+      height: 30px;
+      padding-top: 10px;
+      
     }
   }
 }

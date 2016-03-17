@@ -8,6 +8,8 @@ import PillButton from '../Buttons/PillButton.jsx';
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
+import _ from 'underscore';
+
 class IconButton extends React.Component {
   constructor(props) {
     super(props);
@@ -52,8 +54,75 @@ class CloseButton extends React.Component {
     return (
       <IconButton
         {...this.props}
-        icon={icon}
-      />
+        icon={icon} />
+    );
+  }
+}
+
+class FilterIcon extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const icon = (
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+       <title>filter</title>
+       <g>
+         <circle cx="8.494" cy="1.875" r="1.319" fill="#333"/>
+         <circle cx="16.441" cy="1.875" r="1.319" fill="#333"/>
+         <circle cx="12.578" cy="5.563" r="1.319" fill="#333"/>
+         <g>
+           <path d="M10.678,25a0.95,0.95,0,0,1-.95-0.95V11.842L0.253,1.6a0.95,0.95,0,0,1,1.4-1.29L11.629,11.1V24.05A0.95,0.95,0,0,1,10.678,25Z" transform="translate(0 0)" fill="#333"/>
+           <path d="M14.539,20.294a0.95,0.95,0,0,1-.95-0.95V11.1L23.344,0.314a0.95,0.95,0,0,1,1.41,1.274L15.489,11.835v7.508A0.95,0.95,0,0,1,14.539,20.294Z" transform="translate(0 0)" fill="#333"/>
+         </g>
+       </g>
+      </svg>
+    );
+
+    return (
+      <span className={`${this.props.className} svgIcon`} {...this.props}>
+        {icon}
+      </span>
+    );
+  }
+}
+
+class FilterListItem extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <li>{this.props.item}</li>
+    );
+  }
+}
+
+class FilterList extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  _renderList(list) {
+    return _.map(list, (item, i) => {
+      return <FilterListItem item={item} key={i} />
+    });
+  }
+
+  render() {
+    const list = this._renderList(this.props.list.data);
+
+    return (
+      <div className="FilterList">
+        <div className="inner">
+          <h3>{this.props.list.title}</h3>
+        </div>
+        <ul>
+          {list}
+        </ul>
+      </div>
     );
   }
 }
@@ -71,23 +140,36 @@ class Filter extends React.Component {
   }
 
   render() {
+    const formatData = {
+      title: 'Format',
+      data: ['BOOK/TEXT', 'E-BOOK', 'LARGE PRINT', 'AUDIOBOOK',
+        'E-AUDIOBOOK', 'DVD', 'BLU-RAY', 'MUSIC CD'],
+    };
+    const audienceData = {
+      title: 'Audience',
+      data: ['Adult', 'Children', 'Young Adult'],
+    };
+    const languageData = {
+      title: 'Language',
+      data: ['English', 'Spanish', 'Chinese', 'Russian', 'French'],
+    };
+    const availabilityData = {
+      title: 'Availability',
+      data: ['Available', 'Waitlist'],
+    };
+
     return (
       <div className={`filter-wrapper ${this.props.active}`}>
-        <div className="filter-header">
+        <div className="filter-header-mobile">
+          <FilterIcon />
           <h2>Filter by</h2>
-          <CloseButton onClick={this._closeFilters}/>
+          <CloseButton onClick={this._closeFilters} />
         </div>
 
-        <ul>
-          <li>BOOK/TEXT</li>
-          <li>E-BOOK</li>
-          <li>LARGE PRINT</li>
-          <li>AUDIOBOOK</li>
-          <li>E-AUDIOBOOK</li>
-          <li>DVD</li>
-          <li>BLU-RAY</li>
-          <li>MUSIC CD</li>
-        </ul>
+        <FilterList list={formatData} />
+        <FilterList list={audienceData} />
+        <FilterList list={languageData} />
+        <FilterList list={availabilityData} />
 
       </div>
     );

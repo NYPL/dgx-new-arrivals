@@ -38,9 +38,12 @@ Import style rules from App components
 @import 'components/Filter';
 
 .filter {
-  &-header {
+  &-header-mobile {
+    padding: 0 20px;
+
     h2 {
       display: inline-block;
+      margin: 20px 0 10px;
     }
   }
 
@@ -52,7 +55,7 @@ Import style rules from App components
 
       li {
         display: block;
-        padding-left: 30px;
+        padding-left: 50px;
         // Add background color here when active.
       }
     }
