@@ -1,7 +1,9 @@
 import React from 'react';
 import Radium from 'radium';
 import cx from 'classnames';
+
 import ClickOutHandler from 'react-onclickout';
+import axios from 'axios';
 
 import PillButton from '../Buttons/PillButton.jsx';
 
@@ -91,11 +93,23 @@ class FilterIcon extends React.Component {
 class FilterListItem extends React.Component {
   constructor(props) {
     super(props);
+
+    this._selectFilter = this._selectFilter.bind(this);
+  }
+
+  _selectFilter(filter, value) {
+    axios
+      .get(`/api?${filter.toLowerCase()}=${value}&itemCount=18`)
+      .then(response => {
+        Actions.updateNewArrivalsData(response.data);
+      }); /* end axios call */
   }
 
   render() {
     return (
-      <li>{this.props.item}</li>
+      <li onClick={this._selectFilter.bind(this, this.props.filter, this.props.item)}>
+        {this.props.item}
+      </li>
     );
   }
 }
@@ -107,7 +121,7 @@ class FilterList extends React.Component {
 
   _renderList(list) {
     return _.map(list, (item, i) => {
-      return <FilterListItem item={item} key={i} />
+      return <FilterListItem item={item} filter={this.props.list.title} key={i} />
     });
   }
 
@@ -254,15 +268,17 @@ class ToggleDisplay extends React.Component {
           />
         </li>
         <li>
-          <ClickOutHandler onClickOut={this._handleOnClickOut.bind(this)}>
-            <PillButton
-              className="filters"
-              iconClass={filterIconClass}
-              title={filterTitle}
-              toggleValue={!filterActive}
-              onClick={this._handleFilterView}
-            />
-            <Filter active={filterIconClass} />
+          <ClickOutHandler onClickOut={this._handleOnClickOut.bind(this)} className="clickOutContainer">
+            <div className="filterButton">
+              <PillButton
+                className="filters"
+                iconClass={filterIconClass}
+                title={filterTitle}
+                toggleValue={!filterActive}
+                onClick={this._handleFilterView}
+              />
+              <Filter active={filterIconClass} />
+            </div>
           </ClickOutHandler>
         </li>
       </ul>

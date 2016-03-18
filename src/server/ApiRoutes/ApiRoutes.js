@@ -77,7 +77,11 @@ function SelectPage(req, res) {
   const language = query.language || '';
   const pageNum = query.pageNum || '1';
   const itemCount = query.itemCount || '18';
-  const tempUrl = `${newArrivalsApi.bibItems}?&format=${format}&itemCount=${itemCount}`;
+
+  const formatQuery = format ? `&format=${format}` : '';
+  const languageQuery = language ? `&language=${language}` : '';
+  const tempUrl = `${newArrivalsApi.bibItems}?${formatQuery}` +
+    `${languageQuery}&itemCount=${itemCount}`;
 
   axios
     .get(tempUrl)
