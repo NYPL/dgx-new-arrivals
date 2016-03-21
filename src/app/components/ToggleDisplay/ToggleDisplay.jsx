@@ -93,35 +93,51 @@ class FilterIcon extends React.Component {
 class FilterListItem extends React.Component {
   constructor(props) {
     super(props);
-
-    this._selectFilter = this._selectFilter.bind(this);
-  }
-
-  _selectFilter(filter, value) {
-    axios
-      .get(`/api?${filter.toLowerCase()}=${value}&itemCount=18`)
-      .then(response => {
-        Actions.updateNewArrivalsData(response.data);
-      }); /* end axios call */
   }
 
   render() {
+    const activeClass = this.props.active ? 'active' : '';
+
     return (
-      <li onClick={this._selectFilter.bind(this, this.props.filter, this.props.item)}>
-        {this.props.item}
+      <li onClick={this.props.onClick} className={activeClass}>
+        <a href="#">
+          {this.props.item}
+          <span className={`minus-icon ${activeClass}`}></span>
+        </a>
       </li>
     );
   }
 }
 
+// Only select one filter per category
 class FilterList extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      activeItem: '',
+    };
+
+    this._setActive = this._setActive.bind(this);
+  }
+
+  _setActive(item) {
+    this.setState({ activeItem: item });
+    this.props.manageSelected({
+      filter: this.props.list.title,
+      selected: item,
+    });
   }
 
   _renderList(list) {
+    const activeItem = this.state.activeItem;
     return _.map(list, (item, i) => {
-      return <FilterListItem item={item} filter={this.props.list.title} key={i} />
+      return <FilterListItem
+              item={item}
+              filter={this.props.list.title}
+              active={activeItem === item}
+              key={i}
+              onClick={this._setActive.bind(this, item)} />
     });
   }
 
@@ -141,16 +157,41 @@ class FilterList extends React.Component {
   }
 }
 
-
+// can select multiple filters but only one per each category.
 class Filter extends React.Component {
   constructor(props) {
     super(props);
 
     this._closeFilters = this._closeFilters.bind(this);
+    this.manageSelected = this.manageSelected.bind(this);
+    this.state = {
+      format: '',
+      audience: '',
+      language: '',
+      availability: '',
+    }
   }
 
   _closeFilters() {
     Actions.toggleFilters(false);
+  }
+
+  _selectFilter(filter, value) {
+    axios
+      .get(`/api?${filter.toLowerCase()}=${value}&itemCount=18`)
+      .then(response => {
+        // console.log(response.data);
+        Actions.updateNewArrivalsData(response.data);
+      }); /* end axios call */
+  }
+
+  manageSelected(item) {
+    const filter = item.filter.toLowerCase();
+
+    // ES6 dynamic keys! woohoo
+    this.setState({
+      [filter]: item.selected
+    });
   }
 
   render() {
@@ -172,18 +213,20 @@ class Filter extends React.Component {
       data: ['Available', 'Waitlist'],
     };
 
+    // console.log(this.state);
+
     return (
       <div className={`filter-wrapper ${this.props.active}`}>
         <div className="filter-header-mobile">
           <FilterIcon />
           <h2>Filter by</h2>
-          <CloseButton onClick={this._closeFilters} />
+          <CloseButton onClick={this._closeFilters} className='mobile-close' />
         </div>
 
-        <FilterList list={formatData} />
-        <FilterList list={audienceData} />
-        <FilterList list={languageData} />
-        <FilterList list={availabilityData} />
+        <FilterList list={formatData} manageSelected={this.manageSelected} />
+        <FilterList list={audienceData} manageSelected={this.manageSelected} />
+        <FilterList list={languageData} manageSelected={this.manageSelected} />
+        <FilterList list={availabilityData} manageSelected={this.manageSelected} />
 
       </div>
     );

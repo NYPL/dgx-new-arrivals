@@ -40,15 +40,27 @@
     h3 {
       text-transform: uppercase;
       border-top: 2px solid #fff;
-      padding: 10px 0 0 0;
+      padding: 15px 0 0 0;
+      margin-top: 5px;
+      font-size: 16px;
     }
   }
 
   ul {
     li {
-      height: 30px;
-      padding-top: 10px;
-      
+      height: 35px;
+      font-size: 14px;
+
+      a {
+        display: block;
+        color: #fff;
+        padding: 10px 0 10px 50px;
+        text-decoration: none;
+      }
+
+      &.active {
+        background-color: #44433f;
+      }
     }
   }
 
