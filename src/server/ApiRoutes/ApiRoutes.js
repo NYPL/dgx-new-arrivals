@@ -35,13 +35,13 @@ function getHeaderData() {
 function NewArrivalsApp(req, res, next) {
   const itemCount = '18';
   const days = '60';
-  const tempUrl = `${newArrivalsApi.bibItems}?&itemCount=${itemCount}&days=${days}`;
+  const tempUrl = `${newArrivalsApi.bibItems}?&itemCount=${itemCount}&format=MUSIC%20CD`;
 
   axios.all([getHeaderData(), fetchApiData(tempUrl)])
     .then(axios.spread((headerData, newArrivalsData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
       const headerModelData = HeaderItemModel.build(headerParsed)
-
+console.log(newArrivalsData.data);
       res.locals.data = {
         HeaderStore: {
           headerData: headerModelData,
