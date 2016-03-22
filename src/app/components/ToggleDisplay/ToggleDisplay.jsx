@@ -122,11 +122,20 @@ class FilterList extends React.Component {
   }
 
   _setActive(item) {
-    this.setState({ activeItem: item });
-    this.props.manageSelected({
-      filter: this.props.list.title,
-      selected: item,
-    });
+    console.log(item);
+    if (this.state.activeItem === item) {
+      this.setState({ activeItem: '' });
+      this.props.manageSelected({
+        filter: this.props.list.title,
+        selected: '',
+      });
+    } else {
+      this.setState({ activeItem: item });
+      this.props.manageSelected({
+        filter: this.props.list.title,
+        selected: item,
+      });
+    }
   }
 
   _renderList(list) {
@@ -213,7 +222,7 @@ class Filter extends React.Component {
       data: ['Available', 'Waitlist'],
     };
 
-    // console.log(this.state);
+    console.log(this.state);
 
     return (
       <div className={`filter-wrapper ${this.props.active}`}>

@@ -56,6 +56,10 @@
         color: #fff;
         padding: 10px 0 10px 50px;
         text-decoration: none;
+
+        @include min-screen(768px) {
+          padding-left: 25px;
+        }
       }
 
       &.active {
@@ -73,13 +77,6 @@
 
       h3 {
         margin: 30px 0 10px;
-      }
-    }
-
-    ul {
-      li {
-        height: 20px;
-        padding-top: 10px;
       }
     }
   }

@@ -41,7 +41,7 @@ function NewArrivalsApp(req, res, next) {
     .then(axios.spread((headerData, newArrivalsData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
       const headerModelData = HeaderItemModel.build(headerParsed)
-console.log(newArrivalsData.data);
+
       res.locals.data = {
         HeaderStore: {
           headerData: headerModelData,
