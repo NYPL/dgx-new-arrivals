@@ -114,32 +114,32 @@ class FilterList extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      activeItem: '',
-    };
-
     this._setActive = this._setActive.bind(this);
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
+  }
+
   _setActive(item) {
-    console.log(item);
-    if (this.state.activeItem === item) {
-      this.setState({ activeItem: '' });
+    const title = this.props.list.title;
+
+    if (this.props.list.active === item) {
       this.props.manageSelected({
-        filter: this.props.list.title,
+        filter: title,
         selected: '',
       });
     } else {
-      this.setState({ activeItem: item });
       this.props.manageSelected({
-        filter: this.props.list.title,
+        filter: title,
         selected: item,
       });
     }
   }
 
   _renderList(list) {
-    const activeItem = this.state.activeItem;
+    const activeItem = this.props.list.active;
+
     return _.map(list, (item, i) => {
       return <FilterListItem
               item={item}
@@ -173,6 +173,8 @@ class Filter extends React.Component {
 
     this._closeFilters = this._closeFilters.bind(this);
     this.manageSelected = this.manageSelected.bind(this);
+    this._submitFilters = this._submitFilters.bind(this);
+    this._resetFilters = this._resetFilters.bind(this);
     this.state = {
       format: '',
       audience: '',
@@ -185,11 +187,11 @@ class Filter extends React.Component {
     Actions.toggleFilters(false);
   }
 
-  _selectFilter(filter, value) {
+  _selectFilter(queries) {
     axios
-      .get(`/api?${filter.toLowerCase()}=${value}&itemCount=18`)
+      .get(`/api?${queries}&itemCount=18`)
       .then(response => {
-        // console.log(response.data);
+        console.log(response.data);
         Actions.updateNewArrivalsData(response.data);
       }); /* end axios call */
   }
@@ -203,26 +205,55 @@ class Filter extends React.Component {
     });
   }
 
+  _submitFilters() {
+    const filters = this.state;
+    let queries = '';
+
+    for (const filter in filters) {
+      if (filters[filter] !== '' && (filter === 'format' || filter === 'language')) {
+        queries += `&${filter}=${filters[filter]}`;
+      }
+    }
+
+    console.log(queries);
+    this._selectFilter(queries);
+  }
+
+  _resetFilters() {
+    this.setState({
+      format: '',
+      audience: '',
+      language: '',
+      availability: '',
+    });
+
+    this._selectFilter();
+  }
+
   render() {
     const formatData = {
       title: 'Format',
       data: ['BOOK/TEXT', 'E-BOOK', 'LARGE PRINT', 'AUDIOBOOK',
         'E-AUDIOBOOK', 'DVD', 'BLU-RAY', 'MUSIC CD'],
+      active: this.state.format,
     };
     const audienceData = {
       title: 'Audience',
       data: ['Adult', 'Children', 'Young Adult'],
+      active: this.state.audience,
     };
     const languageData = {
       title: 'Language',
       data: ['English', 'Spanish', 'Chinese', 'Russian', 'French'],
+      active: this.state.language,
     };
     const availabilityData = {
       title: 'Availability',
       data: ['Available', 'Waitlist'],
+      active: this.state.availability,
     };
 
-    console.log(this.state);
+    // console.log(this.state);
 
     return (
       <div className={`filter-wrapper ${this.props.active}`}>
@@ -236,6 +267,16 @@ class Filter extends React.Component {
         <FilterList list={audienceData} manageSelected={this.manageSelected} />
         <FilterList list={languageData} manageSelected={this.manageSelected} />
         <FilterList list={availabilityData} manageSelected={this.manageSelected} />
+
+        <div className="submit-buttons">
+          <button className="PillButton" onClick={this._submitFilters}>
+            Apply
+          </button>
+
+          <button className="PillButton" onClick={this._resetFilters}>
+            Reset All
+          </button>
+        </div>
 
       </div>
     );
@@ -315,7 +356,7 @@ class ToggleDisplay extends React.Component {
             className="view"
             iconClass={viewIconClass}
             title={displayTitle}
-            toggleValue={displayTitle}
+            value={displayTitle}
             onClick={this._handleDisplayView}
           />
         </li>
@@ -326,7 +367,7 @@ class ToggleDisplay extends React.Component {
                 className="filters"
                 iconClass={filterIconClass}
                 title={filterTitle}
-                toggleValue={!filterActive}
+                value={!filterActive}
                 onClick={this._handleFilterView}
               />
               <Filter active={filterIconClass} />

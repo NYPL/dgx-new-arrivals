@@ -14,12 +14,17 @@
       display: block;
 
       @include min-screen(768px) {
-        min-height: 400px;
+        min-height: 450px;
         position: absolute;
         left: -500px;
         width: 600px;
         top: 50px;
       }
+    }
+
+    .submit-buttons {
+      width: 100%;
+      float: left;   
     }
   }
 }
