@@ -99,6 +99,10 @@ class ToggleDisplay extends React.Component {
           </g>
         </g>
       </svg>;
+    const iconClass = cx({
+      'nypl-icon-wedge-down': !filterActive,
+      'nypl-icon-solo-x': filterActive
+    });
 
     return (
       <ul className="ToggleDisplay">
@@ -120,6 +124,7 @@ class ToggleDisplay extends React.Component {
                 title={filterTitle}
                 value={!filterActive}
                 onClick={this._handleFilterView}
+                iconClass={iconClass}
               />
               <Filter active={filterIconClass} />
             </div>

@@ -14,7 +14,7 @@
 
       @include min-screen(768px) {
         min-height: 450px;
-        left: -600px;
+        left: -550px;
         width: 700px;
         top: 50px;
       }
@@ -45,7 +45,7 @@
         margin-bottom: 20px;
 
         @include min-screen(768px) {
-          margin: 0 20px;
+          margin: 0 25px;
         }
       }
     }
