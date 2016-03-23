@@ -1,16 +1,20 @@
 .PillButton {
   border-radius: 23px;
-  border: 2px solid $PRIMARY_COLOR;
-  color: $PRIMARY_COLOR;
+  // border: 2px solid $PRIMARY_COLOR;
+  // color: $PRIMARY_COLOR;
+  background-color: #fff;
+    border: 2px solid #837e77;
   display: inline-block;
   background-color: white;
-  // width: 100px;
-  width: 35px;
-  height: 35px;
-  padding: 5px 0px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
 
   @include min-screen($tablet-portrait) {
     width: 100px;
+    color: #837e77;
+    background-color: #fff;
+    border: 2px solid #837e77;
   }
 
   .icon {
@@ -18,10 +22,15 @@
     // padding: 0px 10px 0px 15px;
   }
 
+  svg {
+    fill: #837e77;
+  }
+
   &-title {
     display: none;
     font-size: 12px;
     text-transform: uppercase;
+    vertical-align: 10px;
 
     @include min-screen($tablet-portrait) {
       display: inline-block;
@@ -44,8 +53,17 @@
 }
 
 .filters {
-  &.active {
+  &.false {
     background-color: $PRIMARY_COLOR;
     color: #fff;
+
+    svg {
+      fill: #fff;
+    }
+
+    @include min-screen($tablet-portrait) {
+      color: #fff;
+      background-color: #837e77;
+    }
   }
 }
