@@ -18,10 +18,14 @@
   }
 
   .icon {
+    display: none;
     padding: 0 0 0 20px;
     vertical-align: 7px;
     font-size: 16px;
-    // padding: 0px 10px 0px 15px;
+
+    @include min-screen($tablet-portrait) {
+      display: inline-block;
+    }
   }
 
   svg {
