@@ -5,13 +5,23 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 .book-item {
-  margin-bottom: 10px;
-
   img {
     width: 140px;
+  }
+
+  h2 {
+    color: #1da1d4;
+    @include Kievit-Medium;
+    font-weight: normal;
+    margin-bottom: 0px;
+  }
+
+  p {
+    color: #9c9890;
+    margin: 10px;
   }
 }
