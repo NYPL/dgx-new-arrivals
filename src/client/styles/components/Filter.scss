@@ -4,7 +4,6 @@
     display: none;
 
     &.active {
-      height: 100%;
       width: 100%;
       position: absolute;
       top: 0;
@@ -15,15 +14,40 @@
 
       @include min-screen(768px) {
         min-height: 450px;
-        left: -500px;
-        width: 600px;
+        left: -600px;
+        width: 700px;
         top: 50px;
       }
     }
 
     .submit-buttons {
       width: 100%;
-      float: left;   
+      float: left;
+      margin: 30px 0 80px;
+
+      button {
+        background-color: #737069;
+        color: #fff;
+        border: 2px solid #fff;
+        margin: 0 auto;
+        display: block;
+        font-size: 13px;
+        width: 160px;
+        height: 40px;
+        text-transform: uppercase;
+
+        @include min-screen(768px) {
+          display: inline-block;
+        }
+      }
+
+      .apply {
+        margin-bottom: 20px;
+
+        @include min-screen(768px) {
+          margin: 0 20px;
+        }
+      }
     }
   }
 }
@@ -52,6 +76,8 @@
   }
 
   ul {
+    padding: 0;
+
     li {
       height: 35px;
       font-size: 14px;
@@ -67,6 +93,10 @@
           float: right;
           margin: -5px 25px 0px 0px;
           fill: #fff;
+
+          @include min-screen(768px) {
+            margin: -5px 15px 0px 0px;
+          }
         }
 
         @include min-screen(768px) {
