@@ -262,9 +262,6 @@ class Search extends React.Component {
             Search
           </button>
         </div>
-
-        <p className="advanceSearch"><a href={advanceURL}>Advance Search ></a></p>
-
       </div>
     );
   }
