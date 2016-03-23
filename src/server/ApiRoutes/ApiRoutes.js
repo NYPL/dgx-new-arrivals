@@ -102,7 +102,7 @@ function SelectPage(req, res) {
   const formatQuery = format ? `&format=${format}` : '';
   const audienceQuery = audience ? `&audience=${audience}` : '';
   const languageQuery = language ? `&language=${language}` : '';
-  const apiUrl = `${base}${bibItems}?${formatQuery}` +
+  const apiUrl = `${baseUrl}${newArrivalsApi.bibItems}?${formatQuery}` +
     `${languageQuery}&itemCount=${itemCount}`;
 
   axios
