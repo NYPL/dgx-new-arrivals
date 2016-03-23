@@ -13,10 +13,11 @@ export default {
   },
   newArrivalsApi: {
     base: 'http://10.224.6.14:8083/inventory',
-    bibItems: 'http://10.224.6.14:8083/inventory/bibItems',
-    formats: 'http://10.224.6.14:8083/inventory/formats',
-    languages: 'http://10.224.6.14:8083/inventory/languages',
-    availableQueries: ['audience', 'bibNumber', 'days', 'format', 'language', 'pageNum', 'itemCount'],
+    audience: '/audience',
+    bibItems: '/bibItems',
+    formats: '/formats',
+    languages: '/languages',
+    availableQueries: ['audience', 'bibNumber', 'days', 'format', 'itemCount', 'language', 'pageNum'],
   },
   headerApi: {
     endpoint: '/api/nypl/ndo/v0.1/site-data/header-items',
