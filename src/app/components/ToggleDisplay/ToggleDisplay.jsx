@@ -1,12 +1,18 @@
 import React from 'react';
 import Radium from 'radium';
 import cx from 'classnames';
+
 import ClickOutHandler from 'react-onclickout';
+import axios from 'axios';
 
 import PillButton from '../Buttons/PillButton.jsx';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
+
+import Filter from '../Filter/Filter.jsx';
+
+import _ from 'underscore';
 
 /**
  * Displays the two buttons that are used to toggle the Isotopes grid and displays the filters.
@@ -80,19 +86,22 @@ class ToggleDisplay extends React.Component {
             className="view"
             iconClass={viewIconClass}
             title={displayTitle}
-            toggleValue={displayTitle}
+            value={displayTitle}
             onClick={this._handleDisplayView}
           />
         </li>
         <li>
-          <ClickOutHandler onClickOut={this._handleOnClickOut.bind(this)}>
-            <PillButton
-              className="filters"
-              iconClass={filterIconClass}
-              title={filterTitle}
-              toggleValue={!filterActive}
-              onClick={this._handleFilterView}
-            />
+          <ClickOutHandler onClickOut={this._handleOnClickOut.bind(this)} className="clickOutContainer">
+            <div className="filterButton">
+              <PillButton
+                className="filters"
+                iconClass={filterIconClass}
+                title={filterTitle}
+                value={!filterActive}
+                onClick={this._handleFilterView}
+              />
+              <Filter active={filterIconClass} />
+            </div>
           </ClickOutHandler>
         </li>
       </ul>

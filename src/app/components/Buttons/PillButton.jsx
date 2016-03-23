@@ -20,11 +20,11 @@ class PillButton extends React.Component {
   /**
    * Handle click event on the button. Triggers the `onClick` function
    * that is passed to this component.
-   * @param {string} toggleValue - A boolean or string value passed to the
+   * @param {string} value - A boolean or string value passed to the
    * Alt Actions.
    */
-  _onClick(toggleValue) {
-    this.props.onClick(toggleValue);
+  _onClick(value) {
+    this.props.onClick(value);
   }
 
   /**
@@ -34,7 +34,7 @@ class PillButton extends React.Component {
     return (
       <button
         className={`PillButton ${this.props.className}${this.props.iconClass}`}
-        onClick={this._onClick.bind(this, this.props.toggleValue)}>
+        onClick={this._onClick.bind(this, this.props.value)}>
         <span className="icon"></span>
         <span className={`PillButton-title`}>{this.props.title}</span>
       </button>

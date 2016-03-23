@@ -1,0 +1,95 @@
+.filter {
+  &-wrapper {
+    color: #fff;
+    display: none;
+
+    &.active {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #737069;
+      z-index: 5;
+      display: block;
+
+      @include min-screen(768px) {
+        min-height: 450px;
+        left: -500px;
+        width: 600px;
+        top: 50px;
+      }
+    }
+
+    .submit-buttons {
+      width: 100%;
+      float: left;   
+    }
+  }
+}
+
+.filterButton {
+  @include min-screen(768px) {
+    position: relative;
+  }
+}
+
+.FilterList {
+  width: 100%;
+  float: left;
+  @include Kievit-Regular;
+
+  .inner {
+    padding: 0 20px;
+
+    h3 {
+      text-transform: uppercase;
+      border-top: 2px solid #fff;
+      padding: 15px 0 0 0;
+      margin-top: 5px;
+      font-size: 16px;
+    }
+  }
+
+  ul {
+    li {
+      height: 35px;
+      font-size: 14px;
+
+      a {
+        display: block;
+        color: #fff;
+        padding: 10px 0 10px 50px;
+        text-decoration: none;
+
+        .selected-svgIcon {
+          position: relative;
+          float: right;
+          margin: -5px 25px 0px 0px;
+          fill: #fff;
+        }
+
+        @include min-screen(768px) {
+          padding-left: 25px;
+        }
+      }
+
+      &.active {
+        background-color: #44433f;
+      }
+    }
+  }
+
+  @include min-screen(768px) {
+    width: 25%;
+    font-size: 14px;
+
+    .inner {
+      padding: 0 15px;
+
+      h3 {
+        margin: 30px 0 10px;
+      }
+    }
+  }
+}

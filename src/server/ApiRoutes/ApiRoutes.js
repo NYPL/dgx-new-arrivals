@@ -35,9 +35,9 @@ function getHeaderData() {
 function NewArrivalsApp(req, res, next) {
   const itemCount = '18';
   const days = '60';
-  const tempUrl = `${newArrivalsApi.bibItems}?&itemCount=${itemCount}&days=${days}`;
+  const baseApiUrl = `${newArrivalsApi.bibItems}?&itemCount=${itemCount}`;
 
-  axios.all([getHeaderData(), fetchApiData(tempUrl)])
+  axios.all([getHeaderData(), fetchApiData(baseApiUrl)])
     .then(axios.spread((headerData, newArrivalsData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
       const headerModelData = HeaderItemModel.build(headerParsed)
@@ -57,7 +57,7 @@ function NewArrivalsApp(req, res, next) {
     }))
     .catch(error => {
       console.log('error calling API : ' + error);
-      console.log('Attempted to call : ' + tempUrl);
+      console.log('Attempted to call : ' + baseApiUrl);
 
       res.locals.data = {
         Store: {
@@ -77,16 +77,21 @@ function SelectPage(req, res) {
   const language = query.language || '';
   const pageNum = query.pageNum || '1';
   const itemCount = query.itemCount || '18';
-  const tempUrl = `${newArrivalsApi.bibItems}?&format=${format}&itemCount=${itemCount}`;
+
+  const formatQuery = format ? `&format=${format}` : '';
+  const audienceQuery = audience ? `&audience=${audience}` : '';
+  const languageQuery = language ? `&language=${language}` : '';
+  const apiUrl = `${newArrivalsApi.bibItems}?${formatQuery}` +
+    `${languageQuery}&itemCount=${itemCount}`;
 
   axios
-    .get(tempUrl)
+    .get(apiUrl)
     .then(response => {
       res.json(response.data);
     })
     .catch(error => {
       console.log('error calling API : ' + error);
-      console.log('Attempted to call : ' + tempUrl);
+      console.log('Attempted to call : ' + apiUrl);
 
       res.json({
         error

@@ -35,3 +35,58 @@ Import style rules from App components
 @import 'components/NewArrivals';
 @import 'components/PillButton';
 @import 'components/ToggleDisplay';
+@import 'components/Filter';
+
+.filter {
+  &-header-mobile {
+    padding: 0 20px;
+
+    .svgIcon svg {
+      height: 32px;
+      width: 32px;
+    }
+
+    h2 {
+      display: inline-block;
+      margin: 20px 0 10px;
+      @include Kievit-Medium;
+      font-weight: 300;
+      line-height: 26px;
+      margin-left: 10px;
+    }
+
+    .mobile-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    @include min-screen(768px) {
+      display: none;
+    }
+  }
+
+  &-wrapper {
+    ul {
+      list-style: none;
+      margin: 0 0 10px 0;
+      padding: 0;
+
+      li {
+        display: block;
+        // Add background color here when active.
+
+        @include min-screen(768px) {
+          // padding-left: 25px;
+        }
+      }
+    }
+
+    .svgIcon {
+      padding: 0;
+      background: none;
+      border: none;
+      fill: #fff;
+    }
+  }
+}
