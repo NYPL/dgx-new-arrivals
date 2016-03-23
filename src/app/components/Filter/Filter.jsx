@@ -110,7 +110,10 @@ class Filter extends React.Component {
       .then(response => {
         console.log(response.data);
         Actions.updateNewArrivalsData(response.data);
-      }); /* end axios call */
+      })
+      .catch(error => {
+        console.log(`error making ajax call: ${error}`);
+      }); /* end Axios call */
   }
 
   manageSelected(item) {
@@ -132,7 +135,7 @@ class Filter extends React.Component {
       }
     }
 
-    console.log(queries);
+    // console.log(queries);
     this._selectFilter(queries);
   }
 
