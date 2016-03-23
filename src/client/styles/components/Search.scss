@@ -4,6 +4,7 @@
     @include add-grid(3);
 
     @include Kievit-Medium;
+    margin-bottom: 40px;
 
     h3 {
       @include grid-span(3);
