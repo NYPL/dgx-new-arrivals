@@ -153,8 +153,8 @@ class Filter extends React.Component {
   render() {
     const formatData = {
       title: 'Format',
-      data: ['BOOK/TEXT', 'E-BOOK', 'LARGE PRINT', 'AUDIOBOOK',
-        'E-AUDIOBOOK', 'DVD', 'BLU-RAY', 'MUSIC CD'],
+      data: ['AUDIOBOOK', 'BLU-RAY', 'BOOK/TEXT', 'DVD', 'E-AUDIOBOOK',
+        'E-BOOK', 'LARGE PRINT', 'MUSIC CD'],
       active: this.state.format,
     };
     const audienceData = {
