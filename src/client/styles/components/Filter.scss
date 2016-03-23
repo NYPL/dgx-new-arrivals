@@ -6,7 +6,7 @@
     &.active {
       height: 100%;
       width: 100%;
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       background-color: #737069;
@@ -15,7 +15,6 @@
 
       @include min-screen(768px) {
         min-height: 450px;
-        position: absolute;
         left: -500px;
         width: 600px;
         top: 50px;
@@ -30,8 +29,9 @@
 }
 
 .filterButton {
-  position: relative;
-
+  @include min-screen(768px) {
+    position: relative;
+  }
 }
 
 .FilterList {
@@ -61,6 +61,13 @@
         color: #fff;
         padding: 10px 0 10px 50px;
         text-decoration: none;
+
+        .selected-svgIcon {
+          position: relative;
+          float: right;
+          margin: -5px 25px 0px 0px;
+          fill: #fff;
+        }
 
         @include min-screen(768px) {
           padding-left: 25px;

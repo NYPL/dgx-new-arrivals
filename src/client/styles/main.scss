@@ -41,6 +41,11 @@ Import style rules from App components
   &-header-mobile {
     padding: 0 20px;
 
+    .svgIcon svg {
+      height: 32px;
+      width: 32px;
+    }
+
     h2 {
       display: inline-block;
       margin: 20px 0 10px;
@@ -82,13 +87,6 @@ Import style rules from App components
       background: none;
       border: none;
       fill: #fff;
-      stroke: #fff;
-      cursor: pointer;
-
-      svg {
-        width: 22px;
-        height: 22px;
-      }
     }
   }
 }
