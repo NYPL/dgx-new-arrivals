@@ -1,0 +1,15 @@
+.ToggleDisplay {
+  list-style-type: none;
+  display: inline-block;
+  float: right;
+  margin: 0;
+  padding: 0;
+
+  > li {
+    display: inline-block;
+
+    &:nth-child(2) {
+      margin-left: 5px;
+    }
+  }
+}

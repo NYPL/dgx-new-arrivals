@@ -2,20 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import _ from 'underscore';
+
 import BookCover from '../BookCover/BookCover.jsx';
 
-let styles = {
-  bookItemsWidth: {
-    width: '4500px',
-  },
+const styles = {
   listWidth: {
     width: '100%',
   },
   gridWidth: {
-    width: '150px'
+    width: '140px'
   },
 };
 
+
+/**
+ * Isotopes grid container component
+ * @extends {React}
+ */
 class Isotopes extends React.Component {
   constructor(props) {
     super(props);
@@ -23,48 +26,56 @@ class Isotopes extends React.Component {
     this.isoOptions = {
       itemSelector: '.book-item',
       masonry: {
-        columnWidth: 150,
+        columnWidth: 140,
         isResizable: true,
-        isFitWidth: true,
+        // isFitWidth: true,
         gutter: 10
       },
     };
   }
 
+  /**
+   * Arrange the grid once we get new props for the component.
+   */
   componentDidUpdate(prevProps) {
     this.iso.arrange();
   }
 
-  // Event listeners
+  /**
+   * Once the component mounts, initialize the instance of Isotopes.
+   */
   componentDidMount() {
     this._createIsotopeContainer();
   }
 
+  /**
+   * When the component unmounts, destroy the instance of Isotopes.
+   */
   componentWillUnmount() {
     if (this.iso != null) {
       this.iso.destroy();
     }
   }
 
+  /**
+   * Generate a list item that is either a book cover or the title and author.
+   * The BookCover component is being used but should be updated.
+   * @param {array} booksArr - Array of book item objects.
+   * @param {string} displayType - Either 'grid' or 'list'.
+   */
   _generateItemsToDisplay(booksArr, displayType) {
-    const bookCoverItems = _.chain(booksArr)
-      .flatten()
-      .value();
+    const bookCoverItems = booksArr; //_.chain(booksArr).flatten().value();
 
     const books = bookCoverItems.map((element, i) => {
         const target = '#';
-        // <img
-        //   width="150"
-        //   src={element.imageUrls[0]}/>
+        // <img src={element.imageUrls[0]}/>
         // <BookCover imgSrc={element.imageUrls[0]} />
         const bookCover = (<a href={target} className="bookItem">
-                    <img
-                      width="150"
-                      src={element.imageUrls[0]}/>
+                  <img src={element.imageUrl[0]}/>
                 </a>);
         const bookListItem = (<div>
             <h2>{element.title}</h2>
-            <p>By: {element.genre}</p>
+            <p>{element.author ? element.author : null}</p>
           </div>);
         const listDisplay = displayType === 'grid' ? styles.gridWidth : styles.listWidth;
 
@@ -81,10 +92,12 @@ class Isotopes extends React.Component {
       }, 800);
     }
 
-// console.log(books);
     return books;
   }
 
+  /**
+   * Create the Isotopes Instance if it doesn't already exist.
+   */
   _createIsotopeContainer() {
     if (this.iso == null) {
       $('.isotopeGrid').css('opacity', '1');

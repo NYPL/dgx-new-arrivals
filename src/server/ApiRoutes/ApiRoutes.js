@@ -1,14 +1,14 @@
 import express from 'express';
-import tempData from '../../../temp.js';
-import config from '../../../appConfig.js';
-
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
 
 import Model from 'dgx-model-data';
 
+import config from '../../../appConfig.js';
+
+// Syntax that both ES6 and Babel 6 support
 const { HeaderItemModel } = Model;
-const { api, headerApi } = config;
+const { api, headerApi, newArrivalsApi } = config;
 
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
@@ -33,14 +33,11 @@ function getHeaderData() {
 }
 
 function NewArrivalsApp(req, res, next) {
-  const category = 1;
-  const days = 26;
-  const itemCount = 15;
-  const pageNum = 4;
-  const tempUrl = `http://10.224.6.14:8087/categories/${category}?` +
-    `days=${days}&itemCount=${itemCount}&pageNum=${pageNum}`;
+  const itemCount = '18';
+  const days = '60';
+  const baseApiUrl = `${newArrivalsApi.bibItems}?&itemCount=${itemCount}`;
 
-  axios.all([getHeaderData(), fetchApiData(tempUrl)])
+  axios.all([getHeaderData(), fetchApiData(baseApiUrl)])
     .then(axios.spread((headerData, newArrivalsData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
       const headerModelData = HeaderItemModel.build(headerParsed)
@@ -60,7 +57,7 @@ function NewArrivalsApp(req, res, next) {
     }))
     .catch(error => {
       console.log('error calling API : ' + error);
-      console.log('Attempted to call : ' + completeApiUrl);
+      console.log('Attempted to call : ' + baseApiUrl);
 
       res.locals.data = {
         Store: {
@@ -71,40 +68,34 @@ function NewArrivalsApp(req, res, next) {
     }); /* end Axios call */
 }
 
-//   axios
-//     .get(tempUrl)
-//     .then(response => {
-//       // console.log(response.data);
-//       // const data = response.data;
-//       // const categoryName = data.name;
-//       // const totalItems = data.totalItems;
-//       // const items = data.bibItems;
-//       // const links = data._links;
-
-//       res.locals.data = {
-//         NewArrivalsStore: {
-//           newArrivalsData: response.data,
-//           displayType: 'grid',
-//         },
-//       };
-
-//       next();
-
-//     }); /* end axios call */
-// }
-
 function SelectPage(req, res) {
-  const pageNum = req.params.page;
-  const category = 1;
-  const days = 26;
-  const itemCount = 15;
-  const tempUrl = `http://10.224.6.14:8087/categories/${category}?` +
-    `days=${days}&itemCount=${itemCount}&pageNum=${pageNum}`;
+  const query = req.query;
+  const audience = query.language || '';
+  const bibNumber = query.bibNumber || '';
+  const days = query.days || '';
+  const format = query.format || '';
+  const language = query.language || '';
+  const pageNum = query.pageNum || '1';
+  const itemCount = query.itemCount || '18';
+
+  const formatQuery = format ? `&format=${format}` : '';
+  const audienceQuery = audience ? `&audience=${audience}` : '';
+  const languageQuery = language ? `&language=${language}` : '';
+  const apiUrl = `${newArrivalsApi.bibItems}?${formatQuery}` +
+    `${languageQuery}&itemCount=${itemCount}`;
 
   axios
-    .get(tempUrl)
+    .get(apiUrl)
     .then(response => {
       res.json(response.data);
+    })
+    .catch(error => {
+      console.log('error calling API : ' + error);
+      console.log('Attempted to call : ' + apiUrl);
+
+      res.json({
+        error
+      });
     }); /* end axios call */
 }
 
@@ -113,16 +104,8 @@ router
   .get(NewArrivalsApp);
 
 router
-  .route('/:page')
+  .route('/api')
   .get(SelectPage);
 
-router
-  .route('/newArrivalsData')
-  .get((req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-
-    res.json(tempData);
-  });
 
 export default router;

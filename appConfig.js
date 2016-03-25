@@ -11,6 +11,13 @@ export default {
       production: 'https://refinery.nypl.org',
     },
   },
+  newArrivalsApi: {
+    base: 'http://10.224.6.14:8083/inventory',
+    bibItems: 'http://10.224.6.14:8083/inventory/bibItems',
+    formats: 'http://10.224.6.14:8083/inventory/formats',
+    languages: 'http://10.224.6.14:8083/inventory/languages',
+    availableQueries: ['audience', 'bibNumber', 'days', 'format', 'language', 'pageNum', 'itemCount'],
+  },
   headerApi: {
     endpoint: '/api/nypl/ndo/v0.1/site-data/header-items',
     includes: [
@@ -27,4 +34,3 @@ export default {
     }
   },
 };
-

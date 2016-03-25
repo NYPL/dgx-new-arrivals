@@ -1,0 +1,76 @@
+.PillButton {
+  border-radius: 23px;
+  // border: 2px solid $PRIMARY_COLOR;
+  // color: $PRIMARY_COLOR;
+  background-color: #fff;
+  border: 2px solid #837e77;
+  display: inline-block;
+  background-color: white;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+
+  @include min-screen($tablet-portrait) {
+    width: 150px;
+    color: #837e77;
+    background-color: #fff;
+    border: 2px solid #837e77;
+  }
+
+  .icon {
+    display: none;
+    padding: 0 0 0 20px;
+    vertical-align: 7px;
+    font-size: 16px;
+
+    @include min-screen($tablet-portrait) {
+      display: inline-block;
+    }
+  }
+
+  svg {
+    fill: #837e77;
+  }
+
+  &-title {
+    display: none;
+    font-size: 12px;
+    text-transform: uppercase;
+    vertical-align: 10px;
+
+    @include min-screen($tablet-portrait) {
+      display: inline-block;
+    }
+  }
+}
+
+.view {
+  &-grid-icon {
+    .icon {
+      background: url('#{$staffPicksUrl}src/client/images/icons/SmallBookGray.svg') no-repeat;
+    }
+  }
+
+  &-list-icon {
+    .icon {
+      background: url('#{$staffPicksUrl}src/client/images/icons/SmallListIconGray.svg') no-repeat;
+    }
+  }
+}
+
+.filters {
+
+  &.false {
+    background-color: $PRIMARY_COLOR;
+    color: #fff;
+
+    svg {
+      fill: #fff;
+    }
+
+    @include min-screen($tablet-portrait) {
+      color: #fff;
+      background-color: #837e77;
+    }
+  }
+}

@@ -1,26 +1,88 @@
+/*
+Import utils and fonts
+*/
+@import 'utils/mixins';
+@import 'utils/colors';
+@import 'utils/utils';
+@import "utils/fonts";
+@import 'utils/variables';
+@import 'utils/animations';
 
+/*
+Import singularity and breakpoints
+*/
+@import "~singularitygs/stylesheets/singularitygs";
+@import "~breakpoint-sass/stylesheets/breakpoint";
 
-@import './utils/variables';
+/*
+Import Normalize and Grid settings for nyplHomepage App
+*/
+@import "utils/normalize";
+@import "utils/gridSettings";
 
-@import './components/Isotopes';
-@import './components/DisplayBtns';
-
+/*
+Import style rules from NYPL React module components
+*/
 @import "~dgx-header-component/dist/styles/main";
 @import '~dgx-react-footer/dist/styles/styles';
 
-#app {
-  margin: 0;
-}
+/*
+Import style rules from App components
+*/
+@import 'components/Search';
+@import 'components/Dropdown';
+@import 'components/Isotopes';
+@import 'components/NewArrivals';
+@import 'components/PillButton';
+@import 'components/ToggleDisplay';
+@import 'components/Filter';
 
-.pagination {
-  display: block !important;
-  text-align: center;
-}
+.filter {
+  &-header-mobile {
+    padding: 0 20px;
 
-.pagination > li {
-  display: inline-block !important;
-}
+    .svgIcon svg {
+      height: 32px;
+      width: 32px;
+    }
 
-.pagination .break a {
-    cursor: default;
+    h2 {
+      display: inline-block;
+      margin: 20px 0 10px;
+      @include Kievit-Medium;
+      font-weight: 300;
+      line-height: 26px;
+      margin-left: 10px;
+      vertical-align: 5px;
+    }
+
+    .mobile-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    @include min-screen(768px) {
+      display: none;
+    }
+  }
+
+  &-wrapper {
+    > ul {
+      list-style: none;
+      margin: 0 0 10px 10px;
+      padding: 0;
+
+      li {
+        display: block;
+      }
+    }
+
+    .svgIcon {
+      padding: 0;
+      background: none;
+      border: none;
+      fill: #fff;
+    }
+  }
 }
