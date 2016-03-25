@@ -24,7 +24,6 @@ class NewArrivals extends React.Component {
     };
 
     this._onChange = this._onChange.bind(this);
-    this._updateBooks = this._updateBooks.bind(this);
   }
 
   componentDidMount() {
@@ -40,14 +39,6 @@ class NewArrivals extends React.Component {
       displayType: NewArrivalsStore.getState().displayType,
       all: NewArrivalsStore.getState().newArrivalsData.bibItems
     });
-  }
-
-  _updateBooks(format, itemCount) {
-    axios
-      .get(`/api?format=${format}&itemCount=${itemCount}`)
-      .then(response => {
-        Actions.updateNewArrivalsData(response.data);
-      }); /* end axios call */
   }
 
   render() {

@@ -67,24 +67,24 @@ class Isotopes extends React.Component {
     const bookCoverItems = booksArr; //_.chain(booksArr).flatten().value();
 
     const books = bookCoverItems.map((element, i) => {
-        const target = '#';
-        // <img src={element.imageUrls[0]}/>
-        // <BookCover imgSrc={element.imageUrls[0]} />
-        const bookCover = (<a href={target} className="bookItem">
-                  <img src={element.imageUrl[0]}/>
-                </a>);
-        const bookListItem = (<div>
-            <h2>{element.title}</h2>
-            <p>{element.author ? element.author : null}</p>
-          </div>);
-        const listDisplay = displayType === 'grid' ? styles.gridWidth : styles.listWidth;
+      const target = '#';
+      // <img src={element.imageUrl[0]}/>
+      // <BookCover imgSrc={element.imageUrl[0] ? element.imageUrl[0] : null } />
+      const bookCover = (<a href={target} className="bookItem">
+                <BookCover imgSrc={element.imageUrl[0] ? element.imageUrl[0] : null } testkey={i}/>
+              </a>);
+      const bookListItem = (<div>
+          <h2>{element.title}</h2>
+          <p>{element.author ? element.author : null}</p>
+        </div>);
+      const listDisplay = displayType === 'grid' ? styles.gridWidth : styles.listWidth;
 
-        return (
-          <li className='book-item' key={i} style={listDisplay}>
-            {displayType === 'grid' ? bookCover : bookListItem}
-          </li>
-        );
-      });
+      return (
+        <li className='book-item' key={i} style={listDisplay}>
+          {displayType === 'grid' ? bookCover : bookListItem}
+        </li>
+      );
+    });
 
     if (this.iso != null) {
       setTimeout(() => {
