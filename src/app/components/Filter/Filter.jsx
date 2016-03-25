@@ -169,7 +169,7 @@ class Filter extends React.Component {
     };
     const availabilityData = {
       title: 'Availability',
-      data: ['Available', 'Waitlist'],
+      data: ['Just Arrived', 'On Order'],
       active: this.state.availability,
     };
 

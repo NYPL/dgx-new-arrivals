@@ -67,14 +67,16 @@ class Isotopes extends React.Component {
     const bookCoverItems = booksArr; //_.chain(booksArr).flatten().value();
 
     const books = bookCoverItems.map((element, i) => {
-      const target = '#';
+      const target = `http://browse.nypl.org/iii/encore/record/C__Rb${element.bibNumber}`;
       // <img src={element.imageUrl[0]}/>
       // <BookCover imgSrc={element.imageUrl[0] ? element.imageUrl[0] : null } />
       const bookCover = (<a href={target} className="bookItem">
                 <BookCover imgSrc={element.imageUrl[0] ? element.imageUrl[0] : null } testkey={i}/>
               </a>);
       const bookListItem = (<div>
-          <h2>{element.title}</h2>
+          <a href={target}>
+            <h2>{element.title}</h2>
+          </a>
           <p>{element.author ? element.author : null}</p>
         </div>);
       const listDisplay = displayType === 'grid' ? styles.gridWidth : styles.listWidth;
