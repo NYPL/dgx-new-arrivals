@@ -40,13 +40,9 @@ class CloseButton extends React.Component {
 
   render() {
     const icon = (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 50 50"
-        height={10}
-        width={10}
-      >
-        <polygon points="50 5.84 44.16 0 25 19.16 5.84 0 0 5.84 19.16 25 0 44.16 5.84 50 25 30.84 44.16 50 50 44.16 30.84 25 50 5.84"/>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="2rem" height="2rem">
+        <title>solo.x</title>
+       <polygon points="54.26 6.34 47.91 0 27.13 20.79 6.34 0 0 6.34 20.79 27.13 0 47.91 6.34 54.26 27.13 33.47 47.91 54.26 54.26 47.91 33.47 27.13 54.26 6.34" />
       </svg>
     );
 
@@ -114,7 +110,10 @@ class Filter extends React.Component {
       .then(response => {
         console.log(response.data);
         Actions.updateNewArrivalsData(response.data);
-      }); /* end axios call */
+      })
+      .catch(error => {
+        console.log(`error making ajax call: ${error}`);
+      }); /* end Axios call */
   }
 
   manageSelected(item) {
@@ -136,7 +135,7 @@ class Filter extends React.Component {
       }
     }
 
-    console.log(queries);
+    // console.log(queries);
     this._selectFilter(queries);
   }
 
@@ -154,8 +153,8 @@ class Filter extends React.Component {
   render() {
     const formatData = {
       title: 'Format',
-      data: ['BOOK/TEXT', 'E-BOOK', 'LARGE PRINT', 'AUDIOBOOK',
-        'E-AUDIOBOOK', 'DVD', 'BLU-RAY', 'MUSIC CD'],
+      data: ['AUDIOBOOK', 'BLU-RAY', 'BOOK/TEXT', 'DVD', 'E-AUDIOBOOK',
+        'E-BOOK', 'LARGE PRINT', 'MUSIC CD'],
       active: this.state.format,
     };
     const audienceData = {
@@ -192,11 +191,11 @@ class Filter extends React.Component {
         </ul>
 
         <div className="submit-buttons">
-          <button className="PillButton" onClick={this._submitFilters}>
+          <button className="PillButton apply" onClick={this._submitFilters}>
             Apply
           </button>
 
-          <button className="PillButton" onClick={this._resetFilters}>
+          <button className="PillButton reset" onClick={this._resetFilters}>
             Reset All
           </button>
         </div>

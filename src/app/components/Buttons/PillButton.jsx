@@ -33,10 +33,11 @@ class PillButton extends React.Component {
   render() {
     return (
       <button
-        className={`PillButton ${this.props.className}${this.props.iconClass}`}
+        className={`PillButton ${this.props.className} ${this.props.value}`}
         onClick={this._onClick.bind(this, this.props.value)}>
-        <span className="icon"></span>
+        {this.props.icon}
         <span className={`PillButton-title`}>{this.props.title}</span>
+        <span className={`${this.props.iconClass} icon`}></span>
       </button>
     );
   }

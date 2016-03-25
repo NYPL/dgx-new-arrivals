@@ -3,18 +3,17 @@
     @include grid-span(3);
     @include add-grid(3);
 
-    border-top: 2px solid $PRIMARY_COLOR;
+    // border-top: 2px solid $PRIMARY_COLOR;
+    border-top: 2px solid #837e77;
     padding-top: 10px;
     min-height: 500px;
 
     h4 {
-      font-size: 16px;
-      color: $PRIMARY_COLOR;
+      font-size: 20px;
+      color: #837e77;
       display: inline-block;
-      margin: 0;
+      margin: 10px 0 0 0;
       @include Kievit-Medium;
-
-      display: block;
     }
   }
 }
