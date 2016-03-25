@@ -75,7 +75,7 @@ class Isotopes extends React.Component {
                 </a>);
         const bookListItem = (<div>
             <h2>{element.title}</h2>
-            <p>{element.title}</p>
+            <p>{element.author ? element.author : null}</p>
           </div>);
         const listDisplay = displayType === 'grid' ? styles.gridWidth : styles.listWidth;
 
