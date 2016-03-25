@@ -53,6 +53,7 @@ Import style rules from App components
       font-weight: 300;
       line-height: 26px;
       margin-left: 10px;
+      vertical-align: 5px;
     }
 
     .mobile-close {
@@ -67,18 +68,13 @@ Import style rules from App components
   }
 
   &-wrapper {
-    ul {
+    > ul {
       list-style: none;
-      margin: 0 0 10px 0;
+      margin: 0 0 10px 10px;
       padding: 0;
 
       li {
         display: block;
-        // Add background color here when active.
-
-        @include min-screen(768px) {
-          // padding-left: 25px;
-        }
       }
     }
 
