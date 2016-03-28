@@ -22,9 +22,22 @@ class App extends React.Component {
         <Header />
 
         <div className="nyplNewArrivals nyplGrid">
-          <Search />
 
-          <NewArrivals />
+          <div id={`back-button-wrapper`} className={`back-button-wrapper`}>
+            <a id={`back-button`} className={`back-button`}>
+              <span className={`back-button__icon nypl-icon-circle-arrow-left`}>
+              </span>
+              <div className={`back-button__text`}>
+                <p>Books/<br />Music/<br />DVDs</p>
+              </div>
+            </a>
+          </div>
+
+          <div className="main-content">
+            <Search />
+
+            <NewArrivals />
+          </div>
         </div>
 
         <Footer />
