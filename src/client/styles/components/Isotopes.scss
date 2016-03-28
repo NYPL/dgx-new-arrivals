@@ -17,6 +17,10 @@
     width: 140px;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   h2 {
     color: #1da1d4;
     @include Kievit-Medium;

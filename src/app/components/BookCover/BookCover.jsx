@@ -16,11 +16,25 @@ class BookCover extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.checkImg();
+  }
+
+  checkImg() {
+    this.setState({
+      imageSrc: (this.props.imgSrc && this.props.imgSrc !== undefined) ?
+        // Show the place holder if the book cover's ISBN is not available
+        this.props.imgSrc : this.props.placeHolderEndpoint
+    });
+  }
+
   componentDidMount() {
+    this.checkImg();
+
     // After the cover image is loaded
     this.refs.coverImage.addEventListener('load', () => {
       // Set the natural width to of source image to the component
-      this.setState({ naturalWidth: this.refs.coverImage.naturalWidth }, () => {
+      this.setState({ naturalWidth: this.refs.coverImage.naturalWidth}, () => {
         // Detect the natural width if it is smaller then 10px,
         // set the image source to the place holder
         if (this.state.imageSrc !== this.props.placeHolderEndpoint &&
