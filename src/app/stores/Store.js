@@ -14,6 +14,8 @@ class NewArrivalsStore {
       updateDisplayView: Actions.UPDATE_DISPLAY_VIEW,
       toggleFilters: Actions.TOGGLE_FILTERS,
       updateDropDownValue: Actions.UPDATE_DROP_DOWN_VALUE,
+      updateFiltered: Actions.UPDATE_FILTERED,
+      isotopeUpdate: Actions.ISOTOPE_UPDATE,
     });
 
     this.on('init', () => {
@@ -21,6 +23,8 @@ class NewArrivalsStore {
       this.displayType =  'grid';
       this.toggleFilter = false;
       this.dropDownValue = '';
+      this.filters = {};
+      this.isotopeUpdate = false;
     });
   }
 
@@ -50,6 +54,14 @@ class NewArrivalsStore {
    */
   updateDropDownValue(value) {
     this.dropDownValue = value;
+  }
+
+  updateFiltered(obj) {
+    this.filters = obj;
+  }
+
+  isotopeUpdate(bol) {
+    this.isotopeUpdate = bol;
   }
 }
 

@@ -110,6 +110,11 @@ class Filter extends React.Component {
       .then(response => {
         console.log(response.data);
         Actions.updateNewArrivalsData(response.data);
+        Actions.updateFiltered(this.state);
+
+        setTimeout(() => {
+          Actions.isotopeUpdate(true);
+        }, 300);
       })
       .catch(error => {
         console.log(`error making ajax call: ${error}`);

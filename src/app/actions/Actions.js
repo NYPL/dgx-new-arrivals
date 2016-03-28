@@ -32,6 +32,14 @@ class Actions {
   updateDropDownValue(value) {
     this.dispatch(value);
   }
+
+  updateFiltered(obj) {
+    this.dispatch(obj);
+  }
+
+  isotopeUpdate(bol) {
+    this.dispatch(bol);
+  }
 };
 
 export default alt.createActions(Actions);
