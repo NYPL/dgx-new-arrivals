@@ -130,12 +130,11 @@ class Filter extends React.Component {
     let queries = '';
 
     for (const filter in filters) {
-      if (filters[filter] !== '' && (filter === 'format' || filter === 'language')) {
+      if (filters[filter] !== '' && filter !== 'availability') {
         queries += `&${filter}=${filters[filter]}`;
       }
     }
 
-    // console.log(queries);
     this._selectFilter(queries);
   }
 
@@ -174,7 +173,6 @@ class Filter extends React.Component {
     };
 
     // console.log(this.state);
-
     return (
       <div className={`filter-wrapper ${this.props.active}`}>
         <div className="filter-header-mobile">
