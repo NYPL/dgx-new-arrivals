@@ -6,12 +6,25 @@
     list-style: none;
     margin: 10px 0;
     padding: 0;
-    width: 300px;
+    width: 500px;
+    float: left;
 
     li {
+      @include Kievit-Medium;
       display: inline-block;
       float: left;
-      margin-right: 10px;
+      margin-right: 20px;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #837e77;
+      border-bottom: 1px solid #837e77;
+      padding-bottom: 5px;
+      cursor: pointer;
+
+      .icon {
+        float: right;
+        padding-left: 10px;
+      }
     }
   }
 }
