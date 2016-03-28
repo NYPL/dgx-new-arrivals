@@ -25,6 +25,12 @@ class FilterIcon extends React.Component {
 class FilterListItem extends React.Component {
   constructor(props) {
     super(props);
+
+    this._onClick = this._onClick.bind(this);
+  }
+
+  _onClick(e) {
+    e.preventDefault();
   }
 
   render() {
@@ -32,7 +38,7 @@ class FilterListItem extends React.Component {
 
     return (
       <li onClick={this.props.onClick} className={activeClass}>
-        <a href="#">
+        <a href="#" onClick={this._onClick}>
           {this.props.item}
           { this.props.active ? <FilterIcon /> : null }
         </a>

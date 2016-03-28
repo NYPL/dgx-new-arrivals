@@ -39,6 +39,14 @@
         @include min-screen(768px) {
           display: inline-block;
         }
+
+        svg {
+          fill: #fff;
+        }
+
+        span {
+          vertical-align: 10px;
+        }
       }
 
       .apply {
