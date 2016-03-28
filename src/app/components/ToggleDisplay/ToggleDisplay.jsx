@@ -79,13 +79,22 @@ class ToggleDisplay extends React.Component {
     const filterIconClass = filterActive ? ' active' : '';
     const filterTitle = 'Filter';
 
-    const viewSvgIcon =  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-  <title>list.icon</title>
-  <path d="M23.4829,9.5H7.83a1.0143,1.0143,0,1,1,0-2.0285H23.4829A1.0143,1.0143,0,1,1,23.4829,9.5Z"/>
-  <path d="M23.4829,19.5285H7.83a1.0143,1.0143,0,1,1,0-2.0285H23.4829A1.0143,1.0143,0,1,1,23.4829,19.5285Z"/>
-  <path d="M16.8125,14.5h-9a0.977,0.977,0,0,1-1-.9857A1.0155,1.0155,0,0,1,7.83,12.5h8.7651a1.1951,1.1951,0,0,1,1.2178,1A0.9889,0.9889,0,0,1,16.8125,14.5Z"/>
-  <path d="M16.5947,25.4H7.83a1.0143,1.0143,0,1,1,0-2.0285h8.7651A1.0143,1.0143,0,1,1,16.5947,25.4Z"/>
-</svg>;
+    const viewSvgIcon =  gridActive ? 
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+        <title>list.icon</title>
+        <path d="M23.4829,9.5H7.83a1.0143,1.0143,0,1,1,0-2.0285H23.4829A1.0143,1.0143,0,1,1,23.4829,9.5Z"/>
+        <path d="M23.4829,19.5285H7.83a1.0143,1.0143,0,1,1,0-2.0285H23.4829A1.0143,1.0143,0,1,1,23.4829,19.5285Z"/>
+        <path d="M16.8125,14.5h-9a0.977,0.977,0,0,1-1-.9857A1.0155,1.0155,0,0,1,7.83,12.5h8.7651a1.1951,1.1951,0,0,1,1.2178,1A0.9889,0.9889,0,0,1,16.8125,14.5Z"/>
+        <path d="M16.5947,25.4H7.83a1.0143,1.0143,0,1,1,0-2.0285h8.7651A1.0143,1.0143,0,1,1,16.5947,25.4Z"/>
+      </svg> :
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+        <title>grid.icon.v4</title>
+        <path d="M14,14H7V6h7v8ZM9,12h3V8H9v4Z"/>
+        <path d="M25,14H18V6h7v8Zm-5-2h3V8H20v4Z"/>
+        <path d="M14,25H7V17h7v8ZM9,23h3V19H9v4Z"/>
+        <path d="M25,25H18V17h7v8Zm-5-2h3V19H20v4Z"/>
+      </svg>
+      ;
 
     const svgFilterIcon = <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
         <title>filter.v3</title>

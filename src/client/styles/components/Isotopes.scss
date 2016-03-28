@@ -6,11 +6,19 @@
   padding: 0;
   list-style: none;
   margin-top: 30px;
+
+  @include min-screen(768px) {
+    margin-top: 80px;
+  }
 }
 
 .book-item {
   img {
     width: 140px;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   h2 {

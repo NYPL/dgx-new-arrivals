@@ -38,7 +38,7 @@ class Isotopes extends React.Component {
    * Arrange the grid once we get new props for the component.
    */
   componentDidUpdate(prevProps) {
-    this.iso.arrange();
+    // this.iso.arrange();
   }
 
   /**
@@ -67,29 +67,33 @@ class Isotopes extends React.Component {
     const bookCoverItems = booksArr; //_.chain(booksArr).flatten().value();
 
     const books = bookCoverItems.map((element, i) => {
-        const target = '#';
-        // <img src={element.imageUrls[0]}/>
-        // <BookCover imgSrc={element.imageUrls[0]} />
-        const bookCover = (<a href={target} className="bookItem">
-                  <img src={element.imageUrl[0]}/>
-                </a>);
-        const bookListItem = (<div>
+      const target = `http://browse.nypl.org/iii/encore/record/C__Rb${element.bibNumber}`;
+      const bookCover = (
+        <a href={target} className="bookItem">
+          <BookCover imgSrc={element.imageUrl[0] ? element.imageUrl[0] : null } testkey={i}/>
+        </a>
+      );
+      const bookListItem = (
+        <div>
+          <a href={target}>
             <h2>{element.title}</h2>
-            <p>{element.author ? element.author : null}</p>
-          </div>);
-        const listDisplay = displayType === 'grid' ? styles.gridWidth : styles.listWidth;
+          </a>
+          <p>{element.author ? element.author : null}</p>
+        </div>
+      );
+      const listDisplay = displayType === 'grid' ? styles.gridWidth : styles.listWidth;
 
-        return (
-          <li className='book-item' key={i} style={listDisplay}>
-            {displayType === 'grid' ? bookCover : bookListItem}
-          </li>
-        );
-      });
+      return (
+        <li className='book-item' key={i} style={listDisplay}>
+          {displayType === 'grid' ? bookCover : bookListItem}
+        </li>
+      );
+    });
 
     if (this.iso != null) {
       setTimeout(() => {
         this.iso.arrange();
-      }, 800);
+      }, 300);
     }
 
     return books;
@@ -102,6 +106,10 @@ class Isotopes extends React.Component {
     if (this.iso == null) {
       $('.isotopeGrid').css('opacity', '1');
       this.iso = new Isotope(ReactDOM.findDOMNode(this.refs.isotopeContainer), this.isoOptions);
+
+      setTimeout(() => {
+        this.iso.arrange();
+      }, 250);
     }
   }
   
