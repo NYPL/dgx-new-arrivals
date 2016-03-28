@@ -14,6 +14,7 @@ class NewArrivalsStore {
       updateDisplayView: Actions.UPDATE_DISPLAY_VIEW,
       toggleFilters: Actions.TOGGLE_FILTERS,
       updateDropDownValue: Actions.UPDATE_DROP_DOWN_VALUE,
+      updateFiltered: Actions.UPDATE_FILTERED,
     });
 
     this.on('init', () => {
@@ -21,6 +22,7 @@ class NewArrivalsStore {
       this.displayType =  'grid';
       this.toggleFilter = false;
       this.dropDownValue = '';
+      this.filters = {};
     });
   }
 
@@ -50,6 +52,10 @@ class NewArrivalsStore {
    */
   updateDropDownValue(value) {
     this.dropDownValue = value;
+  }
+
+  updateFiltered(obj) {
+    this.filters = obj;
   }
 }
 

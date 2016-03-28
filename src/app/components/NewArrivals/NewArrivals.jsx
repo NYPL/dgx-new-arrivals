@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import _ from 'underscore';
-import axios from 'axios';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 import Isotopes from '../Isotopes/Isotopes.jsx';
 import ToggleDisplay from '../ToggleDisplay/ToggleDisplay.jsx';
+import SelectedFilters from '../SelectedFilters/SelectedFilters.jsx';
 
 /**
  * Renders the main section of the New Arrivals app.
@@ -18,7 +18,6 @@ class NewArrivals extends React.Component {
 
     const store = NewArrivalsStore.getState();
     this.state = {
-      // all: _.flatten(store.newArrivalsData),
       all: store.newArrivalsData.bibItems,
       displayType: store.displayType,
     };
@@ -48,6 +47,7 @@ class NewArrivals extends React.Component {
     return (
       <div className="newArrivals-container">
         <h4>Browse New Releases</h4>
+        <SelectedFilters />
         <ToggleDisplay />
         <Isotopes
           booksArr={books}
