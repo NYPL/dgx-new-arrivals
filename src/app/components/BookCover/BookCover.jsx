@@ -20,7 +20,7 @@ class BookCover extends React.Component {
     this.checkImg();
   }
 
-  checkImg(){
+  checkImg() {
     this.setState({
       imageSrc: (this.props.imgSrc && this.props.imgSrc !== undefined) ?
         // Show the place holder if the book cover's ISBN is not available

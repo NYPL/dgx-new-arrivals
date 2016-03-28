@@ -38,7 +38,7 @@ class Isotopes extends React.Component {
    * Arrange the grid once we get new props for the component.
    */
   componentDidUpdate(prevProps) {
-    this.iso.arrange();
+    // this.iso.arrange();
   }
 
   /**
@@ -68,17 +68,19 @@ class Isotopes extends React.Component {
 
     const books = bookCoverItems.map((element, i) => {
       const target = `http://browse.nypl.org/iii/encore/record/C__Rb${element.bibNumber}`;
-      // <img src={element.imageUrl[0]}/>
-      // <BookCover imgSrc={element.imageUrl[0] ? element.imageUrl[0] : null } />
-      const bookCover = (<a href={target} className="bookItem">
-                <BookCover imgSrc={element.imageUrl[0] ? element.imageUrl[0] : null } testkey={i}/>
-              </a>);
-      const bookListItem = (<div>
+      const bookCover = (
+        <a href={target} className="bookItem">
+          <BookCover imgSrc={element.imageUrl[0] ? element.imageUrl[0] : null } testkey={i}/>
+        </a>
+      );
+      const bookListItem = (
+        <div>
           <a href={target}>
             <h2>{element.title}</h2>
           </a>
           <p>{element.author ? element.author : null}</p>
-        </div>);
+        </div>
+      );
       const listDisplay = displayType === 'grid' ? styles.gridWidth : styles.listWidth;
 
       return (
@@ -91,7 +93,7 @@ class Isotopes extends React.Component {
     if (this.iso != null) {
       setTimeout(() => {
         this.iso.arrange();
-      }, 800);
+      }, 300);
     }
 
     return books;
@@ -104,6 +106,10 @@ class Isotopes extends React.Component {
     if (this.iso == null) {
       $('.isotopeGrid').css('opacity', '1');
       this.iso = new Isotope(ReactDOM.findDOMNode(this.refs.isotopeContainer), this.isoOptions);
+
+      setTimeout(() => {
+        this.iso.arrange();
+      }, 250);
     }
   }
   

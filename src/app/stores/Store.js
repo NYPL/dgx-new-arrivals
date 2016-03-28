@@ -15,6 +15,7 @@ class NewArrivalsStore {
       toggleFilters: Actions.TOGGLE_FILTERS,
       updateDropDownValue: Actions.UPDATE_DROP_DOWN_VALUE,
       updateFiltered: Actions.UPDATE_FILTERED,
+      isotopeUpdate: Actions.ISOTOPE_UPDATE,
     });
 
     this.on('init', () => {
@@ -23,6 +24,7 @@ class NewArrivalsStore {
       this.toggleFilter = false;
       this.dropDownValue = '';
       this.filters = {};
+      this.isotopeUpdate = false;
     });
   }
 
@@ -56,6 +58,10 @@ class NewArrivalsStore {
 
   updateFiltered(obj) {
     this.filters = obj;
+  }
+
+  isotopeUpdate(bol) {
+    this.isotopeUpdate = bol;
   }
 }
 

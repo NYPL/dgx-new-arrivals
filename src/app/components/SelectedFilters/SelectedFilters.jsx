@@ -51,8 +51,10 @@ class SelectedFilters extends React.Component {
     axios
       .get(`/api?${queries}&itemCount=18`)
       .then(response => {
-        console.log(response.data);
         Actions.updateNewArrivalsData(response.data);
+        setTimeout(() => {
+          Actions.isotopeUpdate(true);
+        }, 300);
       })
       .catch(error => {
         console.log(`error making ajax call: ${error}`);
