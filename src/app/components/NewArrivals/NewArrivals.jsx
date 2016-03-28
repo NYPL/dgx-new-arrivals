@@ -17,10 +17,7 @@ class NewArrivals extends React.Component {
     super(props);
 
     const store = NewArrivalsStore.getState();
-    this.state = {
-      all: store.newArrivalsData.bibItems,
-      displayType: store.displayType,
-    };
+    this.state = NewArrivalsStore.getState();
 
     this._onChange = this._onChange.bind(this);
   }
@@ -34,16 +31,13 @@ class NewArrivals extends React.Component {
   }
 
   _onChange() {
-    this.setState({
-      displayType: NewArrivalsStore.getState().displayType,
-      all: NewArrivalsStore.getState().newArrivalsData.bibItems
-    });
+    this.setState(NewArrivalsStore.getState());
   }
 
   render() {
-    const books = this.state.all;
+    const books = this.state.newArrivalsData.bibItems;
     const displayType = this.state.displayType;
-
+// console.log(books);
     return (
       <div className="newArrivals-container">
         <h4>Browse New Releases</h4>

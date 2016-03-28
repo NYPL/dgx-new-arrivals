@@ -51,6 +51,7 @@ class SelectedFilters extends React.Component {
     axios
       .get(`/api?${queries}&itemCount=18`)
       .then(response => {
+        console.log(response.data);
         Actions.updateNewArrivalsData(response.data);
       })
       .catch(error => {
