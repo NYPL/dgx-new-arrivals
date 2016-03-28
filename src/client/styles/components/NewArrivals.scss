@@ -9,11 +9,16 @@
     min-height: 500px;
 
     h4 {
+      display: inline-block;
       font-size: 20px;
       color: #837e77;
-      display: inline-block;
-      margin: 10px 0 0 0;
+      margin: 10px 0;
       @include Kievit-Medium;
+
+      @include min-screen(768px) {
+        width: 100%;
+        display: block;
+      }
     }
   }
 }

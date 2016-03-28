@@ -32,6 +32,10 @@ class Actions {
   updateDropDownValue(value) {
     this.dispatch(value);
   }
+
+  updateFiltered(obj) {
+    this.dispatch(obj);
+  }
 };
 
 export default alt.createActions(Actions);

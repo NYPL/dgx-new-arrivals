@@ -49,6 +49,7 @@ function NewArrivalsApp(req, res, next) {
         NewArrivalsStore: {
           displayType: 'grid',
           newArrivalsData: newArrivalsData.data,
+          filters: {}
         },
         completeApiUrl: ''
       };
@@ -70,7 +71,7 @@ function NewArrivalsApp(req, res, next) {
 
 function SelectPage(req, res) {
   const query = req.query;
-  const audience = query.language || '';
+  const audience = query.audience || '';
   const bibNumber = query.bibNumber || '';
   const days = query.days || '';
   const format = query.format || '';
@@ -82,7 +83,7 @@ function SelectPage(req, res) {
   const audienceQuery = audience ? `&audience=${audience}` : '';
   const languageQuery = language ? `&language=${language}` : '';
   const apiUrl = `${newArrivalsApi.bibItems}?${formatQuery}` +
-    `${languageQuery}&itemCount=${itemCount}`;
+    `${languageQuery}${audienceQuery}&itemCount=${itemCount}`;
 
   axios
     .get(apiUrl)
