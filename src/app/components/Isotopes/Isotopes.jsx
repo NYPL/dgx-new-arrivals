@@ -70,7 +70,10 @@ class Isotopes extends React.Component {
       const target = `http://browse.nypl.org/iii/encore/record/C__Rb${element.bibNumber}`;
       const bookCover = (
         <a href={target} className="bookItem">
-          <BookCover imgSrc={element.imageUrl[0] ? element.imageUrl[0] : null } testkey={i}/>
+          <BookCover
+            imgSrc={element.imageUrl[0] ? element.imageUrl[0] : null } testkey={i}
+            name={element.title}
+          />
         </a>
       );
       const bookListItem = (
