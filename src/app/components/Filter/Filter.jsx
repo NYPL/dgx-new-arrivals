@@ -141,6 +141,7 @@ class Filter extends React.Component {
     }
 
     this._selectFilter(queries);
+    this._closeFilters();
   }
 
   _resetFilters() {
