@@ -11,10 +11,14 @@
   padding: 0;
 
   @include min-screen($tablet-portrait) {
-    width: 150px;
+    width: 130px;
     color: #837e77;
     background-color: #fff;
     border: 2px solid #837e77;
+  }
+
+  @include min-screen($tablet-landscape) {
+    width: 150px;
   }
 
   .icon {
