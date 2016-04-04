@@ -87,3 +87,57 @@ Import style rules from App components
     }
   }
 }
+@include sgs-change('debug', true);
+
+.nyplNewArrivals {
+  // @include background-grid($color: blue);
+}
+
+.left-navigation {
+  cursor: pointer;
+  display: block;
+  background-color: #ed1c24;
+  text-transform: uppercase;
+  @include Kievit-Medium;
+
+  @include min-screen(768px) {
+    background-color: #fff;
+  }
+
+  .browse-button {
+    display: none;
+
+    @include min-screen(768px) {
+      display: block;
+      color: #9c9890;
+      text-align: right;
+      text-decoration: none;
+      margin: 15px 0;
+      font-size: 13px;
+    }
+  }
+
+  .back-button {
+    border-top-style: none;
+    font-size: 14px;
+    display: block;
+    padding: 20px 10px;
+    color: #fff;
+
+    @include min-screen(768px) {
+      text-align: right;
+      font-size: 16px;
+      color: #9c9890;
+      background-color: #fff;
+      padding: 15px 0;
+      border-top: 2px solid #9c9890;
+    }
+  }
+}
+
+.main-content {
+  @include min-screen(768px) {
+    margin-top: 30px;
+  }
+}
+

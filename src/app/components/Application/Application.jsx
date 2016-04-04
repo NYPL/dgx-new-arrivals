@@ -21,10 +21,22 @@ class App extends React.Component {
       <div className="nyplNewArrivalsApp">
         <Header />
 
-        <div className="nyplNewArrivals nyplGrid">
-          <Search />
+        <div className="nyplNewArrivals nyplGrid-fullWidth">
 
-          <NewArrivals />
+          <div id="left-navigation" className="left-navigation">
+            <a className="browse-button" href="http://nypl.org/browse">
+              Browse >
+            </a>
+            <a id="back-button" className="back-button">
+              <span>Books/ Music/ DVDs</span>
+            </a>
+          </div>
+
+          <div className="main-content">
+            <Search />
+
+            <NewArrivals />
+          </div>
         </div>
 
         <Footer />

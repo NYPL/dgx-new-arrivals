@@ -6,14 +6,14 @@
     list-style: none;
     margin: 10px 0;
     padding: 0;
-    width: 500px;
+    width: 320px;
     float: left;
 
     li {
       @include Kievit-Medium;
       display: inline-block;
       float: left;
-      margin-right: 20px;
+      margin-right: 15px;
       font-size: 12px;
       text-transform: uppercase;
       color: #837e77;

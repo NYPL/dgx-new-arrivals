@@ -56,6 +56,7 @@ class BookCover extends React.Component {
         className={`${this.props.className} ${this.state.errorStatus}`}
         ref="coverImage"
         src={this.state.imageSrc}
+        title={this.props.name}
         alt={this.props.name} />
     );
   }
