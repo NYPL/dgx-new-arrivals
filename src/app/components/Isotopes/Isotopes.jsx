@@ -66,6 +66,10 @@ class Isotopes extends React.Component {
   _generateItemsToDisplay(booksArr, displayType) {
     const bookCoverItems = booksArr; //_.chain(booksArr).flatten().value();
 
+    if (bookCoverItems.length === 0) {
+      return null;
+    }
+
     const books = bookCoverItems.map((element, i) => {
       const target = `http://browse.nypl.org/iii/encore/record/C__Rb${element.bibNumber}`;
       const bookCover = (
@@ -117,7 +121,7 @@ class Isotopes extends React.Component {
   }
   
   render() {
-    const booksArr = this.props.booksArr;
+    const booksArr = this.props.booksArr.length ? this.props.booksArr : [];
     const displayType = this.props.displayType;
     const books = this._generateItemsToDisplay(booksArr, displayType);
 
