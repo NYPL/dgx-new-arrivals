@@ -35,7 +35,7 @@ class NewArrivals extends React.Component {
   }
 
   render() {
-    const books = this.state.newArrivalsData.bibItems;
+    const books = this.state.newArrivalsData ? this.state.newArrivalsData.bibItems : [];
     const displayType = this.state.displayType;
 
     return (
