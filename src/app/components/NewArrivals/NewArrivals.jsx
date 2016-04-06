@@ -37,6 +37,10 @@ class NewArrivals extends React.Component {
     this.setState(NewArrivalsStore.getState());
   }
 
+  loadMore() {
+    
+  }
+
   render() {
     const books = this.state.newArrivalsData ? this.state.newArrivalsData.bibItems : [];
     const displayType = this.state.displayType;
@@ -49,6 +53,7 @@ class NewArrivals extends React.Component {
         <Isotopes
           booksArr={books}
           displayType={displayType} />
+        <a onClick={this.loadMore}>CLICK FOR MORE</a>
       </div>
     );
   }

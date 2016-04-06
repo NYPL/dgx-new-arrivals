@@ -16,6 +16,7 @@ class NewArrivalsStore {
       updateDropDownValue: Actions.UPDATE_DROP_DOWN_VALUE,
       updateFiltered: Actions.UPDATE_FILTERED,
       isotopeUpdate: Actions.ISOTOPE_UPDATE,
+      updateActiveFilters: Actions.UPDATE_ACTIVE_FILTERS,
     });
 
     this.on('init', () => {
@@ -23,8 +24,13 @@ class NewArrivalsStore {
       this.displayType =  'grid';
       this.toggleFilter = false;
       this.dropDownValue = '';
-      this.filters = {};
+      this.filters = {
+        format: '',
+        audience: '',
+        language: '',
+      };
       this.isotopeUpdate = false;
+      this.activeFilters = false;
     });
   }
 
@@ -62,6 +68,10 @@ class NewArrivalsStore {
 
   isotopeUpdate(bol) {
     this.isotopeUpdate = bol;
+  }
+
+  updateActiveFilters(bol) {
+    this.activeFilters = bol;
   }
 }
 

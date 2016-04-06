@@ -11,6 +11,8 @@ import FilterList from './FilterList.jsx';
 
 import appConfig from '../../../../appConfig.js';
 
+import _ from 'underscore';
+
 const { appFilters } = appConfig;
 
 class IconButton extends React.Component {
@@ -96,12 +98,25 @@ class Filter extends React.Component {
     this.manageSelected = this.manageSelected.bind(this);
     this._submitFilters = this._submitFilters.bind(this);
     this._resetFilters = this._resetFilters.bind(this);
+    this._onChange = this._onChange.bind(this);
     this.state = {
-      format: '',
-      audience: '',
-      language: '',
-      availability: '',
+      active: NewArrivalsStore.getState().activeFilters,
+      filters: NewArrivalsStore.getState().filters,
     }
+  }
+  componentDidMount() {
+    NewArrivalsStore.listen(this._onChange);
+  }
+
+  componentWillUnmount() {
+    NewArrivalsStore.unlisten(this._onChange);
+  }
+
+  _onChange() {
+    this.setState({
+      active: NewArrivalsStore.getState().activeFilters,
+      filters: NewArrivalsStore.getState().filters,
+    });
   }
 
   _closeFilters() {
@@ -114,7 +129,8 @@ class Filter extends React.Component {
       .then(response => {
         console.log(response.data);
         Actions.updateNewArrivalsData(response.data);
-        Actions.updateFiltered(this.state);
+        Actions.updateFiltered(this.state.filters);
+        Actions.updateActiveFilters(this.state.active);
 
         setTimeout(() => {
           Actions.isotopeUpdate(true);
@@ -127,15 +143,25 @@ class Filter extends React.Component {
 
   manageSelected(item) {
     const filter = item.filter.toLowerCase();
+    const filters = this.state.filters;
+    let active = false;
 
-    // ES6 dynamic keys! woohoo
+    filters[filter] = item.selected;
+
+    for (let filter in filters) {
+      if (filters[filter] !== '') {
+        active = true;
+      }
+    }
+
     this.setState({
-      [filter]: item.selected
+      filters,
+      active,
     });
   }
 
   _submitFilters() {
-    const filters = this.state;
+    const filters = this.state.filters;
     let queries = '';
 
     for (const filter in filters) {
@@ -149,28 +175,29 @@ class Filter extends React.Component {
   }
 
   _resetFilters() {
+    Actions.updateActiveFilters(false);
     this.setState({
-      format: '',
-      audience: '',
-      language: '',
-      availability: '',
+      filters: {
+        format: '',
+        audience: '',
+        language: '',
+      }
     });
 
     this._selectFilter();
   }
 
   render() {
+    const filters = this.state.filters;
     const formatData = appFilters.formatData;
     const audienceData = appFilters.audienceData;
     const languageData = appFilters.languageData;
-    const availabilityData = appFilters.availabilityData;
+    const activeSubmitButtons = this.state.active ? 'active' : '';
 
-    formatData.active = this.state.format;
-    audienceData.active = this.state.audience;
-    languageData.active = this.state.language;
-    availabilityData.active = this.state.availability;
+    formatData.active = filters.format;
+    audienceData.active = filters.audience;
+    languageData.active = filters.language;
 
-    // console.log(this.state);
     return (
       <div className={`filter-wrapper ${this.props.active}`}>
         <div className="filter-header-mobile">
@@ -185,7 +212,7 @@ class Filter extends React.Component {
           <FilterList list={languageData} manageSelected={this.manageSelected} />
         </ul>
 
-        <div className="submit-buttons">
+        <div className={`submit-buttons ${activeSubmitButtons}`}>
           <button className="PillButton apply" onClick={this._submitFilters}>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
               <title>apply.icon.svg</title>
