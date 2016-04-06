@@ -37,6 +37,7 @@ Import style rules from App components
 @import 'components/ToggleDisplay';
 @import 'components/Filter';
 @import 'components/SelectedFilters';
+@import 'components/FilterToggle';
 
 .filter {
   &-header-mobile {

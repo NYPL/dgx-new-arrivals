@@ -139,7 +139,7 @@ class Filter extends React.Component {
     let queries = '';
 
     for (const filter in filters) {
-      if (filters[filter] !== '' && filter !== 'availability') {
+      if (filters[filter] !== '') {
         queries += `&${filter}=${filters[filter]}`;
       }
     }
@@ -183,7 +183,6 @@ class Filter extends React.Component {
           <FilterList list={formatData} manageSelected={this.manageSelected} />
           <FilterList list={audienceData} manageSelected={this.manageSelected} />
           <FilterList list={languageData} manageSelected={this.manageSelected} />
-          <FilterList list={availabilityData} manageSelected={this.manageSelected} />
         </ul>
 
         <div className="submit-buttons">

@@ -8,7 +8,7 @@
   > li {
     display: inline-block;
 
-    &:nth-child(2) {
+    &:nth-child(n+2) {
       margin-left: 5px;
     }
   }

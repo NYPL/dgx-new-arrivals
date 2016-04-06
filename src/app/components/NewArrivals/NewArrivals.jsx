@@ -8,6 +8,9 @@ import Actions from '../../actions/Actions.js';
 import Isotopes from '../Isotopes/Isotopes.jsx';
 import ToggleDisplay from '../ToggleDisplay/ToggleDisplay.jsx';
 import SelectedFilters from '../SelectedFilters/SelectedFilters.jsx';
+import appConfig from '../../../../appConfig.js';
+
+const { appFilters } = appConfig;
 
 /**
  * Renders the main section of the New Arrivals app.
