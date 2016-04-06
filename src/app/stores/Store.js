@@ -17,6 +17,7 @@ class NewArrivalsStore {
       updateFiltered: Actions.UPDATE_FILTERED,
       isotopeUpdate: Actions.ISOTOPE_UPDATE,
       updateActiveFilters: Actions.UPDATE_ACTIVE_FILTERS,
+      addMoreItems: Actions.ADD_MORE_ITEMS,
     });
 
     this.on('init', () => {
@@ -72,6 +73,10 @@ class NewArrivalsStore {
 
   updateActiveFilters(bol) {
     this.activeFilters = bol;
+  }
+
+  addMoreItems(data) {
+    this.newArrivalsData.bibItems = this.newArrivalsData.bibItems.concat(data);
   }
 }
 

@@ -44,6 +44,10 @@ class Actions {
   updateActiveFilters(bol) {
     this.dispatch(bol);
   }
+
+  addMoreItems(data) {
+    this.dispatch(data);
+  }
 };
 
 export default alt.createActions(Actions);

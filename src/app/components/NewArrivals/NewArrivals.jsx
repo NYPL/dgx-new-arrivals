@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import _ from 'underscore';
+import axios from 'axios';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -9,6 +10,8 @@ import Isotopes from '../Isotopes/Isotopes.jsx';
 import ToggleDisplay from '../ToggleDisplay/ToggleDisplay.jsx';
 import SelectedFilters from '../SelectedFilters/SelectedFilters.jsx';
 import appConfig from '../../../../appConfig.js';
+
+import PaginationButton from '../Buttons/PaginationButton.jsx';
 
 const { appFilters } = appConfig;
 
@@ -23,6 +26,7 @@ class NewArrivals extends React.Component {
     this.state = NewArrivalsStore.getState();
 
     this._onChange = this._onChange.bind(this);
+    this.loadMore = this.loadMore.bind(this);
   }
 
   componentDidMount() {
@@ -38,12 +42,33 @@ class NewArrivals extends React.Component {
   }
 
   loadMore() {
-    
+    const filters = this.state.filters;
+    let queries = '';
+
+    for (let filter in filters) {
+      if (filters[filter] !== '') {
+        queries += `&${filter}=${filters[filter]}`;
+      }
+    }
+
+    axios
+      .get(`/api?${queries}&itemCount=18`)
+      .then(response => {
+        Actions.addMoreItems(response.data.bibItems);
+
+        setTimeout(() => {
+          Actions.isotopeUpdate(true);
+        }, 300);
+      })
+      .catch(error => {
+        console.log(`error making ajax call: ${error}`);
+      }); /* end Axios call */
   }
 
   render() {
     const books = this.state.newArrivalsData ? this.state.newArrivalsData.bibItems : [];
     const displayType = this.state.displayType;
+    const isLoading = false;
 
     return (
       <div className="newArrivals-container">
@@ -53,7 +78,13 @@ class NewArrivals extends React.Component {
         <Isotopes
           booksArr={books}
           displayType={displayType} />
-        <a onClick={this.loadMore}>CLICK FOR MORE</a>
+        <PaginationButton
+          id='page-button'
+          className={`page-button`}
+          dots="3"
+          label="LOAD MORE"
+          isLoading={isLoading}
+          onClick={this.loadMore}/>
       </div>
     );
   }
