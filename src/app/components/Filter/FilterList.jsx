@@ -37,11 +37,11 @@ class FilterList extends React.Component {
 
     return _map(list, (item, i) => {
       return <FilterListItem
-              item={item}
+              item={item.label}
               filter={this.props.list.title}
-              active={activeItem === item}
+              active={activeItem === item.id}
               key={i}
-              onClick={this._setActive.bind(this, item)} />;
+              onClick={this._setActive.bind(this, item.id)} />;
     });
   }
 

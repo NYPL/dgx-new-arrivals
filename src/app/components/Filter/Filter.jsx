@@ -9,6 +9,10 @@ import Actions from '../../actions/Actions.js';
 
 import FilterList from './FilterList.jsx';
 
+import appConfig from '../../../../appConfig.js';
+
+const { appFilters } = appConfig;
+
 class IconButton extends React.Component {
   constructor(props) {
     super(props);
@@ -141,6 +145,7 @@ class Filter extends React.Component {
     }
 
     this._selectFilter(queries);
+    this._closeFilters();
   }
 
   _resetFilters() {
@@ -155,27 +160,15 @@ class Filter extends React.Component {
   }
 
   render() {
-    const formatData = {
-      title: 'Format',
-      data: ['AUDIOBOOK', 'BLU-RAY', 'BOOK/TEXT', 'DVD', 'E-AUDIOBOOK',
-        'E-BOOK', 'LARGE PRINT', 'MUSIC CD'],
-      active: this.state.format,
-    };
-    const audienceData = {
-      title: 'Audience',
-      data: ['Adult', 'Children', 'Young Adult'],
-      active: this.state.audience,
-    };
-    const languageData = {
-      title: 'Language',
-      data: ['English', 'Spanish', 'Chinese', 'Russian', 'French'],
-      active: this.state.language,
-    };
-    const availabilityData = {
-      title: 'Availability',
-      data: ['Just Arrived', 'On Order'],
-      active: this.state.availability,
-    };
+    const formatData = appFilters.formatData;
+    const audienceData = appFilters.audienceData;
+    const languageData = appFilters.languageData;
+    const availabilityData = appFilters.availabilityData;
+
+    formatData.active = this.state.format;
+    audienceData.active = this.state.audience;
+    languageData.active = this.state.language;
+    availabilityData.active = this.state.availability;
 
     // console.log(this.state);
     return (

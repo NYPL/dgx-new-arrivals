@@ -33,4 +33,48 @@ export default {
       'relationships': {'parent': 'null'}
     }
   },
+  appFilters: {
+    formatData: {
+      title: 'Format',
+      data:[
+        { id: 'BOOK/TEXT', label: 'Book' },
+        { id: 'AUDIOBOOK', label: 'Audiobook' },
+        { id: 'BLU-RAY', label: 'Blu-ray' },
+        { id: 'DVD', label: 'DVD' },
+        { id: 'E-AUDIOBOOK', label: 'E-Audiobook' },
+        { id: 'E-BOOK', label: 'E-Book' },
+        { id: 'LARGE PRINT', label: 'Large Print' },
+        { id: 'MUSIC CD', label: 'Music CD' },
+      ],
+      active: '',
+    },
+    audienceData: {
+      title: 'Audience',
+      data: [
+        { id: 'Adult', label: 'Adult' },
+        { id: 'Children', label: 'Children' },
+        { id: 'Young Adult', label: 'Young Adult' },
+      ],
+      active: '',
+    },
+    languageData: {
+      title: 'Language',
+      data: [
+        { id: 'English', label: 'English' },
+        { id: 'Spanish', label: 'Spanish' },
+        { id: 'Chinese', label: 'Chinese' },
+        { id: 'Russian', label: 'Russian' },
+        { id: 'French', label: 'French' },
+      ],
+      active: '',
+    },
+    availabilityData: {
+      title: 'Availability',
+      data: [
+        { id: 'Just Arrived', label: 'Just Arrived' },
+        { id: 'On Order', label: 'On Order' },
+      ],
+      active: '',
+    },
+  },
 };
