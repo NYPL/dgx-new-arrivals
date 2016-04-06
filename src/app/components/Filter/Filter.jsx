@@ -11,6 +11,8 @@ import FilterList from './FilterList.jsx';
 
 import appConfig from '../../../../appConfig.js';
 
+import _ from 'underscore';
+
 const { appFilters } = appConfig;
 
 class IconButton extends React.Component {
@@ -96,12 +98,26 @@ class Filter extends React.Component {
     this.manageSelected = this.manageSelected.bind(this);
     this._submitFilters = this._submitFilters.bind(this);
     this._resetFilters = this._resetFilters.bind(this);
+    this._onChange = this._onChange.bind(this);
     this.state = {
+      active: false,
       format: '',
       audience: '',
       language: '',
-      availability: '',
     }
+  }
+  componentDidMount() {
+    NewArrivalsStore.listen(this._onChange);
+  }
+
+  componentWillUnmount() {
+    NewArrivalsStore.unlisten(this._onChange);
+  }
+
+  _onChange() {
+    this.setState({
+      active: NewArrivalsStore.getState().activeFilters
+    });
   }
 
   _closeFilters() {
@@ -125,12 +141,28 @@ class Filter extends React.Component {
       }); /* end Axios call */
   }
 
+  onSelected(item) {
+    const filters = _.omit(this.state, 'active');
+    filters[item.filter.toLowerCase()] = item.selected;
+
+    for (let filter in filters) {
+      if (filters[filter] !== '') {
+        Actions.updateActiveFilters(true);
+        return;
+      }
+    }
+    Actions.updateActiveFilters(false);
+    return;
+  }
+
   manageSelected(item) {
     const filter = item.filter.toLowerCase();
 
+    this.onSelected(item);
+
     // ES6 dynamic keys! woohoo
     this.setState({
-      [filter]: item.selected
+      [filter]: item.selected,
     });
   }
 
@@ -149,11 +181,11 @@ class Filter extends React.Component {
   }
 
   _resetFilters() {
+    Actions.updateActiveFilters(false);
     this.setState({
       format: '',
       audience: '',
       language: '',
-      availability: '',
     });
 
     this._selectFilter();
@@ -163,12 +195,12 @@ class Filter extends React.Component {
     const formatData = appFilters.formatData;
     const audienceData = appFilters.audienceData;
     const languageData = appFilters.languageData;
-    const availabilityData = appFilters.availabilityData;
 
     formatData.active = this.state.format;
     audienceData.active = this.state.audience;
     languageData.active = this.state.language;
-    availabilityData.active = this.state.availability;
+
+    const activeSubmitButtons = this.state.active ? 'active' : '';
 
     // console.log(this.state);
     return (
@@ -185,7 +217,7 @@ class Filter extends React.Component {
           <FilterList list={languageData} manageSelected={this.manageSelected} />
         </ul>
 
-        <div className="submit-buttons">
+        <div className={`submit-buttons ${activeSubmitButtons}`}>
           <button className="PillButton apply" onClick={this._submitFilters}>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
               <title>apply.icon.svg</title>
