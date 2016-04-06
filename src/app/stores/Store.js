@@ -24,7 +24,11 @@ class NewArrivalsStore {
       this.displayType =  'grid';
       this.toggleFilter = false;
       this.dropDownValue = '';
-      this.filters = {};
+      this.filters = {
+        format: '',
+        audience: '',
+        language: '',
+      };
       this.isotopeUpdate = false;
       this.activeFilters = false;
     });

@@ -100,10 +100,8 @@ class Filter extends React.Component {
     this._resetFilters = this._resetFilters.bind(this);
     this._onChange = this._onChange.bind(this);
     this.state = {
-      active: false,
-      format: '',
-      audience: '',
-      language: '',
+      active: NewArrivalsStore.getState().activeFilters,
+      filters: NewArrivalsStore.getState().filters,
     }
   }
   componentDidMount() {
@@ -116,7 +114,8 @@ class Filter extends React.Component {
 
   _onChange() {
     this.setState({
-      active: NewArrivalsStore.getState().activeFilters
+      active: NewArrivalsStore.getState().activeFilters,
+      filters: NewArrivalsStore.getState().filters,
     });
   }
 
@@ -130,7 +129,8 @@ class Filter extends React.Component {
       .then(response => {
         console.log(response.data);
         Actions.updateNewArrivalsData(response.data);
-        Actions.updateFiltered(this.state);
+        Actions.updateFiltered(this.state.filters);
+        Actions.updateActiveFilters(this.state.active);
 
         setTimeout(() => {
           Actions.isotopeUpdate(true);
@@ -141,33 +141,27 @@ class Filter extends React.Component {
       }); /* end Axios call */
   }
 
-  onSelected(item) {
-    const filters = _.omit(this.state, 'active');
-    filters[item.filter.toLowerCase()] = item.selected;
+  manageSelected(item) {
+    const filter = item.filter.toLowerCase();
+    const filters = this.state.filters;
+    let active = false;
+
+    filters[filter] = item.selected;
 
     for (let filter in filters) {
       if (filters[filter] !== '') {
-        Actions.updateActiveFilters(true);
-        return;
+        active = true;
       }
     }
-    Actions.updateActiveFilters(false);
-    return;
-  }
 
-  manageSelected(item) {
-    const filter = item.filter.toLowerCase();
-
-    this.onSelected(item);
-
-    // ES6 dynamic keys! woohoo
     this.setState({
-      [filter]: item.selected,
+      filters,
+      active,
     });
   }
 
   _submitFilters() {
-    const filters = this.state;
+    const filters = this.state.filters;
     let queries = '';
 
     for (const filter in filters) {
@@ -183,26 +177,27 @@ class Filter extends React.Component {
   _resetFilters() {
     Actions.updateActiveFilters(false);
     this.setState({
-      format: '',
-      audience: '',
-      language: '',
+      filters: {
+        format: '',
+        audience: '',
+        language: '',
+      }
     });
 
     this._selectFilter();
   }
 
   render() {
+    const filters = this.state.filters;
     const formatData = appFilters.formatData;
     const audienceData = appFilters.audienceData;
     const languageData = appFilters.languageData;
-
-    formatData.active = this.state.format;
-    audienceData.active = this.state.audience;
-    languageData.active = this.state.language;
-
     const activeSubmitButtons = this.state.active ? 'active' : '';
 
-    // console.log(this.state);
+    formatData.active = filters.format;
+    audienceData.active = filters.audience;
+    languageData.active = filters.language;
+
     return (
       <div className={`filter-wrapper ${this.props.active}`}>
         <div className="filter-header-mobile">
