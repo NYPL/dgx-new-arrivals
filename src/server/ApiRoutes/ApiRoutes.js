@@ -49,7 +49,11 @@ function NewArrivalsApp(req, res, next) {
         NewArrivalsStore: {
           displayType: 'grid',
           newArrivalsData: newArrivalsData.data,
-          filters: {}
+          filters: {
+            format: '',
+            audience: '',
+            language: '',
+          }
         },
         completeApiUrl: ''
       };
@@ -61,8 +65,17 @@ function NewArrivalsApp(req, res, next) {
       console.log('Attempted to call : ' + baseApiUrl);
 
       res.locals.data = {
-        Store: {
-          _storeVar: []
+        HeaderStore: {
+          headerData: [],
+        },
+        NewArrivalsStore: {
+          displayType: 'grid',
+          newArrivalsData: [],
+          filters: {
+            format: '',
+            audience: '',
+            language: '',
+          }
         },
       };
       next();
