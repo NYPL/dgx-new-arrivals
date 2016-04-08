@@ -99,7 +99,7 @@ class Isotopes extends React.Component {
       );
     });
 
-    if (this.iso != null) {
+    if (this.iso !== null) {
       setTimeout(() => {
         this.iso.arrange();
       }, 250);
@@ -123,7 +123,7 @@ class Isotopes extends React.Component {
   }
   
   render() {
-    const booksArr = this.props.booksArr.length ? this.props.booksArr : [];
+    const booksArr = this.props.booksArr && this.props.booksArr.length ? this.props.booksArr : [];
     const displayType = this.props.displayType;
     const books = this._generateItemsToDisplay(booksArr, displayType);
 
