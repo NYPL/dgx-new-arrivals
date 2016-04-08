@@ -99,7 +99,7 @@ class Isotopes extends React.Component {
       );
     });
 
-    if (this.iso !== null) {
+    if (this.iso != null) {
       setTimeout(() => {
         this.iso.arrange();
       }, 250);
