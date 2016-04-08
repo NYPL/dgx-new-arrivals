@@ -8,6 +8,9 @@ import Actions from '../../actions/Actions.js';
 import Isotopes from '../Isotopes/Isotopes.jsx';
 import ToggleDisplay from '../ToggleDisplay/ToggleDisplay.jsx';
 import SelectedFilters from '../SelectedFilters/SelectedFilters.jsx';
+import appConfig from '../../../../appConfig.js';
+
+const { appFilters } = appConfig;
 
 /**
  * Renders the main section of the New Arrivals app.
@@ -34,6 +37,10 @@ class NewArrivals extends React.Component {
     this.setState(NewArrivalsStore.getState());
   }
 
+  loadMore() {
+    
+  }
+
   render() {
     const books = this.state.newArrivalsData ? this.state.newArrivalsData.bibItems : [];
     const displayType = this.state.displayType;
@@ -46,6 +53,7 @@ class NewArrivals extends React.Component {
         <Isotopes
           booksArr={books}
           displayType={displayType} />
+        <a onClick={this.loadMore}>CLICK FOR MORE</a>
       </div>
     );
   }

@@ -11,6 +11,7 @@ import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 import Filter from '../Filter/Filter.jsx';
+import FilterToggle from '../Filter/FilterToggle.jsx';
 
 import _ from 'underscore';
 
@@ -111,6 +112,7 @@ class ToggleDisplay extends React.Component {
 
     return (
       <ul className="ToggleDisplay">
+        <li><FilterToggle /></li>
         <li>
           <PillButton
             className="view"

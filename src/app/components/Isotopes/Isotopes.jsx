@@ -38,7 +38,9 @@ class Isotopes extends React.Component {
    * Arrange the grid once we get new props for the component.
    */
   componentDidUpdate(prevProps) {
-    // this.iso.arrange();
+    setTimeout(() => {
+      this.iso.reloadItems();
+    }, 250);
   }
 
   /**
@@ -100,7 +102,7 @@ class Isotopes extends React.Component {
     if (this.iso != null) {
       setTimeout(() => {
         this.iso.arrange();
-      }, 300);
+      }, 250);
     }
 
     return books;

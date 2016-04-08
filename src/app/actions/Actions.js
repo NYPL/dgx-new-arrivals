@@ -40,6 +40,10 @@ class Actions {
   isotopeUpdate(bol) {
     this.dispatch(bol);
   }
+
+  updateActiveFilters(bol) {
+    this.dispatch(bol);
+  }
 };
 
 export default alt.createActions(Actions);

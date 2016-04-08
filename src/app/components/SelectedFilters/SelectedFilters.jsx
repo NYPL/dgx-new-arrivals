@@ -34,7 +34,7 @@ class SelectedFilters extends React.Component {
     let queries = '';
 
     for (const filter in filters) {
-      if (filters[filter] !== '' && filter !== 'availability') {
+      if (filters[filter] !== '') {
         queries += `&${filter}=${filters[filter]}`;
       }
     }
@@ -45,6 +45,12 @@ class SelectedFilters extends React.Component {
   _removeFilter(filter, value) {
     const filters = this.state.filters;
     filters[filter] = '';
+
+    Actions.updateFiltered(_.omit(filters, 'active'));
+
+    if (!filters.length) {
+      Actions.updateActiveFilters(false);
+    }
 
     const queries = this._makeQuery(filters);
 
@@ -65,7 +71,7 @@ class SelectedFilters extends React.Component {
     return _.map(Object.keys(filters), (filter, i) => {
       const value = filters[filter];
 
-      if (value) {
+      if (value && filter !== 'active') {
         return (
           <li key={i} onClick={this._removeFilter.bind(this, filter, value)}>
             {value}
