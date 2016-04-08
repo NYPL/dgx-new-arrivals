@@ -127,7 +127,7 @@ class Filter extends React.Component {
     axios
       .get(`/api?${queries}&itemCount=18`)
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         Actions.updateNewArrivalsData(response.data);
         Actions.updateFiltered(this.state.filters);
         Actions.updateActiveFilters(this.state.active);
@@ -175,14 +175,14 @@ class Filter extends React.Component {
   }
 
   _resetFilters() {
-    Actions.updateActiveFilters(false);
-    this.setState({
-      filters: {
-        format: '',
-        audience: '',
-        language: '',
-      }
-    });
+    const filters = {
+      format: '',
+      audience: '',
+      language: '',
+    };
+
+    this.setState({ filters });
+    Actions.updateFiltered(filters);
 
     this._selectFilter();
   }
