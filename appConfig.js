@@ -13,6 +13,7 @@ export default {
   },
   newArrivalsApi: {
     base: 'http://10.224.6.14:8083/inventory',
+    audience: 'http://10.224.6.14:8083/inventory/audience',
     bibItems: 'http://10.224.6.14:8083/inventory/bibItems',
     formats: 'http://10.224.6.14:8083/inventory/formats',
     languages: 'http://10.224.6.14:8083/inventory/languages',
