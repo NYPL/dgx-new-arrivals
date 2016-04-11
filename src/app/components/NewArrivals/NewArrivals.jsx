@@ -22,8 +22,9 @@ class NewArrivals extends React.Component {
   constructor(props) {
     super(props);
 
-    const store = NewArrivalsStore.getState();
-    this.state = NewArrivalsStore.getState();
+    this.state = _.extend({
+      isLoading: false,
+    }, NewArrivalsStore.getState());
 
     this._onChange = this._onChange.bind(this);
     this.loadMore = this.loadMore.bind(this);
@@ -43,6 +44,7 @@ class NewArrivals extends React.Component {
 
   loadMore() {
     const filters = this.state.filters;
+    const pageNum = this.state.pageNum;
     let queries = '';
 
     for (let filter in filters) {
@@ -51,16 +53,31 @@ class NewArrivals extends React.Component {
       }
     }
 
+    console.log(`/api?${queries}&itemCount=18&pageNum=${pageNum}`);
+
+    axios.interceptors.request.use(config => {
+      // Do something before request is sent
+      this.setState({ isLoading : true });
+      return config;
+    }, error => {
+      // Do something with request error
+      return Promise.reject(error);
+    });
+
     axios
-      .get(`/api?${queries}&itemCount=18`)
+      .get(`/api?${queries}&itemCount=18&pageNum=${pageNum}`)
       .then(response => {
         Actions.addMoreItems(response.data.bibItems);
+        Actions.updatePageNum(true);
+
+        this.setState({ isLoading : false });
 
         setTimeout(() => {
           Actions.isotopeUpdate(true);
         }, 300);
       })
       .catch(error => {
+        this.setState({ isLoading : false });
         console.log(`error making ajax call: ${error}`);
       }); /* end Axios call */
   }
@@ -68,7 +85,7 @@ class NewArrivals extends React.Component {
   render() {
     const books = this.state.newArrivalsData ? this.state.newArrivalsData.bibItems : [];
     const displayType = this.state.displayType;
-    const isLoading = false;
+    const isLoading = this.state.isLoading;
 
     return (
       <div className="newArrivals-container">
@@ -78,6 +95,7 @@ class NewArrivals extends React.Component {
         <Isotopes
           booksArr={books}
           displayType={displayType} />
+
         <PaginationButton
           id='page-button'
           className={`page-button`}

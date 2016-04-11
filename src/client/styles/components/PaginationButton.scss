@@ -125,6 +125,9 @@ $COOL_GRAY_REGULAR: #837E77;
 }
 
 .page-button {
+  width: 120px;
+  margin: 50px auto;
+
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
@@ -135,18 +138,19 @@ $COOL_GRAY_REGULAR: #837E77;
   border-radius: 33px;
   color: $COOL_GRAY_LIGHT;
   cursor: pointer;
-  display: inline-block;
   font-family: Kievit-Medium;
   font-size: 13px;
   letter-spacing: 0.04em;
   line-height: 16.21px;
   overflow: hidden;
   padding: 5px 20px;
+
   &__dot-row {
     display: block;
     list-style: none;
     margin: 0 auto;
     padding: 0;
+
     &__element {
       border: 3px solid $COOL_GRAY_LIGHT;
       border-radius: 100%;
@@ -154,11 +158,13 @@ $COOL_GRAY_REGULAR: #837E77;
       margin: 0 4px 0 0;
       vertical-align: 1px;
     }
+
     &__number {
       display: inline-table;
       margin: 0 4px 0 0;
     }
   }
+
   &--hide {
     display: none;
   }

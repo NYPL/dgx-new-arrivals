@@ -116,6 +116,7 @@ class Filter extends React.Component {
     this.setState({
       active: NewArrivalsStore.getState().activeFilters,
       filters: NewArrivalsStore.getState().filters,
+      pageNum: NewArrivalsStore.getState().pageNum,
     });
   }
 
@@ -123,14 +124,26 @@ class Filter extends React.Component {
     Actions.toggleFilters(false);
   }
 
-  _selectFilter(queries) {
+  _selectFilter(queries, updatePageNum) {
+    const pageNum = updatePageNum ? `&pageNum=${this.state.pageNum}` : '';
+    let items = 18;
+    if (updatePageNum) {
+      items = 18 * (this.state.pageNum-1);
+    }
+
+    console.log(`/api?${queries}&itemCount=${items}`);
+
     axios
-      .get(`/api?${queries}&itemCount=18`)
+      .get(`/api?${queries}&itemCount=${items}`)
       .then(response => {
         // console.log(response.data);
         Actions.updateNewArrivalsData(response.data);
         Actions.updateFiltered(this.state.filters);
         Actions.updateActiveFilters(this.state.active);
+
+        if (!updatePageNum) {
+          Actions.updatePageNum(false);
+        }
 
         setTimeout(() => {
           Actions.isotopeUpdate(true);
@@ -170,7 +183,7 @@ class Filter extends React.Component {
       }
     }
 
-    this._selectFilter(queries);
+    this._selectFilter(queries, true);
     this._closeFilters();
   }
 
@@ -184,7 +197,7 @@ class Filter extends React.Component {
     this.setState({ filters });
     Actions.updateFiltered(filters);
 
-    this._selectFilter();
+    this._selectFilter('', false);
   }
 
   render() {
