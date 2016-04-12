@@ -53,6 +53,7 @@ function NewArrivalsApp(req, res, next) {
             format: '',
             audience: '',
             language: '',
+            genre: '',
           }
         },
         completeApiUrl: ''
@@ -75,6 +76,7 @@ function NewArrivalsApp(req, res, next) {
             format: '',
             audience: '',
             language: '',
+            genre: '',
           }
         },
       };

@@ -69,11 +69,12 @@ export default {
       ],
       active: '',
     },
-    availabilityData: {
-      title: 'Availability',
+    genreData: {
+      title: 'Genre',
       data: [
-        { id: 'Just Arrived', label: 'Just Arrived' },
-        { id: 'On Order', label: 'On Order' },
+        { id: 'Fiction', label: 'Fiction' },
+        { id: 'Nonfiction', label: 'Nonfiction' },
+        { id: 'Research', label: 'Research' },
       ],
       active: '',
     },
