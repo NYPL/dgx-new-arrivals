@@ -5,13 +5,10 @@ import parser from 'jsonapi-parserinator';
 import Model from 'dgx-model-data';
 
 import config from '../../../appConfig.js';
-import { map as _map } from 'underscore';
 
 // Syntax that both ES6 and Babel 6 support
 const { HeaderItemModel } = Model;
 const { api, headerApi, newArrivalsApi } = config;
-const baseUrl = newArrivalsApi.base;
-const itemCount = '18';
 
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
@@ -35,33 +32,15 @@ function getHeaderData() {
   return fetchApiData(headerApiUrl);
 }
 
-function getProp(arr, val) {
-  return _map(arr, (obj) => {
-    return obj[val];
-  });
-}
-
 function NewArrivalsApp(req, res, next) {
-  const apiUrl = `${baseUrl}${newArrivalsApi.bibItems}?&itemCount=${itemCount}`;
-  const languageEndpointUrl = `${baseUrl}${newArrivalsApi.languages}`;
-  const formatsEndpointUrl = `${baseUrl}${newArrivalsApi.formats}`;
-  const audienceEndpointUrl = `${baseUrl}${newArrivalsApi.audience}`;
+  const itemCount = '18';
+  const days = '60';
+  const baseApiUrl = `${newArrivalsApi.bibItems}?&itemCount=${itemCount}`;
 
-  axios.all([
-      getHeaderData(),
-      fetchApiData(apiUrl),
-      fetchApiData(audienceEndpointUrl),
-      fetchApiData(formatsEndpointUrl),
-      fetchApiData(languageEndpointUrl)
-    ])
-    .then(axios.spread((headerData, newArrivalsData, audienceData, formatsData, languageData) => {
+  axios.all([getHeaderData(), fetchApiData(baseApiUrl)])
+    .then(axios.spread((headerData, newArrivalsData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
-      const headerModelData = HeaderItemModel.build(headerParsed);
-
-      const audienceFilters = getProp(audienceData.data, 'name');
-      const formatsFilters = getProp(formatsData.data.formats, 'name');
-      const languageFilters = getProp(languageData.data, 'name');
-
+      const headerModelData = HeaderItemModel.build(headerParsed)
 
       res.locals.data = {
         HeaderStore: {
@@ -70,7 +49,11 @@ function NewArrivalsApp(req, res, next) {
         NewArrivalsStore: {
           displayType: 'grid',
           newArrivalsData: newArrivalsData.data,
-          filters: {}
+          filters: {
+            format: '',
+            audience: '',
+            language: '',
+          }
         },
         completeApiUrl: ''
       };
@@ -78,12 +61,21 @@ function NewArrivalsApp(req, res, next) {
       next();
     }))
     .catch(error => {
-      console.log(`error calling API : ${error}`);
-      console.log(`Attempted to call : ${apiUrl}`);
+      console.log('error calling API : ' + error);
+      console.log('Attempted to call : ' + baseApiUrl);
 
       res.locals.data = {
-        Store: {
-          _storeVar: []
+        HeaderStore: {
+          headerData: [],
+        },
+        NewArrivalsStore: {
+          displayType: 'grid',
+          newArrivalsData: [],
+          filters: {
+            format: '',
+            audience: '',
+            language: '',
+          }
         },
       };
       next();
@@ -112,8 +104,8 @@ function SelectPage(req, res) {
       res.json(response.data);
     })
     .catch(error => {
-      console.log(`error calling API : ${error}`);
-      console.log(`Attempted to call : ${apiUrl}`);
+      console.log('error calling API : ' + error);
+      console.log('Attempted to call : ' + apiUrl);
 
       res.json({
         error

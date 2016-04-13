@@ -5,16 +5,6 @@ import _ from 'underscore';
 
 import BookCover from '../BookCover/BookCover.jsx';
 
-const styles = {
-  listWidth: {
-    width: '100%',
-  },
-  gridWidth: {
-    width: '140px'
-  },
-};
-
-
 /**
  * Isotopes grid container component
  * @extends {React}
@@ -26,7 +16,7 @@ class Isotopes extends React.Component {
     this.isoOptions = {
       itemSelector: '.book-item',
       masonry: {
-        columnWidth: 140,
+        // columnWidth: 140,
         isResizable: true,
         // isFitWidth: true,
         gutter: 10
@@ -38,7 +28,9 @@ class Isotopes extends React.Component {
    * Arrange the grid once we get new props for the component.
    */
   componentDidUpdate(prevProps) {
-    // this.iso.arrange();
+    setTimeout(() => {
+      this.iso.reloadItems();
+    }, 250);
   }
 
   /**
@@ -88,10 +80,9 @@ class Isotopes extends React.Component {
           <p>{element.author ? element.author : null}</p>
         </div>
       );
-      const listDisplay = displayType === 'grid' ? styles.gridWidth : styles.listWidth;
 
       return (
-        <li className='book-item' key={i} style={listDisplay}>
+        <li className={`book-item ${displayType}`} key={i}>
           {displayType === 'grid' ? bookCover : bookListItem}
         </li>
       );
@@ -100,7 +91,7 @@ class Isotopes extends React.Component {
     if (this.iso != null) {
       setTimeout(() => {
         this.iso.arrange();
-      }, 300);
+      }, 250);
     }
 
     return books;
@@ -121,7 +112,7 @@ class Isotopes extends React.Component {
   }
   
   render() {
-    const booksArr = this.props.booksArr.length ? this.props.booksArr : [];
+    const booksArr = this.props.booksArr && this.props.booksArr.length ? this.props.booksArr : [];
     const displayType = this.props.displayType;
     const books = this._generateItemsToDisplay(booksArr, displayType);
 

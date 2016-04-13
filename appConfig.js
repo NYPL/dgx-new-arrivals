@@ -13,11 +13,11 @@ export default {
   },
   newArrivalsApi: {
     base: 'http://10.224.6.14:8083/inventory',
-    audience: '/audience',
-    bibItems: '/bibItems',
-    formats: '/formats',
-    languages: '/languages',
-    availableQueries: ['audience', 'bibNumber', 'days', 'format', 'itemCount', 'language', 'pageNum'],
+    audience: 'http://10.224.6.14:8083/inventory/audience',
+    bibItems: 'http://10.224.6.14:8083/inventory/bibItems',
+    formats: 'http://10.224.6.14:8083/inventory/formats',
+    languages: 'http://10.224.6.14:8083/inventory/languages',
+    availableQueries: ['audience', 'bibNumber', 'days', 'format', 'language', 'pageNum', 'itemCount'],
   },
   headerApi: {
     endpoint: '/api/nypl/ndo/v0.1/site-data/header-items',
@@ -33,5 +33,49 @@ export default {
     filters: {
       'relationships': {'parent': 'null'}
     }
+  },
+  appFilters: {
+    formatData: {
+      title: 'Format',
+      data:[
+        { id: 'BOOK/TEXT', label: 'Book' },
+        { id: 'AUDIOBOOK', label: 'Audiobook' },
+        { id: 'BLU-RAY', label: 'Blu-ray' },
+        { id: 'DVD', label: 'DVD' },
+        { id: 'E-AUDIOBOOK', label: 'E-Audiobook' },
+        { id: 'E-BOOK', label: 'E-Book' },
+        { id: 'LARGE PRINT', label: 'Large Print' },
+        { id: 'MUSIC CD', label: 'Music CD' },
+      ],
+      active: '',
+    },
+    audienceData: {
+      title: 'Audience',
+      data: [
+        { id: 'Adult', label: 'Adult' },
+        { id: 'Children', label: 'Children' },
+        { id: 'Young Adult', label: 'Young Adult' },
+      ],
+      active: '',
+    },
+    languageData: {
+      title: 'Language',
+      data: [
+        { id: 'English', label: 'English' },
+        { id: 'Spanish', label: 'Spanish' },
+        { id: 'Chinese', label: 'Chinese' },
+        { id: 'Russian', label: 'Russian' },
+        { id: 'French', label: 'French' },
+      ],
+      active: '',
+    },
+    availabilityData: {
+      title: 'Availability',
+      data: [
+        { id: 'Just Arrived', label: 'Just Arrived' },
+        { id: 'On Order', label: 'On Order' },
+      ],
+      active: '',
+    },
   },
 };

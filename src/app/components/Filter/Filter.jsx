@@ -9,6 +9,12 @@ import Actions from '../../actions/Actions.js';
 
 import FilterList from './FilterList.jsx';
 
+import appConfig from '../../../../appConfig.js';
+
+import _ from 'underscore';
+
+const { appFilters } = appConfig;
+
 class IconButton extends React.Component {
   constructor(props) {
     super(props);
@@ -92,12 +98,25 @@ class Filter extends React.Component {
     this.manageSelected = this.manageSelected.bind(this);
     this._submitFilters = this._submitFilters.bind(this);
     this._resetFilters = this._resetFilters.bind(this);
+    this._onChange = this._onChange.bind(this);
     this.state = {
-      format: '',
-      audience: '',
-      language: '',
-      availability: '',
+      active: NewArrivalsStore.getState().activeFilters,
+      filters: NewArrivalsStore.getState().filters,
     }
+  }
+  componentDidMount() {
+    NewArrivalsStore.listen(this._onChange);
+  }
+
+  componentWillUnmount() {
+    NewArrivalsStore.unlisten(this._onChange);
+  }
+
+  _onChange() {
+    this.setState({
+      active: NewArrivalsStore.getState().activeFilters,
+      filters: NewArrivalsStore.getState().filters,
+    });
   }
 
   _closeFilters() {
@@ -108,9 +127,10 @@ class Filter extends React.Component {
     axios
       .get(`/api?${queries}&itemCount=18`)
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         Actions.updateNewArrivalsData(response.data);
-        Actions.updateFiltered(this.state);
+        Actions.updateFiltered(this.state.filters);
+        Actions.updateActiveFilters(this.state.active);
 
         setTimeout(() => {
           Actions.isotopeUpdate(true);
@@ -123,61 +143,61 @@ class Filter extends React.Component {
 
   manageSelected(item) {
     const filter = item.filter.toLowerCase();
+    const filters = this.state.filters;
+    let active = false;
 
-    // ES6 dynamic keys! woohoo
+    filters[filter] = item.selected;
+
+    for (let filter in filters) {
+      if (filters[filter] !== '') {
+        active = true;
+      }
+    }
+
     this.setState({
-      [filter]: item.selected
+      filters,
+      active,
     });
   }
 
   _submitFilters() {
-    const filters = this.state;
+    const filters = this.state.filters;
     let queries = '';
 
     for (const filter in filters) {
-      if (filters[filter] !== '' && filter !== 'availability') {
+      if (filters[filter] !== '') {
         queries += `&${filter}=${filters[filter]}`;
       }
     }
 
     this._selectFilter(queries);
+    this._closeFilters();
   }
 
   _resetFilters() {
-    this.setState({
+    const filters = {
       format: '',
       audience: '',
       language: '',
-      availability: '',
-    });
+    };
+
+    this.setState({ filters });
+    Actions.updateFiltered(filters);
 
     this._selectFilter();
   }
 
   render() {
-    const formatData = {
-      title: 'Format',
-      data: ['AUDIOBOOK', 'BLU-RAY', 'BOOK/TEXT', 'DVD', 'E-AUDIOBOOK',
-        'E-BOOK', 'LARGE PRINT', 'MUSIC CD'],
-      active: this.state.format,
-    };
-    const audienceData = {
-      title: 'Audience',
-      data: ['Adult', 'Children', 'Young Adult'],
-      active: this.state.audience,
-    };
-    const languageData = {
-      title: 'Language',
-      data: ['English', 'Spanish', 'Chinese', 'Russian', 'French'],
-      active: this.state.language,
-    };
-    const availabilityData = {
-      title: 'Availability',
-      data: ['Just Arrived', 'On Order'],
-      active: this.state.availability,
-    };
+    const filters = this.state.filters;
+    const formatData = appFilters.formatData;
+    const audienceData = appFilters.audienceData;
+    const languageData = appFilters.languageData;
+    const activeSubmitButtons = this.state.active ? 'active' : '';
 
-    // console.log(this.state);
+    formatData.active = filters.format;
+    audienceData.active = filters.audience;
+    languageData.active = filters.language;
+
     return (
       <div className={`filter-wrapper ${this.props.active}`}>
         <div className="filter-header-mobile">
@@ -190,10 +210,9 @@ class Filter extends React.Component {
           <FilterList list={formatData} manageSelected={this.manageSelected} />
           <FilterList list={audienceData} manageSelected={this.manageSelected} />
           <FilterList list={languageData} manageSelected={this.manageSelected} />
-          <FilterList list={availabilityData} manageSelected={this.manageSelected} />
         </ul>
 
-        <div className="submit-buttons">
+        <div className={`submit-buttons ${activeSubmitButtons}`}>
           <button className="PillButton apply" onClick={this._submitFilters}>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
               <title>apply.icon.svg</title>

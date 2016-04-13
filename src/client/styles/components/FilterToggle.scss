@@ -1,0 +1,60 @@
+.switch {
+  position: relative;
+  height: 40px;
+  width: 185px;
+  background-color: #1980a9;
+  border-radius: 25px;
+  top: 5px;
+
+  &-label {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 90px;
+    padding: 13px 0;
+    font-size: 13px;
+    @include Kievit-Medium;
+    text-transform: uppercase;
+    color: #1da1d4;
+    text-align: center;
+    cursor: pointer;
+
+    &.label-left {
+      padding-left: 5px;
+    }
+  }
+
+  &-input {
+    display: none;
+
+    &:checked + .switch-label {
+      color: #fff;
+      -webkit-transition: 0.2s ease-out;
+      -moz-transition: 0.2s ease-out;
+      -o-transition: 0.2s ease-out;
+      transition: 0.2s ease-out;
+    }
+
+    &:checked + .label-right ~ .switch-selection {
+      /* Note: left: 50% doesn't transition in WebKit */
+      left: 96px;
+      width: 85px;
+    }
+  }
+
+  &-selection {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 3px;
+    left: 3px;
+    width: 95px;
+    height: 34px;
+    background-color: #1da1d4;
+    border-radius: 25px;
+    -webkit-transition: left 0.2s ease-out;
+    -moz-transition: left 0.2s ease-out;
+    -o-transition: left 0.2s ease-out;
+    transition: left 0.2s ease-out;
+  }
+}
