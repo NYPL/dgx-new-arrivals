@@ -132,7 +132,11 @@ class Isotopes extends React.Component {
   render() {
     const booksArr = this.props.booksArr && this.props.booksArr.length ? this.props.booksArr : [];
     const displayType = this.props.displayType;
-    const books = this._generateItemsToDisplay(booksArr, displayType);
+    let books = this._generateItemsToDisplay(booksArr, displayType);
+
+    if (!booksArr.length) {
+      books = <li className="book-item">No items found with the selected filters.</li>;
+    }
 
     return (
       <ul className="isotopeGrid" ref="isotopeContainer" style={{opacity: '0'}}>
