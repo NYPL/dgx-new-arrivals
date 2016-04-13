@@ -22,6 +22,8 @@ class Isotopes extends React.Component {
         gutter: 10
       },
     };
+
+    this._createDate = this._createDate.bind(this);
   }
 
   /**
@@ -49,6 +51,18 @@ class Isotopes extends React.Component {
     }
   }
 
+  _createDate(date) {
+    if (!date) {
+      return null;
+    }
+
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+      'August', 'September', 'October', 'November', 'December'];
+    const d = new Date(date);
+
+    return (<p>Added on {months[d.getMonth()]} {d.getDate()}, {d.getFullYear()}</p>);
+  }
+
   /**
    * Generate a list item that is either a book cover or the title and author.
    * The BookCover component is being used but should be updated.
@@ -72,12 +86,16 @@ class Isotopes extends React.Component {
           />
         </a>
       );
+      const createdDate = this._createDate(element.createdDate);
       const bookListItem = (
         <div>
           <a href={target}>
             <h2>{element.title}</h2>
           </a>
           <p>{element.author ? element.author : null}</p>
+          <p>{element.format ? element.format : null}</p>
+          <p>{element.description ? element.description : null}</p>
+          {createdDate}
         </div>
       );
 
