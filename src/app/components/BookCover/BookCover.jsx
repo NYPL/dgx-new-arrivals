@@ -49,14 +49,49 @@ class BookCover extends React.Component {
   }
 
   render() {
+    const target = `http://browse.nypl.org/iii/encore/record/C__Rb${this.props.bibNumber}`;
+    let img;
+    let imgClass = '';
+    if (this.state.errorStatus === 'one-pixel') {
+      imgClass = 'noImage';
+      img = (
+        <div className="itemOverlay noImage">
+          <h3>{this.props.name}</h3>
+          <div className="details">
+            <p className="author">{this.props.author}</p>
+            <p className="format">{this.props.format}</p>
+            <p className="genre">Nonfiction</p>
+          </div>
+        </div>
+      );
+
+    } else {
+      img = (
+        <div>
+          <div className="itemOverlay">
+            <h3>{this.props.name}</h3>
+            <div className="details">
+              <p className="author">{this.props.author}</p>
+              <p className="format">{this.props.format}</p>
+              <p className="genre">Nonfiction</p>
+            </div>
+          </div>
+          <img
+            id={`cover-${this.props.id}`}
+            className={`${this.props.className} ${this.state.errorStatus}`}
+            ref="coverImage"
+            src={this.state.imageSrc}
+            title={this.props.name}
+            alt={this.props.name}
+          />
+        </div>
+      )
+    }
+
     return (
-      <img
-        id={`cover-${this.props.id}`}
-        className={`${this.props.className} ${this.state.errorStatus}`}
-        ref="coverImage"
-        src={this.state.imageSrc}
-        title={this.props.name}
-        alt={this.props.name} />
+      <a href={target} className={`${this.props.linkClass} ${imgClass}`}>
+        {img}
+      </a>
     );
   }
 }
