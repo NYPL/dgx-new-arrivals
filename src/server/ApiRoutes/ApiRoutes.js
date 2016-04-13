@@ -5,6 +5,7 @@ import parser from 'jsonapi-parserinator';
 import Model from 'dgx-model-data';
 
 import config from '../../../appConfig.js';
+import _ from 'underscore';
 
 // Syntax that both ES6 and Babel 6 support
 const { HeaderItemModel } = Model;
@@ -32,15 +33,36 @@ function getHeaderData() {
   return fetchApiData(headerApiUrl);
 }
 
+function LanguageData() {
+  const days = '30';
+  const baseApiUrl = `${newArrivalsApi.languages}?&days=${days}`;
+
+  return fetchApiData(baseApiUrl);
+}
+
 function NewArrivalsApp(req, res, next) {
   const itemCount = '18';
-  const days = '60';
   const baseApiUrl = `${newArrivalsApi.bibItems}?&itemCount=${itemCount}`;
 
-  axios.all([getHeaderData(), fetchApiData(baseApiUrl)])
-    .then(axios.spread((headerData, newArrivalsData) => {
+  axios.all([getHeaderData(), fetchApiData(baseApiUrl), LanguageData()])
+    .then(axios.spread((headerData, newArrivalsData, languageData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
       const headerModelData = HeaderItemModel.build(headerParsed)
+
+      const languages = _.chain(languageData.data)
+        .filter(language => {
+          return language.count > 0;
+        })
+        .map(language => {
+          return {
+            name: language.name,
+            count: language.count,
+          };
+        })
+        .value();
+
+      console.log(languages.length);
+      console.log(languages);
 
       res.locals.data = {
         HeaderStore: {
