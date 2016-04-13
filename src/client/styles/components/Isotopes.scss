@@ -31,5 +31,6 @@
   p {
     color: #9c9890;
     margin: 10px;
+    @include Helvetica;
   }
 }

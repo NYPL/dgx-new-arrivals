@@ -85,6 +85,10 @@ $THIRD_FONT_MILO: 'serif';
   font-family: 'Milo-Medium', $SECONDARY_FONT_MILO, $THIRD_FONT_MILO;
 }
 
+@mixin Helvetica {
+  font-family: $SECONDARY_FONT_KIEVIT, $THIRD_FONT_KIEVIT;
+}
+
 /* NYPL ICON FONT RULES */
 @font-face {
   font-family: 'nypl-moon';
