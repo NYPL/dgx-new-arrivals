@@ -54,11 +54,12 @@ class FilterToggle extends React.Component {
   render() {
     // console.log(this.state);
     return (
-      <div className="switch">
+      <fieldset className="switch" tabIndex="0">
+        <legend>Show new arrivals or books on order?</legend>
         <input type="radio" className="switch-input"
           name="view" value="newArrival" id="newArrivalInput"
           checked={this.state.value === 'newArrival'}
-          onChange={this._onChange}/>
+          onChange={this._onChange} />
         <label htmlFor="newArrivalInput" className="switch-label label-left">New Arrival</label>
         <input type="radio" className="switch-input"
           name="view" value="onOrder" id="onOrderInput"
@@ -66,7 +67,7 @@ class FilterToggle extends React.Component {
           onChange={this._onChange} />
         <label htmlFor="onOrderInput" className="switch-label label-right">On Order</label>
         <span className="switch-selection"></span>
-      </div>
+      </fieldset>
     );
   }
 }

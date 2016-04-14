@@ -89,7 +89,7 @@ class NewArrivals extends React.Component {
     const paginationHidden = books.length ? '' : 'hide';
 
     return (
-      <div className="newArrivals-container">
+      <div className="newArrivals-container" id="maincontent" tabIndex="-1">
         <h4>Browse New Releases</h4>
         <SelectedFilters />
         <ToggleDisplay />

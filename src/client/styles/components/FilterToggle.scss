@@ -5,6 +5,7 @@
   background-color: #1980a9;
   border-radius: 25px;
   top: 5px;
+  padding: 0;
 
   &-label {
     position: relative;
@@ -25,7 +26,8 @@
   }
 
   &-input {
-    display: none;
+    @include visuallyHidden;
+    /* display: none; */
 
     &:checked + .switch-label {
       color: #fff;
@@ -56,5 +58,9 @@
     -moz-transition: left 0.2s ease-out;
     -o-transition: left 0.2s ease-out;
     transition: left 0.2s ease-out;
+  }
+
+  legend {
+      @include visuallyHidden;
   }
 }
