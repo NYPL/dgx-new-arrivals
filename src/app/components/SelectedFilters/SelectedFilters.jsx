@@ -43,6 +43,7 @@ class SelectedFilters extends React.Component {
   }
 
   _removeFilter(filter, value) {
+    console.log(event);
     const filters = this.state.filters;
     filters[filter] = '';
 
@@ -65,6 +66,8 @@ class SelectedFilters extends React.Component {
       .catch(error => {
         console.log(`error making ajax call: ${error}`);
       }); /* end Axios call */
+
+    event.nativeEvent.stopImmediatePropagation();
   }
 
   _getFilterList(filters) {
@@ -73,9 +76,11 @@ class SelectedFilters extends React.Component {
 
       if (value && filter !== 'active') {
         return (
-          <li key={i} onClick={this._removeFilter.bind(this, filter, value)}>
-            {value}
-            <span className="nypl-icon-solo-x icon"></span>
+          <li key={i}>
+            <a href="#" onClick={this._removeFilter.bind(this, filter, value)}>
+              {value}
+              <span className="nypl-icon-solo-x icon"></span>
+            </a>
           </li>
         );
       }
