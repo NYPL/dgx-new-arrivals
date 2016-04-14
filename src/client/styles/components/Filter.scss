@@ -14,13 +14,13 @@
 
       @include min-screen(768px) {
         min-height: 450px;
-        left: -420px;
-        width: 550px;
+        left: -470px;
+        width: 600px;
         top: 50px;
       }
 
       @include min-screen(1024px) {
-        left: -400px;
+        left: -450px;
       }
     }
 
@@ -129,7 +129,7 @@
   }
 
   @include min-screen(768px) {
-    width: 33%;
+    width: 25%;
     font-size: 14px;
 
     .inner {

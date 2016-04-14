@@ -53,7 +53,6 @@ class NewArrivals extends React.Component {
         <Isotopes
           booksArr={books}
           displayType={displayType} />
-        <a onClick={this.loadMore}>CLICK FOR MORE</a>
       </div>
     );
   }

@@ -43,6 +43,7 @@
   p {
     color: #9c9890;
     margin: 10px;
+    @include Helvetica;
   }
 
   @include min-screen(768px) {
