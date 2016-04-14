@@ -19,6 +19,22 @@
   justify-content: center;
   align-items: center;
 
+  &.noResults {
+    display: block;
+    width: 100%;
+    font-size: 26px;
+    margin-top: 20px;
+    color: #000;
+    @include Kievit-Medium;
+    font-weight: normal;
+
+    span {
+      border-bottom: 2px solid #000;
+      display: inline-block;
+      padding-bottom: 15px;
+    }
+  }
+
   &.list {
     width: 100%;
     height: auto;
