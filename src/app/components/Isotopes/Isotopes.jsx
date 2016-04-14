@@ -135,7 +135,9 @@ class Isotopes extends React.Component {
     let books = this._generateItemsToDisplay(booksArr, displayType);
 
     if (!booksArr.length) {
-      books = <li className="book-item">No items found with the selected filters.</li>;
+      books = <li className="book-item noResults">
+          <span>No items found with the selected filters.</span>
+        </li>;
     }
 
     return (
