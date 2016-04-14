@@ -19,7 +19,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="nyplNewArrivalsApp">
-        <Header />
+        <Header skipNav={{target: 'maincontent'}} />
 
         <div className="nyplNewArrivals nyplGrid-fullWidth">
 
