@@ -125,6 +125,10 @@ $COOL_GRAY_REGULAR: #837E77;
 }
 
 .page-button {
+  &.hide {
+    display: none;
+  }
+
   width: 120px;
   margin: 50px auto;
 

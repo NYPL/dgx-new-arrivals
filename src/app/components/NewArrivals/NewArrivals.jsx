@@ -86,6 +86,7 @@ class NewArrivals extends React.Component {
     const books = this.state.newArrivalsData ? this.state.newArrivalsData.bibItems : [];
     const displayType = this.state.displayType;
     const isLoading = this.state.isLoading;
+    const paginationHidden = books.length ? '' : 'hide';
 
     return (
       <div className="newArrivals-container">
@@ -97,6 +98,7 @@ class NewArrivals extends React.Component {
           displayType={displayType} />
         <PaginationButton
           id='page-button'
+          hidden={paginationHidden}
           className={`page-button`}
           dots="3"
           label="LOAD MORE"

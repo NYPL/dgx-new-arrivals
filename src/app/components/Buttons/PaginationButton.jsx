@@ -39,8 +39,9 @@ class PaginationButton extends React.Component {
     }
 
     return (
-      <div id={this.props.id}
-        className={`${this.props.className}`}
+      <div
+        id={this.props.id}
+        className={`${this.props.className} ${this.props.hidden}`}
         onClick={this.props.onClick}
         style={[
           styles.base,
