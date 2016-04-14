@@ -63,7 +63,7 @@
 
       .details {
         position: absolute;
-        bottom: 25px;
+        bottom: 0;
 
         p {
           font-family: Helvetica, Arial;
@@ -83,16 +83,26 @@
     }
 
     .details {
-      margin: 20px 0;
+      margin: 10px 0;
 
       p {
         font-family: Helvetica, Arial;
+      }
+
+      svg {
+        overflow: hidden;
+        vertical-align: -13px;
+        margin-left: -5px;
+        padding: 0px;
+        fill: #fff;
+        stroke: #fff;
       }
 
       .author {
         font-size: 16px;
       }
       .format {
+        margin: 0;
         font-size: 10px;
       }
       .genre {
