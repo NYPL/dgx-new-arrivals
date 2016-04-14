@@ -51,7 +51,10 @@ function NewArrivalsApp(req, res, next) {
 
       const languages = _.chain(languageData.data)
         .filter(language => {
-          return language.count > 0;
+          return (language.count >= 100 &&
+            language.name !== 'Multiple languages' &&
+            language.name !== 'No linguistic content' &&
+            language.name !== '---');
         })
         .map(language => {
           return {
