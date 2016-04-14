@@ -28,6 +28,7 @@ class NewArrivalsStore {
         format: '',
         audience: '',
         language: '',
+        genre: '',
       };
       this.isotopeUpdate = false;
       this.activeFilters = false;

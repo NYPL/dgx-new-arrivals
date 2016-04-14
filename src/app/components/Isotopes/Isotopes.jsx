@@ -22,6 +22,8 @@ class Isotopes extends React.Component {
         gutter: 10
       },
     };
+
+    this._createDate = this._createDate.bind(this);
   }
 
   /**
@@ -47,6 +49,18 @@ class Isotopes extends React.Component {
     if (this.iso != null) {
       this.iso.destroy();
     }
+  }
+
+  _createDate(date) {
+    if (!date) {
+      return null;
+    }
+
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+      'August', 'September', 'October', 'November', 'December'];
+    const d = new Date(date);
+
+    return (<p>Added on {months[d.getMonth()]} {d.getDate()}, {d.getFullYear()}</p>);
   }
 
   /**
@@ -75,12 +89,16 @@ class Isotopes extends React.Component {
           linkClass="bookItem"
         />
       );
+      const createdDate = this._createDate(element.createdDate);
       const bookListItem = (
         <div>
           <a href={target}>
             <h2>{element.title}</h2>
           </a>
           <p>{element.author ? element.author : null}</p>
+          <p>{element.format ? element.format : null}</p>
+          <p>{element.description ? element.description : null}</p>
+          {createdDate}
         </div>
       );
 
@@ -117,7 +135,11 @@ class Isotopes extends React.Component {
   render() {
     const booksArr = this.props.booksArr && this.props.booksArr.length ? this.props.booksArr : [];
     const displayType = this.props.displayType;
-    const books = this._generateItemsToDisplay(booksArr, displayType);
+    let books = this._generateItemsToDisplay(booksArr, displayType);
+
+    if (!booksArr.length) {
+      books = <li className="book-item">No items found with the selected filters.</li>;
+    }
 
     return (
       <ul className="isotopeGrid" ref="isotopeContainer" style={{opacity: '0'}}>

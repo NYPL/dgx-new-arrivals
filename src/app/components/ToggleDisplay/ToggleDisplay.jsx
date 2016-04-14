@@ -89,8 +89,11 @@ class ToggleDisplay extends React.Component {
         <path d="M16.5947,25.4H7.83a1.0143,1.0143,0,1,1,0-2.0285h8.7651A1.0143,1.0143,0,1,1,16.5947,25.4Z"/>
       </svg>) :
       (<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-        <title>grid.icon.svg</title>
-        <path d="M17,6H6V26H26V6H17ZM8,8h7v7H8V8ZM8,24V17h7v7H8Zm16,0H17V17h7v7Zm-7-9V8h7v7H17Z"/>
+        <title>grid.icon.v7</title>
+        <rect x="8" y="8" width="7" height="7"/>
+        <rect x="17" y="8" width="7" height="7"/>
+        <rect x="8" y="17" width="7" height="7"/>
+        <rect x="17" y="17" width="7" height="7"/>
       </svg>);
 
     const svgFilterIcon = <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
