@@ -43,7 +43,6 @@ class SelectedFilters extends React.Component {
   }
 
   _removeFilter(filter, value) {
-    console.log(event);
     const filters = this.state.filters;
     filters[filter] = '';
 
@@ -66,8 +65,6 @@ class SelectedFilters extends React.Component {
       .catch(error => {
         console.log(`error making ajax call: ${error}`);
       }); /* end Axios call */
-
-    event.nativeEvent.stopImmediatePropagation();
   }
 
   _getFilterList(filters) {
