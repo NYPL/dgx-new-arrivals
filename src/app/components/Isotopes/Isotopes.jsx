@@ -5,16 +5,6 @@ import _ from 'underscore';
 
 import BookCover from '../BookCover/BookCover.jsx';
 
-const styles = {
-  listWidth: {
-    width: '100%',
-  },
-  gridWidth: {
-    width: '140px'
-  },
-};
-
-
 /**
  * Isotopes grid container component
  * @extends {React}
@@ -26,12 +16,14 @@ class Isotopes extends React.Component {
     this.isoOptions = {
       itemSelector: '.book-item',
       masonry: {
-        columnWidth: 140,
+        // columnWidth: 140,
         isResizable: true,
         // isFitWidth: true,
         gutter: 10
       },
     };
+
+    this._createDate = this._createDate.bind(this);
   }
 
   /**
@@ -59,6 +51,18 @@ class Isotopes extends React.Component {
     }
   }
 
+  _createDate(date) {
+    if (!date) {
+      return null;
+    }
+
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+      'August', 'September', 'October', 'November', 'December'];
+    const d = new Date(date);
+
+    return (<p>Added on {months[d.getMonth()]} {d.getDate()}, {d.getFullYear()}</p>);
+  }
+
   /**
    * Generate a list item that is either a book cover or the title and author.
    * The BookCover component is being used but should be updated.
@@ -82,18 +86,21 @@ class Isotopes extends React.Component {
           />
         </a>
       );
+      const createdDate = this._createDate(element.createdDate);
       const bookListItem = (
         <div>
           <a href={target}>
             <h2>{element.title}</h2>
           </a>
           <p>{element.author ? element.author : null}</p>
+          <p>{element.format ? element.format : null}</p>
+          <p>{element.description ? element.description : null}</p>
+          {createdDate}
         </div>
       );
-      const listDisplay = displayType === 'grid' ? styles.gridWidth : styles.listWidth;
 
       return (
-        <li className='book-item' key={i} style={listDisplay}>
+        <li className={`book-item ${displayType}`} key={i}>
           {displayType === 'grid' ? bookCover : bookListItem}
         </li>
       );
@@ -125,7 +132,11 @@ class Isotopes extends React.Component {
   render() {
     const booksArr = this.props.booksArr && this.props.booksArr.length ? this.props.booksArr : [];
     const displayType = this.props.displayType;
-    const books = this._generateItemsToDisplay(booksArr, displayType);
+    let books = this._generateItemsToDisplay(booksArr, displayType);
+
+    if (!booksArr.length) {
+      books = <li className="book-item">No items found with the selected filters.</li>;
+    }
 
     return (
       <ul className="isotopeGrid" ref="isotopeContainer" style={{opacity: '0'}}>

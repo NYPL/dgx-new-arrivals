@@ -95,14 +95,13 @@ class NewArrivals extends React.Component {
         <Isotopes
           booksArr={books}
           displayType={displayType} />
-
         <PaginationButton
           id='page-button'
           className={`page-button`}
           dots="3"
           label="LOAD MORE"
           isLoading={isLoading}
-          onClick={this.loadMore}/>
+          onClick={this.loadMore} />
       </div>
     );
   }

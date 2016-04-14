@@ -13,12 +13,24 @@
 }
 
 .book-item {
-  img {
-    width: 140px;
+  width: 150px;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.list {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 
   a {
     text-decoration: none;
+  }
+
+  img {
+    width: 150px;
   }
 
   h2 {
@@ -31,5 +43,36 @@
   p {
     color: #9c9890;
     margin: 10px;
+    @include Helvetica;
+  }
+
+  @include min-screen(768px) {
+    width: 175px;
+    height: 280px;
+    margin-right: 10px;
+
+    img {
+      width: 175px;
+    }
+  }
+
+  @include min-screen(1024px) {
+    width: 185px;
+    height: 300px;
+    margin-right: 20px;
+
+    img {
+      width: 185px;
+    }
+  }
+
+  @include min-screen(1200px) {
+    width: 175px;
+    height: 280px;
+    margin-right: 10px;
+
+    img {
+      width: 175px;
+    }
   }
 }

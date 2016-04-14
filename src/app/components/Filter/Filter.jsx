@@ -179,7 +179,11 @@ class Filter extends React.Component {
 
     for (const filter in filters) {
       if (filters[filter] !== '') {
-        queries += `&${filter}=${filters[filter]}`;
+        if (filters[filter] === 'Research') {
+          queries += `&audience=${filters[filter]}`;
+        } else {
+          queries += `&${filter}=${filters[filter]}`;
+        }
       }
     }
 
@@ -205,11 +209,13 @@ class Filter extends React.Component {
     const formatData = appFilters.formatData;
     const audienceData = appFilters.audienceData;
     const languageData = appFilters.languageData;
+    const genreData = appFilters.genreData;
     const activeSubmitButtons = this.state.active ? 'active' : '';
 
     formatData.active = filters.format;
     audienceData.active = filters.audience;
     languageData.active = filters.language;
+    genreData.active = filters.genre;
 
     return (
       <div className={`filter-wrapper ${this.props.active}`}>
@@ -223,6 +229,7 @@ class Filter extends React.Component {
           <FilterList list={formatData} manageSelected={this.manageSelected} />
           <FilterList list={audienceData} manageSelected={this.manageSelected} />
           <FilterList list={languageData} manageSelected={this.manageSelected} />
+          <FilterList list={genreData} manageSelected={this.manageSelected} />
         </ul>
 
         <div className={`submit-buttons ${activeSubmitButtons}`}>
