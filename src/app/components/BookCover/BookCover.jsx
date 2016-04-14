@@ -7,55 +7,70 @@ class BookCover extends React.Component {
     super(props);
 
     this.state = {
-      imageSrc: (this.props.imgSrc && this.props.imgSrc !== undefined) ?
+      imageSrc: (!this.props.imgSrc && this.props.imgSrc && this.props.imgSrc !== '') ?
         // Show the place holder if the book cover's ISBN is not available
         this.props.imgSrc : this.props.placeHolderEndpoint,
       // The original width of the source image
       naturalWidth: 150,
-      errorStatus: '',
+      errorStatus: 'one-pixel',
     };
+
+    this.handleLoadedImage = this.handleLoadedImage.bind(this);
+    this.handleLoadedImageError = this.handleLoadedImageError.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.checkImg();
-  }
-
-  checkImg() {
-    this.setState({
-      imageSrc: (this.props.imgSrc && this.props.imgSrc !== undefined) ?
-        // Show the place holder if the book cover's ISBN is not available
-        this.props.imgSrc : this.props.placeHolderEndpoint
-    });
-  }
-
-  componentDidMount() {
-    this.checkImg();
-
-    // After the cover image is loaded
-    this.refs.coverImage.addEventListener('load', () => {
-      // Set the natural width to of source image to the component
-      this.setState({ naturalWidth: this.refs.coverImage.naturalWidth}, () => {
-        // Detect the natural width if it is smaller then 10px,
-        // set the image source to the place holder
-        if (this.state.imageSrc !== this.props.placeHolderEndpoint &&
-          this.state.naturalWidth < 10 && this.state.naturalWidth > 0) {
-          this.setState({
-            imageSrc: this.props.placeHolderEndpoint,
-            errorStatus: 'one-pixel',
-          });
-        }
+  shouldComponentUpdate(nextProps) {
+    if (this.state.imageSrc !== nextProps.imgSrc) {
+      this.setState({
+        imageSrc: nextProps.imgSrc,
+        errorStatus: '',
       });
-    }, true);
+      return true;
+    }
+
+    return false;
+  }
+
+  componentDidMount() {}
+
+  handleLoadedImage() {
+    const width = this.refs.coverImage.naturalWidth;
+    if (width < 10 && width >= 0) {
+      this.setState({
+        errorStatus: 'one-pixel',
+      });
+    } else {
+      this.setState({
+        errorStatus: '',
+      });
+    }
+
+    this.forceUpdate();
+  }
+
+  handleLoadedImageError() {
+    this.setState({
+      errorStatus: 'one-pixel',
+    });
+    this.forceUpdate();
   }
 
   render() {
-    const target = `http://browse.nypl.org/iii/encore/record/C__Rb${this.props.bibNumber}`;
-    let img;
-    let imgClass = '';
-    if (this.state.errorStatus === 'one-pixel') {
-      imgClass = 'noImage';
-      img = (
-        <div className="itemOverlay noImage">
+    let imgClass = this.state.errorStatus === 'one-pixel' ? 'noImage' : '';
+
+    return (
+      <a href={this.props.target} className={`${this.props.linkClass} ${imgClass}`}>
+        <img
+            onLoad={this.handleLoadedImage}
+            onError={this.handleLoadedImageError}
+            id={`cover-${this.props.id}`}
+            className={this.state.errorStatus}
+            ref="coverImage"
+            src={this.state.imageSrc}
+            title={this.props.name}
+            alt={this.props.name}
+          />
+        <div className={`itemOverlay ${imgClass}`}>
           <h3>{this.props.name}</h3>
           <div className="details">
             <p className="author">{this.props.author}</p>
@@ -63,34 +78,6 @@ class BookCover extends React.Component {
             <p className="genre">Nonfiction</p>
           </div>
         </div>
-      );
-
-    } else {
-      img = (
-        <div>
-          <div className="itemOverlay">
-            <h3>{this.props.name}</h3>
-            <div className="details">
-              <p className="author">{this.props.author}</p>
-              <p className="format">{this.props.format}</p>
-              <p className="genre">Nonfiction</p>
-            </div>
-          </div>
-          <img
-            id={`cover-${this.props.id}`}
-            className={`${this.props.className} ${this.state.errorStatus}`}
-            ref="coverImage"
-            src={this.state.imageSrc}
-            title={this.props.name}
-            alt={this.props.name}
-          />
-        </div>
-      )
-    }
-
-    return (
-      <a href={target} className={`${this.props.linkClass} ${imgClass}`}>
-        {img}
       </a>
     );
   }

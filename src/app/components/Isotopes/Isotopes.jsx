@@ -30,7 +30,7 @@ class Isotopes extends React.Component {
   componentDidUpdate(prevProps) {
     setTimeout(() => {
       this.iso.reloadItems();
-    }, 250);
+    }, 150);
   }
 
   /**
@@ -66,11 +66,12 @@ class Isotopes extends React.Component {
       const target = `http://browse.nypl.org/iii/encore/record/C__Rb${this.props.bibNumber}`;
       const bookCover = (
         <BookCover
-          imgSrc={element.imageUrl[0] ? element.imageUrl[0] : null } testkey={i}
+          imgSrc={element.imageUrl[0] ? element.imageUrl[0] : undefined } testkey={i}
           name={element.title}
           bibNumber={element.bibNumber}
           author={element.author}
           format={element.format}
+          target={target}
           linkClass="bookItem"
         />
       );
@@ -93,7 +94,7 @@ class Isotopes extends React.Component {
     if (this.iso != null) {
       setTimeout(() => {
         this.iso.arrange();
-      }, 250);
+      }, 200);
     }
 
     return books;
@@ -109,7 +110,7 @@ class Isotopes extends React.Component {
 
       setTimeout(() => {
         this.iso.arrange();
-      }, 250);
+      }, 200);
     }
   }
   
