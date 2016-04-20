@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import _ from 'underscore';
+import axios from 'axios';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -13,18 +14,17 @@ class FilterToggle extends React.Component {
 
     this.manageSelected = this.manageSelected.bind(this);
     this._onChange = this._onChange.bind(this);
+    this._selectFilter = this._selectFilter.bind(this);
     this.state = {
-      value: 'newArrival',
+      value: 'New Arrival',
     }
   }
 
-  _selectFilter(queries) {
+  _selectFilter(availability = 'New Arrivals', queries = '') {
     axios
-      .get(`/api?${queries}&itemCount=18`)
+      .get(`/api?${queries}&availability=${availability}&itemCount=18`)
       .then(response => {
-        console.log(response.data);
         Actions.updateNewArrivalsData(response.data);
-        Actions.updateFiltered(this.state);
 
         setTimeout(() => {
           Actions.isotopeUpdate(true);
@@ -45,25 +45,27 @@ class FilterToggle extends React.Component {
   }
 
   _onChange(e) {
-    console.log(e.currentTarget.value);
+    const availability = e.currentTarget.value;
+
+    this._selectFilter(availability);
     this.setState({
       value: e.currentTarget.value,
     });
   }
 
   render() {
-    // console.log(this.state);
+
     return (
       <fieldset className="switch" tabIndex="0">
         <legend>Show new arrivals or books on order?</legend>
         <input type="radio" className="switch-input"
-          name="view" value="newArrival" id="newArrivalInput"
-          checked={this.state.value === 'newArrival'}
+          name="view" value="New Arrival" id="newArrivalInput"
+          checked={this.state.value === 'New Arrival'}
           onChange={this._onChange} />
         <label htmlFor="newArrivalInput" className="switch-label label-left">New Arrival</label>
         <input type="radio" className="switch-input"
-          name="view" value="onOrder" id="onOrderInput"
-          checked={this.state.value === 'onOrder'} 
+          name="view" value="On Order" id="onOrderInput"
+          checked={this.state.value === 'On Order'} 
           onChange={this._onChange} />
         <label htmlFor="onOrderInput" className="switch-label label-right">On Order</label>
         <span className="switch-selection"></span>
