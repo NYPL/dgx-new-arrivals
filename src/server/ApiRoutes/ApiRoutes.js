@@ -101,7 +101,7 @@ function SelectPage(req, res) {
   const availabilityQuery = availability ? `&availability=${availability}` : '';
   const apiUrl = `${newArrivalsApi.bibItems}?${formatQuery}` +
     `${languageQuery}${audienceQuery}${availabilityQuery}&itemCount=${itemCount}`;
-console.log(apiUrl);
+
   axios
     .get(apiUrl)
     .then(response => {
