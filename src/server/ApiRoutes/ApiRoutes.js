@@ -15,11 +15,11 @@ const appEnvironment = process.env.APP_ENV || 'production';
 const apiRoot = api.root[appEnvironment];
 const headerOptions = createOptions(headerApi);
 
-function createOptions(api) {
+function createOptions(apiValue) {
   return {
-    endpoint: `${apiRoot}${api.endpoint}`,
-    includes: api.includes,
-    filters: api.filters,
+    endpoint: `${apiRoot}${apiValue.endpoint}`,
+    includes: apiValue.includes,
+    filters: apiValue.filters,
   };
 }
 
@@ -35,12 +35,13 @@ function getHeaderData() {
 function NewArrivalsApp(req, res, next) {
   const itemCount = '18';
   const days = '60';
-  const baseApiUrl = `${newArrivalsApi.bibItems}?availability=New%20Arrivals&itemCount=${itemCount}`;
+  const baseApiUrl = `${newArrivalsApi.bibItems}` +
+    `?availability=New%20Arrivals&itemCount=${itemCount}`;
 
   axios.all([getHeaderData(), fetchApiData(baseApiUrl)])
     .then(axios.spread((headerData, newArrivalsData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
-      const headerModelData = HeaderItemModel.build(headerParsed)
+      const headerModelData = HeaderItemModel.build(headerParsed);
 
       res.locals.data = {
         HeaderStore: {
@@ -55,16 +56,16 @@ function NewArrivalsApp(req, res, next) {
             audience: '',
             language: '',
             genre: '',
-          }
+          },
         },
-        completeApiUrl: ''
+        completeApiUrl: '',
       };
 
       next();
     }))
     .catch(error => {
-      console.log('error calling API : ' + error);
-      console.log('Attempted to call : ' + baseApiUrl);
+      console.log(`error calling API : ${error}`);
+      console.log(`Attempted to call : ${baseApiUrl}`);
 
       res.locals.data = {
         HeaderStore: {
@@ -79,7 +80,7 @@ function NewArrivalsApp(req, res, next) {
             audience: '',
             language: '',
             genre: '',
-          }
+          },
         },
       };
       next();
@@ -89,7 +90,6 @@ function NewArrivalsApp(req, res, next) {
 function SelectPage(req, res) {
   const query = req.query;
   const audience = query.audience || '';
-  const bibNumber = query.bibNumber || '';
   const days = query.days || '';
   const format = query.format || '';
   const language = query.language || '';
@@ -111,11 +111,11 @@ function SelectPage(req, res) {
       res.json(response.data);
     })
     .catch(error => {
-      console.log('error calling API : ' + error);
-      console.log('Attempted to call : ' + apiUrl);
+      console.log(`error calling API : ${error}`);
+      console.log(`Attempted to call : ${apiUrl}`);
 
       res.json({
-        error
+        error,
       });
     }); /* end axios call */
 }

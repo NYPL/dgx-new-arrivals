@@ -12,9 +12,9 @@ class FilterList extends React.Component {
     this._setActive = this._setActive.bind(this);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return true;
-  }
+  // shouldComponentUpdate() {
+  //   return true;
+  // }
 
   _setActive(item) {
     const title = this.props.list.title;
@@ -36,12 +36,15 @@ class FilterList extends React.Component {
     const activeItem = this.props.list.active;
 
     return _map(list, (item, i) => {
-      return <FilterListItem
-              item={item.label}
-              filter={this.props.list.title}
-              active={activeItem === item.id}
-              key={i}
-              onClick={this._setActive.bind(this, item.id)} />;
+      return (
+        <FilterListItem
+          item={item.label}
+          filter={this.props.list.title}
+          active={activeItem === item.id}
+          key={i}
+          onClick={this._setActive.bind(this, item.id)}
+        />
+      );
     });
   }
 
@@ -60,5 +63,10 @@ class FilterList extends React.Component {
     );
   }
 }
+
+FilterList.propTypes = {
+  manageSelected: React.PropTypes.func,
+  list: React.PropTypes.object,
+};
 
 export default FilterList;

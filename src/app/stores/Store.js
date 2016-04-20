@@ -23,7 +23,7 @@ class NewArrivalsStore {
 
     this.on('init', () => {
       this.newArrivalsData = [];
-      this.displayType =  'grid';
+      this.displayType = 'grid';
       this.toggleFilter = false;
       this.dropDownValue = '';
       this.filters = {

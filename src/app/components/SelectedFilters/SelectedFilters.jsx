@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import _ from 'underscore';
 import axios from 'axios';
@@ -43,7 +42,7 @@ class SelectedFilters extends React.Component {
     return queries;
   }
 
-  _removeFilter(filter, value) {
+  _removeFilter(filter) {
     const filters = this.state.filters;
     filters[filter] = '';
 
@@ -80,7 +79,7 @@ console.log(`/api?${queries}&itemCount=${items}`);
       if (value && filter !== 'active') {
         return (
           <li key={i}>
-            <a href="#" onClick={this._removeFilter.bind(this, filter, value)}>
+            <a href="#" onClick={this._removeFilter.bind(this, filter)}>
               {value}
               <span className="nypl-icon-solo-x icon"></span>
             </a>

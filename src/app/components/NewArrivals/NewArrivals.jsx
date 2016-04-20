@@ -1,17 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-import _ from 'underscore';
-import axios from 'axios';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 import Isotopes from '../Isotopes/Isotopes.jsx';
 import ToggleDisplay from '../ToggleDisplay/ToggleDisplay.jsx';
 import SelectedFilters from '../SelectedFilters/SelectedFilters.jsx';
+import PaginationButton from '../Buttons/PaginationButton.jsx';
 import appConfig from '../../../../appConfig.js';
 
-import PaginationButton from '../Buttons/PaginationButton.jsx';
+import axios from 'axios';
+import { extend as _extend } from 'underscore';
 
 const { appFilters } = appConfig;
 
@@ -22,7 +20,7 @@ class NewArrivals extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = _.extend({
+    this.state = _extend({
       isLoading: false,
     }, NewArrivalsStore.getState());
 
@@ -95,7 +93,8 @@ class NewArrivals extends React.Component {
         <ToggleDisplay />
         <Isotopes
           booksArr={books}
-          displayType={displayType} />
+          displayType={displayType}
+        />
         <PaginationButton
           id='page-button'
           hidden={paginationHidden}
@@ -103,7 +102,8 @@ class NewArrivals extends React.Component {
           dots="3"
           label="LOAD MORE"
           isLoading={isLoading}
-          onClick={this.loadMore} />
+          onClick={this.loadMore}
+        />
       </div>
     );
   }

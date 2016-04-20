@@ -1,9 +1,7 @@
 import React from 'react';
-import Radium from 'radium';
 import cx from 'classnames';
 
 import ClickOutHandler from 'react-onclickout';
-import axios from 'axios';
 
 import PillButton from '../Buttons/PillButton.jsx';
 
@@ -12,8 +10,6 @@ import Actions from '../../actions/Actions.js';
 
 import Filter from '../Filter/Filter.jsx';
 import FilterToggle from '../Filter/FilterToggle.jsx';
-
-import _ from 'underscore';
 
 /**
  * Displays the two buttons that are used to toggle the Isotopes grid and displays the filters.
@@ -70,17 +66,13 @@ class ToggleDisplay extends React.Component {
 
   render() {
     const gridActive = this.state.displayType === 'grid';
-    const viewIconClass = cx({
-      '-grid-icon': gridActive,
-      '-list-icon': !gridActive,
-    });
-    // Display the opposite 
+    // Display the opposite
     const displayTitle = gridActive ? 'list' : 'grid';
     const filterActive = this.state.toggleFilter;
     const filterIconClass = filterActive ? ' active' : '';
     const filterTitle = 'Filter';
 
-    const viewSvgIcon =  gridActive ? 
+    const viewSvgIcon = gridActive ?
       (<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
         <title>list.iconZZ</title>
         <path d="M23.4829,9.5H7.83a1.0143,1.0143,0,1,1,0-2.0285H23.4829A1.0143,1.0143,0,1,1,23.4829,9.5Z"/>
@@ -96,7 +88,7 @@ class ToggleDisplay extends React.Component {
         <rect x="17" y="17" width="7" height="7"/>
       </svg>);
 
-    const svgFilterIcon = <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+    const svgFilterIcon = (<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
         <title>filter.v3</title>
         <g>
           <circle cx="13.0944" cy="7.375" r="1.3192"/>
@@ -107,10 +99,10 @@ class ToggleDisplay extends React.Component {
             <path d="M18.0387,24.794a0.95,0.95,0,0,1-.95-0.95V15.603l7.126-7.8149a0.95,0.95,0,0,1,1.41,1.2744l-6.636,7.2729v7.5083A0.95,0.95,0,0,1,18.0387,24.794Z"/>
           </g>
         </g>
-      </svg>;
+      </svg>);
     const iconClass = cx({
       'nypl-icon-wedge-down': !filterActive,
-      'nypl-icon-solo-x': filterActive
+      'nypl-icon-solo-x': filterActive,
     });
 
     return (
@@ -145,11 +137,16 @@ class ToggleDisplay extends React.Component {
       </ul>
     );
   }
-};
+}
 
 ToggleDisplay.defaultProps = {
   className: 'ToggleDisplay',
-  id: 'ToggleDisplay'
+  id: 'ToggleDisplay',
 };
 
-export default Radium(ToggleDisplay);
+ToggleDisplay.propTypes = {
+  id: React.PropTypes.string,
+  className: React.PropTypes.string,
+};
+
+export default ToggleDisplay;
