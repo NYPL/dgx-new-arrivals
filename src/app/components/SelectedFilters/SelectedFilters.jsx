@@ -73,9 +73,11 @@ class SelectedFilters extends React.Component {
 
       if (value && filter !== 'active') {
         return (
-          <li key={i} onClick={this._removeFilter.bind(this, filter, value)}>
-            {value}
-            <span className="nypl-icon-solo-x icon"></span>
+          <li key={i}>
+            <a href="#" onClick={this._removeFilter.bind(this, filter, value)}>
+              {value}
+              <span className="nypl-icon-solo-x icon"></span>
+            </a>
           </li>
         );
       }
