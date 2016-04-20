@@ -58,9 +58,7 @@ class BookCover extends React.Component {
     super(props);
 
     this.state = {
-      imageSrc: (!this.props.imgSrc && this.props.imgSrc && this.props.imgSrc !== '') ?
-        // Show the place holder if the book cover's ISBN is not available
-        this.props.imgSrc : this.props.placeHolderEndpoint,
+      imageSrc: this.props.imgSrc,
       // The original width of the source image
       naturalWidth: 150,
       errorStatus: 'one-pixel',
@@ -71,11 +69,18 @@ class BookCover extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    if (this.state.imageSrc !== nextProps.imgSrc) {
+    console.log(nextProps);
+
+    if (this.state.name !== nextProps.name &&
+      this.state.imageSrc !== nextProps.imgSrc) {
       this.setState({
         imageSrc: nextProps.imgSrc,
         errorStatus: '',
       });
+      return true;
+    }
+
+    if (!nextProps.imgSrc || this.state.name !== nextProps.name) {
       return true;
     }
 
@@ -102,6 +107,7 @@ class BookCover extends React.Component {
   handleLoadedImageError() {
     this.setState({
       errorStatus: 'one-pixel',
+      imageSrc: '',
     });
     this.forceUpdate();
   }
@@ -181,7 +187,6 @@ BookCover.propTypes = {
   name: React.PropTypes.string,
   imageEndpoint: React.PropTypes.string,
   imageArgument: React.PropTypes.string,
-  placeHolderEndpoint: React.PropTypes.string,
   isbn: React.PropTypes.string,
   imgSrc: React.PropTypes.string,
 };
@@ -191,8 +196,6 @@ BookCover.defaultProps = {
   imageEndpoint: 'https://contentcafe2.btol.com/ContentCafe/Jacket.aspx?' +
     '&userID=NYPL49807&password=CC68707&Value=',
   imageArgument: '&content=M&Return=1&Type=M',
-  placeHolderEndpoint: 'http://nypl.org/browse/recommendations/lists/src/client/images/' +
-    'book-place-holder.png',
   isbn: '',
 };
 
