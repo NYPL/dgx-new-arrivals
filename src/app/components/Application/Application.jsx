@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import Header from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
@@ -19,7 +18,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="nyplNewArrivalsApp">
-        <Header skipNav={{target: 'maincontent'}} />
+        <Header skipNav={{ target: 'maincontent' }} />
 
         <div className="nyplNewArrivals nyplGrid-fullWidth">
 

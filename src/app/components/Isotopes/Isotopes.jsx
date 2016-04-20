@@ -23,7 +23,7 @@ class Isotopes extends React.Component {
         // columnWidth: 140,
         isResizable: true,
         // isFitWidth: true,
-        gutter: 10
+        gutter: 10,
       },
     };
 
@@ -31,19 +31,19 @@ class Isotopes extends React.Component {
   }
 
   /**
-   * Arrange the grid once we get new props for the component.
-   */
-  componentDidUpdate(prevProps) {
-    setTimeout(() => {
-      this.iso.reloadItems();
-    }, 150);
-  }
-
-  /**
    * Once the component mounts, initialize the instance of Isotopes.
    */
   componentDidMount() {
     this._createIsotopeContainer();
+  }
+
+  /**
+   * Arrange the grid once we get new props for the component.
+   */
+  componentDidUpdate() {
+    setTimeout(() => {
+      this.iso.reloadItems();
+    }, 150);
   }
 
   /**
@@ -140,24 +140,31 @@ class Isotopes extends React.Component {
       }, 200);
     }
   }
-  
+
   render() {
     const booksArr = this.props.booksArr && this.props.booksArr.length ? this.props.booksArr : [];
     const displayType = this.props.displayType;
     let books = this._generateItemsToDisplay(booksArr, displayType);
 
     if (!booksArr.length) {
-      books = <li className="book-item noResults">
+      books = (
+        <li className="book-item noResults">
           <span>No items found with the selected filters.</span>
-        </li>;
+        </li>
+      );
     }
 
     return (
-      <ul className="isotopeGrid" ref="isotopeContainer" style={{opacity: '0'}}>
+      <ul className="isotopeGrid" ref="isotopeContainer" style={{ opacity: '0' }}>
         {books}
       </ul>
     );
   }
 }
+
+Isotopes.propTypes = {
+  booksArr: React.PropTypes.array,
+  displayType: React.PropTypes.string,
+};
 
 export default Isotopes;

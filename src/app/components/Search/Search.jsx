@@ -1,9 +1,7 @@
 import React from 'react';
-import Radium from 'radium';
 import cx from 'classnames';
 
 import NewArrivalsStore from '../../stores/Store.js';
-import Actions from '../../actions/Actions.js';
 
 import DropDown from '../DropDown/DropDown.jsx';
 
@@ -66,7 +64,7 @@ class Search extends React.Component {
       keywords: this.state.searchKeywords.trim(),
       // If the value is null, it indicates the function is triggered on desktop version.
       // Then it should get the value for option from state.
-      option: value || this.state.searchOption
+      option: value || this.state.searchOption,
     };
     const encoreBaseUrl = 'http://browse.nypl.org/iii/encore/search/';
     const catalogBaseUrl = 'http://www.nypl.org/search/apachesolr_search/';
@@ -92,7 +90,7 @@ class Search extends React.Component {
     // Decide the search option based on which button the user clicked on mobile version search box
     if (requestParameters.option === 'catalog') {
       requestUrl = this._setEncoreUrl(requestParameters.keywords + format, encoreBaseUrl, 'eng');
-    }  else if (requestParameters.option === 'website') {
+    } else if (requestParameters.option === 'website') {
       requestUrl = this._setCatalogUrl(requestParameters.keywords, catalogBaseUrl);
     }
 
@@ -101,7 +99,7 @@ class Search extends React.Component {
       // The selector for inputKeywords DOM element
       inputKeywords = this.refs.keywords;
       // The new placeholder that tells users there's no keywords input
-      this.setState({placeholder: 'Please enter a search term.'});
+      this.setState({ placeholder: 'Please enter a search term.' });
       // Trigger the validation animation
       this._animationTimer(inputKeywords);
     } else {
@@ -132,17 +130,17 @@ class Search extends React.Component {
    * @param {DOM Element} element
    */
   _animationTimer(element) {
-    let frame = 0,
-      animation = setInterval(() => {
-        frame ++;
-        // Remove the class to stop the animation after 0.1s
-        if (frame > 1) {
-          clearInterval(animation);
-          this.setState({ placeholderAnimation: null });
-          // Set animation to be sequential
-          this.setState({ noAnimationBefore: false });
-        }
-      }, 100);
+    let frame = 0;
+    let animation = setInterval(() => {
+      frame ++;
+      // Remove the class to stop the animation after 0.1s
+      if (frame > 1) {
+        clearInterval(animation);
+        this.setState({ placeholderAnimation: null });
+        // Set animation to be sequential
+        this.setState({ noAnimationBefore: false });
+      }
+    }, 100);
 
     // Decide which CSS animation is going to perform
     // by adding different classes to the element.
@@ -172,24 +170,25 @@ class Search extends React.Component {
    * _encoreEncodeSearchString(string)
    * base64_encoding_map includes special characters that need to be
    * encoded using base64 - these chars are "=","/", "\", "?"
-   * character : base64 encoded 
+   * character : base64 encoded
    * @param {string} string - The string that needs to be encoded.
    */
   _encoreEncodeSearchString(string) {
-    const base64_enc_map = {
+    const base64EncMap = {
       '=': 'PQ==',
       '/': 'Lw==',
       '\\': 'XA==',
-      '?': 'Pw=='
+      '?': 'Pw==',
     };
+
     let encodedString = string;
     let charRegExString;
     let base64Regex;
 
-    Object.keys(base64_enc_map).forEach((specialChar) => {
+    Object.keys(base64EncMap).forEach((specialChar) => {
       charRegExString = specialChar.replace(/([\.\*\+\?\^\=\!\:\$\{\}\(\)\|\[\]\/\\])/g, '\\$1');
       base64Regex = new RegExp(charRegExString, 'g');
-      encodedString = encodedString.replace(base64Regex, base64_enc_map[specialChar]);
+      encodedString = encodedString.replace(base64Regex, base64EncMap[specialChar]);
     });
 
     return encodedString;
@@ -226,7 +225,7 @@ class Search extends React.Component {
    * @param {string} scopeString
    */
   _encoreAddScope(baseUrl, searchString, scopeString) {
-    return scopeString ? 
+    return scopeString ?
       `${baseUrl}C__S${searchString}${scopeString}__Orightresult__U` :
       `${baseUrl}C__S${searchString}__Orightresult__U`;
   }
@@ -234,15 +233,14 @@ class Search extends React.Component {
   render() {
     const options = ['any', 'books', 'music', 'dvds'];
     const pulseAnimation = cx({
-        'keywords-pulse-fade-in': this.state.placeholderAnimation === 'initial',
-        'keywords-pulse': this.state.placeholderAnimation === 'sequential'
-      });
+      'keywords-pulse-fade-in': this.state.placeholderAnimation === 'initial',
+      'keywords-pulse': this.state.placeholderAnimation === 'sequential',
+    });
 
     // Need to update when the state updates:
     const advanceKeywords = this.state.keywords ? `&searchString=${this.state.keywords}` : '';
     const advanceURL = `http://browse.nypl.org/iii/encore/home?` +
       `lang=eng&suite=def&advancedSearch=true${advanceKeywords}`;
-
 
     return (
       <div className="search-container">
@@ -254,10 +252,12 @@ class Search extends React.Component {
             placeholder={this.state.placeholder}
             className={`search-field ${pulseAnimation}`}
             onChange={this._inputChange.bind(this, null)}
-            ref="keywords" />
+            ref="keywords"
+          />
           <button
             className="search-button"
-            onClick={this._submitSearchRequest.bind(this, 'catalog')} >
+            onClick={this._submitSearchRequest.bind(this, 'catalog')}
+          >
             <span className="nypl-icon-magnifier-fat"></span>
             Search
           </button>
@@ -267,4 +267,4 @@ class Search extends React.Component {
   }
 }
 
-export default Radium(Search);
+export default Search;

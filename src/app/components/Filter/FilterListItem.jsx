@@ -47,4 +47,10 @@ class FilterListItem extends React.Component {
   }
 }
 
+FilterListItem.propTypes = {
+  onClick: React.PropTypes.func,
+  item: React.PropTypes.string,
+  active: React.PropTypes.boolean,
+};
+
 export default FilterListItem;

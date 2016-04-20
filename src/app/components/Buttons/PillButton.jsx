@@ -1,5 +1,4 @@
 import React from 'react';
-import Radium from 'radium';
 
 /**
  * Button used to display an icon and text. Should be updated with an svg
@@ -34,7 +33,8 @@ class PillButton extends React.Component {
     return (
       <button
         className={`PillButton ${this.props.className} ${this.props.value}`}
-        onClick={this._onClick.bind(this, this.props.value)}>
+        onClick={this._onClick.bind(this, this.props.value)}
+      >
         {this.props.icon}
         <span className={`PillButton-title`}>{this.props.title}</span>
         <span className={`${this.props.iconClass} icon`}></span>
@@ -43,4 +43,13 @@ class PillButton extends React.Component {
   }
 }
 
-export default Radium(PillButton);
+PillButton.propTypes = {
+  onClick: React.PropTypes.func,
+  className: React.PropTypes.string,
+  value: React.PropTypes.string,
+  iconClass: React.PropTypes.string,
+  icon: React.PropTypes.object,
+  title: React.PropTypes.string,
+};
+
+export default PillButton;
