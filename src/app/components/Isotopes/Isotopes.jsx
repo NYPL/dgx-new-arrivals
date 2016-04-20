@@ -36,7 +36,7 @@ class Isotopes extends React.Component {
   componentDidUpdate(prevProps) {
     setTimeout(() => {
       this.iso.reloadItems();
-    }, 250);
+    }, 150);
   }
 
   /**
@@ -81,14 +81,17 @@ class Isotopes extends React.Component {
     }
 
     const books = bookCoverItems.map((element, i) => {
+      const shortTitle = element.title ? element.title.split(':')[0] : '';
       const target = `http://browse.nypl.org/iii/encore/record/C__Rb${element.bibNumber}`;
       const bookCover = (
-        <a href={target} className="bookItem">
-          <BookCover
-            imgSrc={element.imageUrl[0] ? element.imageUrl[0] : null } testkey={i}
-            name={element.title}
-          />
-        </a>
+        <BookCover
+          imgSrc={element.imageUrl[0] ? element.imageUrl[0] : undefined } testkey={i}
+          name={shortTitle}
+          author={element.author}
+          format={element.format}
+          target={target}
+          linkClass="bookItem"
+        />
       );
       const formatLabel = _findWhere(formatData, { id: element.format });
 
@@ -118,7 +121,7 @@ class Isotopes extends React.Component {
     if (this.iso != null) {
       setTimeout(() => {
         this.iso.arrange();
-      }, 250);
+      }, 200);
     }
 
     return books;
@@ -134,7 +137,7 @@ class Isotopes extends React.Component {
 
       setTimeout(() => {
         this.iso.arrange();
-      }, 250);
+      }, 200);
     }
   }
   
