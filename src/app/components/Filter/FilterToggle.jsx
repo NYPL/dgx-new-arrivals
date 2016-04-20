@@ -1,10 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-import _ from 'underscore';
 import axios from 'axios';
 
-import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // can select multiple filters but only one per each category.
@@ -17,7 +14,7 @@ class FilterToggle extends React.Component {
     this._selectFilter = this._selectFilter.bind(this);
     this.state = {
       value: 'New Arrival',
-    }
+    };
   }
 
   _selectFilter(availability = 'New Arrivals', queries = '') {
@@ -40,7 +37,7 @@ class FilterToggle extends React.Component {
 
     // ES6 dynamic keys! woohoo
     this.setState({
-      [filter]: item.selected
+      [filter]: item.selected,
     });
   }
 
@@ -54,19 +51,20 @@ class FilterToggle extends React.Component {
   }
 
   render() {
-
     return (
       <fieldset className="switch" tabIndex="0">
         <legend>Show new arrivals or books on order?</legend>
         <input type="radio" className="switch-input"
           name="view" value="New Arrival" id="newArrivalInput"
           checked={this.state.value === 'New Arrival'}
-          onChange={this._onChange} />
+          onChange={this._onChange}
+        />
         <label htmlFor="newArrivalInput" className="switch-label label-left">New Arrival</label>
         <input type="radio" className="switch-input"
           name="view" value="On Order" id="onOrderInput"
-          checked={this.state.value === 'On Order'} 
-          onChange={this._onChange} />
+          checked={this.state.value === 'On Order'}
+          onChange={this._onChange}
+        />
         <label htmlFor="onOrderInput" className="switch-label label-right">On Order</label>
         <span className="switch-selection"></span>
       </fieldset>

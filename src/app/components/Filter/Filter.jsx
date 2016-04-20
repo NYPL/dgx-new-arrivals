@@ -1,5 +1,4 @@
 import React from 'react';
-import Radium from 'radium';
 import axios from 'axios';
 
 import PillButton from '../Buttons/PillButton.jsx';
@@ -10,8 +9,6 @@ import Actions from '../../actions/Actions.js';
 import FilterList from './FilterList.jsx';
 
 import appConfig from '../../../../appConfig.js';
-
-import _ from 'underscore';
 
 const { appFilters } = appConfig;
 
@@ -38,6 +35,12 @@ class IconButton extends React.Component {
   }
 }
 
+IconButton.propTypes = {
+  onClick: React.PropTypes.func,
+  className: React.PropTypes.string,
+  icon: React.PropTypes.string,
+};
+
 
 class CloseButton extends React.Component {
   constructor(props) {
@@ -52,11 +55,7 @@ class CloseButton extends React.Component {
       </svg>
     );
 
-    return (
-      <IconButton
-        {...this.props}
-        icon={icon} />
-    );
+    return (<IconButton {...this.props} icon={icon} />);
   }
 }
 
@@ -89,6 +88,10 @@ class FilterIcon extends React.Component {
   }
 }
 
+FilterIcon.propTypes = {
+  className: React.PropTypes.string,
+};
+
 // can select multiple filters but only one per each category.
 class Filter extends React.Component {
   constructor(props) {
@@ -102,8 +105,9 @@ class Filter extends React.Component {
     this.state = {
       active: NewArrivalsStore.getState().activeFilters,
       filters: NewArrivalsStore.getState().filters,
-    }
+    };
   }
+
   componentDidMount() {
     NewArrivalsStore.listen(this._onChange);
   }
@@ -148,8 +152,8 @@ class Filter extends React.Component {
 
     filters[filter] = item.selected;
 
-    for (let filter in filters) {
-      if (filters[filter] !== '') {
+    for (const f in filters) {
+      if (filters[f] !== '') {
         active = true;
       }
     }
@@ -209,7 +213,7 @@ class Filter extends React.Component {
         <div className="filter-header-mobile">
           <FilterIcon className="mobile-filter svgIcon" />
           <h2>Filter by</h2>
-          <CloseButton onClick={this._closeFilters} className='mobile-close' />
+          <CloseButton onClick={this._closeFilters} className="mobile-close" />
         </div>
 
         <ul>
@@ -242,5 +246,9 @@ class Filter extends React.Component {
     );
   }
 }
+
+IconButton.propTypes = {
+  active: React.PropTypes.string,
+};
 
 export default Filter;

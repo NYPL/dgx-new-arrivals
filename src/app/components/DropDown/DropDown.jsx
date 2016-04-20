@@ -34,7 +34,7 @@ class DropDown extends React.Component {
    */
   toggleDropDown() {
     this.setState({
-      listVisible: !this.state.listVisible
+      listVisible: !this.state.listVisible,
     });
   }
 
@@ -44,7 +44,7 @@ class DropDown extends React.Component {
   renderListItems() {
     return this.props.list.map((item, i) => {
       if (this.state.selected === item) {
-        return;
+        return undefined;
       }
 
       return (
@@ -58,17 +58,16 @@ class DropDown extends React.Component {
   render() {
     const iconClass = cx({
       'nypl-icon-wedge-up': this.state.listVisible,
-      'nypl-icon-wedge-down': !this.state.listVisible
+      'nypl-icon-wedge-down': !this.state.listVisible,
     });
-    const visibleClass = cx({
-      'show': this.state.listVisible
-    });
+    const visibleClass = cx({ show: this.state.listVisible });
 
     return (
       <div className={`dropdown-container search-select ${visibleClass}`}>
         <div
           className="dropdown-display"
-          onClick={this.toggleDropDown}>
+          onClick={this.toggleDropDown}
+        >
           <span>{this.state.selected}</span>
           <span className={`${iconClass} icon`}></span>
         </div>
@@ -81,5 +80,10 @@ class DropDown extends React.Component {
     );
   }
 }
+
+DropDown.propTypes = {
+  selected: React.PropTypes.string,
+  list: React.PropTypes.object,
+};
 
 export default DropDown;

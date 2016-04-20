@@ -52,8 +52,6 @@ const ereader = <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" v
   </svg>;
 
 class BookCover extends React.Component {
-
-  // Constructor used in ES6
   constructor(props) {
     super(props);
 
@@ -85,10 +83,9 @@ class BookCover extends React.Component {
     return false;
   }
 
-  componentDidMount() {}
-
   handleLoadedImage() {
     const width = this.refs.coverImage.naturalWidth;
+
     if (width < 10 && width >= 0) {
       this.setState({
         errorStatus: 'one-pixel',
@@ -111,14 +108,14 @@ class BookCover extends React.Component {
   }
 
   render() {
-    let imgClass = this.state.errorStatus === 'one-pixel' ? 'noImage' : '';
+    const imgClass = this.state.errorStatus === 'one-pixel' ? 'noImage' : '';
     let icon;
     let format;
 
     switch (this.props.format) {
       case 'BOOK/TEXT':
         icon = book;
-        format = 'Book'
+        format = 'Book';
         break;
       case 'AUDIOBOOK':
         icon = audioHeadphones;
@@ -157,15 +154,15 @@ class BookCover extends React.Component {
     return (
       <a href={this.props.target} className={`${this.props.linkClass} ${imgClass}`}>
         <img
-            onLoad={this.handleLoadedImage}
-            onError={this.handleLoadedImageError}
-            id={`cover-${this.props.id}`}
-            className={this.state.errorStatus}
-            ref="coverImage"
-            src={this.state.imageSrc}
-            title={this.props.name}
-            alt={this.props.name}
-          />
+          onLoad={this.handleLoadedImage}
+          onError={this.handleLoadedImageError}
+          id={`cover-${this.props.id}`}
+          className={this.state.errorStatus}
+          ref="coverImage"
+          src={this.state.imageSrc}
+          title={this.props.name}
+          alt={this.props.name}
+        />
         <div className={`itemOverlay ${imgClass}`}>
           <h3>{this.props.name}</h3>
           <div className="details">
@@ -181,20 +178,18 @@ class BookCover extends React.Component {
 
 BookCover.propTypes = {
   id: React.PropTypes.string,
-  className: React.PropTypes.string,
   name: React.PropTypes.string,
-  imageEndpoint: React.PropTypes.string,
+  format: React.PropTypes.string,
   imageArgument: React.PropTypes.string,
-  isbn: React.PropTypes.string,
+  target: React.PropTypes.string,
+  linkClass: React.PropTypes.string,
   imgSrc: React.PropTypes.string,
+  author: React.PropTypes.string,
 };
 
 BookCover.defaultProps = {
   id: 'BookCover',
-  imageEndpoint: 'https://contentcafe2.btol.com/ContentCafe/Jacket.aspx?' +
-    '&userID=NYPL49807&password=CC68707&Value=',
-  imageArgument: '&content=M&Return=1&Type=M',
-  isbn: '',
+  format: 'BOOK/TEXT',
 };
 
 // Export components
