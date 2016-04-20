@@ -42,7 +42,8 @@ function LanguageData() {
 
 function NewArrivalsApp(req, res, next) {
   const itemCount = '18';
-  const baseApiUrl = `${newArrivalsApi.bibItems}?&itemCount=${itemCount}`;
+  const days = '60';
+  const baseApiUrl = `${newArrivalsApi.bibItems}?availability=New%20Arrivals&itemCount=${itemCount}`;
 
   axios.all([getHeaderData(), fetchApiData(baseApiUrl), LanguageData()])
     .then(axios.spread((headerData, newArrivalsData, languageData) => {
@@ -118,12 +119,14 @@ function SelectPage(req, res) {
   const language = query.language || '';
   const pageNum = query.pageNum || '1';
   const itemCount = query.itemCount || '18';
+  const availability = query.availability || '';
 
   const formatQuery = format ? `&format=${format}` : '';
   const audienceQuery = audience ? `&audience=${audience}` : '';
   const languageQuery = language ? `&language=${language}` : '';
+  const availabilityQuery = availability ? `&availability=${availability}` : '';
   const apiUrl = `${newArrivalsApi.bibItems}?${formatQuery}` +
-    `${languageQuery}${audienceQuery}&itemCount=${itemCount}`;
+    `${languageQuery}${audienceQuery}${availabilityQuery}&itemCount=${itemCount}`;
 
   axios
     .get(apiUrl)

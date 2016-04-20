@@ -1,9 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import _ from 'underscore';
+import { findWhere as _findWhere } from 'underscore';
 
 import BookCover from '../BookCover/BookCover.jsx';
+import appConfig from '../../../../appConfig.js';
+
+const { appFilters } = appConfig;
+const formatData = appFilters.formatData.data;
 
 /**
  * Isotopes grid container component
@@ -32,7 +36,7 @@ class Isotopes extends React.Component {
   componentDidUpdate(prevProps) {
     setTimeout(() => {
       this.iso.reloadItems();
-    }, 250);
+    }, 150);
   }
 
   /**
@@ -70,22 +74,27 @@ class Isotopes extends React.Component {
    * @param {string} displayType - Either 'grid' or 'list'.
    */
   _generateItemsToDisplay(booksArr, displayType) {
-    const bookCoverItems = booksArr; //_.chain(booksArr).flatten().value();
+    const bookCoverItems = booksArr;
 
     if (bookCoverItems.length === 0) {
       return null;
     }
 
     const books = bookCoverItems.map((element, i) => {
+      const shortTitle = element.title ? element.title.split(':')[0] : '';
       const target = `http://browse.nypl.org/iii/encore/record/C__Rb${element.bibNumber}`;
       const bookCover = (
-        <a href={target} className="bookItem">
-          <BookCover
-            imgSrc={element.imageUrl[0] ? element.imageUrl[0] : null } testkey={i}
-            name={element.title}
-          />
-        </a>
+        <BookCover
+          imgSrc={element.imageUrl[0] ? element.imageUrl[0] : undefined } testkey={i}
+          name={shortTitle}
+          author={element.author}
+          format={element.format}
+          target={target}
+          linkClass="bookItem"
+        />
       );
+      const formatLabel = _findWhere(formatData, { id: element.format });
+
       const createdDate = this._createDate(element.createdDate);
       const bookListItem = (
         <div>
@@ -93,7 +102,10 @@ class Isotopes extends React.Component {
             <h2>{element.title}</h2>
           </a>
           <p>{element.author ? element.author : null}</p>
-          <p>{element.format ? element.format : null}</p>
+          <p>
+            {formatLabel ? `${formatLabel.label}, ` : null}
+            {element.publishYear ? element.publishYear : null}
+          </p>
           <p>{element.description ? element.description : null}</p>
           {createdDate}
         </div>
@@ -109,7 +121,7 @@ class Isotopes extends React.Component {
     if (this.iso != null) {
       setTimeout(() => {
         this.iso.arrange();
-      }, 250);
+      }, 200);
     }
 
     return books;
@@ -125,7 +137,7 @@ class Isotopes extends React.Component {
 
       setTimeout(() => {
         this.iso.arrange();
-      }, 250);
+      }, 200);
     }
   }
   
