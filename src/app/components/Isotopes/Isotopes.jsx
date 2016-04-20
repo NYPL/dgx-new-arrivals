@@ -1,9 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import _ from 'underscore';
+import { findWhere as _findWhere } from 'underscore';
 
 import BookCover from '../BookCover/BookCover.jsx';
+import appConfig from '../../../../appConfig.js';
+
+const { appFilters } = appConfig;
+const formatData = appFilters.formatData.data;
 
 /**
  * Isotopes grid container component
@@ -70,7 +74,7 @@ class Isotopes extends React.Component {
    * @param {string} displayType - Either 'grid' or 'list'.
    */
   _generateItemsToDisplay(booksArr, displayType) {
-    const bookCoverItems = booksArr; //_.chain(booksArr).flatten().value();
+    const bookCoverItems = booksArr;
 
     if (bookCoverItems.length === 0) {
       return null;
@@ -88,6 +92,8 @@ class Isotopes extends React.Component {
           linkClass="bookItem"
         />
       );
+      const formatLabel = _findWhere(formatData, { id: element.format });
+
       const createdDate = this._createDate(element.createdDate);
       const bookListItem = (
         <div>
@@ -95,7 +101,10 @@ class Isotopes extends React.Component {
             <h2>{element.title}</h2>
           </a>
           <p>{element.author ? element.author : null}</p>
-          <p>{element.format ? element.format : null}</p>
+          <p>
+            {formatLabel ? `${formatLabel.label}, ` : null}
+            {element.publishYear ? element.publishYear : null}
+          </p>
           <p>{element.description ? element.description : null}</p>
           {createdDate}
         </div>
