@@ -69,8 +69,6 @@ class BookCover extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    console.log(nextProps);
-
     if (this.state.name !== nextProps.name &&
       this.state.imageSrc !== nextProps.imgSrc) {
       this.setState({

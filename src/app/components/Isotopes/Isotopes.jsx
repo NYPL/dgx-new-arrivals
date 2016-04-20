@@ -81,7 +81,7 @@ class Isotopes extends React.Component {
     }
 
     const books = bookCoverItems.map((element, i) => {
-      const shortTitle = element.title.split(':')[0];
+      const shortTitle = element.title ? element.title.split(':')[0] : '';
       const target = `http://browse.nypl.org/iii/encore/record/C__Rb${element.bibNumber}`;
       const bookCover = (
         <BookCover
