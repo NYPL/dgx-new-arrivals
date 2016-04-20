@@ -115,7 +115,9 @@ class ToggleDisplay extends React.Component {
 
     return (
       <ul className="ToggleDisplay">
-        <li><FilterToggle /></li>
+        <li>
+          <FilterToggle />
+        </li>
         <li>
           <PillButton
             className="view"
