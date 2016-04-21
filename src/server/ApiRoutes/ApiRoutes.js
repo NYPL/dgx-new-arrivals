@@ -35,9 +35,9 @@ function getHeaderData() {
 
 function LanguageData() {
   const days = '30';
-  const baseApiUrl = `${newArrivalsApi.languages}?&days=${days}`;
+  const languageApiUrl = `${newArrivalsApi.languages}?&days=${days}`;
 
-  return fetchApiData(baseApiUrl);
+  return fetchApiData(languageApiUrl);
 }
 
 function NewArrivalsApp(req, res, next) {
@@ -56,6 +56,7 @@ function NewArrivalsApp(req, res, next) {
           return (language.count >= 100 &&
             language.name !== 'Multiple languages' &&
             language.name !== 'No linguistic content' &&
+            language.name !== 'Undetermined' &&
             language.name !== '---');
         })
         .map(language => {
@@ -65,9 +66,6 @@ function NewArrivalsApp(req, res, next) {
           };
         })
         .value();
-
-      console.log(languages.length);
-      console.log(languages);
 
       res.locals.data = {
         HeaderStore: {
@@ -82,6 +80,7 @@ function NewArrivalsApp(req, res, next) {
             language: '',
             genre: '',
           },
+          languages,
         },
         completeApiUrl: '',
       };
@@ -105,6 +104,7 @@ function NewArrivalsApp(req, res, next) {
             language: '',
             genre: '',
           },
+          languages: [],
         },
       };
       next();
