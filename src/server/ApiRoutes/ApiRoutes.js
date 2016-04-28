@@ -5,6 +5,7 @@ import parser from 'jsonapi-parserinator';
 import Model from 'dgx-model-data';
 
 import config from '../../../appConfig.js';
+import _ from 'underscore';
 
 // Syntax that both ES6 and Babel 6 support
 const { HeaderItemModel } = Model;
@@ -32,16 +33,39 @@ function getHeaderData() {
   return fetchApiData(headerApiUrl);
 }
 
+function LanguageData() {
+  const days = '30';
+  const languageApiUrl = `${newArrivalsApi.languages}?&days=${days}`;
+
+  return fetchApiData(languageApiUrl);
+}
+
 function NewArrivalsApp(req, res, next) {
   const itemCount = '18';
   const days = '60';
   const baseApiUrl = `${newArrivalsApi.bibItems}` +
     `?availability=New%20Arrivals&itemCount=${itemCount}`;
 
-  axios.all([getHeaderData(), fetchApiData(baseApiUrl)])
-    .then(axios.spread((headerData, newArrivalsData) => {
+  axios.all([getHeaderData(), fetchApiData(baseApiUrl), LanguageData()])
+    .then(axios.spread((headerData, newArrivalsData, languageData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
       const headerModelData = HeaderItemModel.build(headerParsed);
+
+      const languages = _.chain(languageData.data)
+        .filter(language => {
+          return (language.count >= 100 &&
+            language.name !== 'Multiple languages' &&
+            language.name !== 'No linguistic content' &&
+            language.name !== 'Undetermined' &&
+            language.name !== '---');
+        })
+        .map(language => {
+          return {
+            name: language.name,
+            count: language.count,
+          };
+        })
+        .value();
 
       res.locals.data = {
         HeaderStore: {
@@ -57,6 +81,7 @@ function NewArrivalsApp(req, res, next) {
             language: '',
             genre: '',
           },
+          languages,
         },
         completeApiUrl: '',
       };
@@ -81,6 +106,7 @@ function NewArrivalsApp(req, res, next) {
             language: '',
             genre: '',
           },
+          languages: [],
         },
       };
       next();

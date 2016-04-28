@@ -32,6 +32,7 @@ class NewArrivalsStore {
         language: '',
         genre: '',
       };
+      this.languages = [];
       this.isotopeUpdate = false;
       this.activeFilters = false;
       this.pageNum = 2;

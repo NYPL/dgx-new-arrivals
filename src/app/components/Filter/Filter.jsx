@@ -9,6 +9,7 @@ import Actions from '../../actions/Actions.js';
 import FilterList from './FilterList.jsx';
 
 import appConfig from '../../../../appConfig.js';
+import _ from 'underscore';
 
 const { appFilters } = appConfig;
 
@@ -105,6 +106,7 @@ class Filter extends React.Component {
     this.state = {
       active: NewArrivalsStore.getState().activeFilters,
       filters: NewArrivalsStore.getState().filters,
+      languages: NewArrivalsStore.getState().languages,
     };
   }
 
@@ -121,6 +123,7 @@ class Filter extends React.Component {
       active: NewArrivalsStore.getState().activeFilters,
       filters: NewArrivalsStore.getState().filters,
       pageNum: NewArrivalsStore.getState().pageNum,
+      languages: NewArrivalsStore.getState().languages,
     });
   }
 
@@ -215,6 +218,15 @@ class Filter extends React.Component {
     const languageData = appFilters.languageData;
     const genreData = appFilters.genreData;
     const activeSubmitButtons = this.state.active ? 'active' : '';
+
+    const updatedLanguages = _.map(this.state.languages, language => {
+      return {
+        id: language.name,
+        label: language.name,
+        count: language.count,
+      };
+    });
+    languageData.data = updatedLanguages;
 
     formatData.active = filters.format;
     audienceData.active = filters.audience;
