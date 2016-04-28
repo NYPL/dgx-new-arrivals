@@ -94,13 +94,16 @@ function SelectPage(req, res) {
   const pageNum = query.pageNum || '1';
   const itemCount = query.itemCount || '18';
   const availability = query.availability || '';
+  const genre = query.genre || '';
 
   const formatQuery = format ? `&format=${format}` : '';
   const audienceQuery = audience ? `&audience=${audience}` : '';
   const languageQuery = language ? `&language=${language}` : '';
   const availabilityQuery = availability ? `&availability=${availability}` : '';
+  const genreQuery = genre ? `&genre=${genre}` : '';
   const apiUrl = `${newArrivalsApi.bibItems}?${formatQuery}` +
-    `${languageQuery}${audienceQuery}${availabilityQuery}&itemCount=${itemCount}`;
+    `${languageQuery}${audienceQuery}${availabilityQuery}` +
+    `${genreQuery}&itemCount=${itemCount}`;
 
   axios
     .get(apiUrl)
