@@ -63,4 +63,47 @@
   legend {
       @include visuallyHidden;
   }
+
+  svg {
+    vertical-align: middle;
+    fill: #fff;
+  }
 }
+
+.viewType {
+  background-color: #575550;
+  width: 170px;
+
+  svg {
+    vertical-align: middle;
+    fill: #9c9890;
+  }
+
+  .switch {
+    &-label {
+      padding: 5px 0;
+      color: #9c9890;
+      width: 80px;
+    }
+
+    &-input {
+      &:checked + .switch-label {
+        color: #fff;
+
+        svg {
+          fill: #fff;
+        }
+      }
+
+      &:checked + .label-right ~ .switch-selection {
+        left: 80px;
+      }
+    }
+
+    &-selection {
+      background-color: #9c9890;
+      width: 85px;
+    }
+  }
+}
+
