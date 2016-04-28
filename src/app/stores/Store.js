@@ -17,6 +17,8 @@ class NewArrivalsStore {
       updateFiltered: Actions.UPDATE_FILTERED,
       isotopeUpdate: Actions.ISOTOPE_UPDATE,
       updateActiveFilters: Actions.UPDATE_ACTIVE_FILTERS,
+      addMoreItems: Actions.ADD_MORE_ITEMS,
+      handleUpdatePageNum: Actions.UPDATE_PAGE_NUM,
     });
 
     this.on('init', () => {
@@ -33,6 +35,7 @@ class NewArrivalsStore {
       this.languages = [];
       this.isotopeUpdate = false;
       this.activeFilters = false;
+      this.pageNum = 2;
     });
   }
 
@@ -74,6 +77,18 @@ class NewArrivalsStore {
 
   updateActiveFilters(bol) {
     this.activeFilters = bol;
+  }
+
+  addMoreItems(data) {
+    this.newArrivalsData.bibItems = this.newArrivalsData.bibItems.concat(data);
+  }
+
+  handleUpdatePageNum(bol) {
+    if (bol) {
+      this.pageNum += 1;
+    } else {
+      this.pageNum = 2;
+    }
   }
 }
 

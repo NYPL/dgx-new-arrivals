@@ -74,6 +74,7 @@ function NewArrivalsApp(req, res, next) {
         NewArrivalsStore: {
           displayType: 'grid',
           newArrivalsData: newArrivalsData.data,
+          pageNum: 2,
           filters: {
             format: '',
             audience: '',
@@ -98,6 +99,7 @@ function NewArrivalsApp(req, res, next) {
         NewArrivalsStore: {
           displayType: 'grid',
           newArrivalsData: [],
+          pageNum: 2,
           filters: {
             format: '',
             audience: '',
@@ -129,7 +131,7 @@ function SelectPage(req, res) {
   const genreQuery = genre ? `&genre=${genre}` : '';
   const apiUrl = `${newArrivalsApi.bibItems}?${formatQuery}` +
     `${languageQuery}${audienceQuery}${availabilityQuery}` +
-    `${genreQuery}&itemCount=${itemCount}`;
+    `${genreQuery}&itemCount=${itemCount}&pageNum=${pageNum}`;
 
   axios
     .get(apiUrl)

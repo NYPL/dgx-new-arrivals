@@ -14,6 +14,7 @@ class SelectedFilters extends React.Component {
     this._getFilterList = this._getFilterList.bind(this);
     this._removeFilter = this._removeFilter.bind(this);
     this._makeQuery = this._makeQuery.bind(this);
+
     this.state = NewArrivalsStore.getState();
   }
 
@@ -52,9 +53,14 @@ class SelectedFilters extends React.Component {
     }
 
     const queries = this._makeQuery(filters);
+    let items = 18;
 
+    if (queries) {
+      items = 18 * (this.state.pageNum-1);
+    }
+console.log(`/api?${queries}&itemCount=${items}`);
     axios
-      .get(`/api?${queries}&itemCount=18`)
+      .get(`/api?${queries}&itemCount=${items}`)
       .then(response => {
         Actions.updateNewArrivalsData(response.data);
         setTimeout(() => {
