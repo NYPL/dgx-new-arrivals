@@ -73,7 +73,7 @@ export default {
       title: 'Genre',
       data: [
         { id: 'Fiction', label: 'Fiction' },
-        { id: 'Nonfiction', label: 'Nonfiction' },
+        { id: 'Non fiction', label: 'Non Fiction' },
         { id: 'Research', label: 'Research' },
       ],
       active: '',
