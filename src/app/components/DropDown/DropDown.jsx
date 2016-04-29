@@ -83,7 +83,7 @@ class DropDown extends React.Component {
 
 DropDown.propTypes = {
   selected: React.PropTypes.string,
-  list: React.PropTypes.object,
+  list: React.PropTypes.array,
 };
 
 export default DropDown;

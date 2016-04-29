@@ -247,7 +247,10 @@ class Search extends React.Component {
         <h3>I want to browse...</h3>
 
         <div className="search-form" onKeyPress={this._triggerSubmit}>
-          <DropDown list={options} selected={options[0]} />
+          <DropDown
+            list={options}
+            selected={options[0]}
+          />
           <input
             placeholder={this.state.placeholder}
             className={`search-field ${pulseAnimation}`}
