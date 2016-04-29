@@ -105,7 +105,7 @@ function NewArrivalsApp(req, res, next) {
         },
         NewArrivalsStore: {
           displayType: 'grid',
-          newArrivalsData: [],
+          newArrivalsData: {},
           pageNum: 2,
           filters: {
             format: '',

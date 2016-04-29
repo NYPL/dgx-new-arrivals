@@ -22,7 +22,7 @@ class NewArrivalsStore {
     });
 
     this.on('init', () => {
-      this.newArrivalsData = [];
+      this.newArrivalsData = {};
       this.displayType = 'grid';
       this.toggleFilter = false;
       this.dropDownValue = '';
