@@ -17,7 +17,7 @@ class FilterToggle extends React.Component {
     };
   }
 
-  _selectFilter(availability = 'New Arrivals', queries = '') {
+  _selectFilter(availability = 'New Arrival', queries = '') {
     axios
       .get(`/api?${queries}&availability=${availability}&itemCount=18`)
       .then(response => {

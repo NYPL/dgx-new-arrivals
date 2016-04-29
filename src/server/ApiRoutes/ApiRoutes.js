@@ -44,7 +44,7 @@ function NewArrivalsApp(req, res, next) {
   const itemCount = '18';
   const days = '60';
   const baseApiUrl = `${newArrivalsApi.bibItems}` +
-    `?availability=New%20Arrivals&itemCount=${itemCount}`;
+    `?availability=New%20Arrival&itemCount=${itemCount}`;
 
   axios.all([getHeaderData(), fetchApiData(baseApiUrl), LanguageData()])
     .then(axios.spread((headerData, newArrivalsData, languageData) => {
