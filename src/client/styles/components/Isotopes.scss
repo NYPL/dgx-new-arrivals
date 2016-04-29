@@ -1,5 +1,4 @@
 .isotopeGrid {
-  // @include grid-span(3);
   opacity: 0;
   width: 100%;
   margin: 0;
@@ -18,7 +17,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 
   &.noResults {
     display: block;
@@ -44,7 +43,6 @@
     .bookItem {
       float: left;
       position: relative;
-      margin-right: 20px;
       width: 175px;
       height: 280px;
 
@@ -70,7 +68,6 @@
   .itemOverlay {
     position: absolute;
     background-color: #54514a;
-    opacity: 0.9;
     bottom: 0px;
     width: 100%;
     max-height: 100%;
@@ -83,7 +80,6 @@
 
     &.noImage {
       display: block;
-      opacity: 1;
       height: 100%;
 
       h3, p {
@@ -167,17 +163,33 @@
     max-height: 250px;
   }
 
+  h2, p {
+    @include Kievit-Book;
+    font-weight: 400;
+    margin: 0 0 0 200px;
+  }
+
   h2 {
     color: #1da1d4;
-    @include Kievit-Medium;
-    font-weight: normal;
-    margin-bottom: 0px;
   }
 
   p {
-    color: #9c9890;
-    margin: 10px;
-    @include Helvetica;
+    color: #333;
+    font-size: 16px;
+
+    &.author {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    &.publishInfo {
+      margin-top: 10px;
+    }
+
+    &.description {
+      margin: 20px 0 40px 200px;
+    }
   }
 
   @include min-screen(768px) {

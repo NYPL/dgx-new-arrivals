@@ -64,7 +64,7 @@ class Isotopes extends React.Component {
       'August', 'September', 'October', 'November', 'December'];
     const d = new Date(date);
 
-    return (<p>Added on {months[d.getMonth()]} {d.getDate()}, {d.getFullYear()}</p>);
+    return `Added on ${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
   }
 
   /**
@@ -97,18 +97,18 @@ class Isotopes extends React.Component {
 
       const createdDate = this._createDate(element.createdDate);
       const bookListItem = (
-        <div>
+        <div className="list-item">
           {bookCover}
           <a href={target}>
             <h2>{element.title}</h2>
           </a>
-          <p>{element.author ? element.author : null}</p>
-          <p>
+          <p className="author">{element.author ? element.author : null}</p>
+          <p className="publishInfo">
             {formatLabel ? `${formatLabel.label}, ` : null}
             {element.publishYear ? element.publishYear : null}
           </p>
-          <p>{element.description ? element.description : null}</p>
-          {createdDate}
+          <p className="description">{element.description ? element.description : null}</p>
+          <p className="date">{createdDate}</p>
         </div>
       );
 
