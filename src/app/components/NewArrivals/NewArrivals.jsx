@@ -81,7 +81,8 @@ class NewArrivals extends React.Component {
   }
 
   render() {
-    const books = this.state.newArrivalsData ? this.state.newArrivalsData.bibItems : [];
+    const books = this.state.newArrivalsData && this.state.newArrivalsData.bibItems ?
+      this.state.newArrivalsData.bibItems : [];
     const displayType = this.state.displayType;
     const isLoading = this.state.isLoading;
     const paginationHidden = books.length ? '' : 'hide';
