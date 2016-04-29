@@ -98,6 +98,7 @@ class Isotopes extends React.Component {
       const createdDate = this._createDate(element.createdDate);
       const bookListItem = (
         <div>
+          {bookCover}
           <a href={target}>
             <h2>{element.title}</h2>
           </a>

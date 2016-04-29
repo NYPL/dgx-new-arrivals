@@ -40,6 +40,26 @@
     width: 100%;
     height: auto;
     display: block;
+
+    .bookItem {
+      float: left;
+      position: relative;
+      margin-right: 20px;
+      width: 175px;
+      height: 280px;
+
+      // display: flex;
+      // justify-content: center;
+      // align-items: center;
+
+      // &.noImage {
+      //   display: block;
+      // }
+
+      .itemOverlay {
+        width: 175px;
+      }
+    }
   }
 
   .noImage {
