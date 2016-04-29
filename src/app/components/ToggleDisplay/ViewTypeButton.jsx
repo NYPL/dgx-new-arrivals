@@ -1,7 +1,5 @@
 import React from 'react';
 
-import axios from 'axios';
-
 import Actions from '../../actions/Actions.js';
 
 const ListSvgIcon = (<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
@@ -68,5 +66,13 @@ class ViewTypeButton extends React.Component {
     );
   }
 }
+
+ViewTypeButton.propTypes = {
+  type: React.PropTypes.string.isRequired,
+};
+
+ViewTypeButton.defaultProps = {
+  type: 'grid',
+};
 
 export default ViewTypeButton;
