@@ -9,7 +9,7 @@ import _ from 'underscore';
 
 // Syntax that both ES6 and Babel 6 support
 const { HeaderItemModel } = Model;
-const { api, headerApi, newArrivalsApi } = config;
+const { api, headerApi, newArrivalsApi, appFilters } = config;
 
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
@@ -40,11 +40,18 @@ function LanguageData() {
   return fetchApiData(languageApiUrl);
 }
 
+function FormatFilters() {
+  const formats = _.map(appFilters.formatData.data, format => format.id );
+
+  return formats.join(',');
+}
+
 function NewArrivalsApp(req, res, next) {
   const itemCount = '18';
   const days = '60';
-  const baseApiUrl = `${newArrivalsApi.bibItems}` +
-    `?availability=New%20Arrivals&itemCount=${itemCount}`;
+  const formats = FormatFilters();
+  const baseApiUrl = `${newArrivalsApi.bibItems}?format=${formats}` +
+    `&availability=New%20Arrival&itemCount=${itemCount}`;
 
   axios.all([getHeaderData(), fetchApiData(baseApiUrl), LanguageData()])
     .then(axios.spread((headerData, newArrivalsData, languageData) => {
@@ -98,7 +105,7 @@ function NewArrivalsApp(req, res, next) {
         },
         NewArrivalsStore: {
           displayType: 'grid',
-          newArrivalsData: [],
+          newArrivalsData: {},
           pageNum: 2,
           filters: {
             format: '',
