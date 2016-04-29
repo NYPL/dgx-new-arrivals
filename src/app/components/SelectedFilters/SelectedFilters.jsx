@@ -6,6 +6,8 @@ import axios from 'axios';
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
+import { FormatFilters } from '../../utils/utils.js';
+
 class SelectedFilters extends React.Component {
   constructor(props) {
     super(props);
@@ -36,6 +38,8 @@ class SelectedFilters extends React.Component {
     for (const filter in filters) {
       if (filters[filter] !== '') {
         queries += `&${filter}=${filters[filter]}`;
+      } else if (filter === 'format') {
+        queries += `&format=${FormatFilters()}`;
       }
     }
 
@@ -58,7 +62,7 @@ class SelectedFilters extends React.Component {
     if (queries) {
       items = 18 * (this.state.pageNum-1);
     }
-console.log(`/api?${queries}&itemCount=${items}`);
+
     axios
       .get(`/api?${queries}&itemCount=${items}`)
       .then(response => {
