@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+import _ from 'underscore';
+
 import PillButton from '../Buttons/PillButton.jsx';
 
 import NewArrivalsStore from '../../stores/Store.js';
@@ -8,8 +10,8 @@ import Actions from '../../actions/Actions.js';
 
 import FilterList from './FilterList.jsx';
 
+import { FormatFilters } from '../../utils/utils.js';
 import appConfig from '../../../../appConfig.js';
-import _ from 'underscore';
 
 const { appFilters } = appConfig;
 
@@ -93,6 +95,7 @@ FilterIcon.propTypes = {
   className: React.PropTypes.string,
 };
 
+
 // can select multiple filters but only one per each category.
 class Filter extends React.Component {
   constructor(props) {
@@ -138,10 +141,12 @@ class Filter extends React.Component {
       items = 18 * (this.state.pageNum-1);
     }
 
-    console.log(`/api?${queries}&itemCount=${items}`);
+    if (!queries) {
+      queries = `format=${FormatFilters()}`;
+    }
 
     axios
-      .get(`/api?${queries}&itemCount=${items}`)
+      .get(`/api?${queries}&availability=New%20Arrival&itemCount=${items}`)
       .then(response => {
         // console.log(response.data);
         Actions.updateNewArrivalsData(response.data);
