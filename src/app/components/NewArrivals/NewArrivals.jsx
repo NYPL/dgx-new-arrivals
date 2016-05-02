@@ -100,7 +100,7 @@ class NewArrivals extends React.Component {
           id='page-button'
           hidden={paginationHidden}
           className={`page-button`}
-          dots="3"
+          dots={3}
           label="LOAD MORE"
           isLoading={isLoading}
           onClick={this.loadMore}

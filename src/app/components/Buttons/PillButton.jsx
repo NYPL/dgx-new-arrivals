@@ -46,7 +46,7 @@ class PillButton extends React.Component {
 PillButton.propTypes = {
   onClick: React.PropTypes.func,
   className: React.PropTypes.string,
-  value: React.PropTypes.string,
+  value: React.PropTypes.any,
   iconClass: React.PropTypes.string,
   icon: React.PropTypes.object,
   title: React.PropTypes.string,
