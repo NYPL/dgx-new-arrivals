@@ -34,7 +34,7 @@ class ViewTypeButton extends React.Component {
         <input
           type="radio"
           className="switch-input"
-          name="list"
+          name="viewType"
           value="list"
           id="listInput"
           checked={this.props.type === 'list'}
@@ -49,7 +49,7 @@ class ViewTypeButton extends React.Component {
         <input
           type="radio"
           className="switch-input"
-          name="grid"
+          name="viewType"
           value="grid"
           id="gridInput"
           checked={this.props.type === 'grid'}
