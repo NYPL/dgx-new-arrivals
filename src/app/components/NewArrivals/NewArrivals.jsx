@@ -12,7 +12,7 @@ import appConfig from '../../../../appConfig.js';
 import axios from 'axios';
 import { extend as _extend } from 'underscore';
 
-const { appFilters } = appConfig;
+const { appFilters, introText } = appConfig;
 
 /**
  * Renders the main section of the New Arrivals app.
@@ -91,6 +91,9 @@ class NewArrivals extends React.Component {
     return (
       <div className="newArrivals-container" id="maincontent" tabIndex="-1">
         <h4>New Arrivals</h4>
+        <p className="newArrivals-introText">
+          {introText}
+        </p>
         <SelectedFilters />
         <ToggleDisplay />
         <Isotopes

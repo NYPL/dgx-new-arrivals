@@ -21,4 +21,10 @@
       }
     }
   }
+
+  &-introText {
+    @include Kievit-Book;
+    font-weight: 400;
+    font-size: 14px;
+  }
 }
