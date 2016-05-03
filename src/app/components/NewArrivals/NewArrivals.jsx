@@ -2,6 +2,7 @@ import React from 'react';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
+
 import Isotopes from '../Isotopes/Isotopes.jsx';
 import ToggleDisplay from '../ToggleDisplay/ToggleDisplay.jsx';
 import SelectedFilters from '../SelectedFilters/SelectedFilters.jsx';
@@ -89,7 +90,7 @@ class NewArrivals extends React.Component {
 
     return (
       <div className="newArrivals-container" id="maincontent" tabIndex="-1">
-        <h4>Browse New Releases</h4>
+        <h4>New Arrivals</h4>
         <SelectedFilters />
         <ToggleDisplay />
         <Isotopes
