@@ -20,28 +20,28 @@ class Search extends React.Component {
       noAnimationBefore: true,
     };
 
-    this._inputChange = this._inputChange.bind(this);
-    this._submitSearchRequest = this._submitSearchRequest.bind(this);
-    this._triggerSubmit = this._triggerSubmit.bind(this);
-    this._animationTimer = this._animationTimer.bind(this);
-    this._setCatalogUrl = this._setCatalogUrl.bind(this);
-    this._setEncoreUrl = this._setEncoreUrl.bind(this);
-    this._encoreEncodeSearchString = this._encoreEncodeSearchString.bind(this);
-    this._encoreAddScope = this._encoreAddScope.bind(this);
+    this.inputChange = this.inputChange.bind(this);
+    this.submitSearchRequest = this.submitSearchRequest.bind(this);
+    this.triggerSubmit = this.triggerSubmit.bind(this);
+    this.animationTimer = this.animationTimer.bind(this);
+    this.setCatalogUrl = this.setCatalogUrl.bind(this);
+    this.setEncoreUrl = this.setEncoreUrl.bind(this);
+    this.encoreEncodeSearchString = this.encoreEncodeSearchString.bind(this);
+    this.encoreAddScope = this.encoreAddScope.bind(this);
   }
 
   componentDidMount() {
-    NewArrivalsStore.listen(this._onChange);
+    NewArrivalsStore.listen(this.onChange);
   }
 
   componentWillUnmount() {
-    NewArrivalsStore.unlisten(this._onChange);
+    NewArrivalsStore.unlisten(this.onChange);
   }
 
-  _onChange() {}
+  onChange() {}
 
   /**
-   *  _inputChange(field, event)
+   *  inputChange(field, event)
    * Listen to the changes on keywords input field and option input fields.
    * Grab the event value, and change the state.
    *
@@ -49,16 +49,16 @@ class Search extends React.Component {
    * @param {Event Object} event - Passing event as the argument here
    * as FireFox doesn't accept event as a global variable.
    */
-  _inputChange(field, event) {
+  inputChange(field, event) {
     this.setState({ searchKeywords: event.target.value });
   }
 
   /**
-   * _submitSearchRequest(value)
+   * submitSearchRequest(value)
    *
    * @param {String} value - The value from the input field.
    */
-  _submitSearchRequest(value) {
+  submitSearchRequest(value) {
     // Store the data that the user entered
     const requestParameters = {
       keywords: this.state.searchKeywords.trim(),
@@ -89,9 +89,9 @@ class Search extends React.Component {
 
     // Decide the search option based on which button the user clicked on mobile version search box
     if (requestParameters.option === 'catalog') {
-      requestUrl = this._setEncoreUrl(requestParameters.keywords + format, encoreBaseUrl, 'eng');
+      requestUrl = this.setEncoreUrl(requestParameters.keywords + format, encoreBaseUrl, 'eng');
     } else if (requestParameters.option === 'website') {
-      requestUrl = this._setCatalogUrl(requestParameters.keywords, catalogBaseUrl);
+      requestUrl = this.setCatalogUrl(requestParameters.keywords, catalogBaseUrl);
     }
 
     // This portion is for the interactions if the user doesn't enter any input
@@ -101,7 +101,7 @@ class Search extends React.Component {
       // The new placeholder that tells users there's no keywords input
       this.setState({ placeholder: 'Please enter a search term.' });
       // Trigger the validation animation
-      this._animationTimer(inputKeywords);
+      this.animationTimer(inputKeywords);
     } else {
       // Go to the search page
       window.location.assign(requestUrl);
@@ -109,29 +109,29 @@ class Search extends React.Component {
   }
 
   /**
-   * _triggerSubmit(event)
+   * triggerSubmit(event)
    * The fuction listens to the event of enter key.
    * Submit search request if enter is pressed.
    *
    * @param {Event} event
    */
-  _triggerSubmit(event) {
+  triggerSubmit(event) {
     if (event && event.charCode === 13) {
-      this._submitSearchRequest(null);
+      this.submitSearchRequest(null);
     }
   }
 
   /**
-   * _animationTimer(element)
+   * animationTimer(element)
    * Add the CSS animation to the placeholder of the keywords Input.
    * It adds the proper class to the html element to trigger the animation,
    * and then removes the class to stop it.
    *
    * @param {DOM Element} element
    */
-  _animationTimer(element) {
+  animationTimer(element) {
     let frame = 0;
-    let animation = setInterval(() => {
+    const animation = setInterval(() => {
       frame ++;
       // Remove the class to stop the animation after 0.1s
       if (frame > 1) {
@@ -153,12 +153,12 @@ class Search extends React.Component {
   }
 
   /**
-   * _setCatalogUrl(searchString, catalogBaseUrl)
+   * setCatalogUrl(searchString, catalogBaseUrl)
    * Returns the final URL for the catalog search.
    * @param {string} SearchString - The value that was search including search facets.
    * @param {string} catalogBaseUrl - The URL of the catalog.
    */
-  _setCatalogUrl(searchString, catalogBaseUrl) {
+  setCatalogUrl(searchString, catalogBaseUrl) {
     const catalogUrl = catalogBaseUrl || 'http://www.nypl.org/search/apachesolr_search/';
 
     if (searchString) {
@@ -167,13 +167,13 @@ class Search extends React.Component {
   }
 
   /**
-   * _encoreEncodeSearchString(string)
+   * encoreEncodeSearchString(string)
    * base64_encoding_map includes special characters that need to be
    * encoded using base64 - these chars are "=","/", "\", "?"
    * character : base64 encoded
    * @param {string} string - The string that needs to be encoded.
    */
-  _encoreEncodeSearchString(string) {
+  encoreEncodeSearchString(string) {
     const base64EncMap = {
       '=': 'PQ==',
       '/': 'Lw==',
@@ -195,7 +195,7 @@ class Search extends React.Component {
   }
 
   /**
-   * _setEncoreUrl(searchInput, baseUrl, language)
+   * setEncoreUrl(searchInput, baseUrl, language)
    * Returns the final URL for encore search which, is first encoded, then concatenated by the
    * base encore root url. An optional scope and language may be concatenated as well.
    * @param {string} searchInput - The value of what will be searched.
@@ -203,28 +203,28 @@ class Search extends React.Component {
    * @param {string} language - What language should be used.
    * @param {string} scopeString
    */
-  _setEncoreUrl(searchInput, baseUrl, language, scopeString) {
-    const searchTerm = this._encoreEncodeSearchString(searchInput);
+  setEncoreUrl(searchInput, baseUrl, language, scopeString) {
+    const searchTerm = this.encoreEncodeSearchString(searchInput);
     const rootUrl = baseUrl || 'http://browse.nypl.org/iii/encore/search/';
     const defaultLang = (language) ? `?lang=${language}` : '';
     let finalEncoreUrl;
 
     if (searchTerm) {
-      finalEncoreUrl = this._encoreAddScope(rootUrl, searchTerm, scopeString) + defaultLang;
+      finalEncoreUrl = this.encoreAddScope(rootUrl, searchTerm, scopeString) + defaultLang;
     }
 
     return finalEncoreUrl;
   }
 
   /**
-   * _encoreAddScope(baseUrl, searchString, scopeString)
+   * encoreAddScope(baseUrl, searchString, scopeString)
    * Enchances the encore url with a possible scope.
    * If no scope is set, adds the required string to be returned as the final url.
    * @param {string} baseUrl - The root URL of Encore.
    * @param {string} searchInput - The value of what will be searched.
    * @param {string} scopeString
    */
-  _encoreAddScope(baseUrl, searchString, scopeString) {
+  encoreAddScope(baseUrl, searchString, scopeString) {
     return scopeString ?
       `${baseUrl}C__S${searchString}${scopeString}__Orightresult__U` :
       `${baseUrl}C__S${searchString}__Orightresult__U`;
@@ -246,7 +246,7 @@ class Search extends React.Component {
       <div className="search-container">
         <h3>I want to browse...</h3>
 
-        <div className="search-form" onKeyPress={this._triggerSubmit}>
+        <div className="search-form" onKeyPress={this.triggerSubmit}>
           <DropDown
             list={options}
             selected={options[0]}
@@ -254,12 +254,12 @@ class Search extends React.Component {
           <input
             placeholder={this.state.placeholder}
             className={`search-field ${pulseAnimation}`}
-            onChange={this._inputChange.bind(this, null)}
+            onChange={this.inputChange.bind(this, null)}
             ref="keywords"
           />
           <button
             className="search-button"
-            onClick={this._submitSearchRequest.bind(this, 'catalog')}
+            onClick={this.submitSearchRequest.bind(this, 'catalog')}
           >
             <span className="nypl-icon-magnifier-fat"></span>
             Search

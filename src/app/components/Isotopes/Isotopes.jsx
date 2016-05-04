@@ -27,14 +27,14 @@ class Isotopes extends React.Component {
       },
     };
 
-    this._createDate = this._createDate.bind(this);
+    this.createDate = this.createDate.bind(this);
   }
 
   /**
    * Once the component mounts, initialize the instance of Isotopes.
    */
   componentDidMount() {
-    this._createIsotopeContainer();
+    this.createIsotopeContainer();
   }
 
   /**
@@ -55,7 +55,7 @@ class Isotopes extends React.Component {
     }
   }
 
-  _createDate(date) {
+  createDate(date) {
     if (!date) {
       return null;
     }
@@ -73,7 +73,7 @@ class Isotopes extends React.Component {
    * @param {array} booksArr - Array of book item objects.
    * @param {string} displayType - Either 'grid' or 'list'.
    */
-  _generateItemsToDisplay(booksArr, displayType) {
+  generateItemsToDisplay(booksArr, displayType) {
     const bookCoverItems = booksArr;
 
     if (bookCoverItems.length === 0) {
@@ -85,7 +85,8 @@ class Isotopes extends React.Component {
       const target = `http://browse.nypl.org/iii/encore/record/C__Rb${element.bibNumber}`;
       const bookCover = (
         <BookCover
-          imgSrc={element.imageUrl[0] ? element.imageUrl[0] : undefined } testkey={i}
+          imgSrc={element.imageUrl[0] ? element.imageUrl[0] : undefined}
+          testkey={i}
           name={shortTitle}
           author={element.author}
           format={element.format}
@@ -95,7 +96,7 @@ class Isotopes extends React.Component {
       );
       const formatLabel = _findWhere(formatData, { id: element.format });
 
-      const createdDate = this._createDate(element.createdDate);
+      const createdDate = this.createDate(element.createdDate);
       const bookListItem = (
         <div>
           <a href={target}>
@@ -130,7 +131,7 @@ class Isotopes extends React.Component {
   /**
    * Create the Isotopes Instance if it doesn't already exist.
    */
-  _createIsotopeContainer() {
+  createIsotopeContainer() {
     if (this.iso == null) {
       $('.isotopeGrid').css('opacity', '1');
       this.iso = new Isotope(ReactDOM.findDOMNode(this.refs.isotopeContainer), this.isoOptions);
@@ -144,7 +145,7 @@ class Isotopes extends React.Component {
   render() {
     const booksArr = this.props.booksArr && this.props.booksArr.length ? this.props.booksArr : [];
     const displayType = this.props.displayType;
-    let books = this._generateItemsToDisplay(booksArr, displayType);
+    let books = this.generateItemsToDisplay(booksArr, displayType);
 
     if (!booksArr.length) {
       books = (

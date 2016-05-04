@@ -72,7 +72,7 @@ const server = app.listen(app.get('port'), (error) => {
   console.log(colors.yellow.underline(appConfig.appName));
   console.log(
     colors.green('Express server is listening at'),
-    colors.cyan('localhost:' + app.get('port'))
+    colors.cyan(`localhost: ${app.get('port')}`)
   );
 });
 

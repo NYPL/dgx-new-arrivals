@@ -36,7 +36,7 @@ class PillButton extends React.Component {
         onClick={this._onClick.bind(this, this.props.value)}
       >
         {this.props.icon}
-        <span className={`PillButton-title`}>{this.props.title}</span>
+        <span className="PillButton-title">{this.props.title}</span>
         <span className={`${this.props.iconClass} icon`}></span>
       </button>
     );

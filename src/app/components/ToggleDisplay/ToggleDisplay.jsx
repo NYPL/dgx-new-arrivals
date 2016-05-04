@@ -22,38 +22,38 @@ class ToggleDisplay extends React.Component {
 
     this.state = NewArrivalsStore.getState();
 
-    this._handleFilterView = this._handleFilterView.bind(this);
-    this._handleOnClickOut = this._handleOnClickOut.bind(this);
-    this._onChange = this._onChange.bind(this);
+    this.handleFilterView = this.handleFilterView.bind(this);
+    this.handleOnClickOut = this.handleOnClickOut.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
-    NewArrivalsStore.listen(this._onChange);
+    NewArrivalsStore.listen(this.onChange);
   }
 
   componentWillUnmount() {
-    NewArrivalsStore.unlisten(this._onChange);
+    NewArrivalsStore.unlisten(this.onChange);
+  }
+
+  onChange() {
+    this.setState(NewArrivalsStore.getState());
   }
 
   /**
    * Triggers the Alt Action to trigger displaying the filters.
    * @param {boolean} view
    */
-  _handleFilterView(view) {
+  handleFilterView(view) {
     Actions.toggleFilters(view);
   }
 
   /**
    * Close the filter list if it is displaying using react-onclickout.
    */
-  _handleOnClickOut(e) {
+  handleOnClickOut(e) {
     if (this.state.toggleFilter) {
       Actions.toggleFilters(false);
     }
-  }
-
-  _onChange() {
-    this.setState(NewArrivalsStore.getState());
   }
 
   render() {
@@ -63,17 +63,17 @@ class ToggleDisplay extends React.Component {
     const filterTitle = 'Filter';
 
     const svgFilterIcon = (<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
-        <title>filter.v3</title>
+      <title>filter.v3</title>
+      <g>
+        <circle cx="13.0944" cy="7.375" r="1.3192"/>
+        <circle cx="19.6222" cy="6.375" r="1.3189"/>
+        <circle cx="15.9997" cy="10.5242" r="1.3193"/>
         <g>
-          <circle cx="13.0944" cy="7.375" r="1.3192"/>
-          <circle cx="19.6222" cy="6.375" r="1.3189"/>
-          <circle cx="15.9997" cy="10.5242" r="1.3193"/>
-          <g>
-            <path d="M14.1785,27.562a0.95,0.95,0,0,1-.95-0.95v-10.27L6.6875,9.2893a0.95,0.95,0,0,1,1.3956-1.29l7.0455,7.598v11.015A0.95,0.95,0,0,1,14.1785,27.562Z"/>
-            <path d="M18.0387,24.794a0.95,0.95,0,0,1-.95-0.95V15.603l7.126-7.8149a0.95,0.95,0,0,1,1.41,1.2744l-6.636,7.2729v7.5083A0.95,0.95,0,0,1,18.0387,24.794Z"/>
-          </g>
+          <path d="M14.1785,27.562a0.95,0.95,0,0,1-.95-0.95v-10.27L6.6875,9.2893a0.95,0.95,0,0,1,1.3956-1.29l7.0455,7.598v11.015A0.95,0.95,0,0,1,14.1785,27.562Z"/>
+          <path d="M18.0387,24.794a0.95,0.95,0,0,1-.95-0.95V15.603l7.126-7.8149a0.95,0.95,0,0,1,1.41,1.2744l-6.636,7.2729v7.5083A0.95,0.95,0,0,1,18.0387,24.794Z"/>
         </g>
-      </svg>);
+      </g>
+    </svg>);
     const iconClass = cx({
       'nypl-icon-wedge-down': !filterActive,
       'nypl-icon-solo-x': filterActive,
@@ -88,14 +88,14 @@ class ToggleDisplay extends React.Component {
           <ViewTypeButton type={displayType} />
         </li>
         <li>
-          <ClickOutHandler onClickOut={this._handleOnClickOut.bind(this)} className="clickOutContainer">
+          <ClickOutHandler onClickOut={this.handleOnClickOut.bind(this)} className="clickOutContainer">
             <div className="filterButton">
               <PillButton
                 className="filters"
                 icon={svgFilterIcon}
                 title={filterTitle}
                 value={!filterActive}
-                onClick={this._handleFilterView}
+                onClick={this.handleFilterView}
                 iconClass={iconClass}
               />
               <Filter active={filterIconClass} />

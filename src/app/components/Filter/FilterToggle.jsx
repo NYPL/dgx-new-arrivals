@@ -10,14 +10,23 @@ class FilterToggle extends React.Component {
     super(props);
 
     this.manageSelected = this.manageSelected.bind(this);
-    this._onChange = this._onChange.bind(this);
-    this._selectFilter = this._selectFilter.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.selectFilter = this.selectFilter.bind(this);
     this.state = {
       value: 'New Arrival',
     };
   }
 
-  _selectFilter(availability = 'New Arrival', queries = '') {
+  onChange(e) {
+    const availability = e.currentTarget.value;
+
+    this.selectFilter(availability);
+    this.setState({
+      value: e.currentTarget.value,
+    });
+  }
+
+  selectFilter(availability = 'New Arrival', queries = '') {
     axios
       .get(`/api?${queries}&availability=${availability}&itemCount=18`)
       .then(response => {
@@ -41,15 +50,6 @@ class FilterToggle extends React.Component {
     });
   }
 
-  _onChange(e) {
-    const availability = e.currentTarget.value;
-
-    this._selectFilter(availability);
-    this.setState({
-      value: e.currentTarget.value,
-    });
-  }
-
   render() {
     return (
       <fieldset className="switch" tabIndex="0">
@@ -60,7 +60,7 @@ class FilterToggle extends React.Component {
           name="view"
           value="New Arrival" id="newArrivalInput"
           checked={this.state.value === 'New Arrival'}
-          onChange={this._onChange}
+          onChange={this.onChange}
         />
         <label
           htmlFor="newArrivalInput"
@@ -75,10 +75,10 @@ class FilterToggle extends React.Component {
           value="On Order"
           id="onOrderInput"
           checked={this.state.value === 'On Order'}
-          onChange={this._onChange}
+          onChange={this.onChange}
         />
         <label
-          htmlFor="onOrderInput" 
+          htmlFor="onOrderInput"
           className="switch-label label-right"
         >
           On Order
