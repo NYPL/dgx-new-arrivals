@@ -54,18 +54,35 @@ class FilterToggle extends React.Component {
     return (
       <fieldset className="switch" tabIndex="0">
         <legend>Show new arrivals or books on order?</legend>
-        <input type="radio" className="switch-input"
-          name="view" value="New Arrival" id="newArrivalInput"
+        <input
+          type="radio"
+          className="switch-input"
+          name="view"
+          value="New Arrival" id="newArrivalInput"
           checked={this.state.value === 'New Arrival'}
           onChange={this._onChange}
         />
-        <label htmlFor="newArrivalInput" className="switch-label label-left">New Arrival</label>
-        <input type="radio" className="switch-input"
-          name="view" value="On Order" id="onOrderInput"
+        <label
+          htmlFor="newArrivalInput"
+          className="switch-label label-left"
+        >
+          New Arrivals
+        </label>
+        <input
+          type="radio"
+          className="switch-input"
+          name="view"
+          value="On Order"
+          id="onOrderInput"
           checked={this.state.value === 'On Order'}
           onChange={this._onChange}
         />
-        <label htmlFor="onOrderInput" className="switch-label label-right">On Order</label>
+        <label
+          htmlFor="onOrderInput" 
+          className="switch-label label-right"
+        >
+          On Order
+        </label>
         <span className="switch-selection"></span>
       </fieldset>
     );

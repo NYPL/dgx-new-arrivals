@@ -2,6 +2,7 @@ import React from 'react';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
+
 import Isotopes from '../Isotopes/Isotopes.jsx';
 import ToggleDisplay from '../ToggleDisplay/ToggleDisplay.jsx';
 import SelectedFilters from '../SelectedFilters/SelectedFilters.jsx';
@@ -11,7 +12,7 @@ import appConfig from '../../../../appConfig.js';
 import axios from 'axios';
 import { extend as _extend } from 'underscore';
 
-const { appFilters } = appConfig;
+const { appFilters, introText } = appConfig;
 
 /**
  * Renders the main section of the New Arrivals app.
@@ -89,7 +90,10 @@ class NewArrivals extends React.Component {
 
     return (
       <div className="newArrivals-container" id="maincontent" tabIndex="-1">
-        <h4>Browse New Releases</h4>
+        <h4>New Arrivals</h4>
+        <p className="newArrivals-introText">
+          {introText}
+        </p>
         <SelectedFilters />
         <ToggleDisplay />
         <Isotopes

@@ -3,7 +3,6 @@ import React from 'react';
 import Header from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
 
-import Search from '../Search/Search.jsx';
 import NewArrivals from '../NewArrivals/NewArrivals.jsx';
 
 /**
@@ -32,8 +31,6 @@ class App extends React.Component {
           </div>
 
           <div className="main-content">
-            <Search />
-
             <NewArrivals />
           </div>
         </div>
