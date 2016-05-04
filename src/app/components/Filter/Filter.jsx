@@ -102,6 +102,7 @@ class Filter extends React.Component {
       active: NewArrivalsStore.getState().activeFilters,
       filters: NewArrivalsStore.getState().filters,
       languages: NewArrivalsStore.getState().languages,
+      availability: NewArrivalsStore.getState().availabilityType,
     };
   }
 
@@ -119,6 +120,7 @@ class Filter extends React.Component {
       filters: NewArrivalsStore.getState().filters,
       pageNum: NewArrivalsStore.getState().pageNum,
       languages: NewArrivalsStore.getState().languages,
+      availability: NewArrivalsStore.getState().availabilityType,
     });
   }
 
@@ -127,6 +129,7 @@ class Filter extends React.Component {
   }
 
   _selectFilter(queries, updatePageNum) {
+    // console.log(queries);
     const pageNum = updatePageNum ? `&pageNum=${this.state.pageNum}` : '';
     let items = 18;
 
@@ -139,7 +142,7 @@ class Filter extends React.Component {
     }
 
     axios
-      .get(`/api?${queries}&availability=New%20Arrival&itemCount=${items}`)
+      .get(`/api?${queries}&availability=${this.state.availability}&itemCount=${items}`)
       .then(response => {
         // console.log(response.data);
         Actions.updateNewArrivalsData(response.data);

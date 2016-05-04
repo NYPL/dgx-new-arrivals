@@ -11,6 +11,7 @@ import appConfig from '../../../../appConfig.js';
 
 import axios from 'axios';
 import { extend as _extend } from 'underscore';
+import { formatFilters } from '../../utils/utils.js';
 
 const { introText } = appConfig;
 
@@ -43,6 +44,7 @@ class NewArrivals extends React.Component {
 
   loadMore() {
     const filters = this.state.filters;
+    const availability = this.state.availabilityType;
     const pageNum = this.state.pageNum;
     let queries = '';
 
@@ -52,7 +54,9 @@ class NewArrivals extends React.Component {
       }
     }
 
-    console.log(`/api?${queries}&itemCount=18&pageNum=${pageNum}`);
+    if (!filters.format) {
+      queries += `&format=${formatFilters()}`;
+    }
 
     axios.interceptors.request.use(config => {
       // Do something before request is sent
@@ -61,7 +65,7 @@ class NewArrivals extends React.Component {
     }, error => Promise.reject(error));
 
     axios
-      .get(`/api?${queries}&itemCount=18&pageNum=${pageNum}`)
+      .get(`/api?${queries}&availability=${availability}&itemCount=18&pageNum=${pageNum}`)
       .then(response => {
         Actions.addMoreItems(response.data.bibItems);
         Actions.updatePageNum(true);
