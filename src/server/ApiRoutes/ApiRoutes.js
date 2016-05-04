@@ -3,75 +3,63 @@ import axios from 'axios';
 import parser from 'jsonapi-parserinator';
 
 import Model from 'dgx-model-data';
+import _ from 'underscore';
 
 import config from '../../../appConfig.js';
-import _ from 'underscore';
+import { formatFilters } from '../../app/utils/utils.js';
 
 // Syntax that both ES6 and Babel 6 support
 const { HeaderItemModel } = Model;
-const { api, headerApi, newArrivalsApi, appFilters } = config;
+const { api, headerApi, newArrivalsApi } = config;
+
+const createOptions = (apiValue) => ({
+  endpoint: `${apiRoot}${apiValue.endpoint}`,
+  includes: apiValue.includes,
+  filters: apiValue.filters,
+});
+const fetchApiData = (url) => axios.get(url);
 
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
 const apiRoot = api.root[appEnvironment];
 const headerOptions = createOptions(headerApi);
 
-function createOptions(apiValue) {
-  return {
-    endpoint: `${apiRoot}${apiValue.endpoint}`,
-    includes: apiValue.includes,
-    filters: apiValue.filters,
-  };
-}
-
-function fetchApiData(url) {
-  return axios.get(url);
-}
-
-function getHeaderData() {
+const getHeaderData = () => {
   const headerApiUrl = parser.getCompleteApi(headerOptions);
   return fetchApiData(headerApiUrl);
-}
-
-function LanguageData() {
+};
+const getLanguageData = () => {
   const days = '30';
   const languageApiUrl = `${newArrivalsApi.languages}?&days=${days}`;
-
   return fetchApiData(languageApiUrl);
-}
+};
 
-function FormatFilters() {
-  const formats = _.map(appFilters.formatData.data, format => format.id );
 
-  return formats.join(',');
-}
-
-function NewArrivalsApp(req, res, next) {
+const newArrivalsApp = (req, res, next) => {
   const itemCount = '18';
-  const days = '60';
-  const formats = FormatFilters();
+  const formats = formatFilters();
   const baseApiUrl = `${newArrivalsApi.bibItems}?format=${formats}` +
     `&availability=New%20Arrival&itemCount=${itemCount}`;
 
-  axios.all([getHeaderData(), fetchApiData(baseApiUrl), LanguageData()])
+  axios.all([getHeaderData(), fetchApiData(baseApiUrl), getLanguageData()])
     .then(axios.spread((headerData, newArrivalsData, languageData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
       const headerModelData = HeaderItemModel.build(headerParsed);
 
       const languages = _.chain(languageData.data)
-        .filter(language => {
-          return (language.count >= 100 &&
-            language.name !== 'Multiple languages' &&
-            language.name !== 'No linguistic content' &&
-            language.name !== 'Undetermined' &&
-            language.name !== '---');
-        })
-        .map(language => {
-          return {
+        .filter(language =>
+          (language.count >= 100 &&
+          language.name !== 'Multiple languages' &&
+          language.name !== 'No linguistic content' &&
+          language.name !== 'Undetermined' &&
+          language.name !== '---')
+        )
+        .map(language =>
+          ({
             name: language.name,
             count: language.count,
-          };
-        })
+          })
+        )
         .value();
 
       res.locals.data = {
@@ -116,14 +104,14 @@ function NewArrivalsApp(req, res, next) {
           languages: [],
         },
       };
+
       next();
     }); /* end Axios call */
-}
+};
 
-function SelectPage(req, res) {
+function selectPage(req, res) {
   const query = req.query;
   const audience = query.audience || '';
-  const days = query.days || '';
   const format = query.format || '';
   const language = query.language || '';
   const pageNum = query.pageNum || '1';
@@ -142,9 +130,7 @@ function SelectPage(req, res) {
 
   axios
     .get(apiUrl)
-    .then(response => {
-      res.json(response.data);
-    })
+    .then(response => res.json(response.data))
     .catch(error => {
       console.log(`error calling API : ${error}`);
       console.log(`Attempted to call : ${apiUrl}`);
@@ -157,11 +143,11 @@ function SelectPage(req, res) {
 
 router
   .route('/')
-  .get(NewArrivalsApp);
+  .get(newArrivalsApp);
 
 router
   .route('/api')
-  .get(SelectPage);
+  .get(selectPage);
 
 
 export default router;

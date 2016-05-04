@@ -13,27 +13,25 @@ const styles = {
 };
 
 class PaginationButton extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    const dotElements = [],
+    const dotElements = [];
       // Add loading class and the loading animation if it is loading now
-      isLoading = this.props.isLoading ? 'loading': '';
+    const isLoading = this.props.isLoading ? 'loading' : '';
     let i;
 
     // Generate the dots for the pagination button.
     // The number of the dots is determinated by the props.
     for (i = 0; i < this.props.dots; i++) {
       dotElements.push(
-        <li id={`${this.props.id}__dot-row__element_${i}`}
+        <li
+          id={`${this.props.id}__dot-row__element_${i}`}
           className={`${this.props.className}__dot-row__element ${isLoading}`}
           key={i}
           style={[
             styles.dots,
             this.props.dotStyle,
-          ]}>
+          ]}
+        >
         </li>
       );
     }
@@ -46,14 +44,17 @@ class PaginationButton extends React.Component {
         style={[
           styles.base,
           this.props.style,
-        ]}>
+        ]}
+      >
         <ul
           id={`${this.props.id}__dot-row`}
-          className={`${this.props.className}__dot-row`}>
+          className={`${this.props.className}__dot-row`}
+        >
           {dotElements}
           <li
             id={`${this.props.id}__dot-row__number`}
-            className={`${this.props.className}__dot-row__number`}>
+            className={`${this.props.className}__dot-row__number`}
+          >
             {this.props.label}
           </li>
         </ul>
@@ -70,6 +71,7 @@ PaginationButton.propTypes = {
   lang: React.PropTypes.string,
   isLoading: React.PropTypes.bool.isRequired,
   dots: React.PropTypes.number,
+  hidden: React.PropTypes.string,
   onClick: React.PropTypes.func,
   style: React.PropTypes.object,
   dotStyle: React.PropTypes.object,

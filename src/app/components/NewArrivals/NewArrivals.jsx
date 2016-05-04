@@ -12,7 +12,7 @@ import appConfig from '../../../../appConfig.js';
 import axios from 'axios';
 import { extend as _extend } from 'underscore';
 
-const { appFilters, introText } = appConfig;
+const { introText } = appConfig;
 
 /**
  * Renders the main section of the New Arrivals app.
@@ -25,19 +25,19 @@ class NewArrivals extends React.Component {
       isLoading: false,
     }, NewArrivalsStore.getState());
 
-    this._onChange = this._onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.loadMore = this.loadMore.bind(this);
   }
 
   componentDidMount() {
-    NewArrivalsStore.listen(this._onChange);
+    NewArrivalsStore.listen(this.onChange);
   }
 
   componentWillUnmount() {
-    NewArrivalsStore.unlisten(this._onChange);
+    NewArrivalsStore.unlisten(this.onChange);
   }
 
-  _onChange() {
+  onChange() {
     this.setState(NewArrivalsStore.getState());
   }
 
@@ -46,7 +46,7 @@ class NewArrivals extends React.Component {
     const pageNum = this.state.pageNum;
     let queries = '';
 
-    for (let filter in filters) {
+    for (const filter in filters) {
       if (filters[filter] !== '') {
         queries += `&${filter}=${filters[filter]}`;
       }
@@ -56,12 +56,9 @@ class NewArrivals extends React.Component {
 
     axios.interceptors.request.use(config => {
       // Do something before request is sent
-      this.setState({ isLoading : true });
+      this.setState({ isLoading: true });
       return config;
-    }, error => {
-      // Do something with request error
-      return Promise.reject(error);
-    });
+    }, error => Promise.reject(error));
 
     axios
       .get(`/api?${queries}&itemCount=18&pageNum=${pageNum}`)
@@ -69,14 +66,14 @@ class NewArrivals extends React.Component {
         Actions.addMoreItems(response.data.bibItems);
         Actions.updatePageNum(true);
 
-        this.setState({ isLoading : false });
+        this.setState({ isLoading: false });
 
         setTimeout(() => {
           Actions.isotopeUpdate(true);
         }, 300);
       })
       .catch(error => {
-        this.setState({ isLoading : false });
+        this.setState({ isLoading: false });
         console.log(`error making ajax call: ${error}`);
       }); /* end Axios call */
   }
@@ -101,9 +98,9 @@ class NewArrivals extends React.Component {
           displayType={displayType}
         />
         <PaginationButton
-          id='page-button'
+          id="page-button"
           hidden={paginationHidden}
-          className={`page-button`}
+          className="page-button"
           dots={3}
           label="LOAD MORE"
           isLoading={isLoading}

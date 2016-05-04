@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import _ from 'underscore';
+import { map as _map } from 'underscore';
 
 import PillButton from '../Buttons/PillButton.jsx';
 
@@ -10,7 +10,7 @@ import Actions from '../../actions/Actions.js';
 
 import FilterList from './FilterList.jsx';
 
-import { FormatFilters } from '../../utils/utils.js';
+import { formatFilters } from '../../utils/utils.js';
 import appConfig from '../../../../appConfig.js';
 
 const { appFilters } = appConfig;
@@ -41,15 +41,11 @@ class IconButton extends React.Component {
 IconButton.propTypes = {
   onClick: React.PropTypes.func,
   className: React.PropTypes.string,
-  icon: React.PropTypes.string,
+  icon: React.PropTypes.object,
 };
 
 
 class CloseButton extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const icon = (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="2rem" height="2rem">
@@ -63,21 +59,17 @@ class CloseButton extends React.Component {
 }
 
 class FilterIcon extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const icon = (
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
         <title>filter.v3</title>
         <g>
-          <circle cx="13.0944" cy="7.375" r="1.3192"/>
-          <circle cx="19.6222" cy="6.375" r="1.3189"/>
-          <circle cx="15.9997" cy="10.5242" r="1.3193"/>
+          <circle cx="13.0944" cy="7.375" r="1.3192" />
+          <circle cx="19.6222" cy="6.375" r="1.3189" />
+          <circle cx="15.9997" cy="10.5242" r="1.3193" />
           <g>
-            <path d="M14.1785,27.562a0.95,0.95,0,0,1-.95-0.95v-10.27L6.6875,9.2893a0.95,0.95,0,0,1,1.3956-1.29l7.0455,7.598v11.015A0.95,0.95,0,0,1,14.1785,27.562Z"/>
-            <path d="M18.0387,24.794a0.95,0.95,0,0,1-.95-0.95V15.603l7.126-7.8149a0.95,0.95,0,0,1,1.41,1.2744l-6.636,7.2729v7.5083A0.95,0.95,0,0,1,18.0387,24.794Z"/>
+            <path d="M14.1785,27.562a0.95,0.95,0,0,1-.95-0.95v-10.27L6.6875,9.2893a0.95,0.95,0,0,1,1.3956-1.29l7.0455,7.598v11.015A0.95,0.95,0,0,1,14.1785,27.562Z" />
+            <path d="M18.0387,24.794a0.95,0.95,0,0,1-.95-0.95V15.603l7.126-7.8149a0.95,0.95,0,0,1,1.41,1.2744l-6.636,7.2729v7.5083A0.95,0.95,0,0,1,18.0387,24.794Z" />
           </g>
         </g>
       </svg>
@@ -137,12 +129,13 @@ class Filter extends React.Component {
   _selectFilter(queries, updatePageNum) {
     const pageNum = updatePageNum ? `&pageNum=${this.state.pageNum}` : '';
     let items = 18;
+
     if (updatePageNum) {
-      items = 18 * (this.state.pageNum-1);
+      items = 18 * (this.state.pageNum - 1);
     }
 
     if (!queries) {
-      queries = `format=${FormatFilters()}`;
+      queries = `format=${formatFilters()}`;
     }
 
     axios
@@ -224,13 +217,14 @@ class Filter extends React.Component {
     const genreData = appFilters.genreData;
     const activeSubmitButtons = this.state.active ? 'active' : '';
 
-    const updatedLanguages = _.map(this.state.languages, language => {
+    const updatedLanguages = _map(this.state.languages, language => {
       return {
         id: language.name,
         label: language.name,
         count: language.count,
       };
     });
+
     languageData.data = updatedLanguages;
 
     formatData.active = filters.format;
@@ -266,7 +260,7 @@ class Filter extends React.Component {
           <button className="PillButton reset" onClick={this._resetFilters}>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
               <title>refresh.icon.svg</title>
-              <path d="M10.96075,11l4.60907-3.19434a1,1,0,0,0-1.13965-1.64355L5.939,12.04688l8.83594,6.248a0.99981,0.99981,0,0,0,1.1543-1.63281L10.75061,13H23v8H6a1,1,0,0,0,0,2H25V11H10.96075Z"/>
+              <path d="M10.96075,11l4.60907-3.19434a1,1,0,0,0-1.13965-1.64355L5.939,12.04688l8.83594,6.248a0.99981,0.99981,0,0,0,1.1543-1.63281L10.75061,13H23v8H6a1,1,0,0,0,0,2H25V11H10.96075Z" />
             </svg>
             <span>Reset All</span>
           </button>
@@ -277,7 +271,7 @@ class Filter extends React.Component {
   }
 }
 
-IconButton.propTypes = {
+Filter.propTypes = {
   active: React.PropTypes.string,
 };
 

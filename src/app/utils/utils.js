@@ -5,12 +5,11 @@ import {
 
 const { appFilters } = config;
 
-function FormatFilters() {
-  const formats = _map(appFilters.formatData.data, format => format.id );
-
+function formatFilters() {
+  const formats = _map(appFilters.formatData.data, format => format.id);
   return formats.join(',');
 }
 
 export {
-  FormatFilters,
+  formatFilters,
 };
