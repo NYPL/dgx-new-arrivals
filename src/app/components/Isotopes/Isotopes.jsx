@@ -86,11 +86,12 @@ class Isotopes extends React.Component {
       const bookCover = (
         <BookCover
           imgSrc={element.imageUrl[0] ? element.imageUrl[0] : undefined}
-          testkey={i}
+          id={element.bibNumber}
           name={shortTitle}
           author={element.author}
           format={element.format}
           target={target}
+          genre={element.genres[0]}
           linkClass="bookItem"
         />
       );
