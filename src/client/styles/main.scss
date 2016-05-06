@@ -143,3 +143,18 @@ Import style rules from App components
   }
 }
 
+#maincontent {
+  position: relative;
+  border-top: 65px solid transparent;
+  margin: -32px 0 0;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0;
+    right: 0;
+    border-top: 2px solid #ed1c24;
+  }
+}
+
