@@ -77,6 +77,7 @@ const newArrivalsApp = (req, res, next) => {
             genre: '',
           },
           languages,
+          availabilityType: 'New Arrival',
         },
         completeApiUrl: '',
       };
@@ -102,6 +103,7 @@ const newArrivalsApp = (req, res, next) => {
             genre: '',
           },
           languages: [],
+          availabilityType: 'New Arrival',
         },
       };
 
@@ -127,7 +129,7 @@ function selectPage(req, res) {
   const apiUrl = `${newArrivalsApi.bibItems}?${formatQuery}` +
     `${languageQuery}${audienceQuery}${availabilityQuery}` +
     `${genreQuery}&itemCount=${itemCount}&pageNum=${pageNum}`;
-
+console.log(apiUrl);
   axios
     .get(apiUrl)
     .then(response => res.json(response.data))

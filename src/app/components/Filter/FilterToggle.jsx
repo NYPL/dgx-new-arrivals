@@ -2,7 +2,10 @@ import React from 'react';
 
 import axios from 'axios';
 
+import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
+
+import { formatFilters } from '../../utils/utils.js';
 
 // can select multiple filters but only one per each category.
 class FilterToggle extends React.Component {
@@ -11,24 +14,51 @@ class FilterToggle extends React.Component {
 
     this.manageSelected = this.manageSelected.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.stateChange = this.stateChange.bind(this);
     this.selectFilter = this.selectFilter.bind(this);
-    this.state = {
-      value: 'New Arrival',
-    };
+    this.state = NewArrivalsStore.getState();
+  }
+
+  componentDidMount() {
+    NewArrivalsStore.listen(this.stateChange);
+  }
+
+  componentWillUnmount() {
+    NewArrivalsStore.unlisten(this.stateChange);
+  }
+
+  stateChange() {
+    this.setState(NewArrivalsStore.getState());
   }
 
   onChange(e) {
     const availability = e.currentTarget.value;
 
-    this.selectFilter(availability);
-    this.setState({
-      value: e.currentTarget.value,
-    });
+    const filters = this.state.filters;
+    let queries = '';
+
+    for (const filter in filters) {
+      if (filters[filter] !== '') {
+        if (filters[filter] === 'Research') {
+          queries += `&audience=${filters[filter]}`;
+        } else {
+          queries += `&${filter}=${filters[filter]}`;
+        }
+      }
+    }
+
+    if (!filters.format) {
+      queries += `&format=${formatFilters()}`;
+    }
+
+    Actions.updateAvailabilityType(availability);
+    this.selectFilter(availability, queries);
   }
 
   selectFilter(availability = 'New Arrival', queries = '') {
+    const formats = formatFilters();
     axios
-      .get(`/api?${queries}&availability=${availability}&itemCount=18`)
+      .get(`/api?format=${queries}&availability=${availability}&itemCount=18`)
       .then(response => {
         Actions.updateNewArrivalsData(response.data);
 
@@ -59,7 +89,7 @@ class FilterToggle extends React.Component {
           className="switch-input"
           name="view"
           value="New Arrival" id="newArrivalInput"
-          checked={this.state.value === 'New Arrival'}
+          checked={this.state.availabilityType === 'New Arrival'}
           onChange={this.onChange}
         />
         <label
@@ -74,7 +104,7 @@ class FilterToggle extends React.Component {
           name="view"
           value="On Order"
           id="onOrderInput"
-          checked={this.state.value === 'On Order'}
+          checked={this.state.availabilityType === 'On Order'}
           onChange={this.onChange}
         />
         <label

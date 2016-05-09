@@ -60,6 +60,10 @@ class Actions {
   updatePageNum(bol) {
     this.dispatch(bol);
   }
+
+  updateAvailabilityType(type) {
+    this.dispatch(type);
+  }
 }
 
 export default alt.createActions(Actions);

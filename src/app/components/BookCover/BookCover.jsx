@@ -168,7 +168,7 @@ class BookCover extends React.Component {
           <div className="details">
             <p className="author">{this.props.author}</p>
             <p className="format">{icon}{format}</p>
-            <p className="genre">Nonfiction</p>
+            <p className="genre">{this.props.genre}</p>
           </div>
         </div>
       </a>
@@ -177,7 +177,7 @@ class BookCover extends React.Component {
 }
 
 BookCover.propTypes = {
-  id: React.PropTypes.string,
+  id: React.PropTypes.number,
   name: React.PropTypes.string,
   format: React.PropTypes.string,
   imageArgument: React.PropTypes.string,
@@ -185,11 +185,12 @@ BookCover.propTypes = {
   linkClass: React.PropTypes.string,
   imgSrc: React.PropTypes.string,
   author: React.PropTypes.string,
+  genre: React.PropTypes.string,
 };
 
 BookCover.defaultProps = {
-  id: 'BookCover',
   format: 'BOOK/TEXT',
+  genre: 'Fiction',
 };
 
 // Export components
