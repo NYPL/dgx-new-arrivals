@@ -51,6 +51,26 @@ const ereader = (<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" 
   </g>
 </svg>);
 
+const Overlay = ({ imgClass, name, author, icon, format, genre }) => (
+  <div className={`itemOverlay ${imgClass}`}>
+    <h3>{name}</h3>
+    <div className="details">
+      <p className="author">{author}</p>
+      <p className="format">{icon}{format}</p>
+      <p className="genre">{genre}</p>
+    </div>
+  </div>
+);
+
+Overlay.propTypes = {
+  imgClass: React.PropTypes.string,
+  name: React.PropTypes.string,
+  author: React.PropTypes.string,
+  icon: React.PropTypes.object,
+  format: React.PropTypes.string,
+  genre: React.PropTypes.string,
+};
+
 class BookCover extends React.Component {
   constructor(props) {
     super(props);
@@ -59,7 +79,7 @@ class BookCover extends React.Component {
       imageSrc: this.props.imgSrc,
       // The original width of the source image
       naturalWidth: 150,
-      errorStatus: 'one-pixel',
+      errorStatus: '',
     };
 
     this.handleLoadedImage = this.handleLoadedImage.bind(this);
@@ -108,9 +128,11 @@ class BookCover extends React.Component {
   }
 
   render() {
-    const imgClass = this.state.errorStatus === 'one-pixel' ? 'noImage' : '';
+    const imgClass = this.state.errorStatus === 'one-pixel' || (!this.state.imageSrc) ?
+      'noImage' : '';
     let icon;
     let format;
+    let item;
 
     switch (this.props.format) {
       case 'BOOK/TEXT':
@@ -151,26 +173,31 @@ class BookCover extends React.Component {
         break;
     }
 
+    if (imgClass !== 'noImage') {
+      item = (<img
+        onLoad={this.handleLoadedImage}
+        onError={this.handleLoadedImageError}
+        id={`cover-${this.props.id}`}
+        className={this.state.errorStatus}
+        ref="coverImage"
+        src={this.state.imageSrc}
+        title={this.props.name}
+        alt={this.props.name}
+      />);
+    } else {
+      item = (<Overlay
+        imgClass={imgClass}
+        name={this.props.name}
+        author={this.props.author}
+        icon={icon}
+        format={format}
+        genre={this.props.genre}
+      />);
+    }
+
     return (
       <a href={this.props.target} className={`${this.props.linkClass} ${imgClass}`}>
-        <img
-          onLoad={this.handleLoadedImage}
-          onError={this.handleLoadedImageError}
-          id={`cover-${this.props.id}`}
-          className={this.state.errorStatus}
-          ref="coverImage"
-          src={this.state.imageSrc}
-          title={this.props.name}
-          alt={this.props.name}
-        />
-        <div className={`itemOverlay ${imgClass}`}>
-          <h3>{this.props.name}</h3>
-          <div className="details">
-            <p className="author">{this.props.author}</p>
-            <p className="format">{icon}{format}</p>
-            <p className="genre">{this.props.genre}</p>
-          </div>
-        </div>
+        {item}
       </a>
     );
   }
