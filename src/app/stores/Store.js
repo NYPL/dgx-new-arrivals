@@ -19,6 +19,7 @@ class NewArrivalsStore {
       updateActiveFilters: Actions.UPDATE_ACTIVE_FILTERS,
       addMoreItems: Actions.ADD_MORE_ITEMS,
       handleUpdatePageNum: Actions.UPDATE_PAGE_NUM,
+      updateAvailabilityType: Actions.UPDATE_AVAILABILITY_TYPE,
     });
 
     this.on('init', () => {
@@ -36,6 +37,7 @@ class NewArrivalsStore {
       this.isotopeUpdate = false;
       this.activeFilters = false;
       this.pageNum = 2;
+      this.availabilityType = 'New Arrival';
     });
   }
 
@@ -89,6 +91,10 @@ class NewArrivalsStore {
     } else {
       this.pageNum = 2;
     }
+  }
+
+  updateAvailabilityType(type) {
+    this.availabilityType = type;
   }
 }
 

@@ -33,6 +33,7 @@ class SelectedFilters extends React.Component {
   }
 
   removeFilter(filter) {
+    const availability = this.state.availabilityType;
     const filters = this.state.filters;
     filters[filter] = '';
 
@@ -50,7 +51,7 @@ class SelectedFilters extends React.Component {
     }
 
     axios
-      .get(`/api?${queries}&itemCount=${items}`)
+      .get(`/api?${queries}&availability=${availability}&itemCount=${items}`)
       .then(response => {
         Actions.updateNewArrivalsData(response.data);
         setTimeout(() => {
