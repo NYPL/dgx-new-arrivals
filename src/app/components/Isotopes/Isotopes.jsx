@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { findWhere as _findWhere } from 'underscore';
 
 import BookCover from '../BookCover/BookCover.jsx';
+import BookListItem from './BookListItem.jsx';
 import appConfig from '../../../../appConfig.js';
 
 const { appFilters } = appConfig;
@@ -26,8 +27,6 @@ class Isotopes extends React.Component {
         gutter: 10,
       },
     };
-
-    this.createDate = this.createDate.bind(this);
   }
 
   /**
@@ -53,18 +52,6 @@ class Isotopes extends React.Component {
     if (this.iso != null) {
       this.iso.destroy();
     }
-  }
-
-  createDate(date) {
-    if (!date) {
-      return null;
-    }
-
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-      'August', 'September', 'October', 'November', 'December'];
-    const d = new Date(date);
-
-    return `Added on ${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
   }
 
   /**
@@ -95,24 +82,20 @@ class Isotopes extends React.Component {
           linkClass="bookItem"
         />
       );
-      const formatLabel = _findWhere(formatData, { id: element.format });
-
-      const createdDate = this.createDate(element.createdDate);
+      const format = _findWhere(formatData, { id: element.format });
+      const formatLabel = format ? `${format.label}, ` : '';
       const bookListItem = (
-        <div className="list-item">
-          {bookCover}
-          <a href={target}>
-            <h2>{element.title}</h2>
-          </a>
-          <p className="author">{element.author ? element.author : null}</p>
-          <p className="publishInfo">
-            {formatLabel ? `${formatLabel.label}, ` : null}
-            {element.publishYear ? element.publishYear : null}
-          </p>
-          <p className="callNumber">Call Number: {element.callNumber}</p>
-          <p className="description">{element.description ? element.description : null}</p>
-          <p className="date">{createdDate}</p>
-        </div>
+        <BookListItem
+          bookCover={bookCover}
+          title={element.title}
+          target={target}
+          author={element.author}
+          format={formatLabel}
+          publishYear={element.publishYear}
+          callNumber={element.callNumber}
+          description={element.description}
+          date={element.createdDate}
+        />
       );
 
       return (
