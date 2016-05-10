@@ -109,6 +109,7 @@ class Isotopes extends React.Component {
             {formatLabel ? `${formatLabel.label}, ` : null}
             {element.publishYear ? element.publishYear : null}
           </p>
+          <p className="callNumber">Call Number: {element.callNumber}</p>
           <p className="description">{element.description ? element.description : null}</p>
           <p className="date">{createdDate}</p>
         </div>

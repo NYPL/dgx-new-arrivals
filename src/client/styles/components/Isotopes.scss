@@ -166,7 +166,7 @@
   h2, p {
     @include Kievit-Book;
     font-weight: 400;
-    margin: 0 0 0 200px;
+    margin: 5px 0 0 200px;
   }
 
   h2 {
@@ -180,7 +180,6 @@
     &.author {
       font-size: 18px;
       font-weight: bold;
-      margin-top: 5px;
     }
 
     &.publishInfo {
@@ -188,7 +187,8 @@
     }
 
     &.description {
-      margin: 20px 0 40px 200px;
+      margin-top: 20px;
+      margin-bottom: 40px;
     }
   }
 
