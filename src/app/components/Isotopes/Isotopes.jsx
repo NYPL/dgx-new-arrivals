@@ -83,7 +83,8 @@ class Isotopes extends React.Component {
         />
       );
       const format = _findWhere(formatData, { id: element.format });
-      const formatLabel = format ? `${format.label}, ` : '';
+      const formatLabel = format ? `${format.label}` : '';
+      const publishYear = element.publishYear ? `, ${element.publishYear}` : '';
       const bookListItem = (
         <BookListItem
           bookCover={bookCover}
@@ -91,7 +92,7 @@ class Isotopes extends React.Component {
           target={target}
           author={element.author}
           format={formatLabel}
-          publishYear={element.publishYear}
+          publishYear={publishYear}
           callNumber={element.callNumber}
           description={element.description}
           date={element.createdDate}
