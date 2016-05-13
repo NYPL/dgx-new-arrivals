@@ -82,8 +82,17 @@ class BookCover extends React.Component {
       errorStatus: '',
     };
 
+    this.checkImageWidth = this.checkImageWidth.bind(this);
     this.handleLoadedImage = this.handleLoadedImage.bind(this);
     this.handleLoadedImageError = this.handleLoadedImageError.bind(this);
+  }
+
+  componentDidMount() {
+    // After the cover image is loaded
+    const coverImage = this.refs.coverImage;
+    if (coverImage) {
+      this.checkImageWidth(coverImage.naturalWidth);
+    }
   }
 
   shouldComponentUpdate(nextProps) {
@@ -103,9 +112,7 @@ class BookCover extends React.Component {
     return false;
   }
 
-  handleLoadedImage() {
-    const width = this.refs.coverImage.naturalWidth;
-
+  checkImageWidth(width) {
     if (width < 10 && width >= 0) {
       this.setState({
         errorStatus: 'one-pixel',
@@ -115,6 +122,10 @@ class BookCover extends React.Component {
         errorStatus: '',
       });
     }
+  }
+
+  handleLoadedImage() {
+    this.checkImageWidth(this.refs.coverImage.naturalWidth);
 
     this.forceUpdate();
   }
