@@ -1,7 +1,7 @@
 .switch {
   position: relative;
   height: 40px;
-  width: 190px;
+  width: 218px;
   background-color: #1980a9;
   border-radius: 25px;
   top: 5px;
@@ -11,8 +11,8 @@
     position: relative;
     z-index: 2;
     float: left;
-    width: 92px;
-    padding: 13px 0;
+    width: 97px;
+    padding: 15px 0 13px;
     font-size: 13px;
     @include Kievit-Medium;
     text-transform: uppercase;
@@ -21,8 +21,13 @@
     cursor: pointer;
 
     &.label-left {
-      padding-left: 5px;
+      padding-left: 11px;
     }
+
+    &.label-right {
+      width: 110px;
+    }
+
   }
 
   &-input {
@@ -39,8 +44,8 @@
 
     &:checked + .label-right ~ .switch-selection {
       /* Note: left: 50% doesn't transition in WebKit */
-      left: 101px;
-      width: 85px;
+      left: 113px;
+      width: 101px;
     }
   }
 
@@ -50,7 +55,7 @@
     z-index: 1;
     top: 3px;
     left: 3px;
-    width: 100px;
+    width: 114px;
     height: 34px;
     background-color: #1da1d4;
     border-radius: 25px;
@@ -72,7 +77,7 @@
 
 .viewType {
   background-color: #575550;
-  width: 170px;
+  width: 184px;
 
   svg {
     vertical-align: middle;
@@ -83,7 +88,7 @@
     &-label {
       padding: 5px 0;
       color: #9c9890;
-      width: 80px;
+      width: 85px;
     }
 
     &-input {
@@ -106,4 +111,3 @@
     }
   }
 }
-
