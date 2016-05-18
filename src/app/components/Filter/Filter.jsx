@@ -1,9 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 
-import { map as _map } from 'underscore';
-
-import PillButton from '../Buttons/PillButton.jsx';
+import {
+  map as _map,
+  mapObject as _mapObject,
+  clone as _clone,
+} from 'underscore';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -18,10 +20,10 @@ const { appFilters } = appConfig;
 class IconButton extends React.Component {
   constructor(props) {
     super(props);
-    this._onClick = this._onClick.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
-  _onClick(e) {
+  onClick(e) {
     e.preventDefault();
     this.props.onClick();
   }
@@ -30,7 +32,7 @@ class IconButton extends React.Component {
     return (
       <button
         className={`${this.props.className} svgIcon`}
-        onClick={this._onClick}
+        onClick={this.onClick}
       >
         {this.props.icon}
       </button>
@@ -93,11 +95,12 @@ class Filter extends React.Component {
   constructor(props) {
     super(props);
 
-    this._closeFilters = this._closeFilters.bind(this);
+    this.closeFilters = this.closeFilters.bind(this);
     this.manageSelected = this.manageSelected.bind(this);
-    this._submitFilters = this._submitFilters.bind(this);
-    this._resetFilters = this._resetFilters.bind(this);
-    this._onChange = this._onChange.bind(this);
+    this.submitFilters = this.submitFilters.bind(this);
+    this.resetFilters = this.resetFilters.bind(this);
+    this.onChange = this.onChange.bind(this);
+
     this.state = {
       active: NewArrivalsStore.getState().activeFilters,
       filters: NewArrivalsStore.getState().filters,
@@ -107,14 +110,14 @@ class Filter extends React.Component {
   }
 
   componentDidMount() {
-    NewArrivalsStore.listen(this._onChange);
+    NewArrivalsStore.listen(this.onChange);
   }
 
   componentWillUnmount() {
-    NewArrivalsStore.unlisten(this._onChange);
+    NewArrivalsStore.unlisten(this.onChange);
   }
 
-  _onChange() {
+  onChange() {
     this.setState({
       active: NewArrivalsStore.getState().activeFilters,
       filters: NewArrivalsStore.getState().filters,
@@ -124,11 +127,11 @@ class Filter extends React.Component {
     });
   }
 
-  _closeFilters() {
+  closeFilters() {
     Actions.toggleFilters(false);
   }
 
-  _selectFilter(queries, updatePageNum) {
+  selectFilter(queries, updatePageNum, filters, active) {
     // console.log(queries);
     const pageNum = updatePageNum ? `&pageNum=${this.state.pageNum}` : '';
     let items = 18;
@@ -144,10 +147,9 @@ class Filter extends React.Component {
     axios
       .get(`/api?${queries}&availability=${this.state.availability}&itemCount=${items}`)
       .then(response => {
-        // console.log(response.data);
         Actions.updateNewArrivalsData(response.data);
-        Actions.updateFiltered(this.state.filters);
-        Actions.updateActiveFilters(this.state.active);
+        Actions.updateFiltered(filters);
+        Actions.updateActiveFilters(active);
 
         if (!updatePageNum) {
           Actions.updatePageNum(false);
@@ -160,52 +162,50 @@ class Filter extends React.Component {
 
   manageSelected(item) {
     const filter = item.filter.toLowerCase();
-    const filters = this.state.filters;
+    const filters = _clone(this.state.filters);
     let active = false;
 
     filters[filter] = item.selected;
 
-    for (const f in filters) {
-      if (filters[f] !== '') {
+    _mapObject(filters, f => {
+      if (f !== '') {
         active = true;
       }
-    }
+    });
 
+    Actions.updateActiveFilters(active);
     this.setState({
       filters,
-      active,
     });
   }
 
-  _submitFilters() {
+  submitFilters() {
     const filters = this.state.filters;
     let queries = '';
 
-    for (const filter in filters) {
-      if (filters[filter] !== '') {
-        if (filters[filter] === 'Research') {
-          queries += `&audience=${filters[filter]}`;
+    _mapObject(filters, (val, key) => {
+      if (val !== '') {
+        if (val === 'Research') {
+          queries += `&audience=${val}`;
         } else {
-          queries += `&${filter}=${filters[filter]}`;
+          queries += `&${key}=${val}`;
         }
       }
-    }
+    });
 
-    this._selectFilter(queries, true);
-    this._closeFilters();
+    this.selectFilter(queries, true, filters, true);
+    this.closeFilters();
   }
 
-  _resetFilters() {
+  resetFilters() {
     const filters = {
       format: '',
       audience: '',
       language: '',
+      genre: '',
     };
 
-    this.setState({ filters });
-    Actions.updateFiltered(filters);
-
-    this._selectFilter('', false);
+    this.selectFilter('', false, filters, false);
   }
 
   render() {
@@ -216,13 +216,13 @@ class Filter extends React.Component {
     const genreData = appFilters.genreData;
     const activeSubmitButtons = this.state.active ? 'active' : '';
 
-    const updatedLanguages = _map(this.state.languages, language => {
-      return {
+    const updatedLanguages = _map(this.state.languages, language =>
+      ({
         id: language.name,
         label: language.name,
         count: language.count,
-      };
-    });
+      })
+    );
 
     languageData.data = updatedLanguages;
 
@@ -236,7 +236,7 @@ class Filter extends React.Component {
         <div className="filter-header-mobile">
           <FilterIcon className="mobile-filter svgIcon" />
           <h2>Filter by</h2>
-          <CloseButton onClick={this._closeFilters} className="mobile-close" />
+          <CloseButton onClick={this.closeFilters} className="mobile-close" />
         </div>
 
         <ul>
@@ -247,7 +247,7 @@ class Filter extends React.Component {
         </ul>
 
         <div className={`submit-buttons ${activeSubmitButtons}`}>
-          <button className="PillButton apply" onClick={this._submitFilters}>
+          <button className="PillButton apply" onClick={this.submitFilters}>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
               <title>apply.icon.svg</title>
               <path d="M23.26,13.1819a1.2736,1.2736,0,0,0-1.7332,0L17,17.6253V6.1041a1.0119,1.0119,0,1,0-2,0V17.6253l-4.5268-4.4434a1.2212,1.2212,0,0,0-1.6916,0,1.17,1.17,0,0,0-.0208,1.65L15.1786,21.26l0,0.0083a1.1694,1.1694,0,0,0,1.6488,0l0.0048-.0083L23.26,14.8318A1.17,1.17,0,0,0,23.26,13.1819Z" />
@@ -256,7 +256,7 @@ class Filter extends React.Component {
             <span>Apply</span>
           </button>
 
-          <button className="PillButton reset" onClick={this._resetFilters}>
+          <button className="PillButton reset" onClick={this.resetFilters}>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
               <title>refresh.icon.svg</title>
               <path d="M10.96075,11l4.60907-3.19434a1,1,0,0,0-1.13965-1.64355L5.939,12.04688l8.83594,6.248a0.99981,0.99981,0,0,0,1.1543-1.63281L10.75061,13H23v8H6a1,1,0,0,0,0,2H25V11H10.96075Z" />

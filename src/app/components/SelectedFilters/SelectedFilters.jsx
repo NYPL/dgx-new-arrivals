@@ -1,6 +1,12 @@
 import React from 'react';
 
-import _ from 'underscore';
+import {
+  every as _every,
+  map as _map,
+  mapObject as _mapObject,
+  omit as _omit,
+} from 'underscore';
+
 import axios from 'axios';
 
 import NewArrivalsStore from '../../stores/Store.js';
@@ -32,14 +38,35 @@ class SelectedFilters extends React.Component {
     this.setState(NewArrivalsStore.getState());
   }
 
+  getFilterList(filters) {
+    return _map(Object.keys(filters), (filter, i) => {
+      const value = filters[filter];
+
+      if (value && filter !== 'active') {
+        return (
+          <li key={i}>
+            <a href="#" onClick={() => this.removeFilter(filter)}>
+              {value}
+              <span className="nypl-icon-solo-x icon"></span>
+            </a>
+          </li>
+        );
+      }
+
+      return null;
+    });
+  }
+
   removeFilter(filter) {
     const availability = this.state.availabilityType;
     const filters = this.state.filters;
     filters[filter] = '';
 
-    Actions.updateFiltered(_.omit(filters, 'active'));
+    Actions.updateFiltered(_omit(filters, 'active'));
 
-    if (!filters.length) {
+    const active = _every(filters, f => f === '');
+
+    if (active) {
       Actions.updateActiveFilters(false);
     }
 
@@ -60,35 +87,16 @@ class SelectedFilters extends React.Component {
       }); /* end Axios call */
   }
 
-  getFilterList(filters) {
-    return _.map(Object.keys(filters), (filter, i) => {
-      const value = filters[filter];
-
-      if (value && filter !== 'active') {
-        return (
-          <li key={i}>
-            <a href="#" onClick={this.removeFilter.bind(this, filter)}>
-              {value}
-              <span className="nypl-icon-solo-x icon"></span>
-            </a>
-          </li>
-        );
-      }
-
-      return null;
-    });
-  }
-
   makeQuery(filters) {
     let queries = '';
 
-    for (const filter in filters) {
-      if (filters[filter] !== '') {
-        queries += `&${filter}=${filters[filter]}`;
-      } else if (filter === 'format') {
+    _mapObject(filters, (val, key) => {
+      if (val !== '') {
+        queries += `&${key}=${val}`;
+      } else if (key === 'format') {
         queries += `&format=${formatFilters()}`;
       }
-    }
+    });
 
     return queries;
   }
