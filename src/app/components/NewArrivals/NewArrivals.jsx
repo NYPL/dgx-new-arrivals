@@ -71,10 +71,6 @@ class NewArrivals extends React.Component {
         Actions.updatePageNum(true);
 
         this.setState({ isLoading: false });
-
-        setTimeout(() => {
-          Actions.isotopeUpdate(true);
-        }, 300);
       })
       .catch(error => {
         this.setState({ isLoading: false });
@@ -114,5 +110,6 @@ class NewArrivals extends React.Component {
     );
   }
 }
+
 
 export default NewArrivals;

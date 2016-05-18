@@ -40,13 +40,6 @@ class Actions {
   }
 
   /**
-   * @param {boolean} bol - Whether the Isotopes grid needs to be updated.
-   */
-  isotopeUpdate(bol) {
-    this.dispatch(bol);
-  }
-
-  /**
    * @param {boolean} bol - Whether there's at least one selected filter.
    */
   updateActiveFilters(bol) {

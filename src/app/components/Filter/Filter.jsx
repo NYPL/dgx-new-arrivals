@@ -152,10 +152,6 @@ class Filter extends React.Component {
         if (!updatePageNum) {
           Actions.updatePageNum(false);
         }
-
-        setTimeout(() => {
-          Actions.isotopeUpdate(true);
-        }, 300);
       })
       .catch(error => {
         console.log(`error making ajax call: ${error}`);

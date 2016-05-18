@@ -54,9 +54,6 @@ class SelectedFilters extends React.Component {
       .get(`/api?${queries}&availability=${availability}&itemCount=${items}`)
       .then(response => {
         Actions.updateNewArrivalsData(response.data);
-        setTimeout(() => {
-          Actions.isotopeUpdate(true);
-        }, 300);
       })
       .catch(error => {
         console.log(`error making ajax call: ${error}`);
