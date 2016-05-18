@@ -15,7 +15,6 @@ class NewArrivalsStore {
       toggleFilters: Actions.TOGGLE_FILTERS,
       updateDropDownValue: Actions.UPDATE_DROP_DOWN_VALUE,
       updateFiltered: Actions.UPDATE_FILTERED,
-      isotopeUpdate: Actions.ISOTOPE_UPDATE,
       updateActiveFilters: Actions.UPDATE_ACTIVE_FILTERS,
       addMoreItems: Actions.ADD_MORE_ITEMS,
       handleUpdatePageNum: Actions.UPDATE_PAGE_NUM,
@@ -34,7 +33,6 @@ class NewArrivalsStore {
         genre: '',
       };
       this.languages = [];
-      this.isotopeUpdate = false;
       this.activeFilters = false;
       this.pageNum = 2;
       this.availabilityType = 'New Arrival';
@@ -71,10 +69,6 @@ class NewArrivalsStore {
 
   updateFiltered(obj) {
     this.filters = obj;
-  }
-
-  isotopeUpdate(bol) {
-    this.isotopeUpdate = bol;
   }
 
   updateActiveFilters(bol) {
