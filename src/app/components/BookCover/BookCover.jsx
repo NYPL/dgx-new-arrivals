@@ -90,7 +90,7 @@ class BookCover extends React.Component {
   componentDidMount() {
     // After the cover image is loaded
     const coverImage = this.refs.coverImage;
-    if (coverImage) {
+    if (coverImage && coverImage.naturalWidth) {
       this.checkImageWidth(coverImage.naturalWidth);
     }
   }
