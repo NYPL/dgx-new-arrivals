@@ -30,7 +30,7 @@ const getHeaderData = () => {
 };
 const getLanguageData = () => {
   const days = '30';
-  const languageApiUrl = `${newArrivalsApi.languages}?&days=${days}`;
+  const languageApiUrl = `${newArrivalsApi.languages}?&days=${days}&minPublishYear=2015`;
   return fetchApiData(languageApiUrl);
 };
 
@@ -39,7 +39,7 @@ const newArrivalsApp = (req, res, next) => {
   const itemCount = '18';
   const formats = formatFilters();
   const baseApiUrl = `${newArrivalsApi.bibItems}?format=${formats}` +
-    `&availability=New%20Arrival&itemCount=${itemCount}`;
+    `&availability=New%20Arrival&itemCount=${itemCount}&minPublishYear=2015`;
 
   axios.all([getHeaderData(), fetchApiData(baseApiUrl), getLanguageData()])
     .then(axios.spread((headerData, newArrivalsData, languageData) => {
@@ -128,8 +128,8 @@ function selectPage(req, res) {
   const genreQuery = genre ? `&genre=${genre}` : '';
   const apiUrl = `${newArrivalsApi.bibItems}?${formatQuery}` +
     `${languageQuery}${audienceQuery}${availabilityQuery}` +
-    `${genreQuery}&itemCount=${itemCount}&pageNum=${pageNum}`;
-console.log(apiUrl);
+    `${genreQuery}&itemCount=${itemCount}&pageNum=${pageNum}&minPublishYear=2015`;
+
   axios
     .get(apiUrl)
     .then(response => res.json(response.data))
