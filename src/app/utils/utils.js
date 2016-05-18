@@ -4,14 +4,14 @@ import {
   map as _map,
 } from 'underscore';
 
-const { appFilters, itemTitleLength } = config;
+const { appFilters } = config;
 
 const formatFilters = () => {
   const formats = _map(appFilters.formatData.data, format => format.id);
   return formats.join(',');
 };
 
-const titleShortener = (title) => {
+const titleShortener = (title, itemTitleLength = 96) => {
   if (!title) {
     return '';
   }
