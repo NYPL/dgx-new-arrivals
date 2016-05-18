@@ -22,10 +22,8 @@ const titleShortener = (title) => {
       updatedTitle.split('/')[0] : updatedTitle.substring(0, 96);
   }
 
-  return updatedTitle
-}
-
-
+  return updatedTitle;
+};
 
 export {
   formatFilters,
