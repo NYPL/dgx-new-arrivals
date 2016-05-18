@@ -10,7 +10,7 @@ import { formatFilters } from '../../app/utils/utils.js';
 
 // Syntax that both ES6 and Babel 6 support
 const { HeaderItemModel } = Model;
-const { api, headerApi, newArrivalsApi } = config;
+const { api, headerApi, newArrivalsApi, currentYear } = config;
 
 const createOptions = (apiValue) => ({
   endpoint: `${apiRoot}${apiValue.endpoint}`,
@@ -23,6 +23,8 @@ const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
 const apiRoot = api.root[appEnvironment];
 const headerOptions = createOptions(headerApi);
+// Always the year before the current year.
+const minPublishYear = currentYear - 1; 
 
 const getHeaderData = () => {
   const headerApiUrl = parser.getCompleteApi(headerOptions);
@@ -30,7 +32,8 @@ const getHeaderData = () => {
 };
 const getLanguageData = () => {
   const days = '30';
-  const languageApiUrl = `${newArrivalsApi.languages}?&days=${days}&minPublishYear=2015`;
+  const languageApiUrl =
+    `${newArrivalsApi.languages}?&days=${days}&minPublishYear=${minPublishYear}`;
   return fetchApiData(languageApiUrl);
 };
 
@@ -39,7 +42,7 @@ const newArrivalsApp = (req, res, next) => {
   const itemCount = '18';
   const formats = formatFilters();
   const baseApiUrl = `${newArrivalsApi.bibItems}?format=${formats}` +
-    `&availability=New%20Arrival&itemCount=${itemCount}&minPublishYear=2015`;
+    `&availability=New%20Arrival&itemCount=${itemCount}&minPublishYear=${minPublishYear}`;
 
   axios.all([getHeaderData(), fetchApiData(baseApiUrl), getLanguageData()])
     .then(axios.spread((headerData, newArrivalsData, languageData) => {
@@ -128,7 +131,7 @@ function selectPage(req, res) {
   const genreQuery = genre ? `&genre=${genre}` : '';
   const apiUrl = `${newArrivalsApi.bibItems}?${formatQuery}` +
     `${languageQuery}${audienceQuery}${availabilityQuery}` +
-    `${genreQuery}&itemCount=${itemCount}&pageNum=${pageNum}&minPublishYear=2015`;
+    `${genreQuery}&itemCount=${itemCount}&pageNum=${pageNum}&minPublishYear=${minPublishYear}`;
 
   axios
     .get(apiUrl)
