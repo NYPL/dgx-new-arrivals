@@ -16,11 +16,10 @@ const titleShortener = (title, itemTitleLength = 96) => {
     return '';
   }
 
-  let updatedTitle = title.split(':')[0];
+  let updatedTitle = title.split(':')[0].split('/')[0];
 
   if (updatedTitle.length > itemTitleLength) {
-    updatedTitle = (updatedTitle.indexOf('/') !== -1) ?
-      updatedTitle.split('/')[0] : updatedTitle.substring(0, itemTitleLength);
+    updatedTitle = updatedTitle.substring(0, itemTitleLength);
   }
 
   return updatedTitle;
