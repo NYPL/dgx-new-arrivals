@@ -27,10 +27,6 @@ class FilterToggle extends React.Component {
     NewArrivalsStore.unlisten(this.stateChange);
   }
 
-  stateChange() {
-    this.setState(NewArrivalsStore.getState());
-  }
-
   onChange(e) {
     const availability = e.currentTarget.value;
 
@@ -53,6 +49,10 @@ class FilterToggle extends React.Component {
 
     Actions.updateAvailabilityType(availability);
     this.selectFilter(availability, queries);
+  }
+
+  stateChange() {
+    this.setState(NewArrivalsStore.getState());
   }
 
   selectFilter(availability = 'New Arrival', queries = '') {
