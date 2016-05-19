@@ -185,11 +185,7 @@ class Filter extends React.Component {
 
     _mapObject(filters, (val, key) => {
       if (val !== '') {
-        if (val === 'Research') {
-          queries += `&audience=${val}`;
-        } else {
-          queries += `&${key}=${val}`;
-        }
+        queries += (val === 'Research') ? `&audience=${val}` : `&${key}=${val}`;
       }
     });
 
