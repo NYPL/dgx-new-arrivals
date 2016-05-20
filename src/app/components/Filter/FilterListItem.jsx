@@ -20,7 +20,7 @@ class FilterListItem extends React.Component {
       <li onClick={this.props.onClick} className={activeClass}>
         <a href="#" onClick={this.onClick}>
           {this.props.item}
-          {this.props.active ? <CircleDashIcon className="selected-svgIcon" /> : null}
+          {this.props.active ? <CircleDashIcon /> : null}
         </a>
       </li>
     );
