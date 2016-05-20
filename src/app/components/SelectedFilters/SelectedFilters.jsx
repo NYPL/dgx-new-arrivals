@@ -5,6 +5,7 @@ import {
   map as _map,
   mapObject as _mapObject,
   omit as _omit,
+  keys as _keys,
 } from 'underscore';
 
 import axios from 'axios';
@@ -12,7 +13,7 @@ import axios from 'axios';
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
-import { formatFilters } from '../../utils/utils.js';
+import { makeQuery } from '../../utils/utils.js';
 
 class SelectedFilters extends React.Component {
   constructor(props) {
@@ -21,7 +22,6 @@ class SelectedFilters extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.getFilterList = this.getFilterList.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
-    this.makeQuery = this.makeQuery.bind(this);
 
     this.state = NewArrivalsStore.getState();
   }
@@ -39,10 +39,10 @@ class SelectedFilters extends React.Component {
   }
 
   getFilterList(filters) {
-    return _map(Object.keys(filters), (filter, i) => {
+    return _map(_keys(filters), (filter, i) => {
       const value = filters[filter];
 
-      if (value && filter !== 'active') {
+      if (value) {
         return (
           <li key={i}>
             <a href="#" onClick={() => this.removeFilter(filter)}>
@@ -62,15 +62,17 @@ class SelectedFilters extends React.Component {
     const filters = this.state.filters;
     filters[filter] = '';
 
-    Actions.updateFiltered(_omit(filters, 'active'));
+    Actions.updateFiltered(filters);
 
+    // If every filter is blank, then we want to remove the Active flag
+    // for to the toggle popup.
     const active = _every(filters, f => f === '');
 
     if (active) {
       Actions.updateActiveFilters(false);
     }
 
-    const queries = this.makeQuery(filters);
+    const queries = makeQuery(filters, availability);
     let items = 18;
 
     if (queries) {
@@ -78,27 +80,13 @@ class SelectedFilters extends React.Component {
     }
 
     axios
-      .get(`/api?${queries}&availability=${availability}&itemCount=${items}`)
+      .get(`/api?${queries}&itemCount=${items}`)
       .then(response => {
         Actions.updateNewArrivalsData(response.data);
       })
       .catch(error => {
         console.log(`error making ajax call: ${error}`);
       }); /* end Axios call */
-  }
-
-  makeQuery(filters) {
-    let queries = '';
-
-    _mapObject(filters, (val, key) => {
-      if (val !== '') {
-        queries += `&${key}=${val}`;
-      } else if (key === 'format') {
-        queries += `&format=${formatFilters()}`;
-      }
-    });
-
-    return queries;
   }
 
   render() {

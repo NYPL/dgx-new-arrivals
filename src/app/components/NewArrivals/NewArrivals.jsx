@@ -10,8 +10,12 @@ import PaginationButton from '../Buttons/PaginationButton.jsx';
 import appConfig from '../../../../appConfig.js';
 
 import axios from 'axios';
-import { extend as _extend } from 'underscore';
-import { formatFilters } from '../../utils/utils.js';
+import {
+  extend as _extend,
+  mapObject as _mapObject
+} from 'underscore';
+
+import { makeQuery } from '../../utils/utils.js';
 
 const { introText } = appConfig;
 
@@ -46,17 +50,7 @@ class NewArrivals extends React.Component {
     const filters = this.state.filters;
     const availability = this.state.availabilityType;
     const pageNum = this.state.pageNum;
-    let queries = '';
-
-    for (const filter in filters) {
-      if (filters[filter] !== '') {
-        queries += `&${filter}=${filters[filter]}`;
-      }
-    }
-
-    if (!filters.format) {
-      queries += `&format=${formatFilters()}`;
-    }
+    const queries = makeQuery(filters, availability);
 
     axios.interceptors.request.use(config => {
       // Do something before request is sent
@@ -65,7 +59,7 @@ class NewArrivals extends React.Component {
     }, error => Promise.reject(error));
 
     axios
-      .get(`/api?${queries}&availability=${availability}&itemCount=18&pageNum=${pageNum}`)
+      .get(`/api?${queries}&itemCount=18&pageNum=${pageNum}`)
       .then(response => {
         Actions.addMoreItems(response.data.bibItems);
         Actions.updatePageNum(true);
