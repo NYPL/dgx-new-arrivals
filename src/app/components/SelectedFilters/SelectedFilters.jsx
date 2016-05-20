@@ -62,8 +62,6 @@ class SelectedFilters extends React.Component {
     const filters = this.state.filters;
     filters[filter] = '';
 
-    Actions.updateFiltered(filters);
-
     // If every filter is blank, then we want to remove the Active flag
     // for to the toggle popup.
     const active = _every(filters, f => f === '');
@@ -72,15 +70,18 @@ class SelectedFilters extends React.Component {
       Actions.updateActiveFilters(false);
     }
 
-    const queries = makeQuery(filters, availability);
-    let items = 18;
+    // let items = 18;
 
-    if (queries) {
-      items = 18 * (this.state.pageNum - 1);
-    }
+    // if (queries) {
+    //   items = 18 * (this.state.pageNum - 1);
+    // }
+
+    const queries = makeQuery(filters, availability);
+
+    Actions.updateFiltered(filters);
 
     axios
-      .get(`/api?${queries}&itemCount=${items}`)
+      .get(`/api?${queries}`)
       .then(response => {
         Actions.updateNewArrivalsData(response.data);
       })

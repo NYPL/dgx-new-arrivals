@@ -4,19 +4,22 @@ import {
   mapObject as _mapObject,
 } from 'underscore';
 
-const { appFilters } = config;
+const {
+  appFilters,
+  itemCount,
+} = config;
 
 function formatFilters() {
   const formats = _map(appFilters.formatData.data, format => format.id);
   return formats.join(',');
 }
 
-const makeQuery = (filters = {}, availability = '') => {
+const makeQuery = (filters = {}, availability = '', items = itemCount) => {
   let queries = '';
 
   _mapObject(filters, (val, key) => {
     if (val !== '') {
-      queries += `&${key}=${val}`;
+      queries += (val === 'Research') ? `&audience=${val}` : `&${key}=${val}`;
     } else if (key === 'format') {
       queries += `&format=${formatFilters()}`;
     }
@@ -25,6 +28,8 @@ const makeQuery = (filters = {}, availability = '') => {
   if (availability) {
     queries += `&availability=${availability}`;
   }
+
+  queries += `&itemCount=${items}`;
 
   return queries;
 };

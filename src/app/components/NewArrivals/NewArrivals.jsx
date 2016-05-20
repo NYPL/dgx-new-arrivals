@@ -59,7 +59,7 @@ class NewArrivals extends React.Component {
     }, error => Promise.reject(error));
 
     axios
-      .get(`/api?${queries}&itemCount=18&pageNum=${pageNum}`)
+      .get(`/api?${queries}&pageNum=${pageNum}`)
       .then(response => {
         Actions.addMoreItems(response.data.bibItems);
         Actions.updatePageNum(true);

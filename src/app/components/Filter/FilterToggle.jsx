@@ -5,14 +5,13 @@ import axios from 'axios';
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
-import { formatFilters } from '../../utils/utils.js';
+import { makeQuery } from '../../utils/utils.js';
 
 // can select multiple filters but only one per each category.
 class FilterToggle extends React.Component {
   constructor(props) {
     super(props);
 
-    this.manageSelected = this.manageSelected.bind(this);
     this.onChange = this.onChange.bind(this);
     this.stateChange = this.stateChange.bind(this);
     this.selectFilter = this.selectFilter.bind(this);
@@ -35,45 +34,21 @@ class FilterToggle extends React.Component {
     const availability = e.currentTarget.value;
 
     const filters = this.state.filters;
-    let queries = '';
-
-    for (const filter in filters) {
-      if (filters[filter] !== '') {
-        if (filters[filter] === 'Research') {
-          queries += `&audience=${filters[filter]}`;
-        } else {
-          queries += `&${filter}=${filters[filter]}`;
-        }
-      }
-    }
-
-    if (!filters.format) {
-      queries += `&format=${formatFilters()}`;
-    }
+    const queries = makeQuery(filters, availability);
 
     Actions.updateAvailabilityType(availability);
-    this.selectFilter(availability, queries);
+    this.selectFilter(queries);
   }
 
-  selectFilter(availability = 'New Arrival', queries = '') {
-    const formats = formatFilters();
+  selectFilter(queries = '') {
     axios
-      .get(`/api?format=${queries}&availability=${availability}&itemCount=18`)
+      .get(`/api?${queries}`)
       .then(response => {
         Actions.updateNewArrivalsData(response.data);
       })
       .catch(error => {
         console.log(`error making ajax call: ${error}`);
       }); /* end Axios call */
-  }
-
-  manageSelected(item) {
-    const filter = item.filter.toLowerCase();
-
-    // ES6 dynamic keys! woohoo
-    this.setState({
-      [filter]: item.selected,
-    });
   }
 
   render() {
