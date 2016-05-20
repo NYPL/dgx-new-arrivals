@@ -82,4 +82,7 @@ export default {
   introText: 'Use filters to browse new books, DVDs, and music by language, age level, ' +
     'and genre. Toggle to list view to see more information about each title. Check back ' +
     'regularly to see our most recently acquired materials.',
+  languageDays: 30,
+  languageItemCount: 100,
+  itemCount: 18,
 };

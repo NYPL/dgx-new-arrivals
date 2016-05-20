@@ -10,7 +10,14 @@ import { formatFilters } from '../../app/utils/utils.js';
 
 // Syntax that both ES6 and Babel 6 support
 const { HeaderItemModel } = Model;
-const { api, headerApi, newArrivalsApi } = config;
+const {
+  api,
+  headerApi,
+  newArrivalsApi,
+  languageDays,
+  languageItemCount,
+  itemCount,
+} = config;
 
 const createOptions = (apiValue) => ({
   endpoint: `${apiRoot}${apiValue.endpoint}`,
@@ -29,38 +36,41 @@ const getHeaderData = () => {
   return fetchApiData(headerApiUrl);
 };
 const getLanguageData = () => {
-  const days = '30';
-  const languageApiUrl = `${newArrivalsApi.languages}?&days=${days}`;
+  const languageApiUrl = `${newArrivalsApi.languages}?&days=${languageDays}`;
+
   return fetchApiData(languageApiUrl);
 };
-
+const filterLanguages = (languagesArray, minCount) => {
+  return _.chain(languagesArray)
+    .filter(language =>
+      (language.count >= minCount &&
+      language.name !== 'Multiple languages' &&
+      language.name !== 'No linguistic content' &&
+      language.name !== 'Undetermined' &&
+      language.name !== '---')
+    )
+    .map(language =>
+      ({
+        name: language.name,
+        count: language.count,
+      })
+    )
+    .value();
+};
 
 const newArrivalsApp = (req, res, next) => {
-  const itemCount = '18';
   const formats = formatFilters();
-  const baseApiUrl = `${newArrivalsApi.bibItems}?format=${formats}` +
-    `&availability=New%20Arrival&itemCount=${itemCount}`;
+  const baseApiUrl = `${newArrivalsApi.bibItems}?` +
+    `format=${formats}` +
+    `&availability=New%20Arrival` +
+    `&itemCount=${itemCount}`;
+console.log(baseApiUrl);
 
   axios.all([getHeaderData(), fetchApiData(baseApiUrl), getLanguageData()])
     .then(axios.spread((headerData, newArrivalsData, languageData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
       const headerModelData = HeaderItemModel.build(headerParsed);
-
-      const languages = _.chain(languageData.data)
-        .filter(language =>
-          (language.count >= 100 &&
-          language.name !== 'Multiple languages' &&
-          language.name !== 'No linguistic content' &&
-          language.name !== 'Undetermined' &&
-          language.name !== '---')
-        )
-        .map(language =>
-          ({
-            name: language.name,
-            count: language.count,
-          })
-        )
-        .value();
+      const languages = filterLanguages(languageData.data, languageItemCount);
 
       res.locals.data = {
         HeaderStore: {
@@ -76,10 +86,9 @@ const newArrivalsApp = (req, res, next) => {
             language: '',
             genre: '',
           },
-          languages,
           availabilityType: 'New Arrival',
+          languages,
         },
-        completeApiUrl: '',
       };
 
       next();
@@ -102,8 +111,8 @@ const newArrivalsApp = (req, res, next) => {
             language: '',
             genre: '',
           },
-          languages: [],
           availabilityType: 'New Arrival',
+          languages: [],
         },
       };
 
@@ -113,22 +122,30 @@ const newArrivalsApp = (req, res, next) => {
 
 function selectPage(req, res) {
   const query = req.query;
-  const audience = query.audience || '';
-  const format = query.format || '';
-  const language = query.language || '';
-  const pageNum = query.pageNum || '1';
-  const itemCount = query.itemCount || '18';
-  const availability = query.availability || '';
-  const genre = query.genre || '';
 
-  const formatQuery = format ? `&format=${format}` : '';
+  const format = query.format || formatFilters();
+  const audience = query.audience || '';
+  const language = query.language || '';
+  const genre = query.genre || '';
+  const availability = query.availability || 'New%20Arrival';
+  const pageNum = query.pageNum || '1';
+
+  const formatQuery = `&format=${format}`;
   const audienceQuery = audience ? `&audience=${audience}` : '';
   const languageQuery = language ? `&language=${language}` : '';
-  const availabilityQuery = availability ? `&availability=${availability}` : '';
   const genreQuery = genre ? `&genre=${genre}` : '';
-  const apiUrl = `${newArrivalsApi.bibItems}?${formatQuery}` +
-    `${languageQuery}${audienceQuery}${availabilityQuery}` +
-    `${genreQuery}&itemCount=${itemCount}&pageNum=${pageNum}`;
+  const availabilityQuery = `&availability=${availability}`;
+  const pageNumQuery = pageNum ? `&pageNum=${pageNum}` : '';
+
+  const apiUrl = `${newArrivalsApi.bibItems}?` +
+    `${formatQuery}` +
+    `${audienceQuery}` +
+    `${languageQuery}` +
+    `${genreQuery}` +
+    `${availabilityQuery}` +
+    `&itemCount=${itemCount}` +
+    `${pageNumQuery}`;
+
 console.log(apiUrl);
   axios
     .get(apiUrl)
