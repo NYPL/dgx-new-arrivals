@@ -46,7 +46,7 @@
     "dgx-react-buttons": "git+https://bitbucket.org/NYPL/dgx-react-buttons.git#v0.0.4",
     "dgx-react-footer": "git+ssh://bitbucket.org/NYPL/dgx-react-footer.git#development",
     "dgx-react-ga": "git+ssh://bitbucket.org/NYPL/dgx-react-ga.git#master",
-    "dgx-svg-icons": "git+ssh://bitbucket.org/NYPL/dgx-svg-icons.git#WEB-2815-BNA-svgs",
+    "dgx-svg-icons": "git+ssh://bitbucket.org/NYPL/dgx-svg-icons.git#v0.0.5",
     "ejs": "^2.3.3",
     "esdoc": "^0.4.5",
     "eslint": "^2.2.0",
