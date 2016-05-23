@@ -73,6 +73,7 @@ class SelectedFilters extends React.Component {
 
     if (active) {
       Actions.updateActiveFilters(false);
+      Actions.updatePageNum(false);
       pageNum = 1;
       update = false;
     }

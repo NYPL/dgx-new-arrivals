@@ -67,13 +67,6 @@ class Filter extends React.Component {
   }
 
   selectFilter(queries, updatePageNum, filters, active) {
-    // const pageNum = updatePageNum ? `&pageNum=${this.state.pageNum}` : '';
-    // let items = 18;
-
-    // if (updatePageNum) {
-    //   items = 18 * (this.state.pageNum - 1);
-    // }
-
     makeApiCall(queries, response => {
       Actions.updateNewArrivalsData(response.data);
       Actions.updateFiltered(filters);
@@ -123,8 +116,6 @@ class Filter extends React.Component {
     };
 
     this.selectFilter('', false, filters, false);
-    // this.setState({ filters });
-    // Actions.updateFiltered(filters);
   }
 
   render() {
