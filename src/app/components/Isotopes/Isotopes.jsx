@@ -7,7 +7,9 @@ import BookCover from '../BookCover/BookCover.jsx';
 import BookListItem from './BookListItem.jsx';
 import appConfig from '../../../../appConfig.js';
 
-const { appFilters } = appConfig;
+import { titleShortener } from '../../utils/utils.js';
+
+const { appFilters, itemTitleLength } = appConfig;
 const formatData = appFilters.formatData.data;
 
 /**
@@ -68,7 +70,7 @@ class Isotopes extends React.Component {
     }
 
     const books = bookCoverItems.map((element, i) => {
-      const shortTitle = element.title ? element.title.split(':')[0] : '';
+      const shortTitle = titleShortener(element.title, itemTitleLength);
       const target = `http://browse.nypl.org/iii/encore/record/C__Rb${element.bibNumber}`;
       const bookCover = (
         <BookCover

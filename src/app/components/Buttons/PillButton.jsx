@@ -13,7 +13,7 @@ class PillButton extends React.Component {
   constructor(props) {
     super(props);
 
-    this._onClick = this._onClick.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   /**
@@ -22,7 +22,7 @@ class PillButton extends React.Component {
    * @param {string} value - A boolean or string value passed to the
    * Alt Actions.
    */
-  _onClick(value) {
+  onClick(value) {
     this.props.onClick(value);
   }
 
@@ -33,7 +33,7 @@ class PillButton extends React.Component {
     return (
       <button
         className={`PillButton ${this.props.className} ${this.props.value}`}
-        onClick={this._onClick.bind(this, this.props.value)}
+        onClick={() => this.onClick(this.props.value)}
       >
         {this.props.icon}
         <span className="PillButton-title">{this.props.title}</span>
