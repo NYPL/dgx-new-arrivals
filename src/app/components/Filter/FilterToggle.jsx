@@ -30,16 +30,16 @@ class FilterToggle extends React.Component {
     NewArrivalsStore.unlisten(this.stateChange);
   }
 
-  stateChange() {
-    this.setState(NewArrivalsStore.getState());
-  }
-
   onChange(e) {
     const availability = e.currentTarget.value;
     const queries = makeQuery(this.state.filters, availability);
 
     Actions.updateAvailabilityType(availability);
     this.selectFilter(queries);
+  }
+
+  stateChange() {
+    this.setState(NewArrivalsStore.getState());
   }
 
   selectFilter(queries = '') {

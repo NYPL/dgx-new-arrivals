@@ -2,8 +2,6 @@ import React from 'react';
 import {
   every as _every,
   map as _map,
-  mapObject as _mapObject,
-  omit as _omit,
   keys as _keys,
 } from 'underscore';
 import {

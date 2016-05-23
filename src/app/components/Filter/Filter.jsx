@@ -17,7 +17,6 @@ import FilterList from './FilterList.jsx';
 import CloseButton from '../Buttons/CloseButton.jsx';
 
 import {
-  formatFilters,
   makeQuery,
   makeApiCall,
 } from '../../utils/utils.js';

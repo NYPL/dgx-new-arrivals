@@ -1,9 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {
-  extend as _extend,
-  mapObject as _mapObject
-} from 'underscore';
+import { extend as _extend } from 'underscore';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';

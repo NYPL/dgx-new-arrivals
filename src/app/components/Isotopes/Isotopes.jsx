@@ -7,7 +7,10 @@ import BookCover from '../BookCover/BookCover.jsx';
 import BookListItem from './BookListItem.jsx';
 import appConfig from '../../../../appConfig.js';
 
-import { titleShortener } from '../../utils/utils.js';
+import {
+  titleShortener,
+  createDate,
+} from '../../utils/utils.js';
 
 const { appFilters, itemTitleLength } = appConfig;
 const formatData = appFilters.formatData.data;
@@ -87,6 +90,7 @@ class Isotopes extends React.Component {
       const format = _findWhere(formatData, { id: element.format });
       const formatLabel = format ? `${format.label}` : '';
       const publishYear = element.publishYear ? `, ${element.publishYear}` : '';
+      const date = createDate(element.createdDate);
       const bookListItem = (
         <BookListItem
           bookCover={bookCover}
@@ -97,7 +101,7 @@ class Isotopes extends React.Component {
           publishYear={publishYear}
           callNumber={element.callNumber}
           description={element.description}
-          date={element.createdDate}
+          date={date}
         />
       );
 
