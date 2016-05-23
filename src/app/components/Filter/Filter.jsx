@@ -1,9 +1,11 @@
 import React from 'react';
+
 import {
   map as _map,
   mapObject as _mapObject,
   clone as _clone,
 } from 'underscore';
+
 import {
   FilterIcon,
   ApplyIcon,
