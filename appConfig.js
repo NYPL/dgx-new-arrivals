@@ -34,6 +34,7 @@ export default {
       'relationships': {'parent': 'null'}
     }
   },
+  itemTitleLength: 96,
   appFilters: {
     formatData: {
       title: 'Format',
