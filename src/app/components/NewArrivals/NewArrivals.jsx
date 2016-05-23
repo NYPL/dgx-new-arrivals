@@ -49,7 +49,8 @@ class NewArrivals extends React.Component {
     const filters = this.state.filters;
     const availability = this.state.availabilityType;
     const pageNum = this.state.pageNum;
-    const queries = makeQuery(filters, availability);
+
+    const queries = makeQuery(filters, availability, pageNum);
 
     axios.interceptors.request.use(config => {
       // Do something before request is sent

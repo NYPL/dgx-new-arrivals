@@ -129,13 +129,15 @@ function selectPage(req, res) {
   const genre = query.genre || '';
   const availability = query.availability || 'New%20Arrival';
   const pageNum = query.pageNum || '1';
+  const items = query.itemCount || itemCount;
 
   const formatQuery = `&format=${format}`;
   const audienceQuery = audience ? `&audience=${audience}` : '';
   const languageQuery = language ? `&language=${language}` : '';
   const genreQuery = genre ? `&genre=${genre}` : '';
   const availabilityQuery = `&availability=${availability}`;
-  const pageNumQuery = pageNum ? `&pageNum=${pageNum}` : '';
+  const pageNumQuery = `&pageNum=${pageNum}`;
+  const itemCountQuery = `&itemCount=${items}`;
 
   const apiUrl = `${newArrivalsApi.bibItems}?` +
     `${formatQuery}` +
@@ -143,7 +145,7 @@ function selectPage(req, res) {
     `${languageQuery}` +
     `${genreQuery}` +
     `${availabilityQuery}` +
-    `&itemCount=${itemCount}` +
+    `${itemCountQuery}` +
     `${pageNumQuery}`;
 
 console.log(apiUrl);

@@ -62,6 +62,9 @@ class SelectedFilters extends React.Component {
   removeFilter(filter) {
     const availability = this.state.availabilityType;
     const filters = this.state.filters;
+    let update = true;
+    let pageNum = this.state.pageNum;
+
     filters[filter] = '';
 
     // If every filter is blank, then we want to remove the Active flag
@@ -70,15 +73,11 @@ class SelectedFilters extends React.Component {
 
     if (active) {
       Actions.updateActiveFilters(false);
+      pageNum = 1;
+      update = false;
     }
 
-    // let items = 18;
-
-    // if (queries) {
-    //   items = 18 * (this.state.pageNum - 1);
-    // }
-
-    const queries = makeQuery(filters, availability);
+    const queries = makeQuery(filters, availability, pageNum, update);
 
     Actions.updateFiltered(filters);
 
@@ -90,7 +89,9 @@ class SelectedFilters extends React.Component {
   render() {
     const filters = this.getFilterList(this.state.filters);
 
-    return filters && filters.length ? <ul className="selectedFilters">{filters}</ul> : null;
+    return filters && filters.length ?
+      <ul className="selectedFilters">{filters}</ul> :
+      null;
   }
 }
 

@@ -9,6 +9,7 @@ import config from '../../../appConfig.js';
 const {
   appFilters,
   itemCount,
+  pageNum,
 } = config;
 
 const formatFilters = () => {
@@ -30,8 +31,15 @@ const titleShortener = (title, itemTitleLength = 96) => {
   return updatedTitle;
 };
 
-const makeQuery = (filters = {}, availability = '', items = itemCount) => {
+const makeQuery = (filters = {}, availability = '', page = pageNum, updateItems = false) => {
   let queries = '';
+  let itemsQuery = itemCount;
+  let pageQuery = page;
+
+  if (updateItems) {
+    itemsQuery = itemCount * (page - 1);
+    pageQuery = 1;
+  }
 
   _mapObject(filters, (val, key) => {
     if (val !== '') {
@@ -45,7 +53,7 @@ const makeQuery = (filters = {}, availability = '', items = itemCount) => {
     queries += `&availability=${availability}`;
   }
 
-  queries += `&itemCount=${items}`;
+  queries += `&itemCount=${itemsQuery}&pageNum=${pageQuery}`;
 
   return queries;
 };

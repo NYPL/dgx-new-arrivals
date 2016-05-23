@@ -107,7 +107,8 @@ class Filter extends React.Component {
   submitFilters() {
     const filters = this.state.filters;
     const availability = this.state.availability;
-    const queries = makeQuery(filters, availability);
+    const pageNum = this.state.pageNum;
+    const queries = makeQuery(filters, availability, pageNum, true);
 
     this.selectFilter(queries, true, filters, true);
     this.closeFilters();
