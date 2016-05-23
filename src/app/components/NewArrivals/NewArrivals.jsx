@@ -1,4 +1,9 @@
 import React from 'react';
+import axios from 'axios';
+import {
+  extend as _extend,
+  mapObject as _mapObject
+} from 'underscore';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -9,13 +14,10 @@ import SelectedFilters from '../SelectedFilters/SelectedFilters.jsx';
 import PaginationButton from '../Buttons/PaginationButton.jsx';
 import appConfig from '../../../../appConfig.js';
 
-import axios from 'axios';
 import {
-  extend as _extend,
-  mapObject as _mapObject
-} from 'underscore';
-
-import { makeQuery } from '../../utils/utils.js';
+  makeQuery,
+  makeApiCall,
+} from '../../utils/utils.js';
 
 const { introText } = appConfig;
 
@@ -58,18 +60,13 @@ class NewArrivals extends React.Component {
       return config;
     }, error => Promise.reject(error));
 
-    axios
-      .get(`/api?${queries}&pageNum=${pageNum}`)
-      .then(response => {
-        Actions.addMoreItems(response.data.bibItems);
-        Actions.updatePageNum(true);
+    // Add PAGE NUMBER
+    makeApiCall(queries, response => {
+      Actions.addMoreItems(response.data.bibItems);
+      Actions.updatePageNum(true);
 
-        this.setState({ isLoading: false });
-      })
-      .catch(error => {
-        this.setState({ isLoading: false });
-        console.log(`error making ajax call: ${error}`);
-      }); /* end Axios call */
+      this.setState({ isLoading: false });
+    });
   }
 
   render() {

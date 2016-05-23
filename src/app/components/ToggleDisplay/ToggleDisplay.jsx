@@ -77,7 +77,10 @@ class ToggleDisplay extends React.Component {
           <ViewTypeButton type={displayType} />
         </li>
         <li>
-          <ClickOutHandler onClickOut={this.handleOnClickOut.bind(this)} className="clickOutContainer">
+          <ClickOutHandler
+            onClickOut={this.handleOnClickOut.bind(this)}
+            className="clickOutContainer"
+          >
             <div className="filterButton">
               <PillButton
                 className="filters"

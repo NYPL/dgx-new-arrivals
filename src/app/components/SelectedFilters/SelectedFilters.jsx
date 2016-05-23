@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
   every as _every,
   map as _map,
@@ -7,13 +6,18 @@ import {
   omit as _omit,
   keys as _keys,
 } from 'underscore';
+import {
+  XIcon,
+} from 'dgx-svg-icons';
 
-import axios from 'axios';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
-import { makeQuery } from '../../utils/utils.js';
+import {
+  makeQuery,
+  makeApiCall,
+} from '../../utils/utils.js';
 
 class SelectedFilters extends React.Component {
   constructor(props) {
@@ -47,7 +51,7 @@ class SelectedFilters extends React.Component {
           <li key={i}>
             <a href="#" onClick={() => this.removeFilter(filter)}>
               {value}
-              <span className="nypl-icon-solo-x icon"></span>
+              <XIcon height="20" width="20" />
             </a>
           </li>
         );
@@ -63,7 +67,7 @@ class SelectedFilters extends React.Component {
     filters[filter] = '';
 
     // If every filter is blank, then we want to remove the Active flag
-    // for to the toggle popup.
+    // for the toggle popup.
     const active = _every(filters, f => f === '');
 
     if (active) {
@@ -80,14 +84,9 @@ class SelectedFilters extends React.Component {
 
     Actions.updateFiltered(filters);
 
-    axios
-      .get(`/api?${queries}`)
-      .then(response => {
-        Actions.updateNewArrivalsData(response.data);
-      })
-      .catch(error => {
-        console.log(`error making ajax call: ${error}`);
-      }); /* end Axios call */
+    makeApiCall(queries, response => {
+      Actions.updateNewArrivalsData(response.data);
+    });
   }
 
   render() {

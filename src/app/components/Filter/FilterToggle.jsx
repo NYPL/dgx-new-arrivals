@@ -1,11 +1,15 @@
 import React from 'react';
 
-import axios from 'axios';
-
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
-import { makeQuery } from '../../utils/utils.js';
+import {
+  makeQuery,
+  makeApiCall,
+} from '../../utils/utils.js';
+import config from '../../../../appConfig.js';
+
+const { newArrival, onOrder } = config.availability;
 
 // can select multiple filters but only one per each category.
 class FilterToggle extends React.Component {
@@ -32,23 +36,16 @@ class FilterToggle extends React.Component {
 
   onChange(e) {
     const availability = e.currentTarget.value;
-
-    const filters = this.state.filters;
-    const queries = makeQuery(filters, availability);
+    const queries = makeQuery(this.state.filters, availability);
 
     Actions.updateAvailabilityType(availability);
     this.selectFilter(queries);
   }
 
   selectFilter(queries = '') {
-    axios
-      .get(`/api?${queries}`)
-      .then(response => {
-        Actions.updateNewArrivalsData(response.data);
-      })
-      .catch(error => {
-        console.log(`error making ajax call: ${error}`);
-      }); /* end Axios call */
+    makeApiCall(queries, response => {
+      Actions.updateNewArrivalsData(response.data);
+    });
   }
 
   render() {
@@ -59,30 +56,31 @@ class FilterToggle extends React.Component {
           type="radio"
           className="switch-input"
           name="view"
-          value="New Arrival" id="newArrivalInput"
-          checked={this.state.availabilityType === 'New Arrival'}
+          value={newArrival.id}
+          id="newArrivalInput"
+          checked={this.state.availabilityType === newArrival.id}
           onChange={this.onChange}
         />
         <label
           htmlFor="newArrivalInput"
           className="switch-label label-left"
         >
-          New Arrivals
+          {newArrival.label}
         </label>
         <input
           type="radio"
           className="switch-input"
           name="view"
-          value="On Order"
+          value={onOrder.id}
           id="onOrderInput"
-          checked={this.state.availabilityType === 'On Order'}
+          checked={this.state.availabilityType === onOrder.id}
           onChange={this.onChange}
         />
         <label
           htmlFor="onOrderInput"
           className="switch-label label-right"
         >
-          On Order
+          {onOrder.label}
         </label>
         <span className="switch-selection"></span>
       </fieldset>

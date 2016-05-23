@@ -74,11 +74,15 @@ export default {
       title: 'Genre',
       data: [
         { id: 'Fiction', label: 'Fiction' },
-        { id: 'Non fiction', label: 'Non Fiction' },
+        { id: 'Non Fiction', label: 'Non Fiction' },
         { id: 'Research', label: 'Research' },
       ],
       active: '',
     },
+  },
+  availability: {
+    newArrival: { id: 'New Arrival', label: 'New Arrivals' },
+    onOrder: { id: 'On Order', label: 'On Order' },
   },
   introText: 'Use filters to browse new books, DVDs, and music by language, age level, ' +
     'and genre. Toggle to list view to see more information about each title. Check back ' +

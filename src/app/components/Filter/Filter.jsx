@@ -1,12 +1,9 @@
 import React from 'react';
-import axios from 'axios';
-
 import {
   map as _map,
   mapObject as _mapObject,
   clone as _clone,
 } from 'underscore';
-
 import {
   FilterIcon,
   ApplyIcon,
@@ -19,7 +16,11 @@ import Actions from '../../actions/Actions.js';
 import FilterList from './FilterList.jsx';
 import CloseButton from '../Buttons/CloseButton.jsx';
 
-import { formatFilters } from '../../utils/utils.js';
+import {
+  formatFilters,
+  makeQuery,
+  makeApiCall,
+} from '../../utils/utils.js';
 import appConfig from '../../../../appConfig.js';
 
 const { appFilters } = appConfig;
@@ -67,32 +68,22 @@ class Filter extends React.Component {
   }
 
   selectFilter(queries, updatePageNum, filters, active) {
-    // console.log(queries);
-    const pageNum = updatePageNum ? `&pageNum=${this.state.pageNum}` : '';
-    let items = 18;
+    // const pageNum = updatePageNum ? `&pageNum=${this.state.pageNum}` : '';
+    // let items = 18;
 
-    if (updatePageNum) {
-      items = 18 * (this.state.pageNum - 1);
-    }
+    // if (updatePageNum) {
+    //   items = 18 * (this.state.pageNum - 1);
+    // }
 
-    if (!queries) {
-      queries = `format=${formatFilters()}`;
-    }
+    makeApiCall(queries, response => {
+      Actions.updateNewArrivalsData(response.data);
+      Actions.updateFiltered(filters);
+      Actions.updateActiveFilters(active);
 
-    axios
-      .get(`/api?${queries}&availability=${this.state.availability}&itemCount=${items}`)
-      .then(response => {
-        Actions.updateNewArrivalsData(response.data);
-        Actions.updateFiltered(filters);
-        Actions.updateActiveFilters(active);
-
-        if (!updatePageNum) {
-          Actions.updatePageNum(false);
-        }
-      })
-      .catch(error => {
-        console.log(`error making ajax call: ${error}`);
-      }); /* end Axios call */
+      if (!updatePageNum) {
+        Actions.updatePageNum(false);
+      }
+    });
   }
 
   manageSelected(item) {
@@ -116,13 +107,8 @@ class Filter extends React.Component {
 
   submitFilters() {
     const filters = this.state.filters;
-    let queries = '';
-
-    _mapObject(filters, (val, key) => {
-      if (val !== '') {
-        queries += (val === 'Research') ? `&audience=${val}` : `&${key}=${val}`;
-      }
-    });
+    const availability = this.state.availability;
+    const queries = makeQuery(filters, availability);
 
     this.selectFilter(queries, true, filters, true);
     this.closeFilters();

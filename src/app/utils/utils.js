@@ -1,9 +1,10 @@
-import config from '../../../appConfig.js';
-
+import axios from 'axios';
 import {
   map as _map,
   mapObject as _mapObject,
 } from 'underscore';
+
+import config from '../../../appConfig.js';
 
 const {
   appFilters,
@@ -49,8 +50,18 @@ const makeQuery = (filters = {}, availability = '', items = itemCount) => {
   return queries;
 };
 
+const makeApiCall = (queries, callbackFn) => {
+  axios
+    .get(`/api?${queries}`)
+    .then(callbackFn)
+    .catch(error => {
+      console.log(`error making ajax call: ${error}`);
+    }); /* end Axios call */
+};
+
 export {
   formatFilters,
-  makeQuery,
   titleShortener,
+  makeQuery,
+  makeApiCall,
 };
