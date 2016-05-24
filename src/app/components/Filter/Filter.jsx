@@ -1,13 +1,18 @@
 import React from 'react';
 import axios from 'axios';
 
-import { map as _map } from 'underscore';
+import {
+  map as _map,
+  mapObject as _mapObject,
+  clone as _clone,
+} from 'underscore';
 
 import {
   FilterIcon,
   ApplyIcon,
   ResetIcon,
 } from 'dgx-svg-icons';
+
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -31,6 +36,7 @@ class Filter extends React.Component {
     this.resetFilters = this.resetFilters.bind(this);
     this.selectFilter = this.selectFilter.bind(this);
     this.onChange = this.onChange.bind(this);
+
     this.state = {
       active: NewArrivalsStore.getState().activeFilters,
       filters: NewArrivalsStore.getState().filters,
@@ -61,7 +67,8 @@ class Filter extends React.Component {
     Actions.toggleFilters(false);
   }
 
-  selectFilter(queries, updatePageNum) {
+  selectFilter(queries, updatePageNum, filters, active) {
+    // console.log(queries);
     const pageNum = updatePageNum ? `&pageNum=${this.state.pageNum}` : '';
     let items = 18;
 
@@ -77,8 +84,8 @@ class Filter extends React.Component {
       .get(`/api?${queries}&availability=${this.state.availability}&itemCount=${items}`)
       .then(response => {
         Actions.updateNewArrivalsData(response.data);
-        Actions.updateFiltered(this.state.filters);
-        Actions.updateActiveFilters(this.state.active);
+        Actions.updateFiltered(filters);
+        Actions.updateActiveFilters(active);
 
         if (!updatePageNum) {
           Actions.updatePageNum(false);
@@ -91,20 +98,20 @@ class Filter extends React.Component {
 
   manageSelected(item) {
     const filter = item.filter.toLowerCase();
-    const filters = this.state.filters;
+    const filters = _clone(this.state.filters);
     let active = false;
 
     filters[filter] = item.selected;
 
-    for (const f in filters) {
-      if (filters[f] !== '') {
+    _mapObject(filters, f => {
+      if (f !== '') {
         active = true;
       }
-    }
+    });
 
+    Actions.updateActiveFilters(active);
     this.setState({
       filters,
-      active,
     });
   }
 
@@ -112,17 +119,13 @@ class Filter extends React.Component {
     const filters = this.state.filters;
     let queries = '';
 
-    for (const filter in filters) {
-      if (filters[filter] !== '') {
-        if (filters[filter] === 'Research') {
-          queries += `&audience=${filters[filter]}`;
-        } else {
-          queries += `&${filter}=${filters[filter]}`;
-        }
+    _mapObject(filters, (val, key) => {
+      if (val !== '') {
+        queries += (val === 'Research') ? `&audience=${val}` : `&${key}=${val}`;
       }
-    }
+    });
 
-    this.selectFilter(queries, true);
+    this.selectFilter(queries, true, filters, true);
     this.closeFilters();
   }
 
@@ -131,12 +134,12 @@ class Filter extends React.Component {
       format: '',
       audience: '',
       language: '',
+      genre: '',
     };
 
-    this.setState({ filters });
-    Actions.updateFiltered(filters);
-
-    this.selectFilter('', false);
+    this.selectFilter('', false, filters, false);
+    // this.setState({ filters });
+    // Actions.updateFiltered(filters);
   }
 
   render() {
@@ -147,13 +150,13 @@ class Filter extends React.Component {
     const genreData = appFilters.genreData;
     const activeSubmitButtons = this.state.active ? 'active' : '';
 
-    const updatedLanguages = _map(this.state.languages, language => {
-      return {
+    const updatedLanguages = _map(this.state.languages, language =>
+      ({
         id: language.name,
         label: language.name,
         count: language.count,
-      };
-    });
+      })
+    );
 
     languageData.data = updatedLanguages;
 
