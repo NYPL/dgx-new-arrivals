@@ -6,7 +6,7 @@ import IconButton from './IconButton.jsx';
 const CloseButton = ({ className, onClick }) => (
   <IconButton
     className={className}
-    icon={<XIcon width='48' height='48' />}
+    icon={<XIcon width="48" height="48" />}
     onClick={onClick}
   />
 );

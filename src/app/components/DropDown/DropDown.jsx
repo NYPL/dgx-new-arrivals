@@ -48,7 +48,7 @@ class DropDown extends React.Component {
       }
 
       return (
-        <li key={i} onClick={this.selectDropDownItem.bind(this, item)}>
+        <li key={i} onClick={() => this.selectDropDownItem(item)}>
           <span>{item}</span>
         </li>
       );

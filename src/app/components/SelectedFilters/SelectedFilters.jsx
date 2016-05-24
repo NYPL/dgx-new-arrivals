@@ -1,18 +1,21 @@
 import React from 'react';
-
 import {
   every as _every,
   map as _map,
-  mapObject as _mapObject,
-  omit as _omit,
+  keys as _keys,
 } from 'underscore';
+import {
+  XIcon,
+} from 'dgx-svg-icons';
 
-import axios from 'axios';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
-import { formatFilters } from '../../utils/utils.js';
+import {
+  makeQuery,
+  makeApiCall,
+} from '../../utils/utils.js';
 
 class SelectedFilters extends React.Component {
   constructor(props) {
@@ -21,7 +24,6 @@ class SelectedFilters extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.getFilterList = this.getFilterList.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
-    this.makeQuery = this.makeQuery.bind(this);
 
     this.state = NewArrivalsStore.getState();
   }
@@ -39,15 +41,15 @@ class SelectedFilters extends React.Component {
   }
 
   getFilterList(filters) {
-    return _map(Object.keys(filters), (filter, i) => {
+    return _map(_keys(filters), (filter, i) => {
       const value = filters[filter];
 
-      if (value && filter !== 'active') {
+      if (value) {
         return (
           <li key={i}>
             <a href="#" onClick={() => this.removeFilter(filter)}>
               {value}
-              <span className="nypl-icon-solo-x icon"></span>
+              <XIcon height="20" width="20" />
             </a>
           </li>
         );
@@ -58,53 +60,42 @@ class SelectedFilters extends React.Component {
   }
 
   removeFilter(filter) {
-    const availability = this.state.availabilityType;
-    const filters = this.state.filters;
+    const {
+      availabilityType,
+      filters,
+      pageNum,
+    } = this.state;
+    let update = true;
+    let page = pageNum;
+
     filters[filter] = '';
 
-    Actions.updateFiltered(_omit(filters, 'active'));
-
+    // If every filter is blank, then we want to remove the Active flag
+    // for the toggle popup.
     const active = _every(filters, f => f === '');
 
     if (active) {
       Actions.updateActiveFilters(false);
+      Actions.updatePageNum(false);
+      page = 1;
+      update = false;
     }
 
-    const queries = this.makeQuery(filters);
-    let items = 18;
+    const queries = makeQuery(filters, availabilityType, page, update);
 
-    if (queries) {
-      items = 18 * (this.state.pageNum - 1);
-    }
+    Actions.updateFiltered(filters);
 
-    axios
-      .get(`/api?${queries}&availability=${availability}&itemCount=${items}`)
-      .then(response => {
-        Actions.updateNewArrivalsData(response.data);
-      })
-      .catch(error => {
-        console.log(`error making ajax call: ${error}`);
-      }); /* end Axios call */
-  }
-
-  makeQuery(filters) {
-    let queries = '';
-
-    _mapObject(filters, (val, key) => {
-      if (val !== '') {
-        queries += `&${key}=${val}`;
-      } else if (key === 'format') {
-        queries += `&format=${formatFilters()}`;
-      }
+    makeApiCall(queries, response => {
+      Actions.updateNewArrivalsData(response.data);
     });
-
-    return queries;
   }
 
   render() {
     const filters = this.getFilterList(this.state.filters);
 
-    return filters && filters.length ? <ul className="selectedFilters">{filters}</ul> : null;
+    return filters && filters.length ?
+      <ul className="selectedFilters">{filters}</ul> :
+      null;
   }
 }
 

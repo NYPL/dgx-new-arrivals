@@ -41,19 +41,6 @@ class Search extends React.Component {
   onChange() {}
 
   /**
-   *  inputChange(field, event)
-   * Listen to the changes on keywords input field and option input fields.
-   * Grab the event value, and change the state.
-   *
-   * @param {String} field - Input field context.
-   * @param {Event Object} event - Passing event as the argument here
-   * as FireFox doesn't accept event as a global variable.
-   */
-  inputChange(field, event) {
-    this.setState({ searchKeywords: event.target.value });
-  }
-
-  /**
    * submitSearchRequest(value)
    *
    * @param {String} value - The value from the input field.
@@ -217,6 +204,19 @@ class Search extends React.Component {
   }
 
   /**
+   *  inputChange(field, event)
+   * Listen to the changes on keywords input field and option input fields.
+   * Grab the event value, and change the state.
+   *
+   * @param {String} field - Input field context.
+   * @param {Event Object} event - Passing event as the argument here
+   * as FireFox doesn't accept event as a global variable.
+   */
+  inputChange(field, event) {
+    this.setState({ searchKeywords: event.target.value });
+  }
+
+  /**
    * encoreAddScope(baseUrl, searchString, scopeString)
    * Enchances the encore url with a possible scope.
    * If no scope is set, adds the required string to be returned as the final url.
@@ -254,12 +254,12 @@ class Search extends React.Component {
           <input
             placeholder={this.state.placeholder}
             className={`search-field ${pulseAnimation}`}
-            onChange={this.inputChange.bind(this, null)}
+            onChange={() => this.inputChange(null)}
             ref="keywords"
           />
           <button
             className="search-button"
-            onClick={this.submitSearchRequest.bind(this, 'catalog')}
+            onClick={() => this.submitSearchRequest('catalog')}
           >
             <span className="nypl-icon-magnifier-fat"></span>
             Search

@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 import {
   map as _map,
@@ -13,14 +12,16 @@ import {
   ResetIcon,
 } from 'dgx-svg-icons';
 
-
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 import FilterList from './FilterList.jsx';
 import CloseButton from '../Buttons/CloseButton.jsx';
 
-import { formatFilters } from '../../utils/utils.js';
+import {
+  makeQuery,
+  makeApiCall,
+} from '../../utils/utils.js';
 import appConfig from '../../../../appConfig.js';
 
 const { appFilters } = appConfig;
@@ -68,32 +69,15 @@ class Filter extends React.Component {
   }
 
   selectFilter(queries, updatePageNum, filters, active) {
-    // console.log(queries);
-    const pageNum = updatePageNum ? `&pageNum=${this.state.pageNum}` : '';
-    let items = 18;
+    makeApiCall(queries, response => {
+      Actions.updateNewArrivalsData(response.data);
+      Actions.updateFiltered(filters);
+      Actions.updateActiveFilters(active);
 
-    if (updatePageNum) {
-      items = 18 * (this.state.pageNum - 1);
-    }
-
-    if (!queries) {
-      queries = `format=${formatFilters()}`;
-    }
-
-    axios
-      .get(`/api?${queries}&availability=${this.state.availability}&itemCount=${items}`)
-      .then(response => {
-        Actions.updateNewArrivalsData(response.data);
-        Actions.updateFiltered(filters);
-        Actions.updateActiveFilters(active);
-
-        if (!updatePageNum) {
-          Actions.updatePageNum(false);
-        }
-      })
-      .catch(error => {
-        console.log(`error making ajax call: ${error}`);
-      }); /* end Axios call */
+      if (!updatePageNum) {
+        Actions.updatePageNum(false);
+      }
+    });
   }
 
   manageSelected(item) {
@@ -116,14 +100,12 @@ class Filter extends React.Component {
   }
 
   submitFilters() {
-    const filters = this.state.filters;
-    let queries = '';
-
-    _mapObject(filters, (val, key) => {
-      if (val !== '') {
-        queries += (val === 'Research') ? `&audience=${val}` : `&${key}=${val}`;
-      }
-    });
+    const {
+      filters,
+      availability,
+      pageNum,
+    } = this.state;
+    const queries = makeQuery(filters, availability, pageNum, true);
 
     this.selectFilter(queries, true, filters, true);
     this.closeFilters();
@@ -138,19 +120,21 @@ class Filter extends React.Component {
     };
 
     this.selectFilter('', false, filters, false);
-    // this.setState({ filters });
-    // Actions.updateFiltered(filters);
   }
 
   render() {
-    const filters = this.state.filters;
+    const {
+      filters,
+      active,
+      languages,
+    } = this.state;
     const formatData = appFilters.formatData;
     const audienceData = appFilters.audienceData;
     const languageData = appFilters.languageData;
     const genreData = appFilters.genreData;
-    const activeSubmitButtons = this.state.active ? 'active' : '';
+    const activeSubmitButtons = active ? 'active' : '';
 
-    const updatedLanguages = _map(this.state.languages, language =>
+    const updatedLanguages = _map(languages, language =>
       ({
         id: language.name,
         label: language.name,
@@ -191,7 +175,6 @@ class Filter extends React.Component {
             <span>Reset All</span>
           </button>
         </div>
-
       </div>
     );
   }

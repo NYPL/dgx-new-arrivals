@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+import { extend as _extend } from 'underscore';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -9,9 +11,10 @@ import SelectedFilters from '../SelectedFilters/SelectedFilters.jsx';
 import PaginationButton from '../Buttons/PaginationButton.jsx';
 import appConfig from '../../../../appConfig.js';
 
-import axios from 'axios';
-import { extend as _extend } from 'underscore';
-import { formatFilters } from '../../utils/utils.js';
+import {
+  makeQuery,
+  makeApiCall,
+} from '../../utils/utils.js';
 
 const { introText } = appConfig;
 
@@ -46,17 +49,8 @@ class NewArrivals extends React.Component {
     const filters = this.state.filters;
     const availability = this.state.availabilityType;
     const pageNum = this.state.pageNum;
-    let queries = '';
 
-    for (const filter in filters) {
-      if (filters[filter] !== '') {
-        queries += `&${filter}=${filters[filter]}`;
-      }
-    }
-
-    if (!filters.format) {
-      queries += `&format=${formatFilters()}`;
-    }
+    const queries = makeQuery(filters, availability, pageNum);
 
     axios.interceptors.request.use(config => {
       // Do something before request is sent
@@ -64,18 +58,13 @@ class NewArrivals extends React.Component {
       return config;
     }, error => Promise.reject(error));
 
-    axios
-      .get(`/api?${queries}&availability=${availability}&itemCount=18&pageNum=${pageNum}`)
-      .then(response => {
-        Actions.addMoreItems(response.data.bibItems);
-        Actions.updatePageNum(true);
+    // Add PAGE NUMBER
+    makeApiCall(queries, response => {
+      Actions.addMoreItems(response.data.bibItems);
+      Actions.updatePageNum(true);
 
-        this.setState({ isLoading: false });
-      })
-      .catch(error => {
-        this.setState({ isLoading: false });
-        console.log(`error making ajax call: ${error}`);
-      }); /* end Axios call */
+      this.setState({ isLoading: false });
+    });
   }
 
   render() {
