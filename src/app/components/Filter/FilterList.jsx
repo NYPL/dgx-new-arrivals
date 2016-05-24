@@ -37,7 +37,7 @@ class FilterList extends React.Component {
         filter={this.props.list.title}
         active={activeItem === item.id}
         key={i}
-        onClick={this.setActive.bind(this, item.id)}
+        onClick={() => this.setActive(item.id)}
       />)
     );
   }

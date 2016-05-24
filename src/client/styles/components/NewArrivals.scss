@@ -23,5 +23,10 @@
   &-introText {
     @include Kievit-Book;
     font-size: 16px;
+    line-height: 21px;
+
+    @include min-screen(1024px) {
+      width: 83%;
+    }
   }
 }

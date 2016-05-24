@@ -7,7 +7,12 @@ import BookCover from '../BookCover/BookCover.jsx';
 import BookListItem from './BookListItem.jsx';
 import appConfig from '../../../../appConfig.js';
 
-const { appFilters } = appConfig;
+import {
+  titleShortener,
+  createDate,
+} from '../../utils/utils.js';
+
+const { appFilters, itemTitleLength } = appConfig;
 const formatData = appFilters.formatData.data;
 
 /**
@@ -68,7 +73,7 @@ class Isotopes extends React.Component {
     }
 
     const books = bookCoverItems.map((element, i) => {
-      const shortTitle = element.title ? element.title.split(':')[0] : '';
+      const shortTitle = titleShortener(element.title, itemTitleLength);
       const target = `http://browse.nypl.org/iii/encore/record/C__Rb${element.bibNumber}`;
       const bookCover = (
         <BookCover
@@ -85,6 +90,7 @@ class Isotopes extends React.Component {
       const format = _findWhere(formatData, { id: element.format });
       const formatLabel = format ? `${format.label}` : '';
       const publishYear = element.publishYear ? `, ${element.publishYear}` : '';
+      const date = createDate(element.createdDate);
       const bookListItem = (
         <BookListItem
           bookCover={bookCover}
@@ -95,7 +101,7 @@ class Isotopes extends React.Component {
           publishYear={publishYear}
           callNumber={element.callNumber}
           description={element.description}
-          date={element.createdDate}
+          date={date}
         />
       );
 
