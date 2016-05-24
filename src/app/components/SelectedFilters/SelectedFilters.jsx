@@ -60,10 +60,13 @@ class SelectedFilters extends React.Component {
   }
 
   removeFilter(filter) {
-    const availability = this.state.availabilityType;
-    const filters = this.state.filters;
+    const {
+      availabilityType,
+      filters,
+      pageNum,
+    } = this.state;
     let update = true;
-    let pageNum = this.state.pageNum;
+    let page = pageNum;
 
     filters[filter] = '';
 
@@ -74,11 +77,11 @@ class SelectedFilters extends React.Component {
     if (active) {
       Actions.updateActiveFilters(false);
       Actions.updatePageNum(false);
-      pageNum = 1;
+      page = 1;
       update = false;
     }
 
-    const queries = makeQuery(filters, availability, pageNum, update);
+    const queries = makeQuery(filters, availabilityType, page, update);
 
     Actions.updateFiltered(filters);
 

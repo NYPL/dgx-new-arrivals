@@ -100,9 +100,11 @@ class Filter extends React.Component {
   }
 
   submitFilters() {
-    const filters = this.state.filters;
-    const availability = this.state.availability;
-    const pageNum = this.state.pageNum;
+    const {
+      filters,
+      availability,
+      pageNum,
+    } = this.state;
     const queries = makeQuery(filters, availability, pageNum, true);
 
     this.selectFilter(queries, true, filters, true);
@@ -121,14 +123,18 @@ class Filter extends React.Component {
   }
 
   render() {
-    const filters = this.state.filters;
+    const {
+      filters,
+      active,
+      languages,
+    } = this.state;
     const formatData = appFilters.formatData;
     const audienceData = appFilters.audienceData;
     const languageData = appFilters.languageData;
     const genreData = appFilters.genreData;
-    const activeSubmitButtons = this.state.active ? 'active' : '';
+    const activeSubmitButtons = active ? 'active' : '';
 
-    const updatedLanguages = _map(this.state.languages, language =>
+    const updatedLanguages = _map(languages, language =>
       ({
         id: language.name,
         label: language.name,

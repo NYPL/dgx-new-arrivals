@@ -32,9 +32,8 @@ class FilterToggle extends React.Component {
   }
 
   onChange(e) {
+    const { filters, pageNum } = this.state;
     const availability = e.currentTarget.value;
-    const filters = this.state.filters;
-    const pageNum = this.state.pageNum;
     const update = true;
     const queries = makeQuery(filters, availability, pageNum, update);
 
