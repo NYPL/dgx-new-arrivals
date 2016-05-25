@@ -17,6 +17,7 @@ import Actions from '../../actions/Actions.js';
 
 import FilterList from './FilterList.jsx';
 import CloseButton from '../Buttons/CloseButton.jsx';
+import PublicationToggle from './PublicationToggle.jsx';
 
 import {
   makeQuery,
@@ -38,12 +39,7 @@ class Filter extends React.Component {
     this.selectFilter = this.selectFilter.bind(this);
     this.onChange = this.onChange.bind(this);
 
-    this.state = {
-      active: NewArrivalsStore.getState().activeFilters,
-      filters: NewArrivalsStore.getState().filters,
-      languages: NewArrivalsStore.getState().languages,
-      availability: NewArrivalsStore.getState().availabilityType,
-    };
+    this.state = NewArrivalsStore.getState();
   }
 
   componentDidMount() {
@@ -55,13 +51,7 @@ class Filter extends React.Component {
   }
 
   onChange() {
-    this.setState({
-      active: NewArrivalsStore.getState().activeFilters,
-      filters: NewArrivalsStore.getState().filters,
-      pageNum: NewArrivalsStore.getState().pageNum,
-      languages: NewArrivalsStore.getState().languages,
-      availability: NewArrivalsStore.getState().availabilityType,
-    });
+    this.setState(NewArrivalsStore.getState());
   }
 
   closeFilters() {
@@ -102,10 +92,11 @@ class Filter extends React.Component {
   submitFilters() {
     const {
       filters,
-      availability,
+      availabilityType,
       pageNum,
+      publicationType,
     } = this.state;
-    const queries = makeQuery(filters, availability, pageNum, true);
+    const queries = makeQuery(filters, availabilityType, pageNum, true, publicationType);
 
     this.selectFilter(queries, true, filters, true);
     this.closeFilters();
@@ -125,14 +116,14 @@ class Filter extends React.Component {
   render() {
     const {
       filters,
-      active,
+      activeFilters,
       languages,
     } = this.state;
     const formatData = appFilters.formatData;
     const audienceData = appFilters.audienceData;
     const languageData = appFilters.languageData;
     const genreData = appFilters.genreData;
-    const activeSubmitButtons = active ? 'active' : '';
+    const activeSubmitButtons = activeFilters ? 'active' : '';
 
     const updatedLanguages = _map(languages, language =>
       ({
@@ -157,24 +148,32 @@ class Filter extends React.Component {
           <CloseButton onClick={this.closeFilters} className="mobile-close" />
         </div>
 
+        <ul className="filter-apply-wrapper">
+          <li className="buttonItems">
+            <p>Filter by Publish Date</p>
+            <PublicationToggle />
+          </li>
+
+          <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
+            <button className="PillButton apply" onClick={this.submitFilters}>
+              <ApplyIcon />
+              <span>Apply</span>
+            </button>
+          </li>
+          <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
+            <button className="PillButton reset" onClick={this.resetFilters}>
+              <ResetIcon />
+              <span>Reset All</span>
+            </button>
+          </li>
+        </ul>
+
         <ul>
           <FilterList list={formatData} manageSelected={this.manageSelected} />
           <FilterList list={audienceData} manageSelected={this.manageSelected} />
           <FilterList list={languageData} manageSelected={this.manageSelected} />
           <FilterList list={genreData} manageSelected={this.manageSelected} />
         </ul>
-
-        <div className={`submit-buttons ${activeSubmitButtons}`}>
-          <button className="PillButton apply" onClick={this.submitFilters}>
-            <ApplyIcon />
-            <span>Apply</span>
-          </button>
-
-          <button className="PillButton reset" onClick={this.resetFilters}>
-            <ResetIcon />
-            <span>Reset All</span>
-          </button>
-        </div>
       </div>
     );
   }

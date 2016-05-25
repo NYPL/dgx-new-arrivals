@@ -1,3 +1,27 @@
+.filter-apply-wrapper {
+  width: 100%;
+
+  .buttonItems {
+    // width: 100%;
+    float: left;
+    @include Kievit-Regular;
+    width: 23%;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    min-height: 65px;
+
+    p {
+      margin: 0 0 5px 10px;
+      font-size: 14px;
+      min-height: 20px;
+    }
+
+    &:first-child {
+      width: 47%;
+    }
+  }
+}
+
 .filter {
   &-wrapper {
     color: #fff;
@@ -26,10 +50,9 @@
     }
 
     .submit-buttons {
-      width: 100%;
       float: left;
       opacity: 0.5;
-      margin-bottom: 30px;
+      // margin-bottom: 30px;
 
       &.active {
         opacity: 1;
@@ -39,10 +62,10 @@
         background-color: #737069;
         color: #fff;
         border: 2px solid #fff;
-        margin: 0 auto;
+        margin: 27px 10px 0;
         display: block;
         font-size: 13px;
-        width: 160px;
+        width: 140px;
         height: 40px;
         text-transform: uppercase;
 
@@ -60,16 +83,16 @@
       }
 
       .apply {
-        margin-bottom: 20px;
+        // margin-bottom: 20px;
 
         svg {
           margin-right: 15px;
           margin-left: -25px;
         }
 
-        @include min-screen(768px) {
-          margin: 0 25px 0 35px;
-        }
+        // @include min-screen(768px) {
+        //   margin: 0 25px 0 35px;
+        // }
       }
 
       .reset {

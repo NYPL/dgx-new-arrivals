@@ -31,7 +31,13 @@ const titleShortener = (title, itemTitleLength = 96) => {
   return updatedTitle;
 };
 
-const makeQuery = (filters = {}, availability = '', page = pageNum, updateItems = false) => {
+const makeQuery = (
+  filters = {},
+  availability = '',
+  page = pageNum,
+  updateItems = false,
+  publishType = 'recentlyReleased'
+) => {
   let queries = '';
   let itemsQuery = itemCount;
   let pageQuery = page;
@@ -53,7 +59,7 @@ const makeQuery = (filters = {}, availability = '', page = pageNum, updateItems 
     queries += `&availability=${availability}`;
   }
 
-  queries += `&itemCount=${itemsQuery}&pageNum=${pageQuery}`;
+  queries += `&itemCount=${itemsQuery}&pageNum=${pageQuery}&publishYear=${publishType}`;
 
   return queries;
 };

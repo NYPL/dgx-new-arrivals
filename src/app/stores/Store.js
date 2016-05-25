@@ -19,11 +19,13 @@ class NewArrivalsStore {
       addMoreItems: Actions.ADD_MORE_ITEMS,
       handleUpdatePageNum: Actions.UPDATE_PAGE_NUM,
       updateAvailabilityType: Actions.UPDATE_AVAILABILITY_TYPE,
+      updatePublicationType: Actions.UPDATE_PUBLICATION_TYPE,
     });
 
     this.on('init', () => {
       this.newArrivalsData = {};
       this.displayType = 'grid';
+      this.publicationType = 'recentlyReleased';
       this.toggleFilter = false;
       this.dropDownValue = '';
       this.filters = {
@@ -89,6 +91,13 @@ class NewArrivalsStore {
 
   updateAvailabilityType(type) {
     this.availabilityType = type;
+  }
+
+  /**
+   * @param {string} publicationType
+   */
+  updatePublicationType(publicationType) {
+    this.publicationType = publicationType;
   }
 }
 

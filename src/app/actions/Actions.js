@@ -57,6 +57,10 @@ class Actions {
   updateAvailabilityType(type) {
     this.dispatch(type);
   }
+
+  updatePublicationType(type) {
+    this.dispatch(type);
+  }
 }
 
 export default alt.createActions(Actions);

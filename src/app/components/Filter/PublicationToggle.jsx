@@ -10,10 +10,10 @@ import {
 } from '../../utils/utils.js';
 import config from '../../../../appConfig.js';
 
-const { newArrival, onOrder } = config.availability;
+const { recentlyReleased, justAdded } = config.publicationType;
 
 // can select multiple filters but only one per each category.
-class FilterToggle extends React.Component {
+class PublicationToggle extends React.Component {
   constructor(props) {
     super(props);
 
@@ -34,14 +34,15 @@ class FilterToggle extends React.Component {
   onChange(e) {
     const {
       filters,
-      pageNum,
-      publicationType,
+      availabilityType,
+      pageNum
     } = this.state;
-    const availability = e.currentTarget.value;
+    const publicationType = e.currentTarget.value;
     const update = true;
-    const queries = makeQuery(filters, availability, pageNum, update, publicationType);
+    const queries = makeQuery(filters, availabilityType, pageNum, update, publicationType);
 
-    Actions.updateAvailabilityType(availability);
+    // Action for publication year.
+    Actions.updatePublicationType(publicationType);
     this.selectFilter(queries);
   }
 
@@ -57,37 +58,37 @@ class FilterToggle extends React.Component {
 
   render() {
     return (
-      <fieldset className="switch" tabIndex="0">
-        <legend>Show new arrivals or books on order?</legend>
-        <input
+      <fieldset className="switch publicationType" tabIndex="0">
+        <legend>Show Just Added or Recently Released?</legend>
+         <input
           type="radio"
           className="switch-input"
-          name="view"
-          value={newArrival.id}
-          id="newArrivalInput"
-          checked={this.state.availabilityType === newArrival.id}
+          name="publicationType"
+          value={recentlyReleased.id}
+          id="recentlyReleased"
+          checked={this.state.publicationType === recentlyReleased.id}
           onChange={this.onChange}
         />
         <label
-          htmlFor="newArrivalInput"
+          htmlFor="recentlyReleased"
           className="switch-label label-left"
         >
-          {newArrival.label}
+          {recentlyReleased.label}
         </label>
         <input
           type="radio"
           className="switch-input"
-          name="view"
-          value={onOrder.id}
-          id="onOrderInput"
-          checked={this.state.availabilityType === onOrder.id}
+          name="publicationType"
+          value={justAdded.id}
+          id="justAdded"
+          checked={this.state.publicationType === justAdded.id}
           onChange={this.onChange}
         />
         <label
-          htmlFor="onOrderInput"
+          htmlFor="justAdded"
           className="switch-label label-right"
         >
-          {onOrder.label}
+          {justAdded.label}
         </label>
         <span className="switch-selection"></span>
       </fieldset>
@@ -95,4 +96,4 @@ class FilterToggle extends React.Component {
   }
 }
 
-export default FilterToggle;
+export default PublicationToggle;
