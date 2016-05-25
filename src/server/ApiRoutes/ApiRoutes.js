@@ -69,6 +69,7 @@ const newArrivalsApp = (req, res, next) => {
     `&availability=New%20Arrival` +
     `&itemCount=${itemCount}` +
     `&minPublishYear=${minPublishYear}`;
+
 console.log(baseApiUrl);
 
   axios.all([getHeaderData(), fetchApiData(baseApiUrl), getLanguageData()])
@@ -146,16 +147,17 @@ function selectPage(req, res) {
   const publishYearQuery = `&minPublishYear=${minPublishYear}`;
 
   const apiUrl = `${newArrivalsApi.bibItems}?` +
-    `${formatQuery}` +
-    `${audienceQuery}` +
-    `${languageQuery}` +
-    `${genreQuery}` +
-    `${availabilityQuery}` +
-    `${itemCountQuery}` +
-    `${pageNumQuery}` +
-    `${publishYearQuery}`;
+    formatQuery +
+    audienceQuery +
+    languageQuery +
+    genreQuery +
+    availabilityQuery +
+    itemCountQuery +
+    pageNumQuery +
+    publishYearQuery;
 
 console.log(apiUrl);
+
   axios
     .get(apiUrl)
     .then(response => res.json(response.data))
