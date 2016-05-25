@@ -4,6 +4,7 @@ import {
   map as _map,
   mapObject as _mapObject,
   clone as _clone,
+  every as _every,
 } from 'underscore';
 
 import {
@@ -59,6 +60,7 @@ class Filter extends React.Component {
   }
 
   selectFilter(queries, updatePageNum, filters, active) {
+    console.log('making clal');
     makeApiCall(queries, response => {
       Actions.updateNewArrivalsData(response.data);
       Actions.updateFiltered(filters);
@@ -73,20 +75,9 @@ class Filter extends React.Component {
   manageSelected(item) {
     const filter = item.filter.toLowerCase();
     const filters = _clone(this.state.filters);
-    let active = false;
-
     filters[filter] = item.selected;
 
-    _mapObject(filters, f => {
-      if (f !== '') {
-        active = true;
-      }
-    });
-
-    Actions.updateActiveFilters(active);
-    this.setState({
-      filters,
-    });
+    this.setState({ filters });
   }
 
   submitFilters() {
@@ -116,14 +107,14 @@ class Filter extends React.Component {
   render() {
     const {
       filters,
-      activeFilters,
       languages,
     } = this.state;
     const formatData = appFilters.formatData;
     const audienceData = appFilters.audienceData;
     const languageData = appFilters.languageData;
     const genreData = appFilters.genreData;
-    const activeSubmitButtons = activeFilters ? 'active' : '';
+    const active = _every(filters, f => f === '');
+    const activeSubmitButtons = active ? '' : 'active';
 
     const updatedLanguages = _map(languages, language =>
       ({
