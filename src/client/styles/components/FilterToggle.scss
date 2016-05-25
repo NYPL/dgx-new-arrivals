@@ -1,0 +1,113 @@
+.switch {
+  position: relative;
+  height: 40px;
+  width: 218px;
+  background-color: #1980a9;
+  border-radius: 25px;
+  top: 5px;
+  padding: 0;
+
+  &-label {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 97px;
+    padding: 15px 0 13px;
+    font-size: 13px;
+    @include Kievit-Medium;
+    text-transform: uppercase;
+    color: #1da1d4;
+    text-align: center;
+    cursor: pointer;
+
+    &.label-left {
+      padding-left: 11px;
+    }
+
+    &.label-right {
+      width: 110px;
+    }
+
+  }
+
+  &-input {
+    @include visuallyHidden;
+    /* display: none; */
+
+    &:checked + .switch-label {
+      color: #fff;
+      -webkit-transition: 0.2s ease-out;
+      -moz-transition: 0.2s ease-out;
+      -o-transition: 0.2s ease-out;
+      transition: 0.2s ease-out;
+    }
+
+    &:checked + .label-right ~ .switch-selection {
+      /* Note: left: 50% doesn't transition in WebKit */
+      left: 113px;
+      width: 101px;
+    }
+  }
+
+  &-selection {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 3px;
+    left: 3px;
+    width: 114px;
+    height: 34px;
+    background-color: #1da1d4;
+    border-radius: 25px;
+    -webkit-transition: left 0.2s ease-out;
+    -moz-transition: left 0.2s ease-out;
+    -o-transition: left 0.2s ease-out;
+    transition: left 0.2s ease-out;
+  }
+
+  legend {
+      @include visuallyHidden;
+  }
+
+  svg {
+    vertical-align: middle;
+    fill: #fff;
+  }
+}
+
+.viewType {
+  background-color: #575550;
+  width: 184px;
+
+  svg {
+    vertical-align: middle;
+    fill: #9c9890;
+  }
+
+  .switch {
+    &-label {
+      padding: 5px 0;
+      color: #9c9890;
+      width: 85px;
+    }
+
+    &-input {
+      &:checked + .switch-label {
+        color: #fff;
+
+        svg {
+          fill: #fff;
+        }
+      }
+
+      &:checked + .label-right ~ .switch-selection {
+        left: 80px;
+      }
+    }
+
+    &-selection {
+      background-color: #9c9890;
+      width: 85px;
+    }
+  }
+}

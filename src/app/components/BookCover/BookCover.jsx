@@ -1,85 +1,175 @@
 import React from 'react';
 
-class BookCover extends React.Component {
+import {
+  AudioHeadphoneIcon,
+  MediaBluRayIcon,
+  AudioDiscIcon,
+  DvdDiscIcon,
+  BookIcon,
+  LargePrintIcon,
+  EReaderIcon,
+} from 'dgx-svg-icons';
 
-  // Constructor used in ES6
+import BookOverlay from './BookOverlay.jsx';
+
+class BookCover extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      imageSrc: (this.props.imgSrc && this.props.imgSrc !== undefined) ?
-        // Show the place holder if the book cover's ISBN is not available
-        this.props.imgSrc : this.props.placeHolderEndpoint,
+      imageSrc: this.props.imgSrc,
       // The original width of the source image
       naturalWidth: 150,
       errorStatus: '',
     };
-  }
 
-  componentWillReceiveProps(nextProps) {
-    this.checkImg();
-  }
-
-  checkImg() {
-    this.setState({
-      imageSrc: (this.props.imgSrc && this.props.imgSrc !== undefined) ?
-        // Show the place holder if the book cover's ISBN is not available
-        this.props.imgSrc : this.props.placeHolderEndpoint
-    });
+    this.checkImageWidth = this.checkImageWidth.bind(this);
+    this.handleLoadedImage = this.handleLoadedImage.bind(this);
+    this.handleLoadedImageError = this.handleLoadedImageError.bind(this);
   }
 
   componentDidMount() {
-    this.checkImg();
-
     // After the cover image is loaded
-    this.refs.coverImage.addEventListener('load', () => {
-      // Set the natural width to of source image to the component
-      this.setState({ naturalWidth: this.refs.coverImage.naturalWidth}, () => {
-        // Detect the natural width if it is smaller then 10px,
-        // set the image source to the place holder
-        if (this.state.imageSrc !== this.props.placeHolderEndpoint &&
-          this.state.naturalWidth < 10 && this.state.naturalWidth > 0) {
-          this.setState({
-            imageSrc: this.props.placeHolderEndpoint,
-            errorStatus: 'one-pixel',
-          });
-        }
+    const coverImage = this.refs.coverImage;
+    if (coverImage && coverImage.naturalWidth) {
+      this.checkImageWidth(coverImage.naturalWidth);
+    }
+  }
+
+  shouldComponentUpdate(nextProps) {
+    if (this.state.name !== nextProps.name &&
+      this.state.imageSrc !== nextProps.imgSrc) {
+      this.setState({
+        imageSrc: nextProps.imgSrc,
+        errorStatus: '',
       });
-    }, true);
+      return true;
+    }
+
+    if (!nextProps.imgSrc || this.state.name !== nextProps.name) {
+      return true;
+    }
+
+    return false;
+  }
+
+  checkImageWidth(width) {
+    if (width < 10 && width >= 0) {
+      this.setState({
+        errorStatus: 'one-pixel',
+      });
+    } else {
+      this.setState({
+        errorStatus: '',
+      });
+    }
+  }
+
+  handleLoadedImage() {
+    this.checkImageWidth(this.refs.coverImage.naturalWidth);
+
+    this.forceUpdate();
+  }
+
+  handleLoadedImageError() {
+    this.setState({
+      errorStatus: 'one-pixel',
+      imageSrc: '',
+    });
+    this.forceUpdate();
   }
 
   render() {
-    return (
-      <img
-        width="150"
+    const imgClass = this.state.errorStatus === 'one-pixel' || (!this.state.imageSrc) ?
+      'noImage' : '';
+    let icon;
+    let format;
+    let item;
+
+    switch (this.props.format) {
+      case 'BOOK/TEXT':
+        icon = <BookIcon width="32" height="32" />;
+        format = 'Book';
+        break;
+      case 'AUDIOBOOK':
+        icon = <AudioHeadphoneIcon />;
+        format = 'Audiobook';
+        break;
+      case 'BLU-RAY':
+        icon = <MediaBluRayIcon />;
+        format = 'Blu-ray';
+        break;
+      case 'DVD':
+        icon = <DvdDiscIcon />;
+        format = 'DVD';
+        break;
+      case 'E-AUDIOBOOK':
+        icon = <AudioHeadphoneIcon />;
+        format = 'E-Audiobook';
+        break;
+      case 'E-BOOK':
+        icon = <EReaderIcon />;
+        format = 'E-Book';
+        break;
+      case 'LARGE PRINT':
+        icon = <LargePrintIcon />;
+        format = 'Large Print';
+        break;
+      case 'MUSIC CD':
+        icon = <AudioDiscIcon />;
+        format = 'Music CD';
+        break;
+      default:
+        icon = <BookIcon width="32" height="32" />;
+        format = this.props.format;
+        break;
+    }
+
+    if (imgClass !== 'noImage') {
+      item = (<img
+        onLoad={this.handleLoadedImage}
+        onError={this.handleLoadedImageError}
         id={`cover-${this.props.id}`}
-        className={`${this.props.className} ${this.state.errorStatus}`}
+        className={this.state.errorStatus}
         ref="coverImage"
         src={this.state.imageSrc}
-        alt={this.props.name} />
+        title={this.props.name}
+        alt={this.props.name}
+      />);
+    } else {
+      item = (<BookOverlay
+        imgClass={imgClass}
+        name={this.props.name}
+        author={this.props.author}
+        icon={icon}
+        format={format}
+        genre={this.props.genre}
+      />);
+    }
+
+    return (
+      <a href={this.props.target} className={`${this.props.linkClass} ${imgClass}`}>
+        {item}
+      </a>
     );
   }
 }
 
 BookCover.propTypes = {
-  id: React.PropTypes.string,
-  className: React.PropTypes.string,
+  id: React.PropTypes.number,
   name: React.PropTypes.string,
-  imageEndpoint: React.PropTypes.string,
+  format: React.PropTypes.string,
   imageArgument: React.PropTypes.string,
-  placeHolderEndpoint: React.PropTypes.string,
-  isbn: React.PropTypes.string,
+  target: React.PropTypes.string,
+  linkClass: React.PropTypes.string,
   imgSrc: React.PropTypes.string,
+  author: React.PropTypes.string,
+  genre: React.PropTypes.string,
 };
 
 BookCover.defaultProps = {
-  id: 'BookCover',
-  imageEndpoint: 'https://contentcafe2.btol.com/ContentCafe/Jacket.aspx?' +
-    '&userID=NYPL49807&password=CC68707&Value=',
-  imageArgument: '&content=M&Return=1&Type=M',
-  placeHolderEndpoint: 'http://nypl.org/browse/recommendations/lists/src/client/images/' +
-    'book-place-holder.png',
-  isbn: '',
+  format: 'BOOK/TEXT',
+  genre: 'Fiction',
 };
 
 // Export components

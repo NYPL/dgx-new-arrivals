@@ -1,35 +1,233 @@
 .isotopeGrid {
-  // @include grid-span(3);
   opacity: 0;
   width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
-  margin-top: 30px;
+  margin-top: 130px;
 
-  @include min-screen(768px) {
-    margin-top: 80px;
+  @include min-screen(1200px) {
+    margin-top: 90px;
   }
+
 }
 
 .book-item {
-  img {
-    width: 140px;
+  width: 150px;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+
+  &.noResults {
+    display: block;
+    width: 100%;
+    font-size: 26px;
+    margin-top: 20px;
+    color: #000;
+    @include Kievit-Medium;
+    font-weight: normal;
+
+    span {
+      border-bottom: 2px solid #000;
+      display: inline-block;
+      padding-bottom: 15px;
+    }
+  }
+
+  &.list {
+    width: 100%;
+    height: auto;
+    display: block;
+
+    .bookItem {
+      float: left;
+      position: relative;
+      width: 175px;
+      height: 280px;
+
+      // display: flex;
+      // justify-content: center;
+      // align-items: center;
+
+      // &.noImage {
+      //   display: block;
+      // }
+
+      .itemOverlay {
+        width: 175px;
+      }
+    }
+  }
+
+  .noImage {
+    height: 100%;
+    width: 100%;
+  }
+
+  .itemOverlay {
+    position: absolute;
+    background-color: #54514a;
+    bottom: 0px;
+    width: 100%;
+    max-height: 100%;
+    display: none;
+
+    h3, p {
+      color: #fff;
+      padding: 0 15px;
+    }
+
+    &.noImage {
+      display: block;
+      height: 100%;
+
+      h3, p {
+        color: #fff;
+        padding: 0 15px;
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: normal;
+        @include Kievit-Medium;
+        padding-top: 30px;
+      }
+
+      .details {
+        position: absolute;
+        bottom: 0;
+
+        p {
+          font-family: Helvetica, Arial;
+        }
+
+        .author {
+          font-size: 16px;
+        }
+        .format {
+          font-size: 10px;
+        }
+        .genre {
+          text-transform: uppercase;
+          font-size: 12px;
+        }
+      }
+    }
+
+    .details {
+      margin: 10px 0;
+
+      p {
+        font-family: Helvetica, Arial;
+      }
+
+      svg {
+        overflow: hidden;
+        vertical-align: -13px;
+        margin-left: -5px;
+        padding: 0px;
+        fill: #fff;
+        stroke: #fff;
+      }
+
+      .author {
+        font-size: 16px;
+      }
+      .format {
+        margin: 0;
+        font-size: 10px;
+      }
+      .genre {
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+    }
+
+    p {
+      margin: 5px 0 0 0;
+    }
+    h3 {
+      padding-top: 30px;
+      margin: 0;
+    }
   }
 
   a {
     text-decoration: none;
   }
 
+  img {
+    width: 150px;
+    max-height: 250px;
+  }
+
+  h2, p {
+    @include Kievit-Book;
+    font-weight: 400;
+    margin: 5px 0 0 200px;
+  }
+
   h2 {
-    color: #1da1d4;
-    @include Kievit-Medium;
-    font-weight: normal;
-    margin-bottom: 0px;
+    a {
+      color: #1da1d4;
+    }
   }
 
   p {
-    color: #9c9890;
-    margin: 10px;
+    color: #333;
+    font-size: 16px;
+
+    &.author {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    &.publishInfo {
+      margin-top: 10px;
+    }
+
+    &.description {
+      margin-top: 20px;
+    }
+
+    &.date {
+      margin-top: 40px;
+    }
+  }
+
+  @include min-screen(768px) {
+    width: 175px;
+    height: 280px;
+    margin-right: 10px;
+
+    img {
+      width: 175px;
+      max-height: 280px;
+    }
+  }
+
+  @include min-screen(1024px) {
+    width: 185px;
+    height: 300px;
+    margin-right: 20px;
+
+    img {
+      width: 185px;
+      max-height: 300px;
+    }
+  }
+
+  @include min-screen(1200px) {
+    width: 175px;
+    height: 280px;
+    margin-right: 10px;
+
+    img {
+      width: 175px;
+      max-height: 280px;
+    }
   }
 }

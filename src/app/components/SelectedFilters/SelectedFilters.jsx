@@ -1,75 +1,56 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {
+  every as _every,
+  map as _map,
+  keys as _keys,
+} from 'underscore';
+import {
+  XIcon,
+} from 'dgx-svg-icons';
 
-import _ from 'underscore';
-import axios from 'axios';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
+
+import {
+  makeQuery,
+  makeApiCall,
+} from '../../utils/utils.js';
 
 class SelectedFilters extends React.Component {
   constructor(props) {
     super(props);
 
-    this._onChange = this._onChange.bind(this);
-    this._getFilterList = this._getFilterList.bind(this);
-    this._removeFilter = this._removeFilter.bind(this);
-    this._makeQuery = this._makeQuery.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.getFilterList = this.getFilterList.bind(this);
+    this.removeFilter = this.removeFilter.bind(this);
+
     this.state = NewArrivalsStore.getState();
   }
 
   componentDidMount() {
-    NewArrivalsStore.listen(this._onChange);
+    NewArrivalsStore.listen(this.onChange);
   }
 
   componentWillUnmount() {
-    NewArrivalsStore.unlisten(this._onChange);
+    NewArrivalsStore.unlisten(this.onChange);
   }
 
-  _onChange() {
+  onChange() {
     this.setState(NewArrivalsStore.getState());
   }
 
-  _makeQuery(filters) {
-    let queries = '';
-
-    for (const filter in filters) {
-      if (filters[filter] !== '' && filter !== 'availability') {
-        queries += `&${filter}=${filters[filter]}`;
-      }
-    }
-
-    return queries;
-  }
-
-  _removeFilter(filter, value) {
-    const filters = this.state.filters;
-    filters[filter] = '';
-
-    const queries = this._makeQuery(filters);
-
-    axios
-      .get(`/api?${queries}&itemCount=18`)
-      .then(response => {
-        Actions.updateNewArrivalsData(response.data);
-        setTimeout(() => {
-          Actions.isotopeUpdate(true);
-        }, 300);
-      })
-      .catch(error => {
-        console.log(`error making ajax call: ${error}`);
-      }); /* end Axios call */
-  }
-
-  _getFilterList(filters) {
-    return _.map(Object.keys(filters), (filter, i) => {
+  getFilterList(filters) {
+    return _map(_keys(filters), (filter, i) => {
       const value = filters[filter];
 
       if (value) {
         return (
-          <li key={i} onClick={this._removeFilter.bind(this, filter, value)}>
-            {value}
-            <span className="nypl-icon-solo-x icon"></span>
+          <li key={i}>
+            <a href="#" onClick={() => this.removeFilter(filter)}>
+              {value}
+              <XIcon height="20" width="20" />
+            </a>
           </li>
         );
       }
@@ -78,10 +59,43 @@ class SelectedFilters extends React.Component {
     });
   }
 
-  render() {
-    const filters = this._getFilterList(this.state.filters);
+  removeFilter(filter) {
+    const {
+      availabilityType,
+      filters,
+      pageNum,
+    } = this.state;
+    let update = true;
+    let page = pageNum;
 
-    return filters && filters.length ? <ul className="selectedFilters">{filters}</ul> : null;
+    filters[filter] = '';
+
+    // If every filter is blank, then we want to remove the Active flag
+    // for the toggle popup.
+    const active = _every(filters, f => f === '');
+
+    if (active) {
+      Actions.updateActiveFilters(false);
+      Actions.updatePageNum(false);
+      page = 1;
+      update = false;
+    }
+
+    const queries = makeQuery(filters, availabilityType, page, update);
+
+    Actions.updateFiltered(filters);
+
+    makeApiCall(queries, response => {
+      Actions.updateNewArrivalsData(response.data);
+    });
+  }
+
+  render() {
+    const filters = this.getFilterList(this.state.filters);
+
+    return filters && filters.length ?
+      <ul className="selectedFilters">{filters}</ul> :
+      null;
   }
 }
 

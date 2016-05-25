@@ -15,16 +15,27 @@ class NewArrivalsStore {
       toggleFilters: Actions.TOGGLE_FILTERS,
       updateDropDownValue: Actions.UPDATE_DROP_DOWN_VALUE,
       updateFiltered: Actions.UPDATE_FILTERED,
-      isotopeUpdate: Actions.ISOTOPE_UPDATE,
+      updateActiveFilters: Actions.UPDATE_ACTIVE_FILTERS,
+      addMoreItems: Actions.ADD_MORE_ITEMS,
+      handleUpdatePageNum: Actions.UPDATE_PAGE_NUM,
+      updateAvailabilityType: Actions.UPDATE_AVAILABILITY_TYPE,
     });
 
     this.on('init', () => {
-      this.newArrivalsData = [];
-      this.displayType =  'grid';
+      this.newArrivalsData = {};
+      this.displayType = 'grid';
       this.toggleFilter = false;
       this.dropDownValue = '';
-      this.filters = {};
-      this.isotopeUpdate = false;
+      this.filters = {
+        format: '',
+        audience: '',
+        language: '',
+        genre: '',
+      };
+      this.languages = [];
+      this.activeFilters = false;
+      this.pageNum = 2;
+      this.availabilityType = 'New Arrival';
     });
   }
 
@@ -60,8 +71,24 @@ class NewArrivalsStore {
     this.filters = obj;
   }
 
-  isotopeUpdate(bol) {
-    this.isotopeUpdate = bol;
+  updateActiveFilters(bol) {
+    this.activeFilters = bol;
+  }
+
+  addMoreItems(data) {
+    this.newArrivalsData.bibItems = this.newArrivalsData.bibItems.concat(data);
+  }
+
+  handleUpdatePageNum(bol) {
+    if (bol) {
+      this.pageNum += 1;
+    } else {
+      this.pageNum = 2;
+    }
+  }
+
+  updateAvailabilityType(type) {
+    this.availabilityType = type;
   }
 }
 

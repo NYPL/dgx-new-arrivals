@@ -4,16 +4,15 @@
   @include min-screen(768px) {
     display: inline-block;
     list-style: none;
-    margin: 10px 0;
+    margin: 15px 0;
     padding: 0;
-    width: 500px;
     float: left;
 
     li {
       @include Kievit-Medium;
       display: inline-block;
       float: left;
-      margin-right: 20px;
+      margin-right: 15px;
       font-size: 12px;
       text-transform: uppercase;
       color: #837e77;
@@ -21,9 +20,15 @@
       padding-bottom: 5px;
       cursor: pointer;
 
-      .icon {
-        float: right;
-        padding-left: 10px;
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .svgIcon {
+        fill: #837e77;
+        margin-bottom: -6px;
+        margin-left: 7px;
       }
     }
   }

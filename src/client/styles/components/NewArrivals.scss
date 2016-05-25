@@ -3,22 +3,30 @@
     @include grid-span(3);
     @include add-grid(3);
 
-    // border-top: 2px solid $PRIMARY_COLOR;
-    border-top: 2px solid #837e77;
-    padding-top: 10px;
+    padding-top: 13px;
     min-height: 500px;
 
     h4 {
       display: inline-block;
       font-size: 20px;
-      color: #837e77;
-      margin: 10px 0;
+      color: #ed1c24;
+      margin: 5px 0 10px 0;
       @include Kievit-Medium;
 
       @include min-screen(768px) {
         width: 100%;
         display: block;
       }
+    }
+  }
+
+  &-introText {
+    @include Kievit-Book;
+    font-size: 16px;
+    line-height: 21px;
+
+    @include min-screen(1024px) {
+      width: 83%;
     }
   }
 }

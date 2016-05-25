@@ -14,16 +14,26 @@
 
       @include min-screen(768px) {
         min-height: 450px;
-        left: -550px;
-        width: 700px;
+        left: -520px;
+        width: 650px;
         top: 50px;
+      }
+
+      @include min-screen(1024px) {
+        left: -570px;
+        width: 720px;
       }
     }
 
     .submit-buttons {
       width: 100%;
       float: left;
-      margin: 30px 0 80px;
+      opacity: 0.5;
+      margin-bottom: 30px;
+
+      &.active {
+        opacity: 1;
+      }
 
       button {
         background-color: #737069;
@@ -52,8 +62,20 @@
       .apply {
         margin-bottom: 20px;
 
+        svg {
+          margin-right: 15px;
+          margin-left: -25px;
+        }
+
         @include min-screen(768px) {
-          margin: 0 25px;
+          margin: 0 25px 0 35px;
+        }
+      }
+
+      .reset {
+        svg {
+          margin-right: 5px;
+          margin-left: -15px;
         }
       }
     }
@@ -77,10 +99,11 @@
 
     h3 {
       text-transform: uppercase;
+      letter-spacing: 0.06em;
       border-top: 2px solid #fff;
       padding: 15px 0 0 0;
       margin-top: 5px;
-      font-size: 16px;
+      font-size: 14px;
     }
   }
 
@@ -97,7 +120,7 @@
         padding: 10px 0 10px 50px;
         text-decoration: none;
 
-        .selected-svgIcon {
+        .circle-dash-icon {
           position: relative;
           float: right;
           margin: -5px 40px 0px 0px;

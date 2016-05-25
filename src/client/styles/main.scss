@@ -34,17 +34,18 @@ Import style rules from App components
 @import 'components/Isotopes';
 @import 'components/NewArrivals';
 @import 'components/PillButton';
+@import 'components/PaginationButton';
 @import 'components/ToggleDisplay';
 @import 'components/Filter';
 @import 'components/SelectedFilters';
+@import 'components/FilterToggle';
 
 .filter {
   &-header-mobile {
     padding: 0 20px;
 
     .svgIcon svg {
-      height: 32px;
-      width: 32px;
+      margin-top: -10px;
     }
 
     h2 {
@@ -71,11 +72,15 @@ Import style rules from App components
   &-wrapper {
     > ul {
       list-style: none;
-      margin: 0 0 10px 10px;
+      margin: 0 10px;
       padding: 0;
 
       li {
         display: block;
+      }
+
+      @include min-screen(768px) {
+        margin: 0 25px;
       }
     }
 
@@ -87,3 +92,72 @@ Import style rules from App components
     }
   }
 }
+@include sgs-change('debug', true);
+
+.nyplNewArrivals {
+  // @include background-grid($color: blue);
+}
+
+.left-navigation {
+  cursor: pointer;
+  display: block;
+  background-color: #ed1c24;
+  text-transform: uppercase;
+  @include Kievit-Medium;
+
+  @include min-screen(768px) {
+    background-color: #fff;
+  }
+
+  .browse-button {
+    display: none;
+
+    @include min-screen(768px) {
+      display: block;
+      color: #9c9890;
+      text-align: right;
+      text-decoration: none;
+      margin: 30px 0 20px 0;
+      font-size: 13px;
+    }
+  }
+
+  .back-button {
+    border-top-style: none;
+    font-size: 14px;
+    display: block;
+    padding: 20px 10px;
+    color: #fff;
+
+    @include min-screen(768px) {
+      text-align: right;
+      font-size: 22px;
+      color: #9c9890;
+      background-color: #fff;
+      padding: 15px 0;
+      border-top: 2px solid #9c9890;
+    }
+  }
+}
+
+.main-content {
+  @include min-screen(768px) {
+    margin-top: 30px;
+  }
+}
+
+#maincontent {
+  position: relative;
+  border-top: 60px solid transparent;
+  margin: -27px 0 0;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0;
+    right: 0;
+    border-top: 2px solid #ed1c24;
+  }
+}
+

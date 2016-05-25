@@ -3,44 +3,80 @@ import axios from 'axios';
 import parser from 'jsonapi-parserinator';
 
 import Model from 'dgx-model-data';
+import _ from 'underscore';
 
 import config from '../../../appConfig.js';
+import { formatFilters } from '../../app/utils/utils.js';
 
 // Syntax that both ES6 and Babel 6 support
 const { HeaderItemModel } = Model;
-const { api, headerApi, newArrivalsApi } = config;
+const {
+  api,
+  headerApi,
+  newArrivalsApi,
+  languageDays,
+  languageItemCount,
+  itemCount,
+  currentYear,
+} = config;
+
+const createOptions = (apiValue) => ({
+  endpoint: `${apiRoot}${apiValue.endpoint}`,
+  includes: apiValue.includes,
+  filters: apiValue.filters,
+});
+const fetchApiData = (url) => axios.get(url);
 
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
 const apiRoot = api.root[appEnvironment];
 const headerOptions = createOptions(headerApi);
+// Always the year before the current year.
+const minPublishYear = currentYear - 1; 
 
-function createOptions(api) {
-  return {
-    endpoint: `${apiRoot}${api.endpoint}`,
-    includes: api.includes,
-    filters: api.filters,
-  };
-}
-
-function fetchApiData(url) {
-  return axios.get(url);
-}
-
-function getHeaderData() {
+const getHeaderData = () => {
   const headerApiUrl = parser.getCompleteApi(headerOptions);
   return fetchApiData(headerApiUrl);
-}
+};
+const getLanguageData = () => {
+  const languageApiUrl =
+    `${newArrivalsApi.languages}?&days=${languageDays}&minPublishYear=${minPublishYear}`;
 
-function NewArrivalsApp(req, res, next) {
-  const itemCount = '18';
-  const days = '60';
-  const baseApiUrl = `${newArrivalsApi.bibItems}?&itemCount=${itemCount}`;
+  return fetchApiData(languageApiUrl);
+};
+const filterLanguages = (languagesArray, minCount) => {
+  return _.chain(languagesArray)
+    .filter(language =>
+      (language.count >= minCount &&
+      language.name !== 'Multiple languages' &&
+      language.name !== 'No linguistic content' &&
+      language.name !== 'Undetermined' &&
+      language.name !== '---')
+    )
+    .map(language =>
+      ({
+        name: language.name,
+        count: language.count,
+      })
+    )
+    .value();
+};
 
-  axios.all([getHeaderData(), fetchApiData(baseApiUrl)])
-    .then(axios.spread((headerData, newArrivalsData) => {
+const newArrivalsApp = (req, res, next) => {
+  const formats = formatFilters();
+  const baseApiUrl = `${newArrivalsApi.bibItems}?` +
+    `format=${formats}` +
+    `&availability=New%20Arrival` +
+    `&itemCount=${itemCount}` +
+    `&minPublishYear=${minPublishYear}`;
+
+console.log(baseApiUrl);
+
+  axios.all([getHeaderData(), fetchApiData(baseApiUrl), getLanguageData()])
+    .then(axios.spread((headerData, newArrivalsData, languageData) => {
       const headerParsed = parser.parse(headerData.data, headerOptions);
-      const headerModelData = HeaderItemModel.build(headerParsed)
+      const headerModelData = HeaderItemModel.build(headerParsed);
+      const languages = filterLanguages(languageData.data, languageItemCount);
 
       res.locals.data = {
         HeaderStore: {
@@ -49,64 +85,99 @@ function NewArrivalsApp(req, res, next) {
         NewArrivalsStore: {
           displayType: 'grid',
           newArrivalsData: newArrivalsData.data,
-          filters: {}
+          pageNum: 2,
+          filters: {
+            format: '',
+            audience: '',
+            language: '',
+            genre: '',
+          },
+          availabilityType: 'New Arrival',
+          languages,
         },
-        completeApiUrl: ''
       };
 
       next();
     }))
     .catch(error => {
-      console.log('error calling API : ' + error);
-      console.log('Attempted to call : ' + baseApiUrl);
+      console.log(`error calling API : ${error}`);
+      console.log(`Attempted to call : ${baseApiUrl}`);
 
       res.locals.data = {
-        Store: {
-          _storeVar: []
+        HeaderStore: {
+          headerData: [],
+        },
+        NewArrivalsStore: {
+          displayType: 'grid',
+          newArrivalsData: {},
+          pageNum: 2,
+          filters: {
+            format: '',
+            audience: '',
+            language: '',
+            genre: '',
+          },
+          availabilityType: 'New Arrival',
+          languages: [],
         },
       };
+
       next();
     }); /* end Axios call */
-}
+};
 
-function SelectPage(req, res) {
+function selectPage(req, res) {
   const query = req.query;
-  const audience = query.audience || '';
-  const bibNumber = query.bibNumber || '';
-  const days = query.days || '';
-  const format = query.format || '';
-  const language = query.language || '';
-  const pageNum = query.pageNum || '1';
-  const itemCount = query.itemCount || '18';
 
-  const formatQuery = format ? `&format=${format}` : '';
+  const format = query.format || formatFilters();
+  const audience = query.audience || '';
+  const language = query.language || '';
+  const genre = query.genre || '';
+  const availability = query.availability || 'New%20Arrival';
+  const pageNum = query.pageNum || '1';
+  const items = query.itemCount || itemCount;
+
+  const formatQuery = `&format=${format}`;
   const audienceQuery = audience ? `&audience=${audience}` : '';
   const languageQuery = language ? `&language=${language}` : '';
-  const apiUrl = `${newArrivalsApi.bibItems}?${formatQuery}` +
-    `${languageQuery}${audienceQuery}&itemCount=${itemCount}`;
+  const genreQuery = genre ? `&genre=${genre}` : '';
+  const availabilityQuery = `&availability=${availability}`;
+  const pageNumQuery = `&pageNum=${pageNum}`;
+  const itemCountQuery = `&itemCount=${items}`;
+  const publishYearQuery = `&minPublishYear=${minPublishYear}`;
+
+  const apiUrl = `${newArrivalsApi.bibItems}?` +
+    formatQuery +
+    audienceQuery +
+    languageQuery +
+    genreQuery +
+    availabilityQuery +
+    itemCountQuery +
+    pageNumQuery +
+    publishYearQuery;
+
+console.log(apiUrl);
 
   axios
     .get(apiUrl)
-    .then(response => {
-      res.json(response.data);
-    })
+    .then(response => res.json(response.data))
     .catch(error => {
-      console.log('error calling API : ' + error);
-      console.log('Attempted to call : ' + apiUrl);
+      console.log(`error calling API : ${error}`);
+      console.log(`Attempted to call : ${apiUrl}`);
 
       res.json({
-        error
+        error,
       });
     }); /* end axios call */
 }
 
 router
   .route('/')
-  .get(NewArrivalsApp);
+  .get(newArrivalsApp);
 
 router
   .route('/api')
-  .get(SelectPage);
+  .get(selectPage);
 
 
 export default router;

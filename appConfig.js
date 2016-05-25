@@ -13,6 +13,7 @@ export default {
   },
   newArrivalsApi: {
     base: 'http://10.224.6.14:8083/inventory',
+    audience: 'http://10.224.6.14:8083/inventory/audience',
     bibItems: 'http://10.224.6.14:8083/inventory/bibItems',
     formats: 'http://10.224.6.14:8083/inventory/formats',
     languages: 'http://10.224.6.14:8083/inventory/languages',
@@ -33,4 +34,62 @@ export default {
       'relationships': {'parent': 'null'}
     }
   },
+  itemTitleLength: 96,
+  appFilters: {
+    formatData: {
+      title: 'Format',
+      data:[
+        { id: 'BOOK/TEXT', label: 'Book' },
+        { id: 'AUDIOBOOK', label: 'Audiobook' },
+        { id: 'BLU-RAY', label: 'Blu-ray' },
+        { id: 'DVD', label: 'DVD' },
+        { id: 'E-AUDIOBOOK', label: 'E-Audiobook' },
+        { id: 'E-BOOK', label: 'E-Book' },
+        { id: 'LARGE PRINT', label: 'Large Print' },
+        { id: 'MUSIC CD', label: 'Music CD' },
+      ],
+      active: '',
+    },
+    audienceData: {
+      title: 'Audience',
+      data: [
+        { id: 'Adult', label: 'Adult' },
+        { id: 'Children', label: 'Children' },
+        { id: 'Young Adult', label: 'Young Adult' },
+      ],
+      active: '',
+    },
+    languageData: {
+      title: 'Language',
+      data: [
+        { id: 'English', label: 'English' },
+        { id: 'Spanish', label: 'Spanish' },
+        { id: 'Chinese', label: 'Chinese' },
+        { id: 'Russian', label: 'Russian' },
+        { id: 'French', label: 'French' },
+      ],
+      active: '',
+    },
+    genreData: {
+      title: 'Genre',
+      data: [
+        { id: 'Fiction', label: 'Fiction' },
+        { id: 'Non Fiction', label: 'Non Fiction' },
+        { id: 'Research', label: 'Research' },
+      ],
+      active: '',
+    },
+  },
+  availability: {
+    newArrival: { id: 'New Arrival', label: 'New Arrivals' },
+    onOrder: { id: 'On Order', label: 'On Order' },
+  },
+  introText: 'Use filters to browse new books, DVDs, and music by language, age level, ' +
+    'and genre. Toggle to list view to see more information about each title. Check back ' +
+    'regularly to see our most recently acquired materials.',
+  currentYear: new Date().getFullYear(),
+  languageDays: 30,
+  languageItemCount: 100,
+  itemCount: 18,
+  pageNum: 1,
 };
