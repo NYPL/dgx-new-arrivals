@@ -17,6 +17,7 @@ const {
   languageDays,
   languageItemCount,
   itemCount,
+  currentYear,
 } = config;
 
 const createOptions = (apiValue) => ({
@@ -30,13 +31,16 @@ const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
 const apiRoot = api.root[appEnvironment];
 const headerOptions = createOptions(headerApi);
+// Always the year before the current year.
+const minPublishYear = currentYear - 1; 
 
 const getHeaderData = () => {
   const headerApiUrl = parser.getCompleteApi(headerOptions);
   return fetchApiData(headerApiUrl);
 };
 const getLanguageData = () => {
-  const languageApiUrl = `${newArrivalsApi.languages}?&days=${languageDays}`;
+  const languageApiUrl =
+    `${newArrivalsApi.languages}?&days=${languageDays}&minPublishYear=${minPublishYear}`;
 
   return fetchApiData(languageApiUrl);
 };
@@ -63,7 +67,9 @@ const newArrivalsApp = (req, res, next) => {
   const baseApiUrl = `${newArrivalsApi.bibItems}?` +
     `format=${formats}` +
     `&availability=New%20Arrival` +
-    `&itemCount=${itemCount}`;
+    `&itemCount=${itemCount}` +
+    `&minPublishYear=${minPublishYear}`;
+
 console.log(baseApiUrl);
 
   axios.all([getHeaderData(), fetchApiData(baseApiUrl), getLanguageData()])
@@ -138,17 +144,20 @@ function selectPage(req, res) {
   const availabilityQuery = `&availability=${availability}`;
   const pageNumQuery = `&pageNum=${pageNum}`;
   const itemCountQuery = `&itemCount=${items}`;
+  const publishYearQuery = `&minPublishYear=${minPublishYear}`;
 
   const apiUrl = `${newArrivalsApi.bibItems}?` +
-    `${formatQuery}` +
-    `${audienceQuery}` +
-    `${languageQuery}` +
-    `${genreQuery}` +
-    `${availabilityQuery}` +
-    `${itemCountQuery}` +
-    `${pageNumQuery}`;
+    formatQuery +
+    audienceQuery +
+    languageQuery +
+    genreQuery +
+    availabilityQuery +
+    itemCountQuery +
+    pageNumQuery +
+    publishYearQuery;
 
 console.log(apiUrl);
+
   axios
     .get(apiUrl)
     .then(response => res.json(response.data))

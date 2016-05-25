@@ -100,5 +100,4 @@ class NewArrivals extends React.Component {
   }
 }
 
-
 export default NewArrivals;
