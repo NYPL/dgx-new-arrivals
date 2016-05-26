@@ -1,5 +1,6 @@
 import React from 'react';
 import { every as _every } from 'underscore';
+import { CheckSoloIcon } from 'dgx-svg-icons';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -9,6 +10,7 @@ import {
   makeApiCall,
 } from '../../utils/utils.js';
 import config from '../../../../appConfig.js';
+
 
 const { recentlyReleased, justAdded } = config.publicationType;
 
@@ -20,6 +22,7 @@ class PublicationToggle extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.stateChange = this.stateChange.bind(this);
     this.selectFilter = this.selectFilter.bind(this);
+    this.buttonLabel = this.buttonLabel.bind(this);
     this.state = NewArrivalsStore.getState();
   }
 
@@ -56,6 +59,14 @@ class PublicationToggle extends React.Component {
     });
   }
 
+  buttonLabel(type) {
+    if (this.state.publicationType === type.id) {
+      return (<span><CheckSoloIcon width="24" height="24" /> {type.label}</span>);
+    }
+
+    return type.label;
+  }
+
   render() {
     return (
       <fieldset className="switch publicationType" tabIndex="0">
@@ -73,7 +84,7 @@ class PublicationToggle extends React.Component {
           htmlFor="recentlyReleased"
           className="switch-label label-left"
         >
-          {recentlyReleased.label}
+          {this.buttonLabel(recentlyReleased)}
         </label>
         <input
           type="radio"
@@ -88,7 +99,7 @@ class PublicationToggle extends React.Component {
           htmlFor="justAdded"
           className="switch-label label-right"
         >
-          {justAdded.label}
+          {this.buttonLabel(justAdded)}
         </label>
         <span className="switch-selection"></span>
       </fieldset>

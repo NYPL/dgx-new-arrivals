@@ -20,6 +20,8 @@ import FilterList from './FilterList.jsx';
 import CloseButton from '../Buttons/CloseButton.jsx';
 import PublicationToggle from './PublicationToggle.jsx';
 
+import IconButton from '../Buttons/IconButton.jsx';
+
 import {
   makeQuery,
   makeApiCall,
@@ -136,7 +138,26 @@ class Filter extends React.Component {
         <div className="filter-header-mobile">
           <FilterIcon className="mobile-filter svgIcon" />
           <h2>Filter by</h2>
-          <CloseButton onClick={this.closeFilters} className="mobile-close" />
+
+          <ul className="mobile-filter-buttons">
+            <li>
+              <IconButton
+                className={'apply'}
+                icon={<ApplyIcon />}
+                onClick={this.submitFilters}
+              />
+            </li>
+            <li>
+              <IconButton
+                className={'reset'}
+                icon={<ResetIcon />}
+                onClick={this.resetFilters}
+              />
+            </li>
+            <li>
+              <CloseButton onClick={this.closeFilters} className="mobile-close" />
+            </li>
+          </ul>
         </div>
 
         <ul className="filter-apply-wrapper">

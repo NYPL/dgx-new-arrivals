@@ -115,32 +115,42 @@
 }
 
 .publicationType {
-  margin-left: 10px;
-  width: 200px;
+  margin: 0;
+  width: 210px;
+  float: right;
+
+  @include min-screen(768px) {
+    float: left;
+    margin-left: 10px;
+  }
 
   .switch {
     &-label {
       width: 100px;
 
       &.label-left {
-        padding: 8px 3px 0;
+        padding: 8px 10px 0;
       }
 
       &.label-right {
-        width: 85px;
-        padding: 13px 0 0 0;
+        width: 70px;
+        padding: 8px 15px 0 0;
+      }
+
+      svg {
+        float: left;
       }
     }
 
     &-input {
       &:checked + .label-right ~ .switch-selection {
-        left: 95px;
+        left: 105px;
       }
     }
 
     &-selection {
       background-color: #9c9890;
-      width: 100px;
+      width: 110px;
     }
   }
 }

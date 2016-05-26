@@ -44,24 +44,15 @@ Import style rules from App components
   &-header-mobile {
     padding: 0 20px;
 
-    .svgIcon svg {
-      margin-top: -10px;
-    }
-
     h2 {
       display: inline-block;
       margin: 20px 0 10px;
       @include Kievit-Medium;
       font-weight: 300;
       line-height: 26px;
-      margin-left: 10px;
+      // margin-left: 10px;
       vertical-align: 5px;
-    }
-
-    .mobile-close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
+      font-size: 24px;
     }
 
     @include min-screen(768px) {
@@ -80,7 +71,7 @@ Import style rules from App components
       }
 
       @include min-screen(768px) {
-        margin: 0 25px;
+        margin: 0 25px !important;
       }
     }
 
