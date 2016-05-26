@@ -40,6 +40,7 @@ class Filter extends React.Component {
     this.submitFilters = this.submitFilters.bind(this);
     this.resetFilters = this.resetFilters.bind(this);
     this.selectFilter = this.selectFilter.bind(this);
+    this.managePublicationType = this.managePublicationType.bind(this);
     this.onChange = this.onChange.bind(this);
 
     this.state = NewArrivalsStore.getState();
@@ -61,12 +62,13 @@ class Filter extends React.Component {
     Actions.toggleFilters(false);
   }
 
-  selectFilter(queries, updatePageNum, filters, active) {
-    console.log('making clal');
+  selectFilter(queries, updatePageNum, filters, active, publicationType) {
+    console.log('making call');
     makeApiCall(queries, response => {
       Actions.updateNewArrivalsData(response.data);
       Actions.updateFiltered(filters);
       Actions.updateActiveFilters(active);
+      Actions.updatePublicationType(publicationType);
 
       if (!updatePageNum) {
         Actions.updatePageNum(false);
@@ -82,6 +84,12 @@ class Filter extends React.Component {
     this.setState({ filters });
   }
 
+  managePublicationType(type) {
+    this.setState({
+      publicationType: type,
+    });
+  }
+
   submitFilters() {
     const {
       filters,
@@ -91,7 +99,7 @@ class Filter extends React.Component {
     } = this.state;
     const queries = makeQuery(filters, availabilityType, pageNum, true, publicationType);
 
-    this.selectFilter(queries, true, filters, true);
+    this.selectFilter(queries, true, filters, true, publicationType);
     this.closeFilters();
   }
 
@@ -103,19 +111,20 @@ class Filter extends React.Component {
       genre: '',
     };
 
-    this.selectFilter('', false, filters, false);
+    this.selectFilter('', false, filters, false, 'recentlyReleased');
   }
 
   render() {
     const {
       filters,
       languages,
+      publicationType,
     } = this.state;
     const formatData = appFilters.formatData;
     const audienceData = appFilters.audienceData;
     const languageData = appFilters.languageData;
     const genreData = appFilters.genreData;
-    const active = _every(filters, f => f === '');
+    const active = _every(filters, f => f === ''); // && publicationType !== 'justAdded';
     const activeSubmitButtons = active ? '' : 'active';
 
     const updatedLanguages = _map(languages, language =>
@@ -163,7 +172,10 @@ class Filter extends React.Component {
         <ul className="filter-apply-wrapper">
           <li className="buttonItems">
             <p>Filter by Publish Date</p>
-            <PublicationToggle />
+            <PublicationToggle
+              managePublicationType={this.managePublicationType}
+              publicationType={publicationType}
+            />
           </li>
 
           <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
