@@ -71,6 +71,20 @@
       padding: 0 15px;
     }
 
+    .default {
+      padding-top: 55px;
+      text-align: center;
+
+      svg {
+        margin-bottom: -20px;
+      }
+
+      p {
+        padding: 0;
+        font-size: 14px;
+      }
+    }
+
     &.noImage {
       display: block;
       height: 100%;

@@ -85,6 +85,15 @@ class Isotopes extends React.Component {
           target={target}
           genre={element.genres[0]}
           linkClass="bookItem"
+          simple={false}
+        />
+      );
+      const simpleBookCover = (
+        <BookCover
+          imgSrc={element.imageUrl[0] ? element.imageUrl[0] : undefined}
+          id={element.bibNumber}
+          name={shortTitle}
+          linkClass="bookItem"
         />
       );
       const format = _findWhere(formatData, { id: element.format });
@@ -93,7 +102,7 @@ class Isotopes extends React.Component {
       const date = createDate(element.createdDate);
       const bookListItem = (
         <BookListItem
-          bookCover={bookCover}
+          bookCover={simpleBookCover}
           title={element.title}
           target={target}
           author={element.author}
