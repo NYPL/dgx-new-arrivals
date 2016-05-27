@@ -4,6 +4,7 @@ import {
   map as _map,
   clone as _clone,
   every as _every,
+  mapObject as _mapObject,
 } from 'underscore';
 
 import {
@@ -11,6 +12,7 @@ import {
   ApplyIcon,
   ResetIcon,
 } from 'dgx-svg-icons';
+import { createHistory } from 'history';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -28,6 +30,13 @@ import {
 import appConfig from '../../../../appConfig.js';
 
 const { appFilters } = appConfig;
+const history = createHistory();
+
+// const unlisten = history.listen(location => {
+//   console.log(location.pathname)
+// })
+
+// unlisten();
 
 // can select multiple filters but only one per each category.
 class Filter extends React.Component {
@@ -41,6 +50,7 @@ class Filter extends React.Component {
     this.selectFilter = this.selectFilter.bind(this);
     this.managePublicationType = this.managePublicationType.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.manageHistory = this.manageHistory.bind(this);
 
     this.state = NewArrivalsStore.getState();
   }
@@ -61,7 +71,7 @@ class Filter extends React.Component {
     Actions.toggleFilters(false);
   }
 
-  selectFilter(queries, updatePageNum, filters, active, publicationType) {
+  selectFilter(queries, updatePageNum, filters, active, publicationType, reset) {
     console.log('making call');
     makeApiCall(queries, response => {
       Actions.updateNewArrivalsData(response.data);
@@ -69,10 +79,51 @@ class Filter extends React.Component {
       Actions.updateActiveFilters(active);
       Actions.updatePublicationType(publicationType);
 
+      this.manageHistory(filters, publicationType, reset);
+
       if (!updatePageNum) {
         Actions.updatePageNum(false);
       }
     });
+  }
+
+  manageHistory(filters, publicationType, reset) {
+    let query = '';
+
+    if (!reset) {
+      query = '?';
+
+      _mapObject(filters, (val, key) => {
+        if (val) {
+          query += `&${key}=${val}`;
+        }
+      });
+
+      if (this.state.availabilityType === 'On Order' &&
+        query.indexOf('availability') !== -1) {
+        query += '&availability=On%20Order';
+      }
+
+      if (publicationType === 'justAdded') {
+        query += '&publishYear=justAdded';
+      }
+
+      if (this.state.pageNum !== 2) {
+        query += `&pageNum=${this.state.pageNum-1}`;
+      }
+    }
+
+    if (this.state.availabilityType === 'On Order') {
+      query += '&availability=On%20Order';
+    }
+
+    query = (query === '?') ? '' : query;
+
+    history.push({
+      // pathname: '/the/path',
+      search: query,
+      // state: { the: 'state' }
+    })
   }
 
   manageSelected(item) {
@@ -110,7 +161,7 @@ class Filter extends React.Component {
       genre: '',
     };
 
-    this.selectFilter('', false, filters, false, 'recentlyReleased');
+    this.selectFilter('', false, filters, false, 'recentlyReleased', true);
   }
 
   render() {

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { extend as _extend } from 'underscore';
+import { createHistory, useQueries } from 'history';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -16,7 +17,45 @@ import {
   makeApiCall,
 } from '../../utils/utils.js';
 
+import {
+  mapObject as _mapObject,
+  omit as _omit,
+  pick as _pick,
+} from 'underscore';
+
 const { introText } = appConfig;
+const history = useQueries(createHistory)();
+
+history.listen(location => {
+  const {
+    action,
+    search,
+    query,
+  } = location;
+
+  const filters = _omit(query, ['availability','publishYear', 'pageNum']);
+  const {
+    pageNum,
+    availability,
+    publishYear,
+  } = query;
+  // console.log(availability);
+  // console.log(publishYear);
+  // Need to reset and delete by 1, eventually.
+  // console.log(pageNum);
+
+  if (action === 'POP') {
+    makeApiCall(search, response => {
+      console.log('Making call from historyjs');
+      if (response.data && response.data.bibItems) {
+        Actions.updateFiltered(filters);
+        Actions.updateNewArrivalsData(response.data);
+        Actions.updatePublicationType(publishYear);
+        Actions.updateAvailabilityType(availability);
+      }
+    });
+  }
+});
 
 /**
  * Renders the main section of the New Arrivals app.
@@ -31,6 +70,7 @@ class NewArrivals extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.loadMore = this.loadMore.bind(this);
+    this.manageHistory = this.manageHistory.bind(this);
   }
 
   componentDidMount() {
@@ -66,8 +106,46 @@ class NewArrivals extends React.Component {
       Actions.addMoreItems(response.data.bibItems);
       Actions.updatePageNum(true);
 
+      this.manageHistory();
+
       this.setState({ isLoading: false });
     });
+  }
+
+  manageHistory() {
+    const {
+      filters,
+      availabilityType,
+      pageNum,
+      publicationType,
+    } = this.state;
+    let query = '?';
+
+    _mapObject(filters, (val, key) => {
+      if (val) {
+        query += `&${key}=${val}`;
+      }
+    });
+
+    if (availabilityType === 'On Order') {
+      query += '&availability=On%20Order';
+    }
+
+    if (publicationType === 'justAdded') {
+      query += '&publishYear=justAdded';
+    }
+
+    if (pageNum !== 2) {
+      query += `&pageNum=${pageNum-1}`;
+    }
+
+    query = (query === '?') ? '' : query;
+
+    history.push({
+      // pathname: '/the/path',
+      search: query,
+      // state: { the: 'state' }
+    })
   }
 
   render() {
