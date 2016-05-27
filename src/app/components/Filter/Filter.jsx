@@ -119,10 +119,12 @@ class Filter extends React.Component {
       languages,
       publicationType,
     } = this.state;
-    const formatData = appFilters.formatData;
-    const audienceData = appFilters.audienceData;
-    const languageData = appFilters.languageData;
-    const genreData = appFilters.genreData;
+    const {
+      formatData,
+      audienceData,
+      languageData,
+      genreData,
+    } = appFilters;
     const active = _every(filters, f => f === ''); // && publicationType !== 'justAdded';
     const activeSubmitButtons = active ? '' : 'active';
 
@@ -144,7 +146,7 @@ class Filter extends React.Component {
     return (
       <div className={`filter-wrapper ${this.props.active}`}>
         <div className="filter-header-mobile">
-          <FilterIcon className="mobile-filter svgIcon" />
+          <FilterIcon className="mobile-filter" />
           <h2>Filter by</h2>
 
           <ul className="mobile-filter-buttons">
