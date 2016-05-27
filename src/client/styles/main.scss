@@ -37,57 +37,14 @@ Import style rules from App components
 @import 'components/PaginationButton';
 @import 'components/ToggleDisplay';
 @import 'components/Filter';
+@import 'components/FilterList';
 @import 'components/SelectedFilters';
 @import 'components/FilterToggle';
 
-.filter {
-  &-header-mobile {
-    padding: 0 20px;
-
-    h2 {
-      display: inline-block;
-      margin: 20px 0 10px;
-      @include Kievit-Medium;
-      font-weight: 300;
-      line-height: 26px;
-      // margin-left: 10px;
-      vertical-align: 5px;
-      font-size: 24px;
-    }
-
-    @include min-screen(768px) {
-      display: none;
-    }
-  }
-
-  &-wrapper {
-    > ul {
-      list-style: none;
-      margin: 0 10px;
-      padding: 0;
-
-      li {
-        display: block;
-      }
-
-      @include min-screen(768px) {
-        margin: 0 25px !important;
-      }
-    }
-
-    .svgIcon {
-      padding: 0;
-      background: none;
-      border: none;
-      fill: #fff;
-    }
-  }
-}
-@include sgs-change('debug', true);
-
-.nyplNewArrivals {
-  // @include background-grid($color: blue);
-}
+// @include sgs-change('debug', true);
+// .nyplNewArrivals {
+//   @include background-grid($color: blue);
+// }
 
 .left-navigation {
   cursor: pointer;

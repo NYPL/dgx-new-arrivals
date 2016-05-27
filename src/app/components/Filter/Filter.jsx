@@ -2,7 +2,6 @@ import React from 'react';
 
 import {
   map as _map,
-  mapObject as _mapObject,
   clone as _clone,
   every as _every,
 } from 'underscore';
@@ -169,7 +168,7 @@ class Filter extends React.Component {
           </ul>
         </div>
 
-        <ul className="filter-apply-wrapper">
+        <ul className="filter-actions">
           <li className="buttonItems">
             <p>Filter by Publish Date</p>
             <PublicationToggle
@@ -192,7 +191,7 @@ class Filter extends React.Component {
           </li>
         </ul>
 
-        <ul>
+        <ul className="filter-list">
           <FilterList list={formatData} manageSelected={this.manageSelected} />
           <FilterList list={audienceData} manageSelected={this.manageSelected} />
           <FilterList list={languageData} manageSelected={this.manageSelected} />

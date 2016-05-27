@@ -1,13 +1,7 @@
 import React from 'react';
-import { every as _every } from 'underscore';
 import { CheckSoloIcon } from 'dgx-svg-icons';
 
-import {
-  makeQuery,
-  makeApiCall,
-} from '../../utils/utils.js';
 import config from '../../../../appConfig.js';
-
 
 const { recentlyReleased, justAdded } = config.publicationType;
 
@@ -37,7 +31,7 @@ class PublicationToggle extends React.Component {
     return (
       <fieldset className="switch publicationType" tabIndex="0">
         <legend>Show Just Added or Recently Released?</legend>
-         <input
+        <input
           type="radio"
           className="switch-input"
           name="publicationType"
@@ -72,5 +66,10 @@ class PublicationToggle extends React.Component {
     );
   }
 }
+
+PublicationToggle.propTypes = {
+  managePublicationType: React.PropTypes.func,
+  publicationType: React.PropTypes.string,
+};
 
 export default PublicationToggle;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { every as _every } from 'underscore';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
