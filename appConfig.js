@@ -84,6 +84,10 @@ export default {
     newArrival: { id: 'New Arrival', label: 'New Arrivals' },
     onOrder: { id: 'On Order', label: 'On Order' },
   },
+  publicationType: {
+    recentlyReleased: { id: 'recentlyReleased', label: 'Recently Released' },
+    justAdded: { id: 'justAdded', label: 'Just Added' },
+  },
   introText: 'Use filters to browse new books, DVDs, and music by language, age level, ' +
     'and genre. Toggle to list view to see more information about each title. Check back ' +
     'regularly to see our most recently acquired materials.',

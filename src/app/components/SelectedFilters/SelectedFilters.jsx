@@ -64,6 +64,7 @@ class SelectedFilters extends React.Component {
       availabilityType,
       filters,
       pageNum,
+      publicationType,
     } = this.state;
     let update = true;
     let page = pageNum;
@@ -81,7 +82,7 @@ class SelectedFilters extends React.Component {
       update = false;
     }
 
-    const queries = makeQuery(filters, availabilityType, page, update);
+    const queries = makeQuery(filters, availabilityType, page, update, publicationType);
 
     Actions.updateFiltered(filters);
 

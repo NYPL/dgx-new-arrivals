@@ -84,6 +84,7 @@ console.log(baseApiUrl);
         },
         NewArrivalsStore: {
           displayType: 'grid',
+          publicationType: 'recentlyReleased',
           newArrivalsData: newArrivalsData.data,
           pageNum: 2,
           filters: {
@@ -109,6 +110,7 @@ console.log(baseApiUrl);
         },
         NewArrivalsStore: {
           displayType: 'grid',
+          publicationType: 'recentlyReleased',
           newArrivalsData: {},
           pageNum: 2,
           filters: {
@@ -136,6 +138,7 @@ function selectPage(req, res) {
   const availability = query.availability || 'New%20Arrival';
   const pageNum = query.pageNum || '1';
   const items = query.itemCount || itemCount;
+  const publishYear = query.publishYear || 'recentlyReleased';
 
   const formatQuery = `&format=${format}`;
   const audienceQuery = audience ? `&audience=${audience}` : '';
@@ -144,7 +147,8 @@ function selectPage(req, res) {
   const availabilityQuery = `&availability=${availability}`;
   const pageNumQuery = `&pageNum=${pageNum}`;
   const itemCountQuery = `&itemCount=${items}`;
-  const publishYearQuery = `&minPublishYear=${minPublishYear}`;
+  const publishYearQuery =
+    publishYear === 'recentlyReleased' ? `&minPublishYear=${minPublishYear}` : '';
 
   const apiUrl = `${newArrivalsApi.bibItems}?` +
     formatQuery +

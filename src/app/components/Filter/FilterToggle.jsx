@@ -1,5 +1,4 @@
 import React from 'react';
-import { every as _every } from 'underscore';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -32,10 +31,14 @@ class FilterToggle extends React.Component {
   }
 
   onChange(e) {
-    const { filters, pageNum } = this.state;
+    const {
+      filters,
+      pageNum,
+      publicationType,
+    } = this.state;
     const availability = e.currentTarget.value;
     const update = true;
-    const queries = makeQuery(filters, availability, pageNum, update);
+    const queries = makeQuery(filters, availability, pageNum, update, publicationType);
 
     Actions.updateAvailabilityType(availability);
     this.selectFilter(queries);

@@ -49,19 +49,6 @@
   }
 }
 
-.view {
-  &-grid-icon {
-    .icon {
-      background: url('#{$staffPicksUrl}src/client/images/icons/SmallBookGray.svg') no-repeat;
-    }
-  }
-
-  &-list-icon {
-    .icon {
-      background: url('#{$staffPicksUrl}src/client/images/icons/SmallListIconGray.svg') no-repeat;
-    }
-  }
-}
 
 .filters {
 

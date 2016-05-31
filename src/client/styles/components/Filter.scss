@@ -3,6 +3,41 @@
     color: #fff;
     display: none;
 
+    .filter-header-mobile {
+      padding: 0 20px;
+
+      h2 {
+        display: inline-block;
+        margin: 20px 0 10px;
+        @include Kievit-Medium;
+        font-weight: 300;
+        line-height: 26px;
+        vertical-align: 5px;
+        font-size: 24px;
+      }
+
+      @include min-screen(768px) {
+        display: none;
+      }
+
+      .mobile-filter-buttons {
+        list-style: none;
+        float: right;
+        margin: 15px 0 0 0;
+        padding: 0;
+
+        li {
+          display: inline-block;
+          padding: 0 3px;
+
+          svg {
+            width: 32px;
+            height: 32px;
+          }
+        }
+      }
+    }
+
     &.active {
       width: 100%;
       position: absolute;
@@ -25,11 +60,60 @@
       }
     }
 
+    .filter-actions,
+    .filter-list {
+      list-style: none;
+      margin: 0 10px;
+      padding: 0;
+
+      @include min-screen(768px) {
+        margin: 0 25px !important;
+      }
+    }
+
+    .filter-actions {
+      margin: 0px;
+      padding: 0 25px !important;
+
+      @include min-screen(768px) {
+        padding: 0 !important;
+      }
+
+      .buttonItems {
+        float: left;
+        @include Kievit-Regular;
+        width: 25%;
+        margin-top: 15px;
+        min-height: 65px;
+
+        p {
+          margin: 0 0 5px 10px;
+          font-size: 14px;
+          min-height: 20px;
+        }
+
+        &:first-child {
+          text-align: right;
+          width: 100%;
+          margin-bottom: 15px;
+
+          @include min-screen(768px) {
+            text-align: left;
+            width: 50%;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
     .submit-buttons {
-      width: 100%;
       float: left;
       opacity: 0.5;
-      margin-bottom: 30px;
+      display: none;
+
+      @include min-screen(768px) {
+        display: block;
+      }
 
       &.active {
         opacity: 1;
@@ -39,15 +123,19 @@
         background-color: #737069;
         color: #fff;
         border: 2px solid #fff;
-        margin: 0 auto;
+        margin: 27px 10px 0;
         display: block;
         font-size: 13px;
-        width: 160px;
+        width: 125px;
         height: 40px;
         text-transform: uppercase;
 
         @include min-screen(768px) {
           display: inline-block;
+        }
+
+        @include min-screen(1024px) {
+          width: 145px;
         }
 
         svg {
@@ -60,15 +148,9 @@
       }
 
       .apply {
-        margin-bottom: 20px;
-
         svg {
           margin-right: 15px;
           margin-left: -25px;
-        }
-
-        @include min-screen(768px) {
-          margin: 0 25px 0 35px;
         }
       }
 
@@ -79,79 +161,18 @@
         }
       }
     }
+
+    .svgIcon {
+      padding: 0;
+      background: none;
+      border: none;
+      fill: #fff;
+    }
   }
 }
 
 .filterButton {
   @include min-screen(768px) {
     position: relative;
-  }
-}
-
-.FilterList {
-  width: 100%;
-  float: left;
-  @include Kievit-Regular;
-  margin-bottom: 20px;
-
-  .inner {
-    padding: 0 20px;
-
-    h3 {
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      border-top: 2px solid #fff;
-      padding: 15px 0 0 0;
-      margin-top: 5px;
-      font-size: 14px;
-    }
-  }
-
-  ul {
-    padding: 0;
-
-    li {
-      height: 35px;
-      font-size: 14px;
-
-      a {
-        display: block;
-        color: #fff;
-        padding: 10px 0 10px 50px;
-        text-decoration: none;
-
-        .circle-dash-icon {
-          position: relative;
-          float: right;
-          margin: -5px 40px 0px 0px;
-          fill: #fff;
-
-          @include min-screen(768px) {
-            margin: -5px 15px 0px 0px;
-          }
-        }
-
-        @include min-screen(768px) {
-          padding-left: 25px;
-        }
-      }
-
-      &.active {
-        background-color: #44433f;
-      }
-    }
-  }
-
-  @include min-screen(768px) {
-    width: 25%;
-    font-size: 14px;
-
-    .inner {
-      padding: 0 15px;
-
-      h3 {
-        margin: 30px 0 10px;
-      }
-    }
   }
 }
