@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import { extend as _extend } from 'underscore';
-import { createHistory, createMemoryHistory, useQueries } from 'history';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -15,6 +14,7 @@ import appConfig from '../../../../appConfig.js';
 import {
   makeQuery,
   makeApiCall,
+  createAppHistory,
 } from '../../utils/utils.js';
 
 import {
@@ -25,12 +25,7 @@ import {
 
 const { introText } = appConfig;
 
-let history;
-if (typeof(window) !== 'undefined') {
-  history = useQueries(createHistory)();
-} else {
-  history = useQueries(createMemoryHistory)();
-}
+const history = createAppHistory();
 
 history.listen(location => {
   const {

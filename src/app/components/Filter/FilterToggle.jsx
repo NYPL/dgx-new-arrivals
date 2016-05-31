@@ -1,5 +1,4 @@
 import React from 'react';
-import { createHistory, createMemoryHistory } from 'history';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -7,18 +6,14 @@ import Actions from '../../actions/Actions.js';
 import {
   makeQuery,
   makeApiCall,
+  createAppHistory,
 } from '../../utils/utils.js';
 import config from '../../../../appConfig.js';
 import { mapObject as _mapObject } from 'underscore';
 
 const { newArrival, onOrder } = config.availability;
 
-let history;
-if (typeof(window) !== 'undefined') {
-  history = createHistory();
-} else {
-  history = createMemoryHistory();
-}
+const history = createAppHistory();
 
 // can select multiple filters but only one per each category.
 class FilterToggle extends React.Component {

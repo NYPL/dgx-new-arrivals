@@ -5,6 +5,7 @@ import {
 } from 'underscore';
 
 import config from '../../../appConfig.js';
+import { createHistory, useQueries, createMemoryHistory } from 'history';
 
 const {
   appFilters,
@@ -85,10 +86,19 @@ const createDate = (date) => {
   return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
 };
 
+const createAppHistory = () => {
+  if (typeof(window) !== 'undefined') {
+    return useQueries(createHistory)();
+  }
+
+  return useQueries(createMemoryHistory)();
+}
+
 export {
   formatFilters,
   titleShortener,
   makeQuery,
   makeApiCall,
   createDate,
+  createAppHistory,
 };

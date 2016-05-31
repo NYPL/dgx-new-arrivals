@@ -8,7 +8,6 @@ import {
 import {
   XIcon,
 } from 'dgx-svg-icons';
-import { createHistory, createMemoryHistory } from 'history';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -16,14 +15,10 @@ import Actions from '../../actions/Actions.js';
 import {
   makeQuery,
   makeApiCall,
+  createAppHistory,
 } from '../../utils/utils.js';
 
-let history;
-if (typeof(window) !== 'undefined') {
-  history = createHistory();
-} else {
-  history = createMemoryHistory();
-}
+const history = createAppHistory();
 
 class SelectedFilters extends React.Component {
   constructor(props) {
