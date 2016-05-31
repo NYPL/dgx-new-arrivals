@@ -6,7 +6,10 @@ import Model from 'dgx-model-data';
 import _ from 'underscore';
 
 import config from '../../../appConfig.js';
-import { formatFilters } from '../../app/utils/utils.js';
+import {
+  formatFilters,
+  makeQuery,
+} from '../../app/utils/utils.js';
 
 // Syntax that both ES6 and Babel 6 support
 const { HeaderItemModel } = Model;
@@ -64,13 +67,25 @@ const filterLanguages = (languagesArray, minCount) => {
 
 const newArrivalsApp = (req, res, next) => {
   const formats = formatFilters();
-  const baseApiUrl = `${newArrivalsApi.bibItems}?` +
+  let baseApiUrl = `${newArrivalsApi.bibItems}?` +
     `format=${formats}` +
     `&availability=New%20Arrival` +
     `&itemCount=${itemCount}` +
     `&minPublishYear=${minPublishYear}`;
 
-console.log(baseApiUrl);
+  const filters = _.omit(req.query, ['availability','publishYear', 'pageNum']);
+  const {
+    pageNum,
+    availability,
+    publishYear,
+  } = req.query;
+
+  const query = makeQuery(filters, availability, pageNum, true, publishYear, true);
+
+  if (!_.isEmpty(req.query)) {
+    baseApiUrl = `${newArrivalsApi.bibItems}?${query}`;
+  }
+  console.log(baseApiUrl);
 
   axios.all([getHeaderData(), fetchApiData(baseApiUrl), getLanguageData()])
     .then(axios.spread((headerData, newArrivalsData, languageData) => {
@@ -84,16 +99,16 @@ console.log(baseApiUrl);
         },
         NewArrivalsStore: {
           displayType: 'grid',
-          publicationType: 'recentlyReleased',
+          publicationType: publishYear || 'recentlyReleased',
           newArrivalsData: newArrivalsData.data,
-          pageNum: 2,
+          pageNum: pageNum || 2,
           filters: {
-            format: '',
-            audience: '',
-            language: '',
-            genre: '',
+            format: filters.format || '',
+            audience: filters.audience || '',
+            language: filters.language || '',
+            genre: filters.genre || '',
           },
-          availabilityType: 'New Arrival',
+          availabilityType: availability || 'New Arrival',
           languages,
         },
       };
@@ -160,7 +175,7 @@ function selectPage(req, res) {
     pageNumQuery +
     publishYearQuery;
 
-console.log(apiUrl);
+// console.log('ajax call', apiUrl);
 
   axios
     .get(apiUrl)

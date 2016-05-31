@@ -29,10 +29,12 @@ const { introText } = appConfig;
 
 const history = createAppHistory();
 
+
 history.listen(location => {
   const {
     action,
     search,
+    state,
     query,
   } = location;
   const filters = _omit(query, ['availability','publishYear', 'pageNum']);
@@ -42,7 +44,8 @@ history.listen(location => {
     publishYear,
   } = query;
 
-  if (action === 'POP') {
+  if (action === 'POP' && state !== null) {
+    console.log('making ajax call');
     makeApiCall(search, response => {
       const availabilityType = availability || 'New Arrival';
       const publicationType = publishYear || 'recentlyReleased';

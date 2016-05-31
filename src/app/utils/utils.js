@@ -37,14 +37,15 @@ const makeQuery = (
   availability = '',
   page = pageNum,
   updateItems = false,
-  publishType = 'recentlyReleased'
+  publishType = 'recentlyReleased',
+  realStr = false
 ) => {
   let queries = '';
   let itemsQuery = itemCount;
   let pageQuery = page;
 
   if (updateItems) {
-    itemsQuery = itemCount * (page - 1);
+    itemsQuery = itemCount * (page);
     pageQuery = 1;
   }
 
@@ -60,7 +61,23 @@ const makeQuery = (
     queries += `&availability=${availability}`;
   }
 
-  queries += `&itemCount=${itemsQuery}&pageNum=${pageQuery}&publishYear=${publishType}`;
+  if (realStr) {
+    if (queries.indexOf('format') === -1) {
+      queries += `&format=${formatFilters()}`;
+    }
+
+    if (queries.indexOf('availability') === -1) {
+      queries += '&availability=New Arrival';
+    }
+
+    if (publishType === 'recentlyReleased') {
+      queries += `&itemCount=${itemsQuery}&pageNum=${pageQuery}&minPublishYear=2015`;
+    } else {
+      queries += `&itemCount=${itemsQuery}&pageNum=${pageQuery}`;
+    }
+  } else {
+    queries += `&itemCount=${itemsQuery}&pageNum=${pageQuery}&publishYear=${publishType}`;
+  }
 
   return queries;
 };
