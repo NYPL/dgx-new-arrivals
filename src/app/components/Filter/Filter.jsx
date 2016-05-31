@@ -12,7 +12,7 @@ import {
   ApplyIcon,
   ResetIcon,
 } from 'dgx-svg-icons';
-import { createHistory } from 'history';
+import { createHistory, createMemoryHistory } from 'history';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -30,13 +30,14 @@ import {
 import appConfig from '../../../../appConfig.js';
 
 const { appFilters } = appConfig;
-const history = createHistory();
 
-// const unlisten = history.listen(location => {
-//   console.log(location.pathname)
-// })
+let history;
+if (typeof(window) !== 'undefined') {
+  history = createHistory();
+} else {
+  history = createMemoryHistory();
+}
 
-// unlisten();
 
 // can select multiple filters but only one per each category.
 class Filter extends React.Component {

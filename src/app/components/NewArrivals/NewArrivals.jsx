@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { extend as _extend } from 'underscore';
-import { createHistory, useQueries } from 'history';
+import { createHistory, createMemoryHistory, useQueries } from 'history';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -24,7 +24,13 @@ import {
 } from 'underscore';
 
 const { introText } = appConfig;
-const history = useQueries(createHistory)();
+
+let history;
+if (typeof(window) !== 'undefined') {
+  history = useQueries(createHistory)();
+} else {
+  history = useQueries(createMemoryHistory)();
+}
 
 history.listen(location => {
   const {
@@ -39,10 +45,6 @@ history.listen(location => {
     availability,
     publishYear,
   } = query;
-  // console.log(availability);
-  // console.log(publishYear);
-  // Need to reset and delete by 1, eventually.
-  // console.log(pageNum);
 
   if (action === 'POP') {
     makeApiCall(search, response => {

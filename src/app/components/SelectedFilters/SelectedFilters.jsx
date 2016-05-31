@@ -8,7 +8,7 @@ import {
 import {
   XIcon,
 } from 'dgx-svg-icons';
-import { createHistory } from 'history';
+import { createHistory, createMemoryHistory } from 'history';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -18,7 +18,12 @@ import {
   makeApiCall,
 } from '../../utils/utils.js';
 
-const history = createHistory();
+let history;
+if (typeof(window) !== 'undefined') {
+  history = createHistory();
+} else {
+  history = createMemoryHistory();
+}
 
 class SelectedFilters extends React.Component {
   constructor(props) {
@@ -50,10 +55,10 @@ class SelectedFilters extends React.Component {
       if (value) {
         return (
           <li key={i}>
-            <a href="#" onClick={() => this.removeFilter(filter)}>
+            <button onClick={() => this.removeFilter(filter)}>
               {value}
               <XIcon height="20" width="20" />
-            </a>
+            </button>
           </li>
         );
       }
