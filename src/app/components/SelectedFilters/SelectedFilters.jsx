@@ -16,6 +16,7 @@ import {
   makeQuery,
   makeApiCall,
   createAppHistory,
+  manageHistory,
 } from '../../utils/utils.js';
 
 const history = createAppHistory();
@@ -27,7 +28,6 @@ class SelectedFilters extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.getFilterList = this.getFilterList.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
-    this.manageHistory = this.manageHistory.bind(this);
     this.state = NewArrivalsStore.getState();
   }
 
@@ -62,43 +62,6 @@ class SelectedFilters extends React.Component {
     });
   }
 
-  manageHistory() {
-    const {
-      filters,
-      availabilityType,
-      pageNum,
-      publicationType,
-    } = this.state;
-    let query = '?';
-
-    _mapObject(filters, (val, key) => {
-      if (val) {
-        query += `&${key}=${val}`;
-      }
-    });
-
-    if (availabilityType === 'On Order' &&
-      query.indexOf('availability') !== -1) {
-      query += '&availability=On%20Order';
-    }
-
-    if (publicationType === 'justAdded') {
-      query += '&publishYear=justAdded';
-    }
-
-    if (pageNum !== 2) {
-      query += `&pageNum=${pageNum-1}`;
-    }
-
-    query = (query === '?') ? '' : query;
-
-    history.push({
-      // pathname: '/the/path',
-      search: query,
-      // state: { the: 'state' }
-    })
-  }
-
   removeFilter(filter) {
     const {
       availabilityType,
@@ -128,7 +91,7 @@ class SelectedFilters extends React.Component {
 
     makeApiCall(queries, response => {
       Actions.updateNewArrivalsData(response.data);
-      this.manageHistory();
+      manageHistory(this.state, history);
     });
   }
 

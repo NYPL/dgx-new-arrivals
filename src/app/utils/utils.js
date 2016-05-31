@@ -92,7 +92,49 @@ const createAppHistory = () => {
   }
 
   return useQueries(createMemoryHistory)();
-}
+};
+
+const manageHistory = (opts = {}, history, reset = false) => {
+  const {
+    filters,
+    availabilityType,
+    publicationType,
+    pageNum,
+  } = opts;
+  let query = '?';
+
+  if (!reset) {
+    _mapObject(filters, (val, key) => {
+      if (val) {
+        query += `&${key}=${val}`;
+      }
+    });
+
+    if (availabilityType === 'On Order' && query.indexOf('availability') !== -1) {
+      query += '&availability=On%20Order';
+    }
+
+    if (publicationType === 'justAdded') {
+      query += '&publishYear=justAdded';
+    }
+
+    if (pageNum !== 2) {
+      query += `&pageNum=${pageNum - 1}`;
+    }
+  }
+
+  if (availabilityType === 'On Order') {
+    query += '&availability=On%20Order';
+  }
+
+  query = (query === '?') ? '' : query;
+
+  history.push({
+    // pathname: '/the/path',
+    search: query,
+    // state: { the: 'state' }
+  });
+};
 
 export {
   formatFilters,
@@ -101,4 +143,5 @@ export {
   makeApiCall,
   createDate,
   createAppHistory,
+  manageHistory,
 };

@@ -25,7 +25,8 @@ import IconButton from '../Buttons/IconButton.jsx';
 import {
   makeQuery,
   makeApiCall,
-  createAppHistory
+  createAppHistory,
+  manageHistory,
 } from '../../utils/utils.js';
 import appConfig from '../../../../appConfig.js';
 
@@ -45,7 +46,6 @@ class Filter extends React.Component {
     this.selectFilter = this.selectFilter.bind(this);
     this.managePublicationType = this.managePublicationType.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.manageHistory = this.manageHistory.bind(this);
 
     this.state = NewArrivalsStore.getState();
   }
@@ -67,58 +67,18 @@ class Filter extends React.Component {
   }
 
   selectFilter(queries, updatePageNum, filters, active, publicationType, reset) {
-    console.log('making call');
     makeApiCall(queries, response => {
       Actions.updateNewArrivalsData(response.data);
       Actions.updateFiltered(filters);
       Actions.updateActiveFilters(active);
       Actions.updatePublicationType(publicationType);
 
-      this.manageHistory(filters, publicationType, reset);
+      manageHistory(this.state, history, reset);
 
       if (!updatePageNum) {
         Actions.updatePageNum(false);
       }
     });
-  }
-
-  manageHistory(filters, publicationType, reset) {
-    let query = '';
-
-    if (!reset) {
-      query = '?';
-
-      _mapObject(filters, (val, key) => {
-        if (val) {
-          query += `&${key}=${val}`;
-        }
-      });
-
-      if (this.state.availabilityType === 'On Order' &&
-        query.indexOf('availability') !== -1) {
-        query += '&availability=On%20Order';
-      }
-
-      if (publicationType === 'justAdded') {
-        query += '&publishYear=justAdded';
-      }
-
-      if (this.state.pageNum !== 2) {
-        query += `&pageNum=${this.state.pageNum-1}`;
-      }
-    }
-
-    if (this.state.availabilityType === 'On Order') {
-      query += '&availability=On%20Order';
-    }
-
-    query = (query === '?') ? '' : query;
-
-    history.push({
-      // pathname: '/the/path',
-      search: query,
-      // state: { the: 'state' }
-    })
   }
 
   manageSelected(item) {
