@@ -23,7 +23,7 @@ import PublicationToggle from './PublicationToggle.jsx';
 import IconButton from '../Buttons/IconButton.jsx';
 
 import {
-  makeQuery,
+  makeFrontEndQuery,
   makeApiCall,
   createAppHistory,
   manageHistory,
@@ -102,7 +102,7 @@ class Filter extends React.Component {
       pageNum,
       publicationType,
     } = this.state;
-    const queries = makeQuery(filters, availabilityType, pageNum, true, publicationType);
+    const queries = makeFrontEndQuery(filters, availabilityType, pageNum, publicationType, true);
 
     this.selectFilter(queries, true, filters, true, publicationType);
     this.closeFilters();

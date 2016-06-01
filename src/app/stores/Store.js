@@ -36,7 +36,7 @@ class NewArrivalsStore {
       };
       this.languages = [];
       this.activeFilters = false;
-      this.pageNum = 2;
+      this.pageNum = 1;
       this.availabilityType = 'New Arrival';
     });
   }
@@ -83,9 +83,9 @@ class NewArrivalsStore {
 
   handleUpdatePageNum(bol) {
     if (bol) {
-      this.pageNum += 1;
+      this.pageNum = parseInt(this.pageNum, 10) + 1;
     } else {
-      this.pageNum = 2;
+      this.pageNum = 1;
     }
   }
 

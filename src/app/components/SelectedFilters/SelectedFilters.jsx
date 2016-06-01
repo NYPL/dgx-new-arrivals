@@ -13,7 +13,7 @@ import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 import {
-  makeQuery,
+  makeFrontEndQuery,
   makeApiCall,
   createAppHistory,
   manageHistory,
@@ -85,7 +85,7 @@ class SelectedFilters extends React.Component {
       update = false;
     }
 
-    const queries = makeQuery(filters, availabilityType, page, update, publicationType);
+    const queries = makeFrontEndQuery(filters, availabilityType, page, publicationType, update);
 
     Actions.updateFiltered(filters);
 

@@ -2,16 +2,24 @@ import axios from 'axios';
 import {
   map as _map,
   mapObject as _mapObject,
+  omit as _omit,
 } from 'underscore';
 
 import config from '../../../appConfig.js';
-import { createHistory, useQueries, createMemoryHistory } from 'history';
+import {
+  createHistory,
+  useQueries,
+  createMemoryHistory,
+} from 'history';
 
 const {
   appFilters,
   itemCount,
   pageNum,
+  newArrivalsApi,
+  currentYear,
 } = config;
+const minPublishYear = currentYear - 1; 
 
 const formatFilters = () => {
   const formats = _map(appFilters.formatData.data, format => format.id);
@@ -32,54 +40,73 @@ const titleShortener = (title, itemTitleLength = 96) => {
   return updatedTitle;
 };
 
-const makeQuery = (
+const makeFrontEndQuery = (
   filters = {},
   availability = '',
   page = pageNum,
-  updateItems = false,
   publishType = 'recentlyReleased',
-  realStr = false
+  updateItems = false
 ) => {
-  let queries = '';
+  let query = '';
   let itemsQuery = itemCount;
   let pageQuery = page;
 
   if (updateItems) {
-    itemsQuery = itemCount * (page);
+    itemsQuery = itemCount * page;
     pageQuery = 1;
   }
 
   _mapObject(filters, (val, key) => {
     if (val !== '') {
-      queries += (val === 'Research') ? `&audience=${val}` : `&${key}=${val}`;
+      query += (val === 'Research') ? `&audience=${val}` : `&${key}=${val}`;
     } else if (key === 'format') {
-      queries += `&format=${formatFilters()}`;
+      query += `&format=${formatFilters()}`;
     }
   });
 
   if (availability) {
-    queries += `&availability=${availability}`;
+    query += `&availability=${availability}`;
   }
 
-  if (realStr) {
-    if (queries.indexOf('format') === -1) {
-      queries += `&format=${formatFilters()}`;
-    }
+  query += `&itemCount=${itemsQuery}&pageNum=${pageQuery}&publishYear=${publishType}`;
 
-    if (queries.indexOf('availability') === -1) {
-      queries += '&availability=New Arrival';
-    }
+  return query;
+};
 
-    if (publishType === 'recentlyReleased') {
-      queries += `&itemCount=${itemsQuery}&pageNum=${pageQuery}&minPublishYear=2015`;
-    } else {
-      queries += `&itemCount=${itemsQuery}&pageNum=${pageQuery}`;
-    }
-  } else {
-    queries += `&itemCount=${itemsQuery}&pageNum=${pageQuery}&publishYear=${publishType}`;
+const makeApiQuery = (
+  filters = {},
+  availability = 'New%20Arrival',
+  pageNum,
+  publishYear = 'recentlyReleased',
+  updateItems = false
+) => {
+  let baseApiUrl = `${newArrivalsApi.bibItems}?`;
+  let itemsQuery = itemCount;
+  let pageQuery = parseInt(pageNum, 10) || 1;
+
+  if (updateItems) {
+    itemsQuery = itemCount * pageQuery;
+    pageQuery = 1;
   }
 
-  return queries;
+  _mapObject(filters, (val, key) => {
+    if (val !== '') {
+      baseApiUrl += (val === 'Research') ? `&audience=${val}` : `&${key}=${val}`;
+    } else if (key === 'format') {
+      baseApiUrl += `&format=${formatFilters()}`;
+    }
+  });
+
+  if (baseApiUrl.indexOf('format') === -1) {
+    baseApiUrl += `&format=${formatFilters()}`;
+  }
+  baseApiUrl += `&availability=${availability}&itemCount=${itemsQuery}&pageNum=${pageQuery}`;
+
+  if (publishYear === 'recentlyReleased') {
+    baseApiUrl += `&minPublishYear=2015`;
+  }
+
+  return baseApiUrl;
 };
 
 const makeApiCall = (queries, callbackFn) => {
@@ -135,9 +162,9 @@ const manageHistory = (opts = {}, history, reset = false) => {
       query += '&publishYear=justAdded';
     }
 
-    if (pageNum !== 2) {
-      query += `&pageNum=${pageNum - 1}`;
-    }
+    // if (pageNum !== 2) {
+    query += `&pageNum=${pageNum}`;
+    // }
   }
 
   if (availabilityType === 'On Order') {
@@ -156,7 +183,8 @@ const manageHistory = (opts = {}, history, reset = false) => {
 export {
   formatFilters,
   titleShortener,
-  makeQuery,
+  makeFrontEndQuery,
+  makeApiQuery,
   makeApiCall,
   createDate,
   createAppHistory,

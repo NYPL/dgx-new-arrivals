@@ -95,5 +95,5 @@ export default {
   languageDays: 30,
   languageItemCount: 100,
   itemCount: 18,
-  pageNum: 2,
+  pageNum: 1,
 };

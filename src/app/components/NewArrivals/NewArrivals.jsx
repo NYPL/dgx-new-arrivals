@@ -12,7 +12,7 @@ import PaginationButton from '../Buttons/PaginationButton.jsx';
 import appConfig from '../../../../appConfig.js';
 
 import {
-  makeQuery,
+  makeFrontEndQuery,
   makeApiCall,
   createAppHistory,
   manageHistory,
@@ -94,8 +94,8 @@ class NewArrivals extends React.Component {
       pageNum,
       publicationType,
     } = this.state;
-
-    const queries = makeQuery(filters, availabilityType, pageNum, false, publicationType);
+    const updatedPage = (parseInt(pageNum, 10)) + 1;
+    const queries = makeFrontEndQuery(filters, availabilityType, updatedPage, publicationType);
 
     axios.interceptors.request.use(config => {
       // Do something before request is sent

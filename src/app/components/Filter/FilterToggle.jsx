@@ -4,7 +4,7 @@ import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 import {
-  makeQuery,
+  makeFrontEndQuery,
   makeApiCall,
   createAppHistory,
   manageHistory,
@@ -43,7 +43,7 @@ class FilterToggle extends React.Component {
     } = this.state;
     const availability = e.currentTarget.value;
     const update = true;
-    const queries = makeQuery(filters, availability, pageNum, update, publicationType);
+    const queries = makeFrontEndQuery(filters, availability, pageNum, update, publicationType);
 
     Actions.updateAvailabilityType(availability);
     this.selectFilter(queries);
