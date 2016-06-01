@@ -131,7 +131,7 @@ class Filter extends React.Component {
       languageData,
       genreData,
     } = appFilters;
-    const active = _every(filters, f => f === ''); // && publicationType !== 'justAdded';
+    const active = _every(filters, f => f === '');
     const activeSubmitButtons = active ? '' : 'active';
 
     const updatedLanguages = _map(languages, language =>
