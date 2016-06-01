@@ -144,6 +144,7 @@ class BookCover extends React.Component {
         icon={icon}
         format={format}
         genre={this.props.genre}
+        simple={this.props.simple}
       />);
     }
 
