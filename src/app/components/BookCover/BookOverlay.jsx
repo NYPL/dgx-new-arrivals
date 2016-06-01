@@ -8,6 +8,7 @@ class BookOverlay extends React.Component {
         <BookIcon
           width="110px"
           height="110px"
+          ariaHidden
         />
         <p>NO IMAGE AVAILABLE</p>
       </div>
