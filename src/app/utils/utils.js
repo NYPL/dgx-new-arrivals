@@ -26,7 +26,7 @@ const formatFilters = () => {
   return formats.join(',');
 };
 
-const titleShortener = (title, itemTitleLength = 96) => {
+const titleShortener = (title, format, itemTitleLength = 96) => {
   if (!title) {
     return '';
   }
@@ -35,6 +35,10 @@ const titleShortener = (title, itemTitleLength = 96) => {
 
   if (updatedTitle.length > itemTitleLength) {
     updatedTitle = updatedTitle.substring(0, itemTitleLength);
+  }
+
+  if (format === 'MUSIC CD') {
+    updatedTitle = updatedTitle.replace(/\[sound recording\]/, '');
   }
 
   return updatedTitle;
