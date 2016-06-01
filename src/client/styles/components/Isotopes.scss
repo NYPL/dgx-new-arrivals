@@ -121,6 +121,21 @@
           font-size: 12px;
         }
       }
+
+      &.MUSICCD {
+        height: 175px;
+        top: 50px;
+      }
+
+      &.BLU-RAY {
+        top: 25px;
+        height: 230px;
+      }
+
+      &.DVD {
+        top: 15px;
+        height: 245px;
+      }
     }
 
     .details {

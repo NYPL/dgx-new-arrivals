@@ -3,6 +3,7 @@ import { BookIcon } from 'dgx-svg-icons';
 
 class BookOverlay extends React.Component {
   render () {
+    const formatId = (this.props.formatId).replace(/\s+/g, '');
     let details = (
       <div className="default">
         <BookIcon
@@ -27,7 +28,7 @@ class BookOverlay extends React.Component {
     }
 
     return (
-      <div className={`itemOverlay ${this.props.imgClass}`}>
+      <div className={`itemOverlay ${this.props.imgClass} ${formatId}`}>
         {details}
       </div>
     );
@@ -40,6 +41,7 @@ BookOverlay.propTypes = {
   author: React.PropTypes.string,
   icon: React.PropTypes.object,
   format: React.PropTypes.string,
+  formatId: React.PropTypes.string,
   genre: React.PropTypes.string,
   simple: React.PropTypes.bool,
 };
