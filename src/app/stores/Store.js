@@ -20,6 +20,7 @@ class NewArrivalsStore {
       handleUpdatePageNum: Actions.UPDATE_PAGE_NUM,
       updateAvailabilityType: Actions.UPDATE_AVAILABILITY_TYPE,
       updatePublicationType: Actions.UPDATE_PUBLICATION_TYPE,
+      updateDisplayPagination: Actions.UPDATE_DISPLAY_PAGINATION,
     });
 
     this.on('init', () => {
@@ -38,6 +39,7 @@ class NewArrivalsStore {
       this.activeFilters = false;
       this.pageNum = 1;
       this.availabilityType = 'New Arrival';
+      this.displayPagination = true;
     });
   }
 
@@ -98,6 +100,10 @@ class NewArrivalsStore {
    */
   updatePublicationType(publicationType) {
     this.publicationType = publicationType;
+  }
+
+  updateDisplayPagination(bol) {
+    this.displayPagination = bol;
   }
 }
 

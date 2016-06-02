@@ -100,6 +100,7 @@ const newArrivalsApp = (req, res, next) => {
             genre: filters.genre || '',
           },
           availabilityType: availability || 'New Arrival',
+          displayPagination: newArrivalsData.data.bibItems.length === 0 ? false : true,
           languages,
         },
       };
@@ -126,6 +127,7 @@ const newArrivalsApp = (req, res, next) => {
             genre: '',
           },
           availabilityType: 'New Arrival',
+          displayPagination: false,
           languages: [],
         },
       };

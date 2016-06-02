@@ -61,6 +61,10 @@ class Actions {
   updatePublicationType(type) {
     this.dispatch(type);
   }
+
+  updateDisplayPagination(bol) {
+    this.dispatch(bol);
+  }
 }
 
 export default alt.createActions(Actions);
