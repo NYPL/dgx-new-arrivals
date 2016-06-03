@@ -3,11 +3,11 @@ import {
   every as _every,
   map as _map,
   keys as _keys,
+  mapObject as _mapObject,
 } from 'underscore';
 import {
   XIcon,
 } from 'dgx-svg-icons';
-
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -15,7 +15,11 @@ import Actions from '../../actions/Actions.js';
 import {
   makeQuery,
   makeApiCall,
+  createAppHistory,
+  manageHistory,
 } from '../../utils/utils.js';
+
+const history = createAppHistory();
 
 class SelectedFilters extends React.Component {
   constructor(props) {
@@ -24,7 +28,6 @@ class SelectedFilters extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.getFilterList = this.getFilterList.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
-
     this.state = NewArrivalsStore.getState();
   }
 
@@ -47,10 +50,10 @@ class SelectedFilters extends React.Component {
       if (value) {
         return (
           <li key={i}>
-            <a href="#" onClick={() => this.removeFilter(filter)}>
+            <button onClick={() => this.removeFilter(filter)}>
               {value}
               <XIcon height="20" width="20" />
-            </a>
+            </button>
           </li>
         );
       }
@@ -88,6 +91,7 @@ class SelectedFilters extends React.Component {
 
     makeApiCall(queries, response => {
       Actions.updateNewArrivalsData(response.data);
+      manageHistory(this.state, history);
     });
   }
 

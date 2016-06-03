@@ -14,9 +14,48 @@ import appConfig from '../../../../appConfig.js';
 import {
   makeQuery,
   makeApiCall,
+  createAppHistory,
+  manageHistory,
 } from '../../utils/utils.js';
 
+import {
+  mapObject as _mapObject,
+  omit as _omit,
+  pick as _pick,
+  isEmpty as _isEmpty,
+} from 'underscore';
+
 const { introText } = appConfig;
+
+const history = createAppHistory();
+
+history.listen(location => {
+  const {
+    action,
+    search,
+    query,
+  } = location;
+  const filters = _omit(query, ['availability','publishYear', 'pageNum']);
+  const {
+    pageNum,
+    availability,
+    publishYear,
+  } = query;
+
+  if (action === 'POP') {
+    makeApiCall(search, response => {
+      const availabilityType = availability || 'New Arrival';
+      const publicationType = publishYear || 'recentlyReleased';
+
+      if (response.data && response.data.bibItems) {
+        Actions.updateFiltered(filters);
+        Actions.updateNewArrivalsData(response.data);
+        Actions.updatePublicationType(publicationType);
+        Actions.updateAvailabilityType(availabilityType);
+      }
+    });
+  }
+});
 
 /**
  * Renders the main section of the New Arrivals app.
@@ -65,6 +104,8 @@ class NewArrivals extends React.Component {
     makeApiCall(queries, response => {
       Actions.addMoreItems(response.data.bibItems);
       Actions.updatePageNum(true);
+
+      manageHistory(this.state, history);
 
       this.setState({ isLoading: false });
     });

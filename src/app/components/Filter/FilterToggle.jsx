@@ -6,10 +6,15 @@ import Actions from '../../actions/Actions.js';
 import {
   makeQuery,
   makeApiCall,
+  createAppHistory,
+  manageHistory,
 } from '../../utils/utils.js';
 import config from '../../../../appConfig.js';
+import { mapObject as _mapObject } from 'underscore';
 
 const { newArrival, onOrder } = config.availability;
+
+const history = createAppHistory();
 
 // can select multiple filters but only one per each category.
 class FilterToggle extends React.Component {
@@ -51,6 +56,7 @@ class FilterToggle extends React.Component {
   selectFilter(queries = '') {
     makeApiCall(queries, response => {
       Actions.updateNewArrivalsData(response.data);
+      manageHistory(this.state, history);
     });
   }
 

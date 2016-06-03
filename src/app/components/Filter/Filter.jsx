@@ -4,6 +4,7 @@ import {
   map as _map,
   clone as _clone,
   every as _every,
+  mapObject as _mapObject,
 } from 'underscore';
 
 import {
@@ -24,10 +25,14 @@ import IconButton from '../Buttons/IconButton.jsx';
 import {
   makeQuery,
   makeApiCall,
+  createAppHistory,
+  manageHistory,
 } from '../../utils/utils.js';
 import appConfig from '../../../../appConfig.js';
 
 const { appFilters } = appConfig;
+
+const history = createAppHistory();
 
 // can select multiple filters but only one per each category.
 class Filter extends React.Component {
@@ -61,13 +66,14 @@ class Filter extends React.Component {
     Actions.toggleFilters(false);
   }
 
-  selectFilter(queries, updatePageNum, filters, active, publicationType) {
-    console.log('making call');
+  selectFilter(queries, updatePageNum, filters, active, publicationType, reset) {
     makeApiCall(queries, response => {
       Actions.updateNewArrivalsData(response.data);
       Actions.updateFiltered(filters);
       Actions.updateActiveFilters(active);
       Actions.updatePublicationType(publicationType);
+
+      manageHistory(this.state, history, reset);
 
       if (!updatePageNum) {
         Actions.updatePageNum(false);
@@ -110,7 +116,7 @@ class Filter extends React.Component {
       genre: '',
     };
 
-    this.selectFilter('', false, filters, false, 'recentlyReleased');
+    this.selectFilter('', false, filters, false, 'recentlyReleased', true);
   }
 
   render() {
