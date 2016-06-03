@@ -75,16 +75,16 @@ class NewArrivalsStore {
     this.filters = obj;
   }
 
-  updateActiveFilters(bol) {
-    this.activeFilters = bol;
+  updateActiveFilters(bool) {
+    this.activeFilters = bool;
   }
 
   addMoreItems(data) {
     this.newArrivalsData.bibItems = this.newArrivalsData.bibItems.concat(data);
   }
 
-  handleUpdatePageNum(bol) {
-    if (bol) {
+  handleUpdatePageNum(bool) {
+    if (bool) {
       this.pageNum = parseInt(this.pageNum, 10) + 1;
     } else {
       this.pageNum = 1;
@@ -102,8 +102,8 @@ class NewArrivalsStore {
     this.publicationType = publicationType;
   }
 
-  updateDisplayPagination(bol) {
-    this.displayPagination = bol;
+  updateDisplayPagination(bool) {
+    this.displayPagination = bool;
   }
 }
 
