@@ -58,7 +58,7 @@ const makeFrontEndQuery = (
 
   _mapObject(filters, (val, key) => {
     if (val !== '') {
-      query += (val === 'Research') ? `&audience=${val}` : `&${key}=${val}`;
+      query += `&${key}=${val}`;
     } else if (key === 'format') {
       query += `&format=${formatFilters()}`;
     }
@@ -91,7 +91,7 @@ const makeApiQuery = (
 
   _mapObject(filters, (val, key) => {
     if (val !== '') {
-      baseApiUrl += (val === 'Research') ? `&audience=${val}` : `&${key}=${val}`;
+      baseApiUrl += `&${key}=${val}`;
     } else if (key === 'format') {
       baseApiUrl += `&format=${formatFilters()}`;
     }
