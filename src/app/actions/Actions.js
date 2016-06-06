@@ -40,18 +40,18 @@ class Actions {
   }
 
   /**
-   * @param {boolean} bol - Whether there's at least one selected filter.
+   * @param {boolean} bool - Whether there's at least one selected filter.
    */
-  updateActiveFilters(bol) {
-    this.dispatch(bol);
+  updateActiveFilters(bool) {
+    this.dispatch(bool);
   }
 
   addMoreItems(data) {
     this.dispatch(data);
   }
 
-  updatePageNum(bol) {
-    this.dispatch(bol);
+  updatePageNum(bool) {
+    this.dispatch(bool);
   }
 
   updateAvailabilityType(type) {
@@ -60,6 +60,10 @@ class Actions {
 
   updatePublicationType(type) {
     this.dispatch(type);
+  }
+
+  updateDisplayPagination(bool) {
+    this.dispatch(bool);
   }
 }
 

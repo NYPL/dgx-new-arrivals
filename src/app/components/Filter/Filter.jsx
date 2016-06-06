@@ -68,6 +68,8 @@ class Filter extends React.Component {
 
   selectFilter(queries, updatePageNum, filters, active, publicationType, reset) {
     makeApiCall(queries, response => {
+      const displayPagination = response.data.bibItems.length === 0 ? false : true;
+      Actions.updateDisplayPagination(displayPagination);
       Actions.updateNewArrivalsData(response.data);
       Actions.updateFiltered(filters);
       Actions.updateActiveFilters(active);

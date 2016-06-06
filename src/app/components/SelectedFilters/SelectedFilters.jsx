@@ -88,6 +88,9 @@ class SelectedFilters extends React.Component {
     const queries = makeFrontEndQuery(filters, availabilityType, page, publicationType, update);
 
     makeApiCall(queries, response => {
+      const displayPagination = response.data.bibItems.length === 0 ? false : true;
+
+      Actions.updateDisplayPagination(displayPagination);
       Actions.updateFiltered(filters);
       Actions.updateNewArrivalsData(response.data);
       manageHistory(this.state, history);

@@ -103,8 +103,9 @@ class NewArrivals extends React.Component {
       return config;
     }, error => Promise.reject(error));
 
-    // Add PAGE NUMBER
     makeApiCall(queries, response => {
+      const displayPagination = response.data.bibItems.length === 0 ? false : true;
+      Actions.updateDisplayPagination(displayPagination);
       Actions.addMoreItems(response.data.bibItems);
       Actions.updatePageNum(true);
 
@@ -115,11 +116,14 @@ class NewArrivals extends React.Component {
   }
 
   render() {
-    const books = this.state.newArrivalsData && this.state.newArrivalsData.bibItems ?
-      this.state.newArrivalsData.bibItems : [];
-    const displayType = this.state.displayType;
-    const isLoading = this.state.isLoading;
-    const paginationHidden = books.length ? '' : 'hide';
+    const {
+      newArrivalsData,
+      displayType,
+      isLoading,
+      displayPagination,
+    } = this.state;
+    const books = newArrivalsData && newArrivalsData.bibItems ? newArrivalsData.bibItems : [];
+    const paginationHidden = displayPagination ? '' : 'hide';
 
     return (
       <div className="newArrivals-container" id="maincontent" tabIndex="-1">

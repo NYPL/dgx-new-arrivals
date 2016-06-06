@@ -20,6 +20,7 @@ class NewArrivalsStore {
       handleUpdatePageNum: Actions.UPDATE_PAGE_NUM,
       updateAvailabilityType: Actions.UPDATE_AVAILABILITY_TYPE,
       updatePublicationType: Actions.UPDATE_PUBLICATION_TYPE,
+      updateDisplayPagination: Actions.UPDATE_DISPLAY_PAGINATION,
     });
 
     this.on('init', () => {
@@ -38,6 +39,7 @@ class NewArrivalsStore {
       this.activeFilters = false;
       this.pageNum = 1;
       this.availabilityType = 'New Arrival';
+      this.displayPagination = true;
     });
   }
 
@@ -73,16 +75,16 @@ class NewArrivalsStore {
     this.filters = obj;
   }
 
-  updateActiveFilters(bol) {
-    this.activeFilters = bol;
+  updateActiveFilters(bool) {
+    this.activeFilters = bool;
   }
 
   addMoreItems(data) {
     this.newArrivalsData.bibItems = this.newArrivalsData.bibItems.concat(data);
   }
 
-  handleUpdatePageNum(bol) {
-    if (bol) {
+  handleUpdatePageNum(bool) {
+    if (bool) {
       this.pageNum = parseInt(this.pageNum, 10) + 1;
     } else {
       this.pageNum = 1;
@@ -98,6 +100,10 @@ class NewArrivalsStore {
    */
   updatePublicationType(publicationType) {
     this.publicationType = publicationType;
+  }
+
+  updateDisplayPagination(bool) {
+    this.displayPagination = bool;
   }
 }
 
