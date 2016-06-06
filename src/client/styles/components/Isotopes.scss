@@ -49,6 +49,12 @@
 
       .itemOverlay {
         width: 175px;
+
+        &.MUSICCD,
+        &.BLU-RAY,
+        &.DVD {
+          top: 0px;
+        }
       }
     }
   }
@@ -72,11 +78,14 @@
     }
 
     .default {
-      padding-top: 55px;
+      top: 15%;
+      position: relative;
       text-align: center;
 
       svg {
-        margin-bottom: -20px;
+        fill: #fff;
+        height: 110px;
+        width: 110px;
       }
 
       p {

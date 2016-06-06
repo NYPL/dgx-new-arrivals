@@ -1,16 +1,11 @@
 import React from 'react';
-import { BookIcon } from 'dgx-svg-icons';
 
 class BookOverlay extends React.Component {
   render () {
     const formatId = (this.props.formatId).replace(/\s+/g, '');
     let details = (
       <div className="default">
-        <BookIcon
-          width="110px"
-          height="110px"
-          ariaHidden
-        />
+        {this.props.icon}
         <p>NO IMAGE AVAILABLE</p>
       </div>
     );
