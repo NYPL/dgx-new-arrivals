@@ -37,6 +37,8 @@ const titleShortener = (title, itemTitleLength = 96) => {
     updatedTitle = updatedTitle.substring(0, itemTitleLength);
   }
 
+  updatedTitle = updatedTitle.replace(/(\[sound recording\])|(\[videorecording\])/, '');
+
   return updatedTitle;
 };
 
