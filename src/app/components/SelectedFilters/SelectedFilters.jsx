@@ -87,9 +87,8 @@ class SelectedFilters extends React.Component {
 
     const queries = makeFrontEndQuery(filters, availabilityType, page, publicationType, update);
 
-    Actions.updateFiltered(filters);
-
     makeApiCall(queries, response => {
+      Actions.updateFiltered(filters);
       Actions.updateNewArrivalsData(response.data);
       manageHistory(this.state, history);
     });

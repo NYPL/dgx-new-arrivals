@@ -56,6 +56,7 @@ export default {
         { id: 'Adult', label: 'Adult' },
         { id: 'Children', label: 'Children' },
         { id: 'Young Adult', label: 'Young Adult' },
+        { id: 'Research', label: 'Research' },
       ],
       active: '',
     },
@@ -75,7 +76,6 @@ export default {
       data: [
         { id: 'Fiction', label: 'Fiction' },
         { id: 'Non Fiction', label: 'Non Fiction' },
-        { id: 'Research', label: 'Research' },
       ],
       active: '',
     },
