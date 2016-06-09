@@ -1,5 +1,5 @@
 export default {
-  appTitle: 'NYPL | Welcome to The New York Public Library',
+  appTitle: 'New Arrivals | The New York Public Library',
   appName: 'Homepage',
   favIconPath: 'http://ux-static.nypl.org.s3-website-us-east-1.amazonaws.com/images/favicon.ico',
   port: 3001,

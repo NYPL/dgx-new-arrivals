@@ -93,6 +93,7 @@ class Isotopes extends React.Component {
           imgSrc={element.imageUrl[0] ? element.imageUrl[0] : undefined}
           id={element.bibNumber}
           name={shortTitle}
+          target={target}
           format={element.format}
           linkClass="bookItem"
         />
