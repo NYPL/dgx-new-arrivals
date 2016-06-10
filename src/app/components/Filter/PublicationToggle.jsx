@@ -3,7 +3,7 @@ import { CheckSoloIcon } from 'dgx-svg-icons';
 
 import config from '../../../../appConfig.js';
 
-const { recentlyReleased, justAdded } = config.publicationType;
+const { recentlyReleased, anyYear } = config.publicationType;
 
 // can select multiple filters but only one per each category.
 class PublicationToggle extends React.Component {
@@ -11,20 +11,11 @@ class PublicationToggle extends React.Component {
     super(props);
 
     this.onChange = this.onChange.bind(this);
-    this.buttonLabel = this.buttonLabel.bind(this);
   }
 
   onChange(e) {
     const publicationType = e.currentTarget.value;
     this.props.managePublicationType(publicationType);
-  }
-
-  buttonLabel(type) {
-    if (this.props.publicationType === type.id) {
-      return (<span><CheckSoloIcon width="24" height="24" /> {type.label}</span>);
-    }
-
-    return type.label;
   }
 
   render() {
@@ -44,22 +35,22 @@ class PublicationToggle extends React.Component {
           htmlFor="recentlyReleased"
           className="switch-label label-left"
         >
-          {this.buttonLabel(recentlyReleased)}
+          <CheckSoloIcon width="24" height="24" /> {recentlyReleased.label}
         </label>
         <input
           type="radio"
           className="switch-input"
           name="publicationType"
-          value={justAdded.id}
-          id="justAdded"
-          checked={this.props.publicationType === justAdded.id}
+          value={anyYear.id}
+          id="anyYear"
+          checked={this.props.publicationType === anyYear.id}
           onChange={this.onChange}
         />
         <label
-          htmlFor="justAdded"
+          htmlFor="anyYear"
           className="switch-label label-right"
         >
-          {this.buttonLabel(justAdded)}
+          <CheckSoloIcon width="24" height="24" /> {anyYear.label}
         </label>
         <span className="switch-selection"></span>
       </fieldset>

@@ -116,7 +116,7 @@
 
 .publicationType {
   margin: 0;
-  width: 210px;
+  width: 200px;
   float: right;
 
   @include min-screen(768px) {
@@ -126,31 +126,40 @@
 
   .switch {
     &-label {
-      width: 100px;
+      width: 70px;
 
       &.label-left {
-        padding: 8px 10px 0;
+        padding: 8px 13px;
       }
 
       &.label-right {
-        width: 70px;
-        padding: 8px 15px 0 0;
+        width: 90px;
+        padding: 8px 8px 8px 0;
       }
 
       svg {
-        float: left;
+        fill: #fff;
+        opacity: 0;
       }
     }
 
     &-input {
       &:checked + .label-right ~ .switch-selection {
-        left: 105px;
+        left: 95px;
+      }
+
+      &:checked + .switch-label {
+        color: #fff;
+
+        svg {
+          opacity: 1;
+        }
       }
     }
 
     &-selection {
       background-color: #9c9890;
-      width: 110px;
+      width: 100px;
     }
   }
 }
