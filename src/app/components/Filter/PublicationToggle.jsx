@@ -35,7 +35,8 @@ class PublicationToggle extends React.Component {
           htmlFor="recentlyReleased"
           className="switch-label label-left"
         >
-          <CheckSoloIcon width="24" height="24" /> {recentlyReleased.label}
+          <CheckSoloIcon width="24" height="24" />
+          {recentlyReleased.label}
         </label>
         <input
           type="radio"
@@ -50,7 +51,8 @@ class PublicationToggle extends React.Component {
           htmlFor="anyYear"
           className="switch-label label-right"
         >
-          <CheckSoloIcon width="24" height="24" /> {anyYear.label}
+          <CheckSoloIcon width="24" height="24" />
+          {anyYear.label}
         </label>
         <span className="switch-selection"></span>
       </fieldset>
