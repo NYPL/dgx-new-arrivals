@@ -201,12 +201,12 @@ class Filter extends React.Component {
           </li>
         </ul>
 
-        <ul className="filter-list">
+        <fieldset className="filter-list" tabIndex="0">
           <FilterList list={formatData} manageSelected={this.manageSelected} />
           <FilterList list={audienceData} manageSelected={this.manageSelected} />
           <FilterList list={languageData} manageSelected={this.manageSelected} />
           <FilterList list={genreData} manageSelected={this.manageSelected} />
-        </ul>
+        </fieldset>
       </div>
     );
   }

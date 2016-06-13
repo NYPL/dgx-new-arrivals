@@ -11,18 +11,27 @@ class FilterListItem extends React.Component {
 
   onClick(e) {
     e.preventDefault();
+
   }
 
   render() {
     const activeClass = this.props.active ? 'active' : '';
-
+    const formatId = (this.props.item.id).replace(/\s+/g, '');
+    
     return (
-      <li onClick={this.props.onClick} className={activeClass}>
-        <a href="#" onClick={this.onClick}>
-          {this.props.item}
+      <div className={activeClass}>
+        <input
+          type="radio"
+          className="switch-input"
+          id={formatId}
+          name={this.props.filter}
+          onClick={this.props.onClick}
+        />
+        <label htmlFor={formatId}>
           {this.props.active ? <CircleDashIcon /> : null}
-        </a>
-      </li>
+          {this.props.item.label}
+        </label>
+      </div>
     );
   }
 }
