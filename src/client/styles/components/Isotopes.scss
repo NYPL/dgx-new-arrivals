@@ -201,6 +201,11 @@
   }
 
   h2 {
+
+    @include min-screen(1024px) {
+      width: 60%;
+    }
+
     a {
       color: #1da1d4;
     }
@@ -220,7 +225,13 @@
     }
 
     &.description {
+      letter-spacing: .02em;
+      line-height: 1.2em;
       margin-top: 20px;
+
+      @include min-screen(1024px) {
+        width: 60%;
+      }
     }
 
     &.date {
