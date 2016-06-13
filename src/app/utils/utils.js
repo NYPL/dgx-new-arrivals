@@ -175,9 +175,8 @@ const manageHistory = (opts = {}, history, reset = false) => {
   query = (query === '?') ? '' : query;
 
   history.push({
-    // pathname: '/the/path',
     search: query,
-    // state: { the: 'state' }
+    state: { newArrivals: true }
   });
 };
 

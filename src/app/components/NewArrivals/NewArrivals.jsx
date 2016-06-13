@@ -29,7 +29,6 @@ const { introText } = appConfig;
 
 const history = createAppHistory();
 
-
 history.listen(location => {
   const {
     action,
@@ -44,8 +43,7 @@ history.listen(location => {
     publishYear,
   } = query;
 
-  if (action === 'POP' && state !== null) {
-    console.log('making ajax call');
+  if (action === 'POP') {
     makeApiCall(search, response => {
       const availabilityType = availability || 'New Arrival';
       const publicationType = publishYear || 'recentlyReleased';
