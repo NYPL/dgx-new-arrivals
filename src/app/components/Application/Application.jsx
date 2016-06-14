@@ -19,9 +19,7 @@ const App = () => (
         <a className="browse-button" href="http://octane.nypl.org/books-music-dvds">
           Books/ Music/ DVDs >
         </a>
-        <a href="http://browse.nypl.org/iii/encore/homepage?lang=eng" className="landing-page-link">
-          <span>General Catalog</span>
-        </a>
+        <span className="landing-page-link">New Arrivals</span>
       </div>
 
       <div className="main-content">
