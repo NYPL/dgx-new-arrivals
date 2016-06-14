@@ -39,10 +39,11 @@
     }
 
     &.active {
-      width: 100%;
+      // width: 100%;
       position: absolute;
-      top: 0;
-      left: 0;
+      top: -33px;
+      left: -14px;
+      right: -14px;
       background-color: #737069;
       z-index: 5;
       display: block;
