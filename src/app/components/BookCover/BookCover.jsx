@@ -171,7 +171,7 @@ BookCover.propTypes = {
 
 BookCover.defaultProps = {
   format: 'BOOK/TEXT',
-  genre: 'Fiction',
+  genre: '',
 };
 
 // Export components

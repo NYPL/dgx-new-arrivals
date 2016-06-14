@@ -4,7 +4,7 @@ class BookOverlay extends React.Component {
   render () {
     // Remove spaces for the format ID for the class name.
     const formatId = (this.props.formatId).replace(/\s+/g, '');
-    const genre = (formatId !== 'MUSICCD') ?
+    const genre = (formatId !== 'MUSICCD' && this.props.genre !== '') ?
       <p className="genre">{this.props.genre}</p> : null;
     let details = (
       <div className="default">
