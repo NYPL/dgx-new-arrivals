@@ -186,7 +186,7 @@ const createEncoreLink = (bibNumber = '') => {
     return '';
   }
 
-  return `http://browse.nypl.org/iii/encore/record/C__Rb${bibNumber}?&source=NewArrivals`;
+  return `http://browse.nypl.org/iii/encore/record/C__Rb${bibNumber}?lang=eng&source=NewArrivals`;
 };
 
 export {
