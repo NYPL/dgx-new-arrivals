@@ -8,7 +8,7 @@ import BookListItem from './BookListItem.jsx';
 import appConfig from '../../../../appConfig.js';
 
 import {
-  titleShortener,
+  titleAuthorShortener,
   createDate,
 } from '../../utils/utils.js';
 
@@ -73,14 +73,17 @@ class Isotopes extends React.Component {
     }
 
     const books = bookCoverItems.map((element, i) => {
-      const shortTitle = titleShortener(element.title, itemTitleLength);
+      const {
+        title,
+        author,
+      } = titleAuthorShortener(element.title, element.author, itemTitleLength);
       const target = `http://browse.nypl.org/iii/encore/record/C__Rb${element.bibNumber}`;
       const bookCover = (
         <BookCover
           imgSrc={element.imageUrl[0] ? element.imageUrl[0] : undefined}
           id={element.bibNumber}
-          name={shortTitle}
-          author={element.author}
+          name={title}
+          author={author}
           format={element.format}
           target={target}
           genre={element.genres[0]}
@@ -92,7 +95,7 @@ class Isotopes extends React.Component {
         <BookCover
           imgSrc={element.imageUrl[0] ? element.imageUrl[0] : undefined}
           id={element.bibNumber}
-          name={shortTitle}
+          name={title}
           target={target}
           format={element.format}
           linkClass="bookItem"
