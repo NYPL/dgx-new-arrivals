@@ -160,8 +160,8 @@ const manageHistory = (opts = {}, history, reset = false) => {
       query += '&availability=On%20Order';
     }
 
-    if (publicationType === 'justAdded') {
-      query += '&publishYear=justAdded';
+    if (publicationType === 'anyYear') {
+      query += '&publishYear=anyYear';
     }
     if (parseInt(pageNum, 10) !== 1) {
       query += `&pageNum=${pageNum}`;

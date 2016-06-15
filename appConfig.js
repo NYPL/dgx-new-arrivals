@@ -85,8 +85,8 @@ export default {
     onOrder: { id: 'On Order', label: 'On Order' },
   },
   publicationType: {
-    recentlyReleased: { id: 'recentlyReleased', label: 'Recently Released' },
-    justAdded: { id: 'justAdded', label: 'Just Added' },
+    recentlyReleased: { id: 'recentlyReleased', label: `${new Date().getFullYear() - 1}+` },
+    anyYear: { id: 'anyYear', label: 'Any Year' },
   },
   introText: 'Use filters to browse new books, DVDs, and music by language, age level, ' +
     'and genre. Toggle to list view to see more information about each title. Check back ' +
