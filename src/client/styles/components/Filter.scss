@@ -39,10 +39,11 @@
     }
 
     &.active {
-      width: 100%;
+      // width: 100%;
       position: absolute;
-      top: 0;
-      left: 0;
+      top: -33px;
+      left: -14px;
+      right: -14px;
       background-color: #737069;
       z-index: 5;
       display: block;
@@ -150,14 +151,14 @@
       .apply {
         svg {
           margin-right: 15px;
-          margin-left: -25px;
+          margin-left: -20px;
         }
       }
 
       .reset {
         svg {
           margin-right: 5px;
-          margin-left: -15px;
+          margin-left: -10px;
         }
       }
     }

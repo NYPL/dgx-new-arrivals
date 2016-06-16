@@ -9,7 +9,6 @@
     float: left;
 
     li {
-      @include Kievit-Medium;
       display: inline-block;
       float: left;
       margin-right: 15px;
@@ -26,6 +25,7 @@
       }
 
       button {
+        @include Kievit-Medium;
         background: none;
         border: none;
         margin: 0;

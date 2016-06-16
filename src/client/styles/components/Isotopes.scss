@@ -10,6 +10,17 @@
     margin-top: 90px;
   }
 
+  &.MUSICCD {
+    .book-item {
+      height: 190px;
+
+      .itemOverlay {
+        &.noImage {
+          top: 6px;
+        }
+      }
+    }
+  }
 }
 
 .book-item {
@@ -37,15 +48,21 @@
   }
 
   &.list {
-    width: 100%;
-    height: auto;
+    border-bottom: 2px solid $COOLGRAY_COLOR;
     display: block;
+    height: auto;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    width: 100%;
 
     .bookItem {
-      float: left;
+      margin-bottom: 15px;
       position: relative;
       width: 175px;
-      height: 280px;
+
+        @include min-screen(768px) {
+          float: left;
+        }
 
       .itemOverlay {
         width: 175px;
@@ -65,7 +82,7 @@
   }
 
   .itemOverlay {
-    position: absolute;
+    position: relative;
     background-color: #54514a;
     bottom: 0px;
     width: 100%;
@@ -96,7 +113,7 @@
 
     &.noImage {
       display: block;
-      height: 100%;
+      height: 280px;
 
       h3, p {
         color: #fff;
@@ -123,11 +140,14 @@
           font-size: 16px;
         }
         .format {
-          font-size: 10px;
+          font-size: 11px;
+          letter-spacing: 0.08em;
         }
         .genre {
           text-transform: uppercase;
           font-size: 12px;
+          margin-bottom: 8px;
+          letter-spacing: .04em;
         }
       }
 
@@ -148,7 +168,7 @@
     }
 
     .details {
-      margin: 10px 0;
+      margin-bottom: 5px;
 
       p {
         font-family: Helvetica, Arial;
@@ -173,6 +193,7 @@
       .genre {
         text-transform: uppercase;
         font-size: 12px;
+        letter-spacing: .04em;
       }
     }
 
@@ -197,10 +218,21 @@
   h2, p {
     @include Kievit-Book;
     font-weight: 400;
-    margin: 5px 0 0 200px;
+    margin-top: 5px;
+
+    @include min-screen(768px) {
+      margin: 5px 0 0 200px;
+    }
+
   }
 
   h2 {
+    margin-top: 15px;
+
+    @include min-screen(1024px) {
+      width: 60%;
+    }
+
     a {
       color: #1da1d4;
     }
@@ -220,7 +252,13 @@
     }
 
     &.description {
+      letter-spacing: .02em;
+      line-height: 1.2em;
       margin-top: 20px;
+
+      @include min-screen(1024px) {
+        width: 60%;
+      }
     }
 
     &.date {
