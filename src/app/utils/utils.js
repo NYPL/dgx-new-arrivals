@@ -187,7 +187,7 @@ const createEncoreLink = (bibNumber = '') => {
     return '';
   }
 
-  return `http://browse.nypl.org/iii/encore/record/C__Rb${bibNumber}?lang=eng&source=NewArrivals`;
+  return `//browse.nypl.org/iii/encore/record/C__Rb${bibNumber}?lang=eng&source=NewArrivals`;
 };
 
 const getFilterLabel = (filterType = '', id = '') => {
