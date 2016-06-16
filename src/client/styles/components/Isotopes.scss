@@ -10,6 +10,17 @@
     margin-top: 90px;
   }
 
+  &.MUSICCD {
+    .book-item {
+      height: 190px;
+
+      .itemOverlay {
+        &.noImage {
+          top: 6px;
+        }
+      }
+    }
+  }
 }
 
 .book-item {

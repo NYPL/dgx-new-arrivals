@@ -2,7 +2,6 @@ import axios from 'axios';
 import {
   map as _map,
   mapObject as _mapObject,
-  omit as _omit,
   findWhere as _findWhere,
 } from 'underscore';
 
@@ -20,27 +19,35 @@ const {
   newArrivalsApi,
   currentYear,
 } = config;
-const minPublishYear = currentYear - 1; 
+const minPublishYear = currentYear - 1;
 
 const formatFilters = () => {
   const formats = _map(appFilters.formatData.data, format => format.id);
   return formats.join(',');
 };
 
-const titleShortener = (title, itemTitleLength = 96) => {
+const titleAuthorShortener = (title, author, itemTitleLength = 65) => {
   if (!title) {
     return '';
   }
 
   let updatedTitle = title.split(':')[0].split('/')[0];
-
-  if (updatedTitle.length > itemTitleLength) {
-    updatedTitle = updatedTitle.substring(0, itemTitleLength);
-  }
+  let updatedAuthor = author || '';
 
   updatedTitle = updatedTitle.replace(/(\[sound recording\])|(\[videorecording\])/, '');
 
-  return updatedTitle;
+  if (updatedTitle.length > itemTitleLength) {
+    updatedTitle = `${updatedTitle.substring(0, itemTitleLength)}...`;
+  }
+
+  if (updatedAuthor.length > 26) {
+    updatedAuthor = `${author.substring(0, 26)}...`;
+  }
+
+  return {
+    title: updatedTitle,
+    author: updatedAuthor,
+  };
 };
 
 const makeFrontEndQuery = (
@@ -79,13 +86,13 @@ const makeFrontEndQuery = (
 const makeApiQuery = (
   filters = {},
   availability = 'New%20Arrival',
-  pageNum,
+  pageNumber,
   publishYear = 'recentlyReleased',
   updateItems = false
 ) => {
   let baseApiUrl = `${newArrivalsApi.bibItems}?`;
   let itemsQuery = itemCount;
-  let pageQuery = parseInt(pageNum, 10) || 1;
+  let pageQuery = parseInt(pageNumber, 10) || 1;
 
   if (updateItems) {
     itemsQuery = itemCount * pageQuery;
@@ -106,7 +113,7 @@ const makeApiQuery = (
   baseApiUrl += `&availability=${availability}&itemCount=${itemsQuery}&pageNum=${pageQuery}`;
 
   if (publishYear === 'recentlyReleased') {
-    baseApiUrl += `&minPublishYear=2015`;
+    baseApiUrl += `&minPublishYear=${minPublishYear}`;
   }
 
   return baseApiUrl;
@@ -146,7 +153,7 @@ const manageHistory = (opts = {}, history, reset = false) => {
     filters,
     availabilityType,
     publicationType,
-    pageNum,
+    pageNumber,
   } = opts;
   let query = '?';
 
@@ -164,8 +171,8 @@ const manageHistory = (opts = {}, history, reset = false) => {
     if (publicationType === 'anyYear') {
       query += '&publishYear=anyYear';
     }
-    if (parseInt(pageNum, 10) !== 1) {
-      query += `&pageNum=${pageNum}`;
+    if (parseInt(pageNumber, 10) !== 1) {
+      query += `&pageNum=${pageNumber}`;
     }
   }
 
@@ -176,9 +183,8 @@ const manageHistory = (opts = {}, history, reset = false) => {
   query = (query === '?') ? '' : query;
 
   history.push({
-    // pathname: '/the/path',
     search: query,
-    // state: { the: 'state' }
+    state: { newArrivals: true }
   });
 };
 
@@ -203,7 +209,7 @@ const getFilterLabel = (filterType = '', id = '') => {
 
 export {
   formatFilters,
-  titleShortener,
+  titleAuthorShortener,
   makeFrontEndQuery,
   makeApiQuery,
   makeApiCall,
