@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   map as _map,
   mapObject as _mapObject,
+  findWhere as _findWhere,
 } from 'underscore';
 
 import config from '../../../appConfig.js';
@@ -188,6 +189,17 @@ const manageHistory = (opts = {}, history, reset = false) => {
   });
 };
 
+const getFilterLabel = (filterType = '', id = '') => {
+  if (!filterType) {
+    return '';
+  }
+
+  const filterArray = appFilters[`${filterType}Data`].data;
+  const filter = _findWhere(filterArray, { id: id });
+
+  return filter ? filter.label : '';
+};
+
 export {
   formatFilters,
   titleAuthorShortener,
@@ -197,4 +209,5 @@ export {
   createDate,
   createAppHistory,
   manageHistory,
+  getFilterLabel,
 };

@@ -17,6 +17,7 @@ import {
   makeApiCall,
   createAppHistory,
   manageHistory,
+  getFilterLabel,
 } from '../../utils/utils.js';
 
 const history = createAppHistory();
@@ -46,12 +47,13 @@ class SelectedFilters extends React.Component {
   getFilterList(filters) {
     return _map(_keys(filters), (filter, i) => {
       const value = filters[filter];
+      const label = getFilterLabel(filter, value);
 
       if (value) {
         return (
           <li key={i}>
             <button onClick={() => this.removeFilter(filter)}>
-              {value}
+              {label}
               <XIcon height="20" width="20" />
             </button>
           </li>
