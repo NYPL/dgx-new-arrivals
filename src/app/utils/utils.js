@@ -188,6 +188,14 @@ const manageHistory = (opts = {}, history, reset = false) => {
   });
 };
 
+const createEncoreLink = (bibNumber = '') => {
+  if (!bibNumber) {
+    return '';
+  }
+
+  return `//browse.nypl.org/iii/encore/record/C__Rb${bibNumber}?lang=eng&source=NewArrivals`;
+};
+
 const getFilterLabel = (filterType = '', id = '') => {
   if (!filterType) {
     return '';
@@ -208,5 +216,6 @@ export {
   createDate,
   createAppHistory,
   manageHistory,
+  createEncoreLink,
   getFilterLabel,
 };

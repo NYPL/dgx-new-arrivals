@@ -10,6 +10,7 @@ import appConfig from '../../../../appConfig.js';
 import {
   titleAuthorShortener,
   createDate,
+  createEncoreLink,
 } from '../../utils/utils.js';
 
 const { appFilters, itemTitleLength } = appConfig;
@@ -73,11 +74,11 @@ class Isotopes extends React.Component {
     }
 
     const books = bookCoverItems.map((element, i) => {
+      const target = createEncoreLink(element.bibNumber);
       const {
         title,
         author,
       } = titleAuthorShortener(element.title, element.author, itemTitleLength);
-      const target = `http://browse.nypl.org/iii/encore/record/C__Rb${element.bibNumber}`;
       const bookCover = (
         <BookCover
           imgSrc={element.imageUrl[0] ? element.imageUrl[0] : undefined}
