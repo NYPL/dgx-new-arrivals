@@ -1,5 +1,5 @@
 export default {
-  appTitle: 'NYPL | Welcome to The New York Public Library',
+  appTitle: 'New Arrivals | The New York Public Library',
   appName: 'Homepage',
   favIconPath: 'http://ux-static.nypl.org.s3-website-us-east-1.amazonaws.com/images/favicon.ico',
   port: 3001,
@@ -34,7 +34,7 @@ export default {
       'relationships': {'parent': 'null'}
     }
   },
-  itemTitleLength: 96,
+  itemTitleLength: 65,
   appFilters: {
     formatData: {
       title: 'Format',
@@ -56,6 +56,7 @@ export default {
         { id: 'Adult', label: 'Adult' },
         { id: 'Children', label: 'Children' },
         { id: 'Young Adult', label: 'Young Adult' },
+        { id: 'Research', label: 'Research' },
       ],
       active: '',
     },
@@ -75,7 +76,6 @@ export default {
       data: [
         { id: 'Fiction', label: 'Fiction' },
         { id: 'Non Fiction', label: 'Non Fiction' },
-        { id: 'Research', label: 'Research' },
       ],
       active: '',
     },
@@ -83,6 +83,10 @@ export default {
   availability: {
     newArrival: { id: 'New Arrival', label: 'New Arrivals' },
     onOrder: { id: 'On Order', label: 'On Order' },
+  },
+  publicationType: {
+    recentlyReleased: { id: 'recentlyReleased', label: `${new Date().getFullYear() - 1}+` },
+    anyYear: { id: 'anyYear', label: 'Any Year' },
   },
   introText: 'Use filters to browse new books, DVDs, and music by language, age level, ' +
     'and genre. Toggle to list view to see more information about each title. Check back ' +

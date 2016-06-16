@@ -75,7 +75,9 @@
   }
 }
 
+.publicationType,
 .viewType {
+  border: none;
   background-color: #575550;
   width: 184px;
 
@@ -108,6 +110,56 @@
     &-selection {
       background-color: #9c9890;
       width: 85px;
+    }
+  }
+}
+
+.publicationType {
+  margin: 0;
+  width: 200px;
+  float: right;
+
+  @include min-screen(768px) {
+    float: left;
+    margin-left: 10px;
+  }
+
+  .switch {
+    &-label {
+      width: 70px;
+
+      &.label-left {
+        padding: 8px 13px;
+      }
+
+      &.label-right {
+        width: 90px;
+        padding: 8px 8px 8px 0;
+      }
+
+      svg {
+        fill: #fff;
+        opacity: 0;
+      }
+    }
+
+    &-input {
+      &:checked + .label-right ~ .switch-selection {
+        left: 95px;
+      }
+
+      &:checked + .switch-label {
+        color: #fff;
+
+        svg {
+          opacity: 1;
+        }
+      }
+    }
+
+    &-selection {
+      background-color: #9c9890;
+      width: 100px;
     }
   }
 }

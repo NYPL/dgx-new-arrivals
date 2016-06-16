@@ -8,8 +8,9 @@ import BookListItem from './BookListItem.jsx';
 import appConfig from '../../../../appConfig.js';
 
 import {
-  titleShortener,
+  titleAuthorShortener,
   createDate,
+  createEncoreLink,
 } from '../../utils/utils.js';
 
 const { appFilters, itemTitleLength } = appConfig;
@@ -73,17 +74,31 @@ class Isotopes extends React.Component {
     }
 
     const books = bookCoverItems.map((element, i) => {
-      const shortTitle = titleShortener(element.title, itemTitleLength);
-      const target = `http://browse.nypl.org/iii/encore/record/C__Rb${element.bibNumber}`;
+      const target = createEncoreLink(element.bibNumber);
+      const {
+        title,
+        author,
+      } = titleAuthorShortener(element.title, element.author, itemTitleLength);
       const bookCover = (
         <BookCover
           imgSrc={element.imageUrl[0] ? element.imageUrl[0] : undefined}
           id={element.bibNumber}
-          name={shortTitle}
-          author={element.author}
+          name={title}
+          author={author}
           format={element.format}
           target={target}
           genre={element.genres[0]}
+          linkClass="bookItem"
+          simple={false}
+        />
+      );
+      const simpleBookCover = (
+        <BookCover
+          imgSrc={element.imageUrl[0] ? element.imageUrl[0] : undefined}
+          id={element.bibNumber}
+          name={title}
+          target={target}
+          format={element.format}
           linkClass="bookItem"
         />
       );
@@ -93,7 +108,7 @@ class Isotopes extends React.Component {
       const date = createDate(element.createdDate);
       const bookListItem = (
         <BookListItem
-          bookCover={bookCover}
+          bookCover={simpleBookCover}
           title={element.title}
           target={target}
           author={element.author}
@@ -149,7 +164,7 @@ class Isotopes extends React.Component {
     }
 
     return (
-      <ul className="isotopeGrid" ref="isotopeContainer" style={{ opacity: '0' }}>
+      <ul className={`isotopeGrid ${this.props.format}`} ref="isotopeContainer" style={{ opacity: '0' }}>
         {books}
       </ul>
     );
@@ -159,6 +174,7 @@ class Isotopes extends React.Component {
 Isotopes.propTypes = {
   booksArr: React.PropTypes.array,
   displayType: React.PropTypes.string,
+  format: React.PropTypes.string,
 };
 
 export default Isotopes;

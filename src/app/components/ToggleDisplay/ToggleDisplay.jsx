@@ -51,7 +51,7 @@ class ToggleDisplay extends React.Component {
   /**
    * Close the filter list if it is displaying using react-onclickout.
    */
-  handleOnClickOut(e) {
+  handleOnClickOut() {
     if (this.state.toggleFilter) {
       Actions.toggleFilters(false);
     }
@@ -78,7 +78,7 @@ class ToggleDisplay extends React.Component {
         </li>
         <li>
           <ClickOutHandler
-            onClickOut={this.handleOnClickOut.bind(this)}
+            onClickOut={() => this.handleOnClickOut()}
             className="clickOutContainer"
           >
             <div className="filterButton">

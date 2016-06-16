@@ -1,16 +1,20 @@
 import React from 'react';
-import { every as _every } from 'underscore';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 import {
-  makeQuery,
+  makeFrontEndQuery,
   makeApiCall,
+  createAppHistory,
+  manageHistory,
 } from '../../utils/utils.js';
 import config from '../../../../appConfig.js';
+import { mapObject as _mapObject } from 'underscore';
 
 const { newArrival, onOrder } = config.availability;
+
+const history = createAppHistory();
 
 // can select multiple filters but only one per each category.
 class FilterToggle extends React.Component {
@@ -32,10 +36,14 @@ class FilterToggle extends React.Component {
   }
 
   onChange(e) {
-    const { filters, pageNum } = this.state;
+    const {
+      filters,
+      pageNum,
+      publicationType,
+    } = this.state;
     const availability = e.currentTarget.value;
     const update = true;
-    const queries = makeQuery(filters, availability, pageNum, update);
+    const queries = makeFrontEndQuery(filters, availability, pageNum, publicationType, update);
 
     Actions.updateAvailabilityType(availability);
     this.selectFilter(queries);
@@ -47,7 +55,10 @@ class FilterToggle extends React.Component {
 
   selectFilter(queries = '') {
     makeApiCall(queries, response => {
+      const displayPagination = response.data.bibItems.length === 0 ? false : true;
+      Actions.updateDisplayPagination(displayPagination);
       Actions.updateNewArrivalsData(response.data);
+      manageHistory(this.state, history);
     });
   }
 

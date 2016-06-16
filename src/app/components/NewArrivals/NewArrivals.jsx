@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { extend as _extend } from 'underscore';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -12,11 +11,48 @@ import PaginationButton from '../Buttons/PaginationButton.jsx';
 import appConfig from '../../../../appConfig.js';
 
 import {
-  makeQuery,
+  makeFrontEndQuery,
   makeApiCall,
+  createAppHistory,
+  manageHistory,
 } from '../../utils/utils.js';
 
+import {
+  extend as _extend,
+  omit as _omit,
+} from 'underscore';
+
 const { introText } = appConfig;
+
+const history = createAppHistory();
+
+history.listen(location => {
+  const {
+    action,
+    search,
+    state,
+    query,
+  } = location;
+  const filters = _omit(query, ['availability', 'publishYear', 'pageNum']);
+  const {
+    availability,
+    publishYear,
+  } = query;
+
+  if (action === 'POP') {
+    makeApiCall(search, response => {
+      const availabilityType = availability || 'New Arrival';
+      const publicationType = publishYear || 'recentlyReleased';
+
+      if (response.data && response.data.bibItems) {
+        Actions.updateFiltered(filters);
+        Actions.updateNewArrivalsData(response.data);
+        Actions.updatePublicationType(publicationType);
+        Actions.updateAvailabilityType(availabilityType);
+      }
+    });
+  }
+});
 
 /**
  * Renders the main section of the New Arrivals app.
@@ -46,11 +82,14 @@ class NewArrivals extends React.Component {
   }
 
   loadMore() {
-    const filters = this.state.filters;
-    const availability = this.state.availabilityType;
-    const pageNum = this.state.pageNum;
-
-    const queries = makeQuery(filters, availability, pageNum);
+    const {
+      filters,
+      availabilityType,
+      pageNum,
+      publicationType,
+    } = this.state;
+    const updatedPage = (parseInt(pageNum, 10)) + 1;
+    const queries = makeFrontEndQuery(filters, availabilityType, updatedPage, publicationType);
 
     axios.interceptors.request.use(config => {
       // Do something before request is sent
@@ -58,21 +97,29 @@ class NewArrivals extends React.Component {
       return config;
     }, error => Promise.reject(error));
 
-    // Add PAGE NUMBER
     makeApiCall(queries, response => {
+      const displayPagination = response.data.bibItems.length === 0 ? false : true;
+      Actions.updateDisplayPagination(displayPagination);
       Actions.addMoreItems(response.data.bibItems);
       Actions.updatePageNum(true);
+
+      manageHistory(this.state, history);
 
       this.setState({ isLoading: false });
     });
   }
 
   render() {
-    const books = this.state.newArrivalsData && this.state.newArrivalsData.bibItems ?
-      this.state.newArrivalsData.bibItems : [];
-    const displayType = this.state.displayType;
-    const isLoading = this.state.isLoading;
-    const paginationHidden = books.length ? '' : 'hide';
+    const {
+      newArrivalsData,
+      displayType,
+      isLoading,
+      displayPagination,
+      filters,
+    } = this.state;
+    const books = newArrivalsData && newArrivalsData.bibItems ? newArrivalsData.bibItems : [];
+    const paginationHidden = displayPagination ? '' : 'hide';
+    const layoutFormat = filters.format.replace(/\s+/g, '');
 
     return (
       <div className="newArrivals-container" id="maincontent" tabIndex="-1">
@@ -85,6 +132,7 @@ class NewArrivals extends React.Component {
         <Isotopes
           booksArr={books}
           displayType={displayType}
+          format={layoutFormat}
         />
         <PaginationButton
           id="page-button"

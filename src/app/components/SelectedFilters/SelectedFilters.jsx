@@ -3,19 +3,24 @@ import {
   every as _every,
   map as _map,
   keys as _keys,
+  mapObject as _mapObject,
 } from 'underscore';
 import {
   XIcon,
 } from 'dgx-svg-icons';
 
-
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 import {
-  makeQuery,
+  makeFrontEndQuery,
   makeApiCall,
+  createAppHistory,
+  manageHistory,
+  getFilterLabel,
 } from '../../utils/utils.js';
+
+const history = createAppHistory();
 
 class SelectedFilters extends React.Component {
   constructor(props) {
@@ -24,7 +29,6 @@ class SelectedFilters extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.getFilterList = this.getFilterList.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
-
     this.state = NewArrivalsStore.getState();
   }
 
@@ -43,14 +47,15 @@ class SelectedFilters extends React.Component {
   getFilterList(filters) {
     return _map(_keys(filters), (filter, i) => {
       const value = filters[filter];
+      const label = getFilterLabel(filter, value);
 
       if (value) {
         return (
           <li key={i}>
-            <a href="#" onClick={() => this.removeFilter(filter)}>
-              {value}
+            <button onClick={() => this.removeFilter(filter)}>
+              {label}
               <XIcon height="20" width="20" />
-            </a>
+            </button>
           </li>
         );
       }
@@ -64,6 +69,7 @@ class SelectedFilters extends React.Component {
       availabilityType,
       filters,
       pageNum,
+      publicationType,
     } = this.state;
     let update = true;
     let page = pageNum;
@@ -81,12 +87,15 @@ class SelectedFilters extends React.Component {
       update = false;
     }
 
-    const queries = makeQuery(filters, availabilityType, page, update);
-
-    Actions.updateFiltered(filters);
+    const queries = makeFrontEndQuery(filters, availabilityType, page, publicationType, update);
 
     makeApiCall(queries, response => {
+      const displayPagination = response.data.bibItems.length === 0 ? false : true;
+
+      Actions.updateDisplayPagination(displayPagination);
+      Actions.updateFiltered(filters);
       Actions.updateNewArrivalsData(response.data);
+      manageHistory(this.state, history);
     });
   }
 

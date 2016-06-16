@@ -24,7 +24,7 @@
 
   .icon {
     display: none;
-    padding: 0 0 0 20px;
+    padding: 0 0 0 15px;
     vertical-align: 7px;
     font-size: 16px;
 
@@ -49,19 +49,6 @@
   }
 }
 
-.view {
-  &-grid-icon {
-    .icon {
-      background: url('#{$staffPicksUrl}src/client/images/icons/SmallBookGray.svg') no-repeat;
-    }
-  }
-
-  &-list-icon {
-    .icon {
-      background: url('#{$staffPicksUrl}src/client/images/icons/SmallListIconGray.svg') no-repeat;
-    }
-  }
-}
 
 .filters {
 

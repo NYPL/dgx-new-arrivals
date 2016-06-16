@@ -2,8 +2,9 @@ import React from 'react';
 
 import {
   map as _map,
-  mapObject as _mapObject,
   clone as _clone,
+  every as _every,
+  mapObject as _mapObject,
 } from 'underscore';
 
 import {
@@ -17,14 +18,21 @@ import Actions from '../../actions/Actions.js';
 
 import FilterList from './FilterList.jsx';
 import CloseButton from '../Buttons/CloseButton.jsx';
+import PublicationToggle from './PublicationToggle.jsx';
+
+import IconButton from '../Buttons/IconButton.jsx';
 
 import {
-  makeQuery,
+  makeFrontEndQuery,
   makeApiCall,
+  createAppHistory,
+  manageHistory,
 } from '../../utils/utils.js';
 import appConfig from '../../../../appConfig.js';
 
 const { appFilters } = appConfig;
+
+const history = createAppHistory();
 
 // can select multiple filters but only one per each category.
 class Filter extends React.Component {
@@ -36,14 +44,10 @@ class Filter extends React.Component {
     this.submitFilters = this.submitFilters.bind(this);
     this.resetFilters = this.resetFilters.bind(this);
     this.selectFilter = this.selectFilter.bind(this);
+    this.managePublicationType = this.managePublicationType.bind(this);
     this.onChange = this.onChange.bind(this);
 
-    this.state = {
-      active: NewArrivalsStore.getState().activeFilters,
-      filters: NewArrivalsStore.getState().filters,
-      languages: NewArrivalsStore.getState().languages,
-      availability: NewArrivalsStore.getState().availabilityType,
-    };
+    this.state = NewArrivalsStore.getState();
   }
 
   componentDidMount() {
@@ -55,24 +59,23 @@ class Filter extends React.Component {
   }
 
   onChange() {
-    this.setState({
-      active: NewArrivalsStore.getState().activeFilters,
-      filters: NewArrivalsStore.getState().filters,
-      pageNum: NewArrivalsStore.getState().pageNum,
-      languages: NewArrivalsStore.getState().languages,
-      availability: NewArrivalsStore.getState().availabilityType,
-    });
+    this.setState(NewArrivalsStore.getState());
   }
 
   closeFilters() {
     Actions.toggleFilters(false);
   }
 
-  selectFilter(queries, updatePageNum, filters, active) {
+  selectFilter(queries, updatePageNum, filters, active, publicationType, reset) {
     makeApiCall(queries, response => {
+      const displayPagination = response.data.bibItems.length === 0 ? false : true;
+      Actions.updateDisplayPagination(displayPagination);
       Actions.updateNewArrivalsData(response.data);
       Actions.updateFiltered(filters);
       Actions.updateActiveFilters(active);
+      Actions.updatePublicationType(publicationType);
+
+      manageHistory(this.state, history, reset);
 
       if (!updatePageNum) {
         Actions.updatePageNum(false);
@@ -83,31 +86,27 @@ class Filter extends React.Component {
   manageSelected(item) {
     const filter = item.filter.toLowerCase();
     const filters = _clone(this.state.filters);
-    let active = false;
-
     filters[filter] = item.selected;
 
-    _mapObject(filters, f => {
-      if (f !== '') {
-        active = true;
-      }
-    });
+    this.setState({ filters });
+  }
 
-    Actions.updateActiveFilters(active);
+  managePublicationType(type) {
     this.setState({
-      filters,
+      publicationType: type,
     });
   }
 
   submitFilters() {
     const {
       filters,
-      availability,
+      availabilityType,
       pageNum,
+      publicationType,
     } = this.state;
-    const queries = makeQuery(filters, availability, pageNum, true);
+    const queries = makeFrontEndQuery(filters, availabilityType, pageNum, publicationType, true);
 
-    this.selectFilter(queries, true, filters, true);
+    this.selectFilter(queries, true, filters, true, publicationType);
     this.closeFilters();
   }
 
@@ -119,20 +118,23 @@ class Filter extends React.Component {
       genre: '',
     };
 
-    this.selectFilter('', false, filters, false);
+    this.selectFilter('', false, filters, false, 'recentlyReleased', true);
   }
 
   render() {
     const {
       filters,
-      active,
       languages,
+      publicationType,
     } = this.state;
-    const formatData = appFilters.formatData;
-    const audienceData = appFilters.audienceData;
-    const languageData = appFilters.languageData;
-    const genreData = appFilters.genreData;
-    const activeSubmitButtons = active ? 'active' : '';
+    const {
+      formatData,
+      audienceData,
+      languageData,
+      genreData,
+    } = appFilters;
+    const active = _every(filters, f => f === '');
+    const activeSubmitButtons = active ? '' : 'active';
 
     const updatedLanguages = _map(languages, language =>
       ({
@@ -152,29 +154,59 @@ class Filter extends React.Component {
     return (
       <div className={`filter-wrapper ${this.props.active}`}>
         <div className="filter-header-mobile">
-          <FilterIcon className="mobile-filter svgIcon" />
+          <FilterIcon className="mobile-filter" />
           <h2>Filter by</h2>
-          <CloseButton onClick={this.closeFilters} className="mobile-close" />
+
+          <ul className="mobile-filter-buttons">
+            <li>
+              <IconButton
+                className={'apply'}
+                icon={<ApplyIcon />}
+                onClick={this.submitFilters}
+              />
+            </li>
+            <li>
+              <IconButton
+                className={'reset'}
+                icon={<ResetIcon />}
+                onClick={this.resetFilters}
+              />
+            </li>
+            <li>
+              <CloseButton onClick={this.closeFilters} className="mobile-close" />
+            </li>
+          </ul>
         </div>
 
-        <ul>
+        <ul className="filter-actions">
+          <li className="buttonItems">
+            <p>Filter by Publish Date</p>
+            <PublicationToggle
+              managePublicationType={this.managePublicationType}
+              publicationType={publicationType}
+            />
+          </li>
+
+          <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
+            <button className="PillButton apply" onClick={this.submitFilters}>
+              <ApplyIcon />
+              <span>Apply</span>
+            </button>
+          </li>
+          <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
+            <button className="PillButton reset" onClick={this.resetFilters}>
+              <ResetIcon />
+              <span>Reset All</span>
+            </button>
+          </li>
+        </ul>
+
+        <ul className="filter-list">
           <FilterList list={formatData} manageSelected={this.manageSelected} />
           <FilterList list={audienceData} manageSelected={this.manageSelected} />
           <FilterList list={languageData} manageSelected={this.manageSelected} />
           <FilterList list={genreData} manageSelected={this.manageSelected} />
         </ul>
-
-        <div className={`submit-buttons ${activeSubmitButtons}`}>
-          <button className="PillButton apply" onClick={this.submitFilters}>
-            <ApplyIcon />
-            <span>Apply</span>
-          </button>
-
-          <button className="PillButton reset" onClick={this.resetFilters}>
-            <ResetIcon />
-            <span>Reset All</span>
-          </button>
-        </div>
       </div>
     );
   }

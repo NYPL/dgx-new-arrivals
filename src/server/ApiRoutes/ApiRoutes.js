@@ -6,7 +6,11 @@ import Model from 'dgx-model-data';
 import _ from 'underscore';
 
 import config from '../../../appConfig.js';
-import { formatFilters } from '../../app/utils/utils.js';
+import {
+  formatFilters,
+  makeQuery,
+  makeApiQuery,
+} from '../../app/utils/utils.js';
 
 // Syntax that both ES6 and Babel 6 support
 const { HeaderItemModel } = Model;
@@ -32,7 +36,7 @@ const appEnvironment = process.env.APP_ENV || 'production';
 const apiRoot = api.root[appEnvironment];
 const headerOptions = createOptions(headerApi);
 // Always the year before the current year.
-const minPublishYear = currentYear - 1; 
+const minPublishYear = currentYear - 1;
 
 const getHeaderData = () => {
   const headerApiUrl = parser.getCompleteApi(headerOptions);
@@ -63,14 +67,16 @@ const filterLanguages = (languagesArray, minCount) => {
 };
 
 const newArrivalsApp = (req, res, next) => {
-  const formats = formatFilters();
-  const baseApiUrl = `${newArrivalsApi.bibItems}?` +
-    `format=${formats}` +
-    `&availability=New%20Arrival` +
-    `&itemCount=${itemCount}` +
-    `&minPublishYear=${minPublishYear}`;
+  const filters = _.omit(req.query, ['availability', 'pageNum', 'publishYear']);
+  const {
+    availability,
+    pageNum,
+    publishYear,
+  } = req.query;
 
-console.log(baseApiUrl);
+  const baseApiUrl = makeApiQuery(filters, availability, pageNum, publishYear, true);
+
+  console.log('first call', baseApiUrl);
 
   axios.all([getHeaderData(), fetchApiData(baseApiUrl), getLanguageData()])
     .then(axios.spread((headerData, newArrivalsData, languageData) => {
@@ -84,15 +90,17 @@ console.log(baseApiUrl);
         },
         NewArrivalsStore: {
           displayType: 'grid',
+          publicationType: publishYear || 'recentlyReleased',
           newArrivalsData: newArrivalsData.data,
-          pageNum: 2,
+          pageNum: pageNum || '1',
           filters: {
-            format: '',
-            audience: '',
-            language: '',
-            genre: '',
+            format: filters.format || '',
+            audience: filters.audience || '',
+            language: filters.language || '',
+            genre: filters.genre || '',
           },
-          availabilityType: 'New Arrival',
+          availabilityType: availability || 'New Arrival',
+          displayPagination: newArrivalsData.data.bibItems.length === 0 ? false : true,
           languages,
         },
       };
@@ -109,8 +117,9 @@ console.log(baseApiUrl);
         },
         NewArrivalsStore: {
           displayType: 'grid',
+          publicationType: 'recentlyReleased',
           newArrivalsData: {},
-          pageNum: 2,
+          pageNum: '1',
           filters: {
             format: '',
             audience: '',
@@ -118,6 +127,7 @@ console.log(baseApiUrl);
             genre: '',
           },
           availabilityType: 'New Arrival',
+          displayPagination: false,
           languages: [],
         },
       };
@@ -129,34 +139,20 @@ console.log(baseApiUrl);
 function selectPage(req, res) {
   const query = req.query;
 
-  const format = query.format || formatFilters();
-  const audience = query.audience || '';
-  const language = query.language || '';
-  const genre = query.genre || '';
+  const filters = {
+    format: query.format || '',
+    audience: query.audience || '',
+    language: query.language || '',
+    genre: query.genre || '',
+  };
+
   const availability = query.availability || 'New%20Arrival';
   const pageNum = query.pageNum || '1';
-  const items = query.itemCount || itemCount;
+  const publishYear = query.publishYear || 'recentlyReleased';
 
-  const formatQuery = `&format=${format}`;
-  const audienceQuery = audience ? `&audience=${audience}` : '';
-  const languageQuery = language ? `&language=${language}` : '';
-  const genreQuery = genre ? `&genre=${genre}` : '';
-  const availabilityQuery = `&availability=${availability}`;
-  const pageNumQuery = `&pageNum=${pageNum}`;
-  const itemCountQuery = `&itemCount=${items}`;
-  const publishYearQuery = `&minPublishYear=${minPublishYear}`;
+  const apiUrl = makeApiQuery(filters, availability, pageNum, publishYear);
 
-  const apiUrl = `${newArrivalsApi.bibItems}?` +
-    formatQuery +
-    audienceQuery +
-    languageQuery +
-    genreQuery +
-    availabilityQuery +
-    itemCountQuery +
-    pageNumQuery +
-    publishYearQuery;
-
-console.log(apiUrl);
+  console.log('ajax call', apiUrl);
 
   axios
     .get(apiUrl)
