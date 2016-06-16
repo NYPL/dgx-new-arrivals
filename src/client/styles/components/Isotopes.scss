@@ -135,6 +135,7 @@
         .genre {
           text-transform: uppercase;
           font-size: 12px;
+          margin-bottom: 8px;
           letter-spacing: .04em;
         }
       }
@@ -156,7 +157,7 @@
     }
 
     .details {
-      margin: 10px 0;
+      margin-bottom: 5px;
 
       p {
         font-family: Helvetica, Arial;

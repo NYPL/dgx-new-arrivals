@@ -2,7 +2,10 @@ import React from 'react';
 
 class BookOverlay extends React.Component {
   render () {
+    // Remove spaces for the format ID for the class name.
     const formatId = (this.props.formatId).replace(/\s+/g, '');
+    const genre = (formatId !== 'MUSICCD' && this.props.genre !== '') ?
+      <p className="genre">{this.props.genre}</p> : null;
     let details = (
       <div className="default">
         {this.props.icon}
@@ -17,7 +20,7 @@ class BookOverlay extends React.Component {
           <div className="details">
             <p className="author">{this.props.author}</p>
             <p className="format">{this.props.icon}{this.props.format}</p>
-            <p className="genre">{this.props.genre}</p>
+            {genre}
           </div>
         </div>
       );
