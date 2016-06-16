@@ -3,6 +3,7 @@ import {
   map as _map,
   mapObject as _mapObject,
   omit as _omit,
+  findWhere as _findWhere,
 } from 'underscore';
 
 import config from '../../../appConfig.js';
@@ -181,6 +182,17 @@ const manageHistory = (opts = {}, history, reset = false) => {
   });
 };
 
+const getFilterLabel = (filterType = '', id = '') => {
+  if (!filterType) {
+    return '';
+  }
+
+  const filterArray = appFilters[`${filterType}Data`].data;
+  const filter = _findWhere(filterArray, { id: id });
+
+  return filter ? filter.label : '';
+};
+
 export {
   formatFilters,
   titleShortener,
@@ -190,4 +202,5 @@ export {
   createDate,
   createAppHistory,
   manageHistory,
+  getFilterLabel,
 };
