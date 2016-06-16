@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { extend as _extend } from 'underscore';
 
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -19,10 +18,8 @@ import {
 } from '../../utils/utils.js';
 
 import {
-  mapObject as _mapObject,
+  extend as _extend,
   omit as _omit,
-  pick as _pick,
-  isEmpty as _isEmpty,
 } from 'underscore';
 
 const { introText } = appConfig;
@@ -37,9 +34,8 @@ history.listen(location => {
     state,
     query,
   } = location;
-  const filters = _omit(query, ['availability','publishYear', 'pageNum']);
+  const filters = _omit(query, ['availability', 'publishYear', 'pageNum']);
   const {
-    pageNum,
     availability,
     publishYear,
   } = query;
@@ -121,9 +117,11 @@ class NewArrivals extends React.Component {
       displayType,
       isLoading,
       displayPagination,
+      filters,
     } = this.state;
     const books = newArrivalsData && newArrivalsData.bibItems ? newArrivalsData.bibItems : [];
     const paginationHidden = displayPagination ? '' : 'hide';
+    const layoutFormat = filters.format.replace(/\s+/g, '');
 
     return (
       <div className="newArrivals-container" id="maincontent" tabIndex="-1">
@@ -136,6 +134,7 @@ class NewArrivals extends React.Component {
         <Isotopes
           booksArr={books}
           displayType={displayType}
+          format={layoutFormat}
         />
         <PaginationButton
           id="page-button"
