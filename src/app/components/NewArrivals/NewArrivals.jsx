@@ -119,7 +119,7 @@ class NewArrivals extends React.Component {
     } = this.state;
     const books = newArrivalsData && newArrivalsData.bibItems ? newArrivalsData.bibItems : [];
     const paginationHidden = displayPagination ? '' : 'hide';
-    const layoutFormat = filters.format.replace(/\s+/g, '');
+    const layoutFormat = filters.format ? filters.format.replace(/\s+/g, '') : '';
 
     return (
       <div className="newArrivals-container" id="maincontent" tabIndex="-1">

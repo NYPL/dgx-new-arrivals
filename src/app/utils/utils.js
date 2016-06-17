@@ -153,7 +153,7 @@ const manageHistory = (opts = {}, history, reset = false) => {
     filters,
     availabilityType,
     publicationType,
-    pageNumber,
+    pageNum,
   } = opts;
   let query = '?';
 
@@ -171,8 +171,8 @@ const manageHistory = (opts = {}, history, reset = false) => {
     if (publicationType === 'anyYear') {
       query += '&publishYear=anyYear';
     }
-    if (parseInt(pageNumber, 10) !== 1) {
-      query += `&pageNum=${pageNumber}`;
+    if (parseInt(pageNum, 10) !== 1) {
+      query += `&pageNum=${pageNum}`;
     }
   }
 
