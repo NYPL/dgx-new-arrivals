@@ -18,6 +18,7 @@ const {
   pageNum,
   newArrivalsApi,
   currentYear,
+  titleRemovedText,
 } = config;
 const minPublishYear = currentYear - 1;
 
@@ -34,7 +35,7 @@ const titleAuthorShortener = (title, author, itemTitleLength = 65) => {
   let updatedTitle = title.split(':')[0].split('/')[0];
   let updatedAuthor = author || '';
 
-  updatedTitle = updatedTitle.replace(/(\[sound recording\])|(\[videorecording\])/, '');
+  updatedTitle = updatedTitle.replace(titleRemovedText, '');
 
   if (updatedTitle.length > itemTitleLength) {
     updatedTitle = `${updatedTitle.substring(0, itemTitleLength)}...`;
