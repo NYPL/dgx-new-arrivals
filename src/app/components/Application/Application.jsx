@@ -16,12 +16,10 @@ const App = () => (
     <div className="nyplNewArrivals nyplGrid-fullWidth">
 
       <div id="left-navigation" className="left-navigation">
-        <a className="browse-button" href="http://nypl.org/browse">
+        <a className="browse-button" href="/browse">
           Browse >
         </a>
-        <a id="back-button" className="back-button">
-          <span>Books/ Music/ DVDs</span>
-        </a>
+        <span className="landing-page-link">New Arrivals</span>
       </div>
 
       <div className="main-content">
