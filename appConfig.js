@@ -80,6 +80,7 @@ export default {
       active: '',
     },
   },
+  titleRemovedText: /(\[sound recording\])|(\[videorecording\])|(\[electronic resource\])/,
   availability: {
     newArrival: { id: 'New Arrival', label: 'New Arrivals' },
     onOrder: { id: 'On Order', label: 'On Order' },
