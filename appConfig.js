@@ -76,6 +76,7 @@ export default {
     },
   },
   titleRemovedText: /(\[sound recording\])|(\[videorecording\])|(\[electronic resource\])/,
+  authorRemovedText: /(\(Musical group.*\))|(\(Musician\))|(composer, performer.)|(performer, composer.)/,
   availability: {
     newArrival: { id: 'New Arrival', label: 'New Arrivals' },
     onOrder: { id: 'On Order', label: 'On Order' },
