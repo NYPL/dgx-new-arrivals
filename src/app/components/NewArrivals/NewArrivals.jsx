@@ -15,6 +15,7 @@ import {
   makeApiCall,
   createAppHistory,
   manageHistory,
+  trackNewArrivals,
 } from '../../utils/utils.js';
 
 import {
@@ -103,6 +104,7 @@ class NewArrivals extends React.Component {
       Actions.addMoreItems(response.data.bibItems);
       Actions.updatePageNum(true);
 
+      trackNewArrivals('Click', `Load More: page ${pageNum + 1}`);
       manageHistory(this.state, history);
 
       this.setState({ isLoading: false });

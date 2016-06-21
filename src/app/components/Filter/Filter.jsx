@@ -27,6 +27,7 @@ import {
   makeApiCall,
   createAppHistory,
   manageHistory,
+  trackNewArrivals,
 } from '../../utils/utils.js';
 import appConfig from '../../../../appConfig.js';
 
@@ -62,7 +63,10 @@ class Filter extends React.Component {
     this.setState(NewArrivalsStore.getState());
   }
 
-  closeFilters() {
+  closeFilters(gaAction) {
+    if (gaAction) {
+      trackNewArrivals(gaAction, 'Close');
+    }
     Actions.toggleFilters(false);
   }
 
@@ -97,7 +101,7 @@ class Filter extends React.Component {
     });
   }
 
-  submitFilters() {
+  submitFilters(gaAction = 'Filters') {
     const {
       filters,
       availabilityType,
@@ -106,11 +110,12 @@ class Filter extends React.Component {
     } = this.state;
     const queries = makeFrontEndQuery(filters, availabilityType, pageNum, publicationType, true);
 
+    trackNewArrivals(gaAction, 'Apply');
     this.selectFilter(queries, true, filters, true, publicationType);
     this.closeFilters();
   }
 
-  resetFilters() {
+  resetFilters(gaAction = 'Filters') {
     const filters = {
       format: '',
       audience: '',
@@ -118,6 +123,7 @@ class Filter extends React.Component {
       genre: '',
     };
 
+    trackNewArrivals(gaAction, 'Reset All');
     this.selectFilter('', false, filters, false, 'recentlyReleased', true);
   }
 
@@ -162,18 +168,21 @@ class Filter extends React.Component {
               <IconButton
                 className={'apply'}
                 icon={<ApplyIcon />}
-                onClick={this.submitFilters}
+                onClick={() => this.submitFilters('Mobile Filter Window')}
               />
             </li>
             <li>
               <IconButton
                 className={'reset'}
                 icon={<ResetIcon />}
-                onClick={this.resetFilters}
+                onClick={() => this.resetFilters('Mobile Filter Window')}
               />
             </li>
             <li>
-              <CloseButton onClick={this.closeFilters} className="mobile-close" />
+              <CloseButton
+                className="mobile-close"
+                onClick={() => this.closeFilters('Mobile Filter Window')}
+              />
             </li>
           </ul>
         </div>
@@ -188,13 +197,13 @@ class Filter extends React.Component {
           </li>
 
           <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
-            <button className="PillButton apply" onClick={this.submitFilters}>
+            <button className="PillButton apply" onClick={() => this.submitFilters('Filters')}>
               <ApplyIcon />
               <span>Apply</span>
             </button>
           </li>
           <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
-            <button className="PillButton reset" onClick={this.resetFilters}>
+            <button className="PillButton reset" onClick={() => this.resetFilters('Filters')}>
               <ResetIcon />
               <span>Reset All</span>
             </button>

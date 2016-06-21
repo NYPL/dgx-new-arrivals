@@ -90,6 +90,7 @@ class Isotopes extends React.Component {
           genre={element.genres[0]}
           linkClass="bookItem"
           simple={false}
+          displayType={displayType}
         />
       );
       const simpleBookCover = (
@@ -100,6 +101,7 @@ class Isotopes extends React.Component {
           target={target}
           format={element.format}
           linkClass="bookItem"
+          displayType={displayType}
         />
       );
       const format = _findWhere(formatData, { id: element.format });
