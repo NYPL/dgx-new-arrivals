@@ -19,6 +19,7 @@ const {
   newArrivalsApi,
   currentYear,
   titleRemovedText,
+  authorRemovedText,
 } = config;
 const minPublishYear = currentYear - 1;
 
@@ -36,11 +37,11 @@ const titleAuthorShortener = (title, author, itemTitleLength = 65) => {
   let updatedAuthor = author || '';
 
   updatedTitle = updatedTitle.replace(titleRemovedText, '');
-
   if (updatedTitle.length > itemTitleLength) {
     updatedTitle = `${updatedTitle.substring(0, itemTitleLength)}...`;
   }
 
+  updatedAuthor = updatedAuthor.replace(authorRemovedText, '');
   if (updatedAuthor.length > 26) {
     updatedAuthor = `${author.substring(0, 26)}...`;
   }
