@@ -8,6 +8,7 @@ import {
   makeApiCall,
   createAppHistory,
   manageHistory,
+  trackNewArrivals,
 } from '../../utils/utils.js';
 import config from '../../../../appConfig.js';
 import { mapObject as _mapObject } from 'underscore';
@@ -45,6 +46,7 @@ class FilterToggle extends React.Component {
     const update = true;
     const queries = makeFrontEndQuery(filters, availability, pageNum, publicationType, update);
 
+    trackNewArrivals('Toggle Availability Type', availability);
     Actions.updateAvailabilityType(availability);
     this.selectFilter(queries);
   }

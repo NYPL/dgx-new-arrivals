@@ -18,6 +18,7 @@ import {
   createAppHistory,
   manageHistory,
   getFilterLabel,
+  trackNewArrivals,
 } from '../../utils/utils.js';
 
 const history = createAppHistory();
@@ -71,6 +72,7 @@ class SelectedFilters extends React.Component {
       pageNum,
       publicationType,
     } = this.state;
+    const filterToRemove = filters[filter];
     let update = true;
     let page = pageNum;
 
@@ -88,6 +90,8 @@ class SelectedFilters extends React.Component {
     }
 
     const queries = makeFrontEndQuery(filters, availabilityType, page, publicationType, update);
+
+    trackNewArrivals('Remove Filter Active Display', `${filter} - ${filterToRemove}`);
 
     makeApiCall(queries, response => {
       const displayPagination = response.data.bibItems.length === 0 ? false : true;
