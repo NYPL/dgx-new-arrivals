@@ -26,6 +26,7 @@ class FilterListItem extends React.Component {
           id={formatId}
           name={this.props.filter}
           onClick={this.props.onClick}
+          value={this.props.item.label}
         />
         <label htmlFor={formatId}>
           {this.props.active ? <CircleDashIcon /> : null}

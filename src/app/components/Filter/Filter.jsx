@@ -211,6 +211,7 @@ class Filter extends React.Component {
         </ul>
 
         <fieldset className="filter-list" tabIndex="0">
+          <legend>Filter on the following categories</legend>
           <FilterList list={formatData} manageSelected={this.manageSelected} />
           <FilterList list={audienceData} manageSelected={this.manageSelected} />
           <FilterList list={languageData} manageSelected={this.manageSelected} />
