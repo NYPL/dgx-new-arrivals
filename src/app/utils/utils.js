@@ -1,16 +1,17 @@
 import axios from 'axios';
+import { ga } from 'dgx-react-ga';
 import {
   map as _map,
   mapObject as _mapObject,
   findWhere as _findWhere,
 } from 'underscore';
-
-import config from '../../../appConfig.js';
 import {
   createHistory,
   useQueries,
   createMemoryHistory,
 } from 'history';
+
+import config from '../../../appConfig.js';
 
 const {
   appFilters,
@@ -19,6 +20,7 @@ const {
   newArrivalsApi,
   currentYear,
   titleRemovedText,
+  authorRemovedText,
 } = config;
 const minPublishYear = currentYear - 1;
 
@@ -36,11 +38,11 @@ const titleAuthorShortener = (title, author, itemTitleLength = 65) => {
   let updatedAuthor = author || '';
 
   updatedTitle = updatedTitle.replace(titleRemovedText, '');
-
   if (updatedTitle.length > itemTitleLength) {
     updatedTitle = `${updatedTitle.substring(0, itemTitleLength)}...`;
   }
 
+  updatedAuthor = updatedAuthor.replace(authorRemovedText, '');
   if (updatedAuthor.length > 26) {
     updatedAuthor = `${author.substring(0, 26)}...`;
   }
@@ -208,6 +210,8 @@ const getFilterLabel = (filterType = '', id = '') => {
   return filter ? filter.label : '';
 };
 
+const trackNewArrivals = ga._trackEvent('New Arrivals');
+
 export {
   formatFilters,
   titleAuthorShortener,
@@ -219,4 +223,5 @@ export {
   manageHistory,
   createEncoreLink,
   getFilterLabel,
+  trackNewArrivals,
 };

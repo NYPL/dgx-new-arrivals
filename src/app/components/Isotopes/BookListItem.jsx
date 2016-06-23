@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { trackNewArrivals } from '../../utils/utils.js';
+
 /**
  * BookListItem
  * @extends {React}
@@ -9,6 +11,8 @@ class BookListItem extends React.Component {
     super(props);
 
     this.createDate = this.createDate.bind(this);
+    this.createInfo = this.createInfo.bind(this);
+    this.trackTitle = this.trackTitle.bind(this);
   }
 
   createDate(date) {
@@ -19,6 +23,11 @@ class BookListItem extends React.Component {
     return info ? (<p className={infoClass}>{info}</p>) : null;
   }
 
+  trackTitle() {
+    trackNewArrivals('Click Encore Item', 'List Item Title');
+  }
+
+
   render() {
     const dateAdded = this.createDate(this.props.date);
     const callNumber = this.props.callNumber ? `Call Number: ${this.props.callNumber}` : '';
@@ -28,8 +37,11 @@ class BookListItem extends React.Component {
       <div className="list-item">
         {this.props.bookCover}
 
-        <h2><a href={this.props.target}>{this.props.title}</a></h2>
-
+        <h2>
+          <a href={this.props.target} onClick={this.trackTitle}>
+            {this.props.title}
+          </a>
+        </h2>
         {this.createInfo(this.props.author, 'author')}
         {this.createInfo(publishInfo, 'publishInfo')}
         {this.createInfo(callNumber, 'callNumber')}
