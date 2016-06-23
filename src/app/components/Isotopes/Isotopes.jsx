@@ -166,7 +166,11 @@ class Isotopes extends React.Component {
     }
 
     return (
-      <ul className={`isotopeGrid ${this.props.format}`} ref="isotopeContainer" style={{ opacity: '0' }}>
+      <ul
+        ref="isotopeContainer"
+        style={{ opacity: '0' }}
+        className={`isotopeGrid ${this.props.format}`}
+      >
         {books}
       </ul>
     );

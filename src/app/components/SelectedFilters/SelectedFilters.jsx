@@ -3,7 +3,6 @@ import {
   every as _every,
   map as _map,
   keys as _keys,
-  mapObject as _mapObject,
 } from 'underscore';
 import {
   XIcon,

@@ -31,7 +31,6 @@ history.listen(location => {
   const {
     action,
     search,
-    state,
     query,
   } = location;
   const filters = _omit(query, ['availability', 'publishYear', 'pageNum']);

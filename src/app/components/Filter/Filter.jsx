@@ -4,7 +4,6 @@ import {
   map as _map,
   clone as _clone,
   every as _every,
-  mapObject as _mapObject,
 } from 'underscore';
 
 import {

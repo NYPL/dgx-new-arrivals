@@ -11,7 +11,6 @@ import {
   trackNewArrivals,
 } from '../../utils/utils.js';
 import config from '../../../../appConfig.js';
-import { mapObject as _mapObject } from 'underscore';
 
 const { newArrival, onOrder } = config.availability;
 
