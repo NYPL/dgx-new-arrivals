@@ -15,7 +15,6 @@ class FilterList extends React.Component {
   }
 
   setActive(item) {
-    console.log(item)
     const title = this.props.list.title;
     let gaAction = 'Select: ';
 

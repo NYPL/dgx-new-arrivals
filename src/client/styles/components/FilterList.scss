@@ -9,55 +9,50 @@
   outline: none;
 
   .inner {
-    padding: 0 20px;
+    padding: 0;
+    margin: 0;
+    width: 100%;
 
     h3 {
       text-transform: uppercase;
       letter-spacing: 0.06em;
       border-top: 2px solid #fff;
-      padding: 15px 0 0 0;
-      margin-top: 5px;
+      padding: 15px 0;
       font-size: 14px;
-      width: 135px;
     }
   }
 
-  // ul, fieldset {
-  //   padding: 0;
-  //   list-style: none;
+  div {
+    height: 35px;
+    font-size: 14px;
 
-    li, div {
-      height: 35px;
-      font-size: 14px;
+    a, label {
+      cursor: pointer;
+      display: block;
+      color: #fff;
+      padding: 10px 0 10px 50px;
+      text-decoration: none;
 
-      a, label {
-        cursor: pointer;
-        display: block;
-        color: #fff;
-        padding: 10px 0 10px 50px;
-        text-decoration: none;
-
-        .circle-dash-icon {
-          position: relative;
-          float: right;
-          margin: -5px 40px 0px 0px;
-          fill: #fff;
-
-          @include min-screen(768px) {
-            margin: -5px 15px 0px 0px;
-          }
-        }
+      .circle-dash-icon {
+        position: relative;
+        float: right;
+        margin: -5px 40px 0px 0px;
+        fill: #fff;
 
         @include min-screen(768px) {
-          padding-left: 25px;
+          margin: -5px 15px 0px 0px;
         }
       }
 
-      &.active {
-        background-color: #44433f;
+      @include min-screen(768px) {
+        padding-left: 25px;
       }
     }
-  // }
+
+    &.active {
+      background-color: #44433f;
+    }
+  }
 
   @include min-screen(768px) {
     width: 25%;
@@ -65,6 +60,7 @@
 
     .inner {
       padding: 0 15px;
+      width: 80%;
 
       h3 {
         margin: 30px 0 0;
