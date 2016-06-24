@@ -39,19 +39,6 @@ class Search extends React.Component {
   }
 
   /**
-   * triggerSubmit(event)
-   * The fuction listens to the event of enter key.
-   * Submit search request if enter is pressed.
-   *
-   * @param {Event} event
-   */
-  triggerSubmit(event) {
-    if (event && event.charCode === 13) {
-      this.submitSearchRequest(null);
-    }
-  }
-
-  /**
    * animationTimer(element)
    * Add the CSS animation to the placeholder of the keywords Input.
    * It adds the proper class to the html element to trigger the animation,
@@ -199,6 +186,19 @@ class Search extends React.Component {
     }
 
     return finalEncoreUrl;
+  }
+
+  /**
+   * triggerSubmit(event)
+   * The fuction listens to the event of enter key.
+   * Submit search request if enter is pressed.
+   *
+   * @param {Event} event
+   */
+  triggerSubmit(event) {
+    if (event && event.charCode === 13) {
+      this.submitSearchRequest(null);
+    }
   }
 
   /**
