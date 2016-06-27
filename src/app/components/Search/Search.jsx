@@ -38,76 +38,6 @@ class Search extends React.Component {
     NewArrivalsStore.unlisten(this.onChange);
   }
 
-  onChange() {}
-
-  /**
-   * submitSearchRequest(value)
-   *
-   * @param {String} value - The value from the input field.
-   */
-  submitSearchRequest(value) {
-    // Store the data that the user entered
-    const requestParameters = {
-      keywords: this.state.searchKeywords.trim(),
-      // If the value is null, it indicates the function is triggered on desktop version.
-      // Then it should get the value for option from state.
-      option: value || this.state.searchOption,
-    };
-    const encoreBaseUrl = 'http://browse.nypl.org/iii/encore/search/';
-    const catalogBaseUrl = 'http://www.nypl.org/search/apachesolr_search/';
-    let inputKeywords;
-    let requestUrl;
-    let format = '';
-
-    // Hardcoding the URL values for the different facet selections.
-    switch (NewArrivalsStore.getState().dropDownValue) {
-      case 'books':
-        format = '__Ff%3Afacetmediatype%3Aa%3Aa%3ABOOKLw%3D%3DTEXT%3A%3A';
-        break;
-      case 'music':
-        format = '__Ff%3Afacetmediatype%3Ay%3Ay%3AMUSIC%20CD%3A%3A';
-        break;
-      case 'dvds':
-        format = '__Ff%3Afacetmediatype%3Av%3Av%3ADVD%3A%3A';
-        break;
-      default:
-        break;
-    }
-
-    // Decide the search option based on which button the user clicked on mobile version search box
-    if (requestParameters.option === 'catalog') {
-      requestUrl = this.setEncoreUrl(requestParameters.keywords + format, encoreBaseUrl, 'eng');
-    } else if (requestParameters.option === 'website') {
-      requestUrl = this.setCatalogUrl(requestParameters.keywords, catalogBaseUrl);
-    }
-
-    // This portion is for the interactions if the user doesn't enter any input
-    if (!requestParameters.keywords) {
-      // The selector for inputKeywords DOM element
-      inputKeywords = this.refs.keywords;
-      // The new placeholder that tells users there's no keywords input
-      this.setState({ placeholder: 'Please enter a search term.' });
-      // Trigger the validation animation
-      this.animationTimer(inputKeywords);
-    } else {
-      // Go to the search page
-      window.location.assign(requestUrl);
-    }
-  }
-
-  /**
-   * triggerSubmit(event)
-   * The fuction listens to the event of enter key.
-   * Submit search request if enter is pressed.
-   *
-   * @param {Event} event
-   */
-  triggerSubmit(event) {
-    if (event && event.charCode === 13) {
-      this.submitSearchRequest(null);
-    }
-  }
-
   /**
    * animationTimer(element)
    * Add the CSS animation to the placeholder of the keywords Input.
@@ -182,6 +112,61 @@ class Search extends React.Component {
   }
 
   /**
+   * submitSearchRequest(value)
+   *
+   * @param {String} value - The value from the input field.
+   */
+  submitSearchRequest(value) {
+    // Store the data that the user entered
+    const requestParameters = {
+      keywords: this.state.searchKeywords.trim(),
+      // If the value is null, it indicates the function is triggered on desktop version.
+      // Then it should get the value for option from state.
+      option: value || this.state.searchOption,
+    };
+    const encoreBaseUrl = 'http://browse.nypl.org/iii/encore/search/';
+    const catalogBaseUrl = 'http://www.nypl.org/search/apachesolr_search/';
+    let inputKeywords;
+    let requestUrl;
+    let format = '';
+
+    // Hardcoding the URL values for the different facet selections.
+    switch (NewArrivalsStore.getState().dropDownValue) {
+      case 'books':
+        format = '__Ff%3Afacetmediatype%3Aa%3Aa%3ABOOKLw%3D%3DTEXT%3A%3A';
+        break;
+      case 'music':
+        format = '__Ff%3Afacetmediatype%3Ay%3Ay%3AMUSIC%20CD%3A%3A';
+        break;
+      case 'dvds':
+        format = '__Ff%3Afacetmediatype%3Av%3Av%3ADVD%3A%3A';
+        break;
+      default:
+        break;
+    }
+
+    // Decide the search option based on which button the user clicked on mobile version search box
+    if (requestParameters.option === 'catalog') {
+      requestUrl = this.setEncoreUrl(requestParameters.keywords + format, encoreBaseUrl, 'eng');
+    } else if (requestParameters.option === 'website') {
+      requestUrl = this.setCatalogUrl(requestParameters.keywords, catalogBaseUrl);
+    }
+
+    // This portion is for the interactions if the user doesn't enter any input
+    if (!requestParameters.keywords) {
+      // The selector for inputKeywords DOM element
+      inputKeywords = this.refs.keywords;
+      // The new placeholder that tells users there's no keywords input
+      this.setState({ placeholder: 'Please enter a search term.' });
+      // Trigger the validation animation
+      this.animationTimer(inputKeywords);
+    } else {
+      // Go to the search page
+      window.location.assign(requestUrl);
+    }
+  }
+
+  /**
    * setEncoreUrl(searchInput, baseUrl, language)
    * Returns the final URL for encore search which, is first encoded, then concatenated by the
    * base encore root url. An optional scope and language may be concatenated as well.
@@ -201,6 +186,19 @@ class Search extends React.Component {
     }
 
     return finalEncoreUrl;
+  }
+
+  /**
+   * triggerSubmit(event)
+   * The fuction listens to the event of enter key.
+   * Submit search request if enter is pressed.
+   *
+   * @param {Event} event
+   */
+  triggerSubmit(event) {
+    if (event && event.charCode === 13) {
+      this.submitSearchRequest(null);
+    }
   }
 
   /**

@@ -4,7 +4,6 @@ import {
   map as _map,
   clone as _clone,
   every as _every,
-  mapObject as _mapObject,
 } from 'underscore';
 
 import {
@@ -72,7 +71,7 @@ class Filter extends React.Component {
 
   selectFilter(queries, updatePageNum, filters, active, publicationType, reset) {
     makeApiCall(queries, response => {
-      const displayPagination = response.data.bibItems.length === 0 ? false : true;
+      const displayPagination = response.data.bibItems.length !== 0;
       Actions.updateDisplayPagination(displayPagination);
       Actions.updateNewArrivalsData(response.data);
       Actions.updateFiltered(filters);

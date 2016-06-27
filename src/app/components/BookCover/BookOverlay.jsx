@@ -1,38 +1,36 @@
 import React from 'react';
 
-class BookOverlay extends React.Component {
-  render () {
-    // Remove spaces for the format ID for the class name.
-    const formatId = (this.props.formatId).replace(/\s+/g, '');
-    const genre = (formatId !== 'MUSICCD' && this.props.genre !== '') ?
-      <p className="genre">{this.props.genre}</p> : null;
-    let details = (
-      <div className="default">
-        {this.props.icon}
-        <p>NO IMAGE AVAILABLE</p>
-      </div>
-    );
-    
-    if (!this.props.simple) {
-      details = (
-        <div>
-          <h3>{this.props.name}</h3>
-          <div className="details">
-            <p className="author">{this.props.author}</p>
-            <p className="format">{this.props.icon}{this.props.format}</p>
-            {genre}
-          </div>
-        </div>
-      );
-    }
+const BookOverlay = (props) => {
+  // Remove spaces for the format ID for the class name.
+  const formatId = (props.formatId).replace(/\s+/g, '');
+  const genre = (formatId !== 'MUSICCD' && props.genre !== '') ?
+    <p className="genre">{props.genre}</p> : null;
+  let details = (
+    <div className="default">
+      {props.icon}
+      <p>NO IMAGE AVAILABLE</p>
+    </div>
+  );
 
-    return (
-      <div className={`itemOverlay ${this.props.imgClass} ${formatId}`}>
-        {details}
+  if (!props.simple) {
+    details = (
+      <div>
+        <h3>{props.name}</h3>
+        <div className="details">
+          <p className="author">{props.author}</p>
+          <p className="format">{props.icon}{props.format}</p>
+          {genre}
+        </div>
       </div>
     );
-  };
-}
+  }
+
+  return (
+    <div className={`itemOverlay ${props.imgClass} ${formatId}`}>
+      {details}
+    </div>
+  );
+};
 
 BookOverlay.propTypes = {
   imgClass: React.PropTypes.string,

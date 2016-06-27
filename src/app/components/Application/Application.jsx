@@ -28,6 +28,7 @@ const App = () => (
     </div>
 
     <Footer id="footer" className="footer" />
-  </div>);
+  </div>
+);
 
 export default App;
