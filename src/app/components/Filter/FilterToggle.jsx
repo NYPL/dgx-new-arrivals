@@ -56,7 +56,7 @@ class FilterToggle extends React.Component {
 
   selectFilter(queries = '') {
     makeApiCall(queries, response => {
-      const displayPagination = response.data.bibItems.length === 0 ? false : true;
+      const displayPagination = response.data.bibItems.length !== 0;
       Actions.updateDisplayPagination(displayPagination);
       Actions.updateNewArrivalsData(response.data);
       manageHistory(this.state, history);

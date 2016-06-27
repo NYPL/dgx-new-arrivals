@@ -93,7 +93,7 @@ class SelectedFilters extends React.Component {
     trackNewArrivals('Remove Filter Active Display', `${filter} - ${filterToRemove}`);
 
     makeApiCall(queries, response => {
-      const displayPagination = response.data.bibItems.length === 0 ? false : true;
+      const displayPagination = response.data.bibItems.length !== 0;
 
       Actions.updateDisplayPagination(displayPagination);
       Actions.updateFiltered(filters);
