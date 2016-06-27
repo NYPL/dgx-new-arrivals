@@ -2,35 +2,33 @@ import React from 'react';
 
 import { CircleDashIcon } from 'dgx-svg-icons';
 
-class FilterListItem extends React.Component {
-  constructor(props) {
-    super(props);
+const FilterListItem = (props) => {
+  const activeClass = props.active ? 'active' : '';
+  const formatId = (props.item.id).replace(/\s+/g, '');
 
-    this.onClick = this.onClick.bind(this);
-  }
-
-  onClick(e) {
-    e.preventDefault();
-  }
-
-  render() {
-    const activeClass = this.props.active ? 'active' : '';
-
-    return (
-      <li onClick={this.props.onClick} className={activeClass}>
-        <a href="#" onClick={this.onClick}>
-          {this.props.item}
-          {this.props.active ? <CircleDashIcon /> : null}
-        </a>
-      </li>
-    );
-  }
-}
+  return (
+    <div className={activeClass}>
+      <input
+        type="radio"
+        className="switch-input"
+        id={formatId}
+        name={props.filter}
+        onClick={props.onClick}
+        value={props.item.label}
+      />
+      <label htmlFor={formatId}>
+        {props.active ? <CircleDashIcon /> : null}
+        {props.item.label}
+      </label>
+    </div>
+  );
+};
 
 FilterListItem.propTypes = {
   onClick: React.PropTypes.func,
-  item: React.PropTypes.string,
+  item: React.PropTypes.object,
   active: React.PropTypes.bool,
+  filter: React.PropTypes.string,
 };
 
 export default FilterListItem;

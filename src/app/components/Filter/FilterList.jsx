@@ -39,7 +39,7 @@ class FilterList extends React.Component {
 
     return _map(list, (item, i) =>
       (<FilterListItem
-        item={item.label}
+        item={item}
         filter={this.props.list.title}
         active={activeItem === item.id}
         key={i}
@@ -52,14 +52,12 @@ class FilterList extends React.Component {
     const list = this.renderList(this.props.list.data);
 
     return (
-      <li className="FilterList">
-        <div className="inner">
+      <fieldset tabIndex="0" className="FilterList">
+        <legend className="inner">
           <h3>{this.props.list.title}</h3>
-        </div>
-        <ul>
-          {list}
-        </ul>
-      </li>
+        </legend>
+        {list}
+      </fieldset>
     );
   }
 }

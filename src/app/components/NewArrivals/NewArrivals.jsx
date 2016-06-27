@@ -31,7 +31,6 @@ history.listen(location => {
   const {
     action,
     search,
-    state,
     query,
   } = location;
   const filters = _omit(query, ['availability', 'publishYear', 'pageNum']);
@@ -99,7 +98,7 @@ class NewArrivals extends React.Component {
     }, error => Promise.reject(error));
 
     makeApiCall(queries, response => {
-      const displayPagination = response.data.bibItems.length === 0 ? false : true;
+      const displayPagination = response.data.bibItems.length !== 0;
       Actions.updateDisplayPagination(displayPagination);
       Actions.addMoreItems(response.data.bibItems);
       Actions.updatePageNum(true);
