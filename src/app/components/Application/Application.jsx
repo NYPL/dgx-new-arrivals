@@ -4,6 +4,7 @@ import Header from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
 
 import NewArrivals from '../NewArrivals/NewArrivals.jsx';
+import Sidebar from '../Sidebar/Sidebar.jsx';
 
 /**
  * The main React component for New Arrivals.
@@ -13,16 +14,11 @@ const App = () => (
   <div className="nyplNewArrivalsApp">
     <Header skipNav={{ target: 'maincontent' }} />
 
-    <div className="nyplNewArrivals nyplGrid-fullWidth">
+    <div className="nyplNewArrivals-grid nyplGrid-fullWidth">
 
-      <div id="left-navigation" className="left-navigation">
-        <a className="browse-button" href="/browse">
-          Browse >
-        </a>
-        <span className="landing-page-link">New Arrivals</span>
-      </div>
+      <Sidebar />
 
-      <div className="main-content">
+      <div className="nyplNewArrivals-container">
         <NewArrivals />
       </div>
     </div>

@@ -9,11 +9,11 @@
       h2 {
         display: inline-block;
         margin: 20px 0 10px;
-        @include Kievit-Medium;
         font-weight: 300;
         line-height: 26px;
         vertical-align: 5px;
         font-size: 24px;
+        @include Kievit-Medium;
       }
 
       @include min-screen(768px) {
