@@ -24,10 +24,10 @@ export default {
     includes: [
       'children',
       'related-container-slots.current-item.square-image',
-     ],
+    ],
     filters: {
-      'relationships': {'parent': 'null'}
-    }
+      'relationships': { 'parent': 'null' },
+    },
   },
   itemTitleLength: 65,
   appFilters: {

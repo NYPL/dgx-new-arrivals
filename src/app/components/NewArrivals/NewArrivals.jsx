@@ -32,6 +32,7 @@ history.listen(location => {
     action,
     search,
     query,
+    state,
   } = location;
   const filters = _omit(query, ['availability', 'publishYear', 'pageNum']);
   const {
@@ -39,7 +40,14 @@ history.listen(location => {
     publishYear,
   } = query;
 
-  if (action === 'POP') {
+  if (state === null) {
+    history.push({
+      state: { start: true },
+      search,
+    });
+  }
+
+  if (action === 'POP' && state !== null) {
     makeApiCall(search, response => {
       const availabilityType = availability || 'New Arrival';
       const publicationType = publishYear || 'recentlyReleased';
