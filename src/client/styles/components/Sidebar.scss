@@ -8,7 +8,7 @@
     background-color: #fff;
   }
 
-  .browse-button {
+  &-browse {
     display: none;
 
     @include min-screen(768px) {
@@ -21,7 +21,7 @@
     }
   }
 
-  .landing-page-link {
+  &-landing {
     border-top-style: none;
     font-size: 20px;
     display: block;

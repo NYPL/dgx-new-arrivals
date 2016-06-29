@@ -2,10 +2,10 @@ import React from 'react';
 
 const Sidebar = () => (
   <div className="sidebar">
-    <a className="browse-button" href="/browse">
+    <a className="sidebar-browse" href="/browse">
       Browse >
     </a>
-    <span className="landing-page-link">New Arrivals</span>
+    <span className="sidebar-landing">New Arrivals</span>
   </div>
 );
 

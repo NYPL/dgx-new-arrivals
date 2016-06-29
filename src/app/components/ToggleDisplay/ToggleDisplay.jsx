@@ -74,7 +74,7 @@ class ToggleDisplay extends React.Component {
     });
 
     return (
-      <ul className="ToggleDisplay">
+      <ul className="toggleDisplay">
         <li>
           <FilterToggle />
         </li>

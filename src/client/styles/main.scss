@@ -19,6 +19,11 @@ Import Normalize and Grid settings for nyplHomepage App
 @import "utils/normalize";
 @import "utils/gridSettings";
 
+// @include sgs-change('debug', true);
+// .nyplNewArrivals {
+//   @include background-grid($color: blue);
+// }
+
 /*
 Import style rules from NYPL React module components
 */
@@ -28,20 +33,15 @@ Import style rules from NYPL React module components
 /*
 Import style rules from App components
 */
-@import 'components/Search';
-@import 'components/Dropdown';
-@import 'components/Isotopes';
+// @import 'components/Search';
+// @import 'components/Dropdown';
 @import 'components/NewArrivals';
+@import 'components/SelectedFilters';
+@import 'components/Isotopes';
 @import 'components/Sidebar';
 @import 'components/PillButton';
 @import 'components/PaginationButton';
 @import 'components/ToggleDisplay';
 @import 'components/Filter';
 @import 'components/FilterList';
-@import 'components/SelectedFilters';
 @import 'components/FilterToggle';
-
-// @include sgs-change('debug', true);
-// .nyplNewArrivals {
-//   @include background-grid($color: blue);
-// }
