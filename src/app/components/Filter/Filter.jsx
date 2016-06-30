@@ -157,7 +157,7 @@ class Filter extends React.Component {
     genreData.active = filters.genre;
 
     return (
-      <div className={`filter-wrapper ${this.props.active}`}>
+      <div className={`filter ${this.props.active}`}>
         <div className="filter-header-mobile">
           <FilterIcon className="mobile-filter" />
           <h2>Filter by</h2>
@@ -201,6 +201,7 @@ class Filter extends React.Component {
               <span>Apply</span>
             </button>
           </li>
+          
           <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
             <button className="PillButton reset" onClick={() => this.resetFilters('Filters')}>
               <ResetIcon />

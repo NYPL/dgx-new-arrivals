@@ -48,21 +48,3 @@
     }
   }
 }
-
-
-.filters {
-
-  &.false {
-    background-color: $PRIMARY_COLOR;
-    color: #fff;
-
-    svg {
-      fill: #fff;
-    }
-
-    @include min-screen($tablet-portrait) {
-      color: #fff;
-      background-color: #837e77;
-    }
-  }
-}
