@@ -35,9 +35,9 @@
       position: relative;
       width: 175px;
 
-        @include min-screen(768px) {
-          float: left;
-        }
+      @include min-screen(768px) {
+        float: left;
+      }
 
       .itemOverlay {
         width: 175px;
@@ -175,6 +175,7 @@
     p {
       margin: 5px 0 0 0;
     }
+
     h3 {
       padding-top: 30px;
       margin: 0;
