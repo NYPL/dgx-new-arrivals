@@ -1,34 +1,19 @@
 // Import React Libraries
 import React from 'react';
 
-const styles = {
-  base: {
-    color: '#A3A19E',
-    border: '2px solid #A3A19E',
-  },
-  dots: {
-    border: '3px solid #A3A19E',
-  },
-};
-
 const PaginationButton = (props) => {
   const dotElements = [];
     // Add loading class and the loading animation if it is loading now
   const isLoading = props.isLoading ? 'loading' : '';
-  let i;
 
   // Generate the dots for the pagination button.
   // The number of the dots is determinated by the props.
-  for (i = 0; i < props.dots; i++) {
+  for (let i = 0; i < props.dots; i++) {
     dotElements.push(
       <li
-        id={`${props.id}__dot-row__element_${i}`}
-        className={`${props.className}__dot-row__element ${isLoading}`}
+        id={`${props.id}-list-dot-${i}`}
+        className={`paginationButton-list-dot ${isLoading}`}
         key={i}
-        style={[
-          styles.dots,
-          props.dotStyle,
-        ]}
       >
       </li>
     );
@@ -37,21 +22,17 @@ const PaginationButton = (props) => {
   return (
     <div
       id={props.id}
-      className={`${props.className} ${props.hidden}`}
+      className={`paginationButton ${props.className} ${props.hidden}`}
       onClick={props.onClick}
-      style={[
-        styles.base,
-        props.style,
-      ]}
     >
       <ul
-        id={`${props.id}__dot-row`}
-        className={`${props.className}__dot-row`}
+        id={`${props.id}-list`}
+        className={`paginationButton-list`}
       >
         {dotElements}
         <li
-          id={`${props.id}__dot-row__number`}
-          className={`${props.className}__dot-row__number`}
+          id={`${props.id}-list-number`}
+          className={`paginationButton-list-number`}
         >
           {props.label}
         </li>
@@ -70,13 +51,11 @@ PaginationButton.propTypes = {
   dots: React.PropTypes.number,
   hidden: React.PropTypes.string,
   onClick: React.PropTypes.func,
-  style: React.PropTypes.object,
-  dotStyle: React.PropTypes.object,
 };
 
 PaginationButton.defaultProps = {
-  id: 'PaginationButton',
-  className: 'pagination-button',
+  id: 'paginationButton',
+  className: '',
   name: 'pagination button',
   label: 'Pagination Button',
   lang: 'en',
