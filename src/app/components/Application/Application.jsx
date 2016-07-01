@@ -12,7 +12,7 @@ import Sidebar from '../Sidebar/Sidebar.jsx';
  */
 const App = () => (
   <div className="nyplNewArrivalsApp">
-    <Header skipNav={{ target: 'maincontent' }} />
+    <Header skipNav={{ target: 'mainContent' }} />
 
     <div className="nyplNewArrivals-grid nyplGrid-fullWidth">
 
