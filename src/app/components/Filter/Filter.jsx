@@ -8,8 +8,8 @@ import {
 
 import {
   FilterIcon,
-  ApplyIcon,
   ResetIcon,
+  CheckSoloIcon,
 } from 'dgx-svg-icons';
 
 import NewArrivalsStore from '../../stores/Store.js';
@@ -166,7 +166,7 @@ class Filter extends React.Component {
             <li>
               <IconButton
                 className={'apply'}
-                icon={<ApplyIcon />}
+                icon={<CheckSoloIcon />}
                 onClick={() => this.submitFilters('Mobile Filter Window')}
               />
             </li>
@@ -197,7 +197,7 @@ class Filter extends React.Component {
 
           <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
             <button className="PillButton apply" onClick={() => this.submitFilters('Filters')}>
-              <ApplyIcon />
+              <CheckSoloIcon />
               <span>Apply</span>
             </button>
           </li>
