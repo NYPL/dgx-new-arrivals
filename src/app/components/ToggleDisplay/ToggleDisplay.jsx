@@ -74,7 +74,7 @@ class ToggleDisplay extends React.Component {
     });
 
     return (
-      <ul className="ToggleDisplay">
+      <ul className="toggleDisplay">
         <li>
           <FilterToggle />
         </li>
@@ -86,9 +86,9 @@ class ToggleDisplay extends React.Component {
             onClickOut={() => this.handleOnClickOut()}
             className="clickOutContainer"
           >
-            <div className="filterButton">
+            <div className="filterButton-wrapper">
               <PillButton
-                className="filters"
+                className="filterButton"
                 icon={<FilterIcon />}
                 title={filterTitle}
                 value={!filterActive}

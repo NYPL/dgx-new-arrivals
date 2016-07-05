@@ -1,6 +1,6 @@
-.ToggleDisplay {
+.toggleDisplay {
   list-style-type: none;
-  display: inline-block;
+  display: block;
   float: right;
   margin: 0;
   padding: 0;
@@ -10,6 +10,28 @@
 
     &:nth-child(n+2) {
       margin-left: 5px;
+    }
+  }
+
+  .filterButton {
+    &-wrapper {
+      @include min-screen(768px) {
+        position: relative;
+      }
+    }
+
+    &.false {
+      background-color: $PRIMARY_COLOR;
+      color: #fff;
+
+      svg {
+        fill: #fff;
+      }
+
+      @include min-screen($tablet-portrait) {
+        color: #fff;
+        background-color: #837e77;
+      }
     }
   }
 }

@@ -105,7 +105,7 @@ class SelectedFilters extends React.Component {
   render() {
     const filters = this.getFilterList(this.state.filters);
 
-    return filters && filters.length ?
+    return (filters && filters.length) ?
       <ul className="selectedFilters">{filters}</ul> :
       null;
   }

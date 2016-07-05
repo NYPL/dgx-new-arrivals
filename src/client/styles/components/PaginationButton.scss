@@ -1,10 +1,7 @@
-$COOL_GRAY_LIGHT: #A3A19E;
-$COOL_GRAY_REGULAR: #837E77;
-
 /*
  * Pagination Button
  */
-.pagination-button {
+.paginationButton {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
@@ -18,22 +15,29 @@ $COOL_GRAY_REGULAR: #837E77;
   line-height: 16.21px;
   overflow: hidden;
   padding: 5px 20px;
-  &__dot-row {
+  color: #A3A19E;
+  border: 2px solid #A3A19E;
+
+  &-list {
     display: block;
     list-style: none;
     margin: 0 auto;
     padding: 0;
-    &__element {
+
+    &-dot {
       border-radius: 100%;
+      border: 3px solid #A3A19E;
       display: inline-block;
       margin: 0 4px 0 0;
       vertical-align: 1px;
     }
-    &__number {
+
+    &-number {
       display: inline-table;
       margin: 0 4px 0 0;
     }
   }
+
   &--hide {
     display: none;
   }
@@ -91,11 +95,13 @@ $COOL_GRAY_REGULAR: #837E77;
     -webkit-animation-delay: 0s;
     animation-delay: 0s;
   }
+
   &:nth-child(2n) {
     -moz-animation-delay: 0.2s;
     -webkit-animation-delay: 0.2s;
     animation-delay: 0.2s;
   }
+
   &:nth-child(3n) {
     -moz-animation-delay: 0.4s;
     -webkit-animation-delay: 0.4s;
@@ -108,68 +114,40 @@ $COOL_GRAY_REGULAR: #837E77;
     -moz-transform: scale(0.5);
     -webkit-transform: scale(0.5);
     transform: scale(0.5);
-    background: $COOL_GRAY_LIGHT;
+    background: $COOLGRAY_COLOR;
   }
+
   50% {
     -moz-transform: scale(1);
     -webkit-transform: scale(1);
     transform: scale(1);
     background: #FFFFFF;
   }
+
   100% {
     -moz-transform: scale(0.5);
     -webkit-transform: scale(0.5);
     transform: scale(0.5);
-    background: $COOL_GRAY_LIGHT;
+    background: $COOLGRAY_COLOR;
   }
 }
 
 .page-button {
+  width: 120px;
+  display: block;
+  margin: 50px auto;
+  color: $COOLGRAY_COLOR;
+  border-color: $COOLGRAY_COLOR;
+  border-style: solid;
+  border-width: 2px;
+  font-family: Kievit-Medium;
+  padding: 14px 19px 12px 37px;
+
   &.hide {
     display: none;
   }
 
-  width: 120px;
-  margin: 50px auto;
-
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: transparent;
-  border-color: $COOL_GRAY_LIGHT;
-  border-style: solid;
-  border-width: 2px;
-  border-radius: 33px;
-  color: $COOL_GRAY_LIGHT;
-  cursor: pointer;
-  font-family: Kievit-Medium;
-  font-size: 13px;
-  letter-spacing: 0.04em;
-  line-height: 16.21px;
-  overflow: hidden;
-  padding: 14px 19px 12px 37px;
-
-  &__dot-row {
-    display: block;
-    list-style: none;
-    margin: 0 auto;
-    padding: 0;
-
-    &__element {
-      border: 3px solid $COOL_GRAY_LIGHT;
-      border-radius: 100%;
-      display: inline-block;
-      margin: 0 4px 0 0;
-      vertical-align: 1px;
-    }
-
-    &__number {
-      display: inline-table;
-      margin: 0 4px 0 0;
-    }
-  }
-
-  &--hide {
-    display: none;
+  .paginationButton-dot {
+    border: 3px solid $COOLGRAY_COLOR;
   }
 }

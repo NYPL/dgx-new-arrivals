@@ -52,8 +52,8 @@ class FilterList extends React.Component {
     const list = this.renderList(this.props.list.data);
 
     return (
-      <fieldset tabIndex="0" className="FilterList">
-        <legend className="inner">
+      <fieldset tabIndex="0" className="filterList">
+        <legend className="title">
           <h3>{this.props.list.title}</h3>
         </legend>
         {list}

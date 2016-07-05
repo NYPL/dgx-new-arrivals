@@ -131,7 +131,7 @@ class NewArrivals extends React.Component {
     const layoutFormat = filters.format ? filters.format.replace(/\s+/g, '') : '';
 
     return (
-      <div className="newArrivals-container" id="maincontent" tabIndex="-1">
+      <div className="newArrivals" id="mainContent" tabIndex="-1">
         <h4>New Arrivals</h4>
         <p className="newArrivals-introText">
           {introText}
