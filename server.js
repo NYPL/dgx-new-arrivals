@@ -38,8 +38,8 @@ app.set('views', VIEWS_PATH);
 
 app.set('port', process.env.PORT || 3001);
 
-app.use(express.static(DIST_PATH));
 app.use('/browse/new-arrivals/', express.static(DIST_PATH));
+app.use(express.static(DIST_PATH));
 
 // For images
 app.use('*/src/client', express.static(INDEX_PATH));
@@ -63,6 +63,8 @@ app.get('/', (req, res) => {
     gaCode: analytics.google.code(isProduction),
     webpackPort: WEBPACK_DEV_PORT,
     isProduction,
+    path: req.path,
+    url: req.url,
   });
 });
 
