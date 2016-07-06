@@ -1,27 +1,36 @@
+#mainContent {
+  position: relative;
+  border-top: 60px solid transparent;
+  margin-top: 3px;
+}
+
 .newArrivals {
-  &-container {
-    @include grid-span(3);
-    @include add-grid(3);
+  min-height: 500px;
 
-    padding-top: 13px;
-    min-height: 500px;
+  h4 {
+    display: inline-block;
+    font-size: 20px;
+    color: #ed1c24;
+    margin: 18px 0 10px 0;
+    @include Kievit-Medium;
 
-    h4 {
-      display: inline-block;
-      font-size: 20px;
-      color: #ed1c24;
-      margin: 5px 0 10px 0;
-      @include Kievit-Medium;
-
-      @include min-screen(768px) {
-        width: 100%;
-        display: block;
-      }
+    @include min-screen(768px) {
+      width: 100%;
+      display: block;
     }
+  }
 
-    &:focus {
-      outline: 0;
-    }
+  &:focus {
+    outline: 0;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0;
+    right: 0;
+    border-top: 2px solid #ed1c24;
   }
 
   &-introText {

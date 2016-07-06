@@ -13,6 +13,8 @@ import Filter from '../Filter/Filter.jsx';
 import FilterToggle from '../Filter/FilterToggle.jsx';
 import ViewTypeButton from './ViewTypeButton.jsx';
 
+import { trackNewArrivals } from '../../utils/utils.js';
+
 /**
  * Displays the two buttons that are used to toggle the Isotopes grid and displays the filters.
  * @extends {React}
@@ -45,7 +47,9 @@ class ToggleDisplay extends React.Component {
    * @param {boolean} view
    */
   handleFilterView(view) {
+    const filterView = view ? 'Open' : 'Close';
     Actions.toggleFilters(view);
+    trackNewArrivals('Filter Window', filterView);
   }
 
   /**
@@ -54,6 +58,7 @@ class ToggleDisplay extends React.Component {
   handleOnClickOut() {
     if (this.state.toggleFilter) {
       Actions.toggleFilters(false);
+      trackNewArrivals('Filter Window', 'Close');
     }
   }
 
@@ -69,7 +74,7 @@ class ToggleDisplay extends React.Component {
     });
 
     return (
-      <ul className="ToggleDisplay">
+      <ul className="toggleDisplay">
         <li>
           <FilterToggle />
         </li>
@@ -81,9 +86,9 @@ class ToggleDisplay extends React.Component {
             onClickOut={() => this.handleOnClickOut()}
             className="clickOutContainer"
           >
-            <div className="filterButton">
+            <div className="filterButton-wrapper">
               <PillButton
-                className="filters"
+                className="filterButton"
                 icon={<FilterIcon />}
                 title={filterTitle}
                 value={!filterActive}

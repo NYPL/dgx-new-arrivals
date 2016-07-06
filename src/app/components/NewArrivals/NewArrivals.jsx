@@ -15,6 +15,7 @@ import {
   makeApiCall,
   createAppHistory,
   manageHistory,
+  trackNewArrivals,
 } from '../../utils/utils.js';
 
 import {
@@ -30,8 +31,8 @@ history.listen(location => {
   const {
     action,
     search,
-    state,
     query,
+    state,
   } = location;
   const filters = _omit(query, ['availability', 'publishYear', 'pageNum']);
   const {
@@ -39,7 +40,14 @@ history.listen(location => {
     publishYear,
   } = query;
 
-  if (action === 'POP') {
+  if (state === null) {
+    history.push({
+      state: { start: true },
+      search,
+    });
+  }
+
+  if (action === 'POP' && state !== null) {
     makeApiCall(search, response => {
       const availabilityType = availability || 'New Arrival';
       const publicationType = publishYear || 'recentlyReleased';
@@ -98,11 +106,12 @@ class NewArrivals extends React.Component {
     }, error => Promise.reject(error));
 
     makeApiCall(queries, response => {
-      const displayPagination = response.data.bibItems.length === 0 ? false : true;
+      const displayPagination = response.data.bibItems.length !== 0;
       Actions.updateDisplayPagination(displayPagination);
       Actions.addMoreItems(response.data.bibItems);
       Actions.updatePageNum(true);
 
+      trackNewArrivals('Click', `Load More: page ${pageNum + 1}`);
       manageHistory(this.state, history);
 
       this.setState({ isLoading: false });
@@ -119,10 +128,10 @@ class NewArrivals extends React.Component {
     } = this.state;
     const books = newArrivalsData && newArrivalsData.bibItems ? newArrivalsData.bibItems : [];
     const paginationHidden = displayPagination ? '' : 'hide';
-    const layoutFormat = filters.format.replace(/\s+/g, '');
+    const layoutFormat = filters.format ? filters.format.replace(/\s+/g, '') : '';
 
     return (
-      <div className="newArrivals-container" id="maincontent" tabIndex="-1">
+      <div className="newArrivals" id="mainContent" tabIndex="-1">
         <h4>New Arrivals</h4>
         <p className="newArrivals-introText">
           {introText}

@@ -9,14 +9,12 @@ import './styles/main.scss';
 import App from '../app/components/Application/Application.jsx';
 import FeatureFlags from 'dgx-feature-flags';
 import ga from 'react-ga';
-// import {config} from 'dgx-react-ga';
 
 window.onload = () => {
   if (!window.ga) {
     console.log('Analytics not available - loading through React.');
-    const gaOpts = { debug: true };
+    const gaOpts = { debug: false };
     // Passing in false for the dev GA code
-    // ga.initialize(config.google.code(false), gaOpts);
     ga.initialize('UA-1420324-122', gaOpts);
   }
 

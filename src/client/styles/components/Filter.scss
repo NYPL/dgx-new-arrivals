@@ -1,179 +1,177 @@
 .filter {
-  &-wrapper {
-    color: #fff;
-    display: none;
+  color: #fff;
+  display: none;
 
-    .filter-header-mobile {
-      padding: 0 20px;
+  &.active {
+    position: absolute;
+    top: -65px;
+    left: -14px;
+    right: -14px;
+    background-color: #737069;
+    z-index: 5;
+    display: block;
 
-      h2 {
+    @include min-screen(768px) {
+      min-height: 450px;
+      left: -520px;
+      width: 650px;
+      top: 50px;
+    }
+
+    @include min-screen(1024px) {
+      left: -570px;
+      width: 720px;
+    }
+  }
+
+  &-header-mobile {
+    padding: 0 20px;
+
+    h2 {
+      display: inline-block;
+      margin: 20px 0 10px;
+      font-weight: 300;
+      line-height: 26px;
+      vertical-align: 5px;
+      font-size: 24px;
+      @include Kievit-Medium;
+    }
+
+    .mobile-filter-buttons {
+      list-style: none;
+      float: right;
+      margin: 15px 0 0 0;
+      padding: 0;
+
+      li {
         display: inline-block;
-        margin: 20px 0 10px;
-        @include Kievit-Medium;
-        font-weight: 300;
-        line-height: 26px;
-        vertical-align: 5px;
-        font-size: 24px;
-      }
+        padding: 0 3px;
 
-      @include min-screen(768px) {
-        display: none;
-      }
-
-      .mobile-filter-buttons {
-        list-style: none;
-        float: right;
-        margin: 15px 0 0 0;
-        padding: 0;
-
-        li {
-          display: inline-block;
-          padding: 0 3px;
-
-          svg {
-            width: 32px;
-            height: 32px;
-          }
+        svg {
+          width: 32px;
+          height: 32px;
         }
       }
+    }
+
+    @include min-screen(768px) {
+      display: none;
+    }
+  }
+
+  &-actions {
+    margin: 0 10px;
+    padding: 0 25px !important;
+    list-style: none;
+
+    @include min-screen(768px) {
+      padding: 0 !important;
+      list-style: none;
+      margin: 0 25px !important;
+    }
+
+    .buttonItems {
+      float: left;
+      @include Kievit-Regular;
+      width: 25%;
+      margin-top: 15px;
+      min-height: 65px;
+
+      p {
+        margin: 0 0 5px 10px;
+        font-size: 14px;
+        min-height: 20px;
+      }
+
+      &:first-child {
+        text-align: right;
+        width: 100%;
+        margin-bottom: 15px;
+
+        @include min-screen(768px) {
+          text-align: left;
+          width: 50%;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  &-list {
+    list-style: none;
+    margin: 0;
+    padding: 5px 25px 0;
+    outline: none;
+    border: none;
+
+    > legend {
+      @include visuallyHidden;
+    }
+
+    @include min-screen(768px) {
+      padding-top: 30px;
+    }
+  }
+
+  .submit-buttons {
+    opacity: 0.5;
+    display: none;
+
+    @include min-screen(768px) {
+      display: block;
     }
 
     &.active {
-      // width: 100%;
-      position: absolute;
-      top: -33px;
-      left: -14px;
-      right: -14px;
+      opacity: 1;
+    }
+
+    button {
       background-color: #737069;
-      z-index: 5;
+      color: #fff;
+      border: 2px solid #fff;
+      margin: 27px 10px 0;
       display: block;
+      font-size: 13px;
+      width: 125px;
+      height: 40px;
+      text-transform: uppercase;
 
       @include min-screen(768px) {
-        min-height: 450px;
-        left: -520px;
-        width: 650px;
-        top: 50px;
+        display: inline-block;
       }
 
       @include min-screen(1024px) {
-        left: -570px;
-        width: 720px;
+        width: 145px;
+      }
+
+      svg {
+        fill: #fff;
+      }
+
+      span {
+        vertical-align: 10px;
       }
     }
 
-    .filter-actions,
-    .filter-list {
-      list-style: none;
-      margin: 0 10px;
-      padding: 0;
-
-      @include min-screen(768px) {
-        margin: 0 25px !important;
+    .apply {
+      svg {
+        margin-right: 15px;
+        margin-left: -20px;
       }
     }
 
-    .filter-actions {
-      margin: 0px;
-      padding: 0 25px !important;
-
-      @include min-screen(768px) {
-        padding: 0 !important;
+    .reset {
+      svg {
+        margin-right: 5px;
+        margin-left: -10px;
       }
-
-      .buttonItems {
-        float: left;
-        @include Kievit-Regular;
-        width: 25%;
-        margin-top: 15px;
-        min-height: 65px;
-
-        p {
-          margin: 0 0 5px 10px;
-          font-size: 14px;
-          min-height: 20px;
-        }
-
-        &:first-child {
-          text-align: right;
-          width: 100%;
-          margin-bottom: 15px;
-
-          @include min-screen(768px) {
-            text-align: left;
-            width: 50%;
-            margin-bottom: 0;
-          }
-        }
-      }
-    }
-
-    .submit-buttons {
-      float: left;
-      opacity: 0.5;
-      display: none;
-
-      @include min-screen(768px) {
-        display: block;
-      }
-
-      &.active {
-        opacity: 1;
-      }
-
-      button {
-        background-color: #737069;
-        color: #fff;
-        border: 2px solid #fff;
-        margin: 27px 10px 0;
-        display: block;
-        font-size: 13px;
-        width: 125px;
-        height: 40px;
-        text-transform: uppercase;
-
-        @include min-screen(768px) {
-          display: inline-block;
-        }
-
-        @include min-screen(1024px) {
-          width: 145px;
-        }
-
-        svg {
-          fill: #fff;
-        }
-
-        span {
-          vertical-align: 10px;
-        }
-      }
-
-      .apply {
-        svg {
-          margin-right: 15px;
-          margin-left: -20px;
-        }
-      }
-
-      .reset {
-        svg {
-          margin-right: 5px;
-          margin-left: -10px;
-        }
-      }
-    }
-
-    .svgIcon {
-      padding: 0;
-      background: none;
-      border: none;
-      fill: #fff;
     }
   }
-}
 
-.filterButton {
-  @include min-screen(768px) {
-    position: relative;
+  .svgIcon {
+    padding: 0;
+    background: none;
+    border: none;
+    fill: #fff;
   }
 }

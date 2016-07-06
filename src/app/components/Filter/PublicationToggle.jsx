@@ -1,6 +1,7 @@
 import React from 'react';
 import { CheckSoloIcon } from 'dgx-svg-icons';
 
+import { trackNewArrivals } from '../../utils/utils.js';
 import config from '../../../../appConfig.js';
 
 const { recentlyReleased, anyYear } = config.publicationType;
@@ -16,6 +17,7 @@ class PublicationToggle extends React.Component {
   onChange(e) {
     const publicationType = e.currentTarget.value;
     this.props.managePublicationType(publicationType);
+    trackNewArrivals('Toggle Publication Type', publicationType);
   }
 
   render() {

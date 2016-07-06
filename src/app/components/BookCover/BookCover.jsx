@@ -12,6 +12,8 @@ import {
 
 import BookOverlay from './BookOverlay.jsx';
 
+import { trackNewArrivals } from '../../utils/utils.js';
+
 class BookCover extends React.Component {
   constructor(props) {
     super(props);
@@ -67,7 +69,6 @@ class BookCover extends React.Component {
 
   handleLoadedImage() {
     this.checkImageWidth(this.refs.coverImage.naturalWidth);
-
     this.forceUpdate();
   }
 
@@ -150,7 +151,13 @@ class BookCover extends React.Component {
     }
 
     return (
-      <a href={this.props.target} className={`${this.props.linkClass} ${imgClass}`}>
+      <a
+        href={this.props.target}
+        className={`${this.props.linkClass} ${imgClass}`}
+        onClick={() =>
+          trackNewArrivals('Click Encore Item', `${this.props.displayType} Item Image`)
+        }
+      >
         {item}
       </a>
     );
@@ -167,6 +174,8 @@ BookCover.propTypes = {
   imgSrc: React.PropTypes.string,
   author: React.PropTypes.string,
   genre: React.PropTypes.string,
+  displayType: React.PropTypes.string,
+  simple: React.PropTypes.bool,
 };
 
 BookCover.defaultProps = {
@@ -174,5 +183,4 @@ BookCover.defaultProps = {
   genre: '',
 };
 
-// Export components
 export default BookCover;

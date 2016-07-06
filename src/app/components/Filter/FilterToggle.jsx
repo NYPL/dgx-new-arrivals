@@ -8,9 +8,9 @@ import {
   makeApiCall,
   createAppHistory,
   manageHistory,
+  trackNewArrivals,
 } from '../../utils/utils.js';
 import config from '../../../../appConfig.js';
-import { mapObject as _mapObject } from 'underscore';
 
 const { newArrival, onOrder } = config.availability;
 
@@ -45,6 +45,7 @@ class FilterToggle extends React.Component {
     const update = true;
     const queries = makeFrontEndQuery(filters, availability, pageNum, publicationType, update);
 
+    trackNewArrivals('Toggle Availability Type', availability);
     Actions.updateAvailabilityType(availability);
     this.selectFilter(queries);
   }
@@ -55,7 +56,7 @@ class FilterToggle extends React.Component {
 
   selectFilter(queries = '') {
     makeApiCall(queries, response => {
-      const displayPagination = response.data.bibItems.length === 0 ? false : true;
+      const displayPagination = response.data.bibItems.length !== 0;
       Actions.updateDisplayPagination(displayPagination);
       Actions.updateNewArrivalsData(response.data);
       manageHistory(this.state, history);

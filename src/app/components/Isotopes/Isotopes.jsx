@@ -3,18 +3,7 @@ import ReactDOM from 'react-dom';
 
 import { findWhere as _findWhere } from 'underscore';
 
-import BookCover from '../BookCover/BookCover.jsx';
-import BookListItem from './BookListItem.jsx';
-import appConfig from '../../../../appConfig.js';
-
-import {
-  titleAuthorShortener,
-  createDate,
-  createEncoreLink,
-} from '../../utils/utils.js';
-
-const { appFilters, itemTitleLength } = appConfig;
-const formatData = appFilters.formatData.data;
+import CatalogItems from '../CatalogItems/CatalogItems.jsx';
 
 /**
  * Isotopes grid container component
@@ -25,7 +14,7 @@ class Isotopes extends React.Component {
     super(props);
 
     this.isoOptions = {
-      itemSelector: '.book-item',
+      itemSelector: '.catalogItem',
       masonry: {
         // columnWidth: 140,
         isResizable: true,
@@ -49,6 +38,12 @@ class Isotopes extends React.Component {
     setTimeout(() => {
       this.iso.reloadItems();
     }, 150);
+
+    if (this.iso != null) {
+      setTimeout(() => {
+        this.iso.arrange();
+      }, 200);
+    }
   }
 
   /**
@@ -58,82 +53,6 @@ class Isotopes extends React.Component {
     if (this.iso != null) {
       this.iso.destroy();
     }
-  }
-
-  /**
-   * Generate a list item that is either a book cover or the title and author.
-   * The BookCover component is being used but should be updated.
-   * @param {array} booksArr - Array of book item objects.
-   * @param {string} displayType - Either 'grid' or 'list'.
-   */
-  generateItemsToDisplay(booksArr, displayType) {
-    const bookCoverItems = booksArr;
-
-    if (bookCoverItems.length === 0) {
-      return null;
-    }
-
-    const books = bookCoverItems.map((element, i) => {
-      const target = createEncoreLink(element.bibNumber);
-      const {
-        title,
-        author,
-      } = titleAuthorShortener(element.title, element.author, itemTitleLength);
-      const bookCover = (
-        <BookCover
-          imgSrc={element.imageUrl[0] ? element.imageUrl[0] : undefined}
-          id={element.bibNumber}
-          name={title}
-          author={author}
-          format={element.format}
-          target={target}
-          genre={element.genres[0]}
-          linkClass="bookItem"
-          simple={false}
-        />
-      );
-      const simpleBookCover = (
-        <BookCover
-          imgSrc={element.imageUrl[0] ? element.imageUrl[0] : undefined}
-          id={element.bibNumber}
-          name={title}
-          target={target}
-          format={element.format}
-          linkClass="bookItem"
-        />
-      );
-      const format = _findWhere(formatData, { id: element.format });
-      const formatLabel = format ? `${format.label}` : '';
-      const publishYear = element.publishYear ? `, ${element.publishYear}` : '';
-      const date = createDate(element.createdDate);
-      const bookListItem = (
-        <BookListItem
-          bookCover={simpleBookCover}
-          title={element.title}
-          target={target}
-          author={element.author}
-          format={formatLabel}
-          publishYear={publishYear}
-          callNumber={element.callNumber}
-          description={element.description}
-          date={date}
-        />
-      );
-
-      return (
-        <li className={`book-item ${displayType}`} key={i}>
-          {displayType === 'grid' ? bookCover : bookListItem}
-        </li>
-      );
-    });
-
-    if (this.iso != null) {
-      setTimeout(() => {
-        this.iso.arrange();
-      }, 200);
-    }
-
-    return books;
   }
 
   /**
@@ -151,21 +70,16 @@ class Isotopes extends React.Component {
   }
 
   render() {
-    const booksArr = this.props.booksArr && this.props.booksArr.length ? this.props.booksArr : [];
+    const booksArr = this.props.booksArr;
     const displayType = this.props.displayType;
-    let books = this.generateItemsToDisplay(booksArr, displayType);
-
-    if (!booksArr.length) {
-      books = (
-        <li className="book-item noResults">
-          <span>No items found with the selected filters.</span>
-        </li>
-      );
-    }
 
     return (
-      <ul className={`isotopeGrid ${this.props.format}`} ref="isotopeContainer" style={{ opacity: '0' }}>
-        {books}
+      <ul
+        ref="isotopeContainer"
+        style={{ opacity: '0' }}
+        className={`isotopeGrid ${this.props.format}`}
+      >
+        <CatalogItems items={booksArr} displayType={displayType} />
       </ul>
     );
   }
@@ -175,6 +89,10 @@ Isotopes.propTypes = {
   booksArr: React.PropTypes.array,
   displayType: React.PropTypes.string,
   format: React.PropTypes.string,
+};
+
+Isotopes.defaultProps = {
+  booksArr: [],
 };
 
 export default Isotopes;

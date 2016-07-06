@@ -4,13 +4,12 @@ import {
   map as _map,
   clone as _clone,
   every as _every,
-  mapObject as _mapObject,
 } from 'underscore';
 
 import {
   FilterIcon,
-  ApplyIcon,
   ResetIcon,
+  CheckSoloIcon,
 } from 'dgx-svg-icons';
 
 import NewArrivalsStore from '../../stores/Store.js';
@@ -27,6 +26,7 @@ import {
   makeApiCall,
   createAppHistory,
   manageHistory,
+  trackNewArrivals,
 } from '../../utils/utils.js';
 import appConfig from '../../../../appConfig.js';
 
@@ -62,13 +62,16 @@ class Filter extends React.Component {
     this.setState(NewArrivalsStore.getState());
   }
 
-  closeFilters() {
+  closeFilters(gaAction) {
+    if (gaAction) {
+      trackNewArrivals(gaAction, 'Close');
+    }
     Actions.toggleFilters(false);
   }
 
   selectFilter(queries, updatePageNum, filters, active, publicationType, reset) {
     makeApiCall(queries, response => {
-      const displayPagination = response.data.bibItems.length === 0 ? false : true;
+      const displayPagination = response.data.bibItems.length !== 0;
       Actions.updateDisplayPagination(displayPagination);
       Actions.updateNewArrivalsData(response.data);
       Actions.updateFiltered(filters);
@@ -97,7 +100,7 @@ class Filter extends React.Component {
     });
   }
 
-  submitFilters() {
+  submitFilters(gaAction = 'Filters') {
     const {
       filters,
       availabilityType,
@@ -106,11 +109,12 @@ class Filter extends React.Component {
     } = this.state;
     const queries = makeFrontEndQuery(filters, availabilityType, pageNum, publicationType, true);
 
+    trackNewArrivals(gaAction, 'Apply');
     this.selectFilter(queries, true, filters, true, publicationType);
     this.closeFilters();
   }
 
-  resetFilters() {
+  resetFilters(gaAction = 'Filters') {
     const filters = {
       format: '',
       audience: '',
@@ -118,6 +122,7 @@ class Filter extends React.Component {
       genre: '',
     };
 
+    trackNewArrivals(gaAction, 'Reset All');
     this.selectFilter('', false, filters, false, 'recentlyReleased', true);
   }
 
@@ -152,7 +157,7 @@ class Filter extends React.Component {
     genreData.active = filters.genre;
 
     return (
-      <div className={`filter-wrapper ${this.props.active}`}>
+      <div className={`filter ${this.props.active}`}>
         <div className="filter-header-mobile">
           <FilterIcon className="mobile-filter" />
           <h2>Filter by</h2>
@@ -161,19 +166,22 @@ class Filter extends React.Component {
             <li>
               <IconButton
                 className={'apply'}
-                icon={<ApplyIcon />}
-                onClick={this.submitFilters}
+                icon={<CheckSoloIcon />}
+                onClick={() => this.submitFilters('Mobile Filter Window')}
               />
             </li>
             <li>
               <IconButton
                 className={'reset'}
                 icon={<ResetIcon />}
-                onClick={this.resetFilters}
+                onClick={() => this.resetFilters('Mobile Filter Window')}
               />
             </li>
             <li>
-              <CloseButton onClick={this.closeFilters} className="mobile-close" />
+              <CloseButton
+                className="mobile-close"
+                onClick={() => this.closeFilters('Mobile Filter Window')}
+              />
             </li>
           </ul>
         </div>
@@ -188,25 +196,27 @@ class Filter extends React.Component {
           </li>
 
           <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
-            <button className="PillButton apply" onClick={this.submitFilters}>
-              <ApplyIcon />
+            <button className="PillButton apply" onClick={() => this.submitFilters('Filters')}>
+              <CheckSoloIcon />
               <span>Apply</span>
             </button>
           </li>
+          
           <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
-            <button className="PillButton reset" onClick={this.resetFilters}>
+            <button className="PillButton reset" onClick={() => this.resetFilters('Filters')}>
               <ResetIcon />
               <span>Reset All</span>
             </button>
           </li>
         </ul>
 
-        <ul className="filter-list">
+        <fieldset className="filter-list" tabIndex="0">
+          <legend>Filter on the following categories</legend>
           <FilterList list={formatData} manageSelected={this.manageSelected} />
           <FilterList list={audienceData} manageSelected={this.manageSelected} />
           <FilterList list={languageData} manageSelected={this.manageSelected} />
           <FilterList list={genreData} manageSelected={this.manageSelected} />
-        </ul>
+        </fieldset>
       </div>
     );
   }

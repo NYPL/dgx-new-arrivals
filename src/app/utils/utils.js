@@ -1,16 +1,17 @@
 import axios from 'axios';
+import { ga } from 'dgx-react-ga';
 import {
   map as _map,
   mapObject as _mapObject,
   findWhere as _findWhere,
 } from 'underscore';
-
-import config from '../../../appConfig.js';
 import {
   createHistory,
   useQueries,
   createMemoryHistory,
 } from 'history';
+
+import config from '../../../appConfig.js';
 
 const {
   appFilters,
@@ -18,6 +19,8 @@ const {
   pageNum,
   newArrivalsApi,
   currentYear,
+  titleRemovedText,
+  authorRemovedText,
 } = config;
 const minPublishYear = currentYear - 1;
 
@@ -34,12 +37,12 @@ const titleAuthorShortener = (title, author, itemTitleLength = 65) => {
   let updatedTitle = title.split(':')[0].split('/')[0];
   let updatedAuthor = author || '';
 
-  updatedTitle = updatedTitle.replace(/(\[sound recording\])|(\[videorecording\])/, '');
-
+  updatedTitle = updatedTitle.replace(titleRemovedText, '');
   if (updatedTitle.length > itemTitleLength) {
     updatedTitle = `${updatedTitle.substring(0, itemTitleLength)}...`;
   }
 
+  updatedAuthor = updatedAuthor.replace(authorRemovedText, '');
   if (updatedAuthor.length > 26) {
     updatedAuthor = `${author.substring(0, 26)}...`;
   }
@@ -120,8 +123,9 @@ const makeApiQuery = (
 };
 
 const makeApiCall = (queries, callbackFn) => {
+  const search = queries.replace(/\?/, '');
   axios
-    .get(`/api?${queries}`)
+    .get(`/api?${search}`)
     .then(callbackFn)
     .catch(error => {
       console.log(`error making ajax call: ${error}`);
@@ -153,7 +157,7 @@ const manageHistory = (opts = {}, history, reset = false) => {
     filters,
     availabilityType,
     publicationType,
-    pageNumber,
+    pageNum,
   } = opts;
   let query = '?';
 
@@ -171,8 +175,8 @@ const manageHistory = (opts = {}, history, reset = false) => {
     if (publicationType === 'anyYear') {
       query += '&publishYear=anyYear';
     }
-    if (parseInt(pageNumber, 10) !== 1) {
-      query += `&pageNum=${pageNumber}`;
+    if (parseInt(pageNum, 10) !== 1) {
+      query += `&pageNum=${pageNum}`;
     }
   }
 
@@ -207,6 +211,8 @@ const getFilterLabel = (filterType = '', id = '') => {
   return filter ? filter.label : '';
 };
 
+const trackNewArrivals = ga._trackEvent('New Arrivals');
+
 export {
   formatFilters,
   titleAuthorShortener,
@@ -218,4 +224,5 @@ export {
   manageHistory,
   createEncoreLink,
   getFilterLabel,
+  trackNewArrivals,
 };

@@ -1,67 +1,45 @@
 // Import React Libraries
 import React from 'react';
-import radium from 'radium';
 
-const styles = {
-  base: {
-    color: '#A3A19E',
-    border: '2px solid #A3A19E',
-  },
-  dots: {
-    border: '3px solid #A3A19E',
-  },
-};
+const PaginationButton = (props) => {
+  const dotElements = [];
+    // Add loading class and the loading animation if it is loading now
+  const isLoading = props.isLoading ? 'loading' : '';
 
-class PaginationButton extends React.Component {
-  render() {
-    const dotElements = [];
-      // Add loading class and the loading animation if it is loading now
-    const isLoading = this.props.isLoading ? 'loading' : '';
-    let i;
-
-    // Generate the dots for the pagination button.
-    // The number of the dots is determinated by the props.
-    for (i = 0; i < this.props.dots; i++) {
-      dotElements.push(
-        <li
-          id={`${this.props.id}__dot-row__element_${i}`}
-          className={`${this.props.className}__dot-row__element ${isLoading}`}
-          key={i}
-          style={[
-            styles.dots,
-            this.props.dotStyle,
-          ]}
-        >
-        </li>
-      );
-    }
-
-    return (
-      <div
-        id={this.props.id}
-        className={`${this.props.className} ${this.props.hidden}`}
-        onClick={this.props.onClick}
-        style={[
-          styles.base,
-          this.props.style,
-        ]}
+  // Generate the dots for the pagination button.
+  // The number of the dots is determinated by the props.
+  for (let i = 0; i < props.dots; i++) {
+    dotElements.push(
+      <li
+        id={`${props.id}-list-dot-${i}`}
+        className={`paginationButton-list-dot ${isLoading}`}
+        key={i}
       >
-        <ul
-          id={`${this.props.id}__dot-row`}
-          className={`${this.props.className}__dot-row`}
-        >
-          {dotElements}
-          <li
-            id={`${this.props.id}__dot-row__number`}
-            className={`${this.props.className}__dot-row__number`}
-          >
-            {this.props.label}
-          </li>
-        </ul>
-      </div>
+      </li>
     );
   }
-}
+
+  return (
+    <div
+      id={props.id}
+      className={`paginationButton ${props.className} ${props.hidden}`}
+      onClick={props.onClick}
+    >
+      <ul
+        id={`${props.id}-list`}
+        className={`paginationButton-list`}
+      >
+        {dotElements}
+        <li
+          id={`${props.id}-list-number`}
+          className={`paginationButton-list-number`}
+        >
+          {props.label}
+        </li>
+      </ul>
+    </div>
+  );
+};
 
 PaginationButton.propTypes = {
   id: React.PropTypes.string.isRequired,
@@ -73,13 +51,11 @@ PaginationButton.propTypes = {
   dots: React.PropTypes.number,
   hidden: React.PropTypes.string,
   onClick: React.PropTypes.func,
-  style: React.PropTypes.object,
-  dotStyle: React.PropTypes.object,
 };
 
 PaginationButton.defaultProps = {
-  id: 'PaginationButton',
-  className: 'pagination-button',
+  id: 'paginationButton',
+  className: '',
   name: 'pagination button',
   label: 'Pagination Button',
   lang: 'en',
@@ -87,4 +63,4 @@ PaginationButton.defaultProps = {
 };
 
 // Export the component
-export default radium(PaginationButton);
+export default PaginationButton;

@@ -4,6 +4,8 @@ import {
   GridIcon,
 } from 'dgx-svg-icons';
 
+import { trackNewArrivals } from '../../utils/utils.js';
+
 import Actions from '../../actions/Actions.js';
 
 class ViewTypeButton extends React.Component {
@@ -16,6 +18,7 @@ class ViewTypeButton extends React.Component {
   onChange(e) {
     const displayType = e.currentTarget.value;
     Actions.updateDisplayView(displayType);
+    trackNewArrivals('Toggle View Type', displayType);
   }
 
   render() {

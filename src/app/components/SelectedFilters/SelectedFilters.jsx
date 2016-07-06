@@ -3,7 +3,6 @@ import {
   every as _every,
   map as _map,
   keys as _keys,
-  mapObject as _mapObject,
 } from 'underscore';
 import {
   XIcon,
@@ -18,6 +17,7 @@ import {
   createAppHistory,
   manageHistory,
   getFilterLabel,
+  trackNewArrivals,
 } from '../../utils/utils.js';
 
 const history = createAppHistory();
@@ -71,6 +71,7 @@ class SelectedFilters extends React.Component {
       pageNum,
       publicationType,
     } = this.state;
+    const filterToRemove = filters[filter];
     let update = true;
     let page = pageNum;
 
@@ -89,8 +90,10 @@ class SelectedFilters extends React.Component {
 
     const queries = makeFrontEndQuery(filters, availabilityType, page, publicationType, update);
 
+    trackNewArrivals('Remove Filter Active Display', `${filter} - ${filterToRemove}`);
+
     makeApiCall(queries, response => {
-      const displayPagination = response.data.bibItems.length === 0 ? false : true;
+      const displayPagination = response.data.bibItems.length !== 0;
 
       Actions.updateDisplayPagination(displayPagination);
       Actions.updateFiltered(filters);
@@ -102,7 +105,7 @@ class SelectedFilters extends React.Component {
   render() {
     const filters = this.getFilterList(this.state.filters);
 
-    return filters && filters.length ?
+    return (filters && filters.length) ?
       <ul className="selectedFilters">{filters}</ul> :
       null;
   }

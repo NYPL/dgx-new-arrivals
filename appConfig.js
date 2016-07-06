@@ -1,7 +1,7 @@
 export default {
   appTitle: 'New Arrivals | The New York Public Library',
   appName: 'Homepage',
-  favIconPath: 'http://ux-static.nypl.org.s3-website-us-east-1.amazonaws.com/images/favicon.ico',
+  favIconPath: '//d2znry4lg8s0tq.cloudfront.net/images/favicon.ico',
   port: 3001,
   webpackDevServerPort: 3000,
   api: {
@@ -23,16 +23,11 @@ export default {
     endpoint: '/api/nypl/ndo/v0.1/site-data/header-items',
     includes: [
       'children',
-      'related-mega-menu-panes.current-mega-menu-item.images',
-      'related-mega-menu-panes.current-mega-menu-item.related-content.authors.nypl-location',
-      'related-mega-menu-panes.current-mega-menu-item.related-content.location',
-      'related-mega-menu-panes.default-mega-menu-item.images',
-      'related-mega-menu-panes.default-mega-menu-item.related-content.authors.nypl-location',
-      'related-mega-menu-panes.default-mega-menu-item.related-content.location'
+      'related-container-slots.current-item.square-image',
     ],
     filters: {
-      'relationships': {'parent': 'null'}
-    }
+      'relationships': { 'parent': 'null' },
+    },
   },
   itemTitleLength: 65,
   appFilters: {
@@ -80,6 +75,8 @@ export default {
       active: '',
     },
   },
+  titleRemovedText: /(\[sound recording\])|(\[videorecording\])|(\[electronic resource\])/,
+  authorRemovedText: /(\(Musical group.*\))|(\(Musician\))|(composer, performer.)|(performer, composer.)/,
   availability: {
     newArrival: { id: 'New Arrival', label: 'New Arrivals' },
     onOrder: { id: 'On Order', label: 'On Order' },

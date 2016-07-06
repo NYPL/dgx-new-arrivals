@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { map as _map } from 'underscore';
+
 import FilterListItem from './FilterListItem.jsx';
 
-import { map as _map } from 'underscore';
+import { trackNewArrivals } from '../../utils/utils.js';
 
 // Only select one filter per category
 class FilterList extends React.Component {
@@ -14,18 +16,22 @@ class FilterList extends React.Component {
 
   setActive(item) {
     const title = this.props.list.title;
+    let gaAction = 'Select: ';
 
     if (this.props.list.active === item) {
       this.props.manageSelected({
         filter: title,
         selected: '',
       });
+      gaAction = 'Unselect: ';
     } else {
       this.props.manageSelected({
         filter: title,
         selected: item,
       });
     }
+
+    trackNewArrivals(gaAction, `${title} - ${item}`);
   }
 
   renderList(list) {
@@ -33,7 +39,7 @@ class FilterList extends React.Component {
 
     return _map(list, (item, i) =>
       (<FilterListItem
-        item={item.label}
+        item={item}
         filter={this.props.list.title}
         active={activeItem === item.id}
         key={i}
@@ -46,14 +52,12 @@ class FilterList extends React.Component {
     const list = this.renderList(this.props.list.data);
 
     return (
-      <li className="FilterList">
-        <div className="inner">
+      <fieldset tabIndex="0" className="filterList">
+        <legend className="title">
           <h3>{this.props.list.title}</h3>
-        </div>
-        <ul>
-          {list}
-        </ul>
-      </li>
+        </legend>
+        {list}
+      </fieldset>
     );
   }
 }
