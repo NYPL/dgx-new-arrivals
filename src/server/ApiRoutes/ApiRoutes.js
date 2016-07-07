@@ -175,5 +175,9 @@ router
   .route('/api')
   .get(selectPage);
 
+router
+  .route('/browse/new-arrivals/api')
+  .get(selectPage);
+
 
 export default router;
