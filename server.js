@@ -47,7 +47,7 @@ app.use('*/src/client', express.static(INDEX_PATH));
 
 app.use('/', apiRoutes);
 
-app.get('/', (req, res) => {
+app.get('/browse/new-arrivals/', (req, res) => {
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
   const iso = new Iso();

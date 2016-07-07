@@ -172,6 +172,10 @@ router
   .get(newArrivalsApp);
 
 router
+  .route('/browse/new-arrivals')
+  .get(newArrivalsApp);
+
+router
   .route('/api')
   .get(selectPage);
 

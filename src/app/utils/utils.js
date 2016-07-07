@@ -187,6 +187,7 @@ const manageHistory = (opts = {}, history, reset = false) => {
   query = (query === '?') ? '' : query;
 
   history.push({
+    pathname: '/browse/new-arrivals',
     search: query,
     state: { newArrivals: true }
   });
