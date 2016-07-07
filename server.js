@@ -44,10 +44,16 @@ app.use('/browse/new-arrivals/', express.static(DIST_PATH));
 // For images
 app.use('*/src/client', express.static(INDEX_PATH));
 
-
 app.use('/', apiRoutes);
 
-app.get('/browse/new-arrivals/', (req, res) => {
+// app.use('/', (req, res, next) => {
+//   if (req.path !== '/browse/new-arrivals') {
+//     return res.redirect('/browse/new-arrivals');
+//   }
+//   next();
+// });
+
+app.use('/', (req, res) => {
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
   const iso = new Iso();
