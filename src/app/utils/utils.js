@@ -125,7 +125,7 @@ const makeApiQuery = (
 const makeApiCall = (queries, callbackFn) => {
   const search = queries.replace(/\?/, '');
   axios
-    .get(`/api?${search}`)
+    .get(`/browse/new-arrivals/api?${search}`)
     .then(callbackFn)
     .catch(error => {
       console.log(`error making ajax call: ${error}`);
@@ -187,6 +187,7 @@ const manageHistory = (opts = {}, history, reset = false) => {
   query = (query === '?') ? '' : query;
 
   history.push({
+    pathname: '/browse/new-arrivals',
     search: query,
     state: { newArrivals: true }
   });

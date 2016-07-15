@@ -24,8 +24,20 @@
     
 <% if (isProduction) { %>
     <!-- Minified Styles -->
-    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <link rel="stylesheet" type="text/css" href="/browse/new-arrivals/styles.css">
 <% } %> 
+
+    <!-- Google Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-1420324-122', 'auto');
+    ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics -->
 
   </head>
   <body>
@@ -34,9 +46,13 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.min.js"></script>
+  <script>
+    var path = "<% path %>";
+    var url = "<% url %>";
+  </script>
 
 <% if (isProduction) { %>
-  <script async src="/bundle.js"></script>
+  <script async src="/browse/new-arrivals/bundle.js"></script>
 <% } else { %>
   <script src="http://localhost:3000/bundle.js"></script>
 <% } %>

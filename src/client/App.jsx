@@ -13,9 +13,9 @@ import ga from 'react-ga';
 window.onload = () => {
   if (!window.ga) {
     console.log('Analytics not available - loading through React.');
-    const gaOpts = { debug: false };
+    // const gaOpts = { debug: false };
     // Passing in false for the dev GA code
-    ga.initialize('UA-1420324-122', gaOpts);
+    // ga.initialize('UA-1420324-122', gaOpts);
   }
 
   if (!window.dgxFeatureFlags) {
