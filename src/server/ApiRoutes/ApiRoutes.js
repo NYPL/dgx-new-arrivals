@@ -2,6 +2,7 @@ import express from 'express';
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
 
+import { navConfig } from 'dgx-header-component';
 import Model from 'dgx-model-data';
 import _ from 'underscore';
 
@@ -86,7 +87,7 @@ const newArrivalsApp = (req, res, next) => {
 
       res.locals.data = {
         HeaderStore: {
-          headerData: headerModelData,
+          headerData: navConfig.current,
         },
         NewArrivalsStore: {
           displayType: 'grid',
@@ -113,7 +114,7 @@ const newArrivalsApp = (req, res, next) => {
 
       res.locals.data = {
         HeaderStore: {
-          headerData: [],
+          headerData: navConfig.current,
         },
         NewArrivalsStore: {
           displayType: 'grid',

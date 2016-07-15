@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Header from 'dgx-header-component';
+import { Header } from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
 
 import NewArrivals from '../NewArrivals/NewArrivals.jsx';
