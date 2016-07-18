@@ -71,6 +71,9 @@ export default {
       data: [
         { id: 'Fiction', label: 'Fiction' },
         { id: 'Non Fiction', label: 'Non Fiction' },
+        { id: 'Cookbooks', label: 'Cookbooks' },
+        { id: 'Science Fiction', label: 'Science Fiction' },
+        { id: 'Biographies', label: 'Biographies' },
       ],
       active: '',
     },

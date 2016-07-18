@@ -34,10 +34,14 @@ class FilterList extends React.Component {
     trackNewArrivals(gaAction, `${title} - ${item}`);
   }
 
+  renderDivider() {
+    return (<div className="subdivider" key="divider"></div>);
+  }
+
   renderList(list) {
     const activeItem = this.props.list.active;
 
-    return _map(list, (item, i) =>
+    let returnedList = _map(list, (item, i) =>
       (<FilterListItem
         item={item}
         filter={this.props.list.title}
@@ -46,6 +50,12 @@ class FilterList extends React.Component {
         onClick={() => this.setActive(item.id)}
       />)
     );
+
+    if (this.props.list.title === 'Genre') {
+      returnedList.splice(2, 0, this.renderDivider());
+    }
+
+    return returnedList;
   }
 
   render() {

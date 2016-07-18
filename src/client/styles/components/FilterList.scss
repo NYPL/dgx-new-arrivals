@@ -32,6 +32,17 @@
     }
   }
 
+  .subdivider {
+    height: 10px;
+    border-top: 2px solid white;
+    margin-top: 10px;
+
+    @include min-screen(768px) {
+      width: 80%;
+      margin-left: 15px;
+    }
+  }
+
   div {
     height: 35px;
     font-size: 14px;
