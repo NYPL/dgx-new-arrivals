@@ -40,8 +40,7 @@ class FilterList extends React.Component {
 
   renderList(list) {
     const activeItem = this.props.list.active;
-
-    let returnedList = _map(list, (item, i) =>
+    const returnedList = _map(list, (item, i) =>
       (<FilterListItem
         item={item}
         filter={this.props.list.title}
@@ -51,8 +50,8 @@ class FilterList extends React.Component {
       />)
     );
 
-    if (this.props.list.title === 'Genre') {
-      returnedList.splice(2, 0, this.renderDivider());
+    if (this.props.list.title === this.props.dividerTitle) {
+      returnedList.splice(this.props.dividerIndex, 0, this.renderDivider());
     }
 
     return returnedList;
@@ -75,6 +74,13 @@ class FilterList extends React.Component {
 FilterList.propTypes = {
   manageSelected: React.PropTypes.func,
   list: React.PropTypes.object,
+  dividerTitle: React.PropTypes.string,
+  dividerIndex: React.PropTypes.number,
+};
+
+FilterListItem.defaultProps = {
+  dividerTitle: '',
+  dividerIndex: 0,
 };
 
 export default FilterList;

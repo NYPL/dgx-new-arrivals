@@ -201,7 +201,7 @@ class Filter extends React.Component {
               <span>Apply</span>
             </button>
           </li>
-          
+
           <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
             <button className="PillButton reset" onClick={() => this.resetFilters('Filters')}>
               <ResetIcon />
@@ -212,10 +212,24 @@ class Filter extends React.Component {
 
         <fieldset className="filter-list" tabIndex="0">
           <legend>Filter on the following categories</legend>
-          <FilterList list={formatData} manageSelected={this.manageSelected} />
-          <FilterList list={audienceData} manageSelected={this.manageSelected} />
-          <FilterList list={languageData} manageSelected={this.manageSelected} />
-          <FilterList list={genreData} manageSelected={this.manageSelected} />
+          <FilterList
+            list={formatData}
+            manageSelected={this.manageSelected}
+          />
+          <FilterList
+            list={audienceData}
+            manageSelected={this.manageSelected}
+          />
+          <FilterList
+            list={languageData}
+            manageSelected={this.manageSelected}
+          />
+          <FilterList
+            list={genreData}
+            manageSelected={this.manageSelected}
+            dividerTitle={genreData.title}
+            dividerIndex={2}
+          />
         </fieldset>
       </div>
     );
