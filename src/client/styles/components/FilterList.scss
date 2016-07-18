@@ -36,6 +36,7 @@
     height: 10px;
     border-top: 2px solid white;
     margin-top: 10px;
+    margin-left: 50px;
 
     @include min-screen(768px) {
       width: 80%;
