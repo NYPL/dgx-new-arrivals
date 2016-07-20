@@ -22,6 +22,9 @@ window.onload = () => {
     window.dgxFeatureFlags = FeatureFlags.utils;
   }
 
+  // Fire off the Feature Flag prior to render
+  FeatureFlags.utils.activateFeature('shop-link');
+
   // Render Isomorphically
   Iso.bootstrap((state, container) => {
     alt.bootstrap(state);
