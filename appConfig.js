@@ -12,11 +12,11 @@ export default {
     },
   },
   newArrivalsApi: {
-    base: 'http://10.224.6.14:8083/inventory',
-    audience: 'http://10.224.6.14:8083/inventory/audience',
-    bibItems: 'http://10.224.6.14:8083/inventory/bibItems',
-    formats: 'http://10.224.6.14:8083/inventory/formats',
-    languages: 'http://10.224.6.14:8083/inventory/languages',
+    base: 'http://dev-inventory.nypl.org/inventory',
+    audience: 'http://dev-inventory.nypl.org/inventory/audience',
+    bibItems: 'http://dev-inventory.nypl.org/inventory/bibItems',
+    formats: 'http://dev-inventory.nypl.org/inventory/formats',
+    languages: 'http://dev-inventory.nypl.org/inventory/languages',
     availableQueries: ['audience', 'bibNumber', 'days', 'format', 'language', 'pageNum', 'itemCount'],
   },
   headerApi: {
