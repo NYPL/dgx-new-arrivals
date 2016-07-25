@@ -12,11 +12,6 @@ export default {
     },
   },
   inventoryService: {
-    root: {
-      development: 'https://dev-inventory.nypl.org',
-      qa: 'https://qa-inventory.nypl.org',
-      production: 'https://inventory.nypl.org',
-    },
     base: 'https://dev-inventory.nypl.org/inventory',
     audience: 'https://dev-inventory.nypl.org/inventory/audience',
     bibItems: 'https://dev-inventory.nypl.org/inventory/bibItems',

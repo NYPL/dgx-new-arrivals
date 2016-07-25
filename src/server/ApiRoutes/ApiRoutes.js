@@ -35,7 +35,6 @@ const fetchApiData = (url) => axios.get(url);
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
 const apiRoot = api.root[appEnvironment];
-// const inventoryRoot = inventoryService.root[appEnvironment];
 
 const headerOptions = createOptions(headerApi);
 // Always the year before the current year.
