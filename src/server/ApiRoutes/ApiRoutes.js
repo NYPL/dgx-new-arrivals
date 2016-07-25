@@ -33,7 +33,8 @@ const createOptions = (apiValue) => ({
 const fetchApiData = (url) => axios.get(url);
 
 const router = express.Router();
-const appEnvironment = process.env.APP_ENV || 'development';
+// const appEnvironment = process.env.APP_ENV || 'development';
+const appEnvironment = 'development';
 const apiRoot = api.root[appEnvironment];
 const inventoryRoot = inventoryService.root[appEnvironment];
 

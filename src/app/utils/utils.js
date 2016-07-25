@@ -22,7 +22,8 @@ const {
   titleRemovedText,
   authorRemovedText,
 } = config;
-const appEnvironment = process.env.APP_ENV || 'development';
+// const appEnvironment = process.env.APP_ENV || 'development';
+const appEnvironment = 'development';
 const inventoryRoot = inventoryService.root[appEnvironment];
 
 const minPublishYear = currentYear - 1;
