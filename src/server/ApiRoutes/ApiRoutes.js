@@ -36,8 +36,8 @@ const router = express.Router();
 // const appEnvironment = process.env.APP_ENV || 'development';
 const appEnvironment = 'development';
 const apiRoot = api.root[appEnvironment];
-const inventoryRoot = inventoryService.root[appEnvironment];
-
+const inventoryRoot = inventoryService.root.development;
+console.log(inventoryRoot);
 const headerOptions = createOptions(headerApi);
 // Always the year before the current year.
 const minPublishYear = currentYear - 1;
