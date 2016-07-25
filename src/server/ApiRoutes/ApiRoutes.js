@@ -36,7 +36,7 @@ const router = express.Router();
 // const appEnvironment = process.env.APP_ENV || 'development';
 const appEnvironment = 'development';
 const apiRoot = api.root[appEnvironment];
-const inventoryRoot = inventoryService.root.development;
+const inventoryRoot = inventoryService.root[appEnvironment];
 console.log(inventoryRoot);
 const headerOptions = createOptions(headerApi);
 // Always the year before the current year.
@@ -48,7 +48,7 @@ const getHeaderData = () => {
 };
 const getLanguageData = () => {
   const languageApiUrl =
-    `${inventoryRoot}${inventoryService.languages}?&days=` +
+    `${inventoryService.languages}?&days=` +
     `${languageDays}&minPublishYear=${minPublishYear}`;
 
   return fetchApiData(languageApiUrl);
