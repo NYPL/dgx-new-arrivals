@@ -67,7 +67,7 @@ app.use('/', (req, res) => {
   FeatureFlags.utils.activateFeature('shop-link');
 
   iso.add(appString, alt.flush());
-
+console.log(process.env.APP_ENV);
   // First parameter references the ejs filename
   res.render('index', {
     app: iso.render(),
@@ -78,6 +78,7 @@ app.use('/', (req, res) => {
     isProduction,
     path: req.path,
     url: req.url,
+    app_env: process.env.APP_ENV || 'no app env set',
   });
 });
 
