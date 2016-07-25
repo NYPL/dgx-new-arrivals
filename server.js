@@ -79,7 +79,6 @@ app.use('/', (req, res) => {
     isProduction,
     path: req.path,
     url: req.url,
-    appEnv,
   });
 });
 
