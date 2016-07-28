@@ -62,7 +62,10 @@ if (ENV === 'development') {
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin()
+      new webpack.NoErrorsPlugin(),
+      new webpack.DefinePlugin({
+        'loadA11y': process.env.loadA11y || false,
+      }),
     ],
     resolve: {
       extensions: ['', '.js', '.jsx', '.scss']

@@ -33,10 +33,12 @@ class ViewTypeButton extends React.Component {
           id="listInput"
           checked={this.props.type === 'list'}
           onChange={this.onChange}
+          aria-labelledby="label-list"
         />
         <label
           htmlFor="listInput"
           className="switch-label label-left"
+          id="label-list"
         >
           {<ListIcon />} list
         </label>
@@ -48,10 +50,12 @@ class ViewTypeButton extends React.Component {
           id="gridInput"
           checked={this.props.type === 'grid'}
           onChange={this.onChange}
+          aria-labelledby="label-grid"
         />
         <label
           htmlFor="gridInput"
           className="switch-label label-right"
+          id="label-grid"
         >
           {<GridIcon />} grid
         </label>

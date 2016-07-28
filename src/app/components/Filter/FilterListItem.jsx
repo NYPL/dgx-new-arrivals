@@ -15,8 +15,9 @@ const FilterListItem = (props) => {
         name={props.filter}
         onClick={props.onClick}
         value={props.item.label}
+        aria-labelledby={`label-${formatId}`}
       />
-      <label htmlFor={formatId}>
+      <label htmlFor={formatId} id={`label-${formatId}`}>
         {props.active ? <CircleDashIcon /> : null}
         {props.item.label}
       </label>
