@@ -23,6 +23,8 @@ const {
   authorRemovedText,
 } = config;
 const minPublishYear = currentYear - 1;
+const appEnvironment = process.env.APP_ENV || 'development';
+const inventoryRoot = inventoryService.root[appEnvironment];
 
 const formatFilters = () => {
   const formats = _map(appFilters.formatData.data, format => format.id);
@@ -93,7 +95,7 @@ const makeApiQuery = (
   publishYear = 'recentlyReleased',
   updateItems = false
 ) => {
-  let baseApiUrl = `${inventoryService.bibItems}?`;
+  let baseApiUrl = `${inventoryRoot}${inventoryService.bibItems}?`;
   let itemsQuery = itemCount;
   let pageQuery = parseInt(pageNumber, 10) || 1;
 

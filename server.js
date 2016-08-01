@@ -79,7 +79,7 @@ app.use('/', (req, res) => {
     isProduction,
     path: req.path,
     url: req.url,
-    appEnv,
+    appEnv: process.env.APP_ENV || 'no app env set',
   });
 });
 

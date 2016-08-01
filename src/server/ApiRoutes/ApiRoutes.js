@@ -34,6 +34,8 @@ const fetchApiData = (url) => axios.get(url);
 
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
+// Hardcoded for now
+const inventoryRoot = inventoryService.root['development'];
 const apiRoot = api.root[appEnvironment];
 
 const headerOptions = createOptions(headerApi);
@@ -46,7 +48,7 @@ const getHeaderData = () => {
 };
 const getLanguageData = () => {
   const languageApiUrl =
-    `${inventoryService.languages}?&days=` +
+    `${inventoryRoot}${inventoryService.languages}?&days=` +
     `${languageDays}&minPublishYear=${minPublishYear}`;
 
   return fetchApiData(languageApiUrl);
