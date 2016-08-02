@@ -21,10 +21,15 @@ const {
   currentYear,
   titleRemovedText,
   authorRemovedText,
+  languageId,
 } = config;
 const minPublishYear = currentYear - 1;
 const appEnvironment = process.env.APP_ENV || 'production';
-const inventoryRoot = inventoryService.root[appEnvironment];
+const inventoryRoot = inventoryService.root['development'];
+
+const mapLanguageCode = (langId) => (
+  _findWhere(languageId, { id: langId }) || { id: '', code: '' }
+);
 
 const formatFilters = () => {
   const formats = _map(appFilters.formatData.data, format => format.id);
@@ -228,4 +233,5 @@ export {
   createEncoreLink,
   getFilterLabel,
   trackNewArrivals,
+  mapLanguageCode,
 };
