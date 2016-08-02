@@ -37,7 +37,7 @@ class BookListItem extends React.Component {
       <div className="list-item">
         {this.props.bookCover}
 
-        <h2>
+        <h2 lang={this.props.lang}>
           <a href={this.props.target} onClick={this.trackTitle}>
             {this.props.title}
           </a>
@@ -62,6 +62,7 @@ BookListItem.propTypes = {
   description: React.PropTypes.string,
   target: React.PropTypes.string,
   title: React.PropTypes.string,
+  lang: React.PropTypes.string,
 };
 
 export default BookListItem;

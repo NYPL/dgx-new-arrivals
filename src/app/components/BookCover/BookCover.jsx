@@ -128,7 +128,6 @@ class BookCover extends React.Component {
 
     if (imgClass !== 'noImage') {
       item = (<img
-        lang={this.props.lang}
         onLoad={this.handleLoadedImage}
         onError={this.handleLoadedImageError}
         id={`cover-${this.props.id}`}
@@ -148,12 +147,12 @@ class BookCover extends React.Component {
         format={format}
         genre={this.props.genre}
         simple={this.props.simple}
+        lang={this.props.lang}
       />);
     }
 
     return (
       <a
-        lang={this.props.lang}
         href={this.props.target}
         className={`${this.props.linkClass} ${imgClass}`}
         onClick={() =>
