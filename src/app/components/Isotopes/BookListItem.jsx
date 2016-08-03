@@ -13,7 +13,6 @@ class BookListItem extends React.Component {
     this.createDate = this.createDate.bind(this);
     this.createInfo = this.createInfo.bind(this);
     this.trackTitle = this.trackTitle.bind(this);
-    this.createDescription = this.createDescription.bind(this);
   }
 
   createDate(date) {
@@ -22,10 +21,6 @@ class BookListItem extends React.Component {
 
   createInfo(info, infoClass) {
     return info ? (<p className={infoClass}>{info}</p>) : null;
-  }
-
-  createDescription(info, infoClass) {
-    return info ? (<p className={infoClass} lang={this.props.lang}>{info}</p>) : null;
   }
 
   trackTitle() {
@@ -50,7 +45,7 @@ class BookListItem extends React.Component {
         {this.createInfo(this.props.author, 'author')}
         {this.createInfo(publishInfo, 'publishInfo')}
         {this.createInfo(callNumber, 'callNumber')}
-        {this.createDescription(this.props.description, 'description')}
+        {this.createInfo(this.props.description, 'description')}
         {this.createInfo(dateAdded, 'date')}
       </div>
     );
