@@ -15,7 +15,7 @@ const BookOverlay = (props) => {
   if (!props.simple) {
     details = (
       <div>
-        <h3 lang={this.props.lang}>{props.name}</h3>
+        <h3 lang={props.lang}>{props.name}</h3>
         <div className="details">
           <p className="author">{props.author}</p>
           <p className="format">{props.icon}{props.format}</p>
