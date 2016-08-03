@@ -125,7 +125,8 @@ if (ENV === 'production') {
         compress: {
           warnings: false
         }
-      })
+      }),
+      new webpack.DefinePlugin({ 'loadA11y': false }),
     ]
   });
 }
