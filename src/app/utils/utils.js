@@ -24,7 +24,7 @@ const {
 } = config;
 const minPublishYear = currentYear - 1;
 const appEnvironment = process.env.APP_ENV || 'production';
-const inventoryRoot = inventoryService.root[appEnvironment];
+const inventoryRoot = inventoryService.root['development'];
 
 const formatFilters = () => {
   const formats = _map(appFilters.formatData.data, format => format.id);
