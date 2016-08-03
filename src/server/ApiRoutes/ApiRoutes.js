@@ -18,7 +18,7 @@ const { HeaderItemModel } = Model;
 const {
   api,
   headerApi,
-  newArrivalsApi,
+  inventoryService,
   languageDays,
   languageItemCount,
   itemCount,
@@ -34,7 +34,9 @@ const fetchApiData = (url) => axios.get(url);
 
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
+const inventoryRoot = inventoryService.root[appEnvironment];
 const apiRoot = api.root[appEnvironment];
+
 const headerOptions = createOptions(headerApi);
 // Always the year before the current year.
 const minPublishYear = currentYear - 1;
@@ -45,7 +47,8 @@ const getHeaderData = () => {
 };
 const getLanguageData = () => {
   const languageApiUrl =
-    `${newArrivalsApi.languages}?&days=${languageDays}&minPublishYear=${minPublishYear}`;
+    `${inventoryRoot}${inventoryService.languages}?&days=` +
+    `${languageDays}&minPublishYear=${minPublishYear}`;
 
   return fetchApiData(languageApiUrl);
 };

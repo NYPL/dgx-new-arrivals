@@ -28,6 +28,7 @@ const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
 const VIEWS_PATH = path.resolve(ROOT_PATH, 'src/views');
 const WEBPACK_DEV_PORT = appConfig.webpackDevServerPort || 3000;
 const isProduction = process.env.NODE_ENV === 'production';
+const appEnv = process.env.APP_ENV || 'no app env set';
 const app = express();
 
 app.use(compress());
@@ -75,9 +76,10 @@ app.use('/', (req, res) => {
     favicon: appConfig.favIconPath,
     gaCode: analytics.google.code(isProduction),
     webpackPort: WEBPACK_DEV_PORT,
-    isProduction,
     path: req.path,
     url: req.url,
+    isProduction,
+    appEnv,
   });
 });
 

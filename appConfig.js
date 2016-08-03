@@ -11,12 +11,17 @@ export default {
       production: 'https://refinery.nypl.org',
     },
   },
-  newArrivalsApi: {
-    base: 'http://10.224.6.14:8083/inventory',
-    audience: 'http://10.224.6.14:8083/inventory/audience',
-    bibItems: 'http://10.224.6.14:8083/inventory/bibItems',
-    formats: 'http://10.224.6.14:8083/inventory/formats',
-    languages: 'http://10.224.6.14:8083/inventory/languages',
+  inventoryService: {
+    root: {
+      development: 'https://dev-inventory.nypl.org',
+      qa: 'https://qa-inventory.nypl.org',
+      production: 'https://inventory.nypl.org',
+    },
+    base: '/inventory',
+    audience: '/inventory/audience',
+    bibItems: '/inventory/bibItems',
+    formats: '/inventory/formats',
+    languages: '/inventory/languages',
     availableQueries: ['audience', 'bibNumber', 'days', 'format', 'language', 'pageNum', 'itemCount'],
   },
   headerApi: {
