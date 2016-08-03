@@ -74,13 +74,13 @@ class Isotopes extends React.Component {
     const displayType = this.props.displayType;
 
     return (
-      <ul
+      <div
         ref="isotopeContainer"
         style={{ opacity: '0' }}
         className={`isotopeGrid ${this.props.format}`}
       >
         <CatalogItems items={booksArr} displayType={displayType} />
-      </ul>
+      </div>
     );
   }
 }

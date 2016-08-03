@@ -25,9 +25,9 @@ class CatalogItems extends React.Component {
 
     if (bookCoverItems.length === 0) {
       return (
-        <li className="catalogItem noResults">
+        <div className="catalogItem noResults">
           <span>No items found with the selected filters.</span>
-        </li>
+        </div>
       );
     }
 
@@ -87,7 +87,7 @@ class CatalogItems extends React.Component {
       );
     });
 
-    return (<div className="catalogItems">{books}</div>);
+    return (<ul className="catalogItems">{books}</ul>);
   }
 }
 
