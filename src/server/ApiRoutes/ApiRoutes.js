@@ -34,7 +34,7 @@ const fetchApiData = (url) => axios.get(url);
 
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
-const inventoryRoot = inventoryService.root['development'];
+const inventoryRoot = inventoryService.root[appEnvironment];
 const apiRoot = api.root[appEnvironment];
 
 const headerOptions = createOptions(headerApi);
