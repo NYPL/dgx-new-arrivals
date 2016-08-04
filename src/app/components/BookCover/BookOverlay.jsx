@@ -15,7 +15,7 @@ const BookOverlay = (props) => {
   if (!props.simple) {
     details = (
       <div>
-        <h3>{props.name}</h3>
+        <div className="title">{props.name}</div>
         <div className="details">
           <p className="author">{props.author}</p>
           <p className="format">{props.icon}{props.format}</p>

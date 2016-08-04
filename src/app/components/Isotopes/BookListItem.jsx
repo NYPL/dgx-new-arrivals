@@ -37,11 +37,11 @@ class BookListItem extends React.Component {
       <div className="list-item">
         {this.props.bookCover}
 
-        <h2>
+        <h3>
           <a href={this.props.target} onClick={this.trackTitle}>
             {this.props.title}
           </a>
-        </h2>
+        </h3>
         {this.createInfo(this.props.author, 'author')}
         {this.createInfo(publishInfo, 'publishInfo')}
         {this.createInfo(callNumber, 'callNumber')}

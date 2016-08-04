@@ -53,9 +53,9 @@ class FilterList extends React.Component {
 
     return (
       <fieldset tabIndex="0" className="filterList">
-        <legend className="title">
-          <h3>{this.props.list.title}</h3>
-        </legend>
+        <h2 className="title">
+          <legend>{this.props.list.title}</legend>
+        </h2>
         {list}
       </fieldset>
     );
