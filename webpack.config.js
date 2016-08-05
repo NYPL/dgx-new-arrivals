@@ -125,7 +125,7 @@ if (ENV === 'production') {
         compress: {
           warnings: false
         }
-      })
+      }),
     ]
   });
 }
