@@ -26,7 +26,7 @@ class CatalogItems extends React.Component {
     if (bookCoverItems.length === 0) {
       return (
         <div className="catalogItem noResults">
-          <span>No items found with the selected filters.</span>
+          <p aria-label="No items found.">No items found with the selected filters.</p>
         </div>
       );
     }
