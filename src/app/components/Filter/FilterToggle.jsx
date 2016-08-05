@@ -82,7 +82,9 @@ class FilterToggle extends React.Component {
           className="switch-label label-left"
           id="label-newArrivals"
         >
+        <span>
           {newArrival.label}
+        </span>
         </label>
         <input
           type="radio"
@@ -99,7 +101,9 @@ class FilterToggle extends React.Component {
           className="switch-label label-right"
           id="label-onOrder"
         >
+        <span>
           {onOrder.label}
+        </span>
         </label>
         <span className="switch-selection"></span>
       </fieldset>

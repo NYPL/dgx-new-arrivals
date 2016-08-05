@@ -5,3 +5,8 @@
 .displayVisuallyHidden {
   @include displayVisuallyHidden;
 }
+
+// For FireFox
+:focus {
+  overflow: hidden;
+}
