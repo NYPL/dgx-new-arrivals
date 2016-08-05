@@ -10,6 +10,7 @@ import {
   titleAuthorShortener,
   createDate,
   createEncoreLink,
+  mapLanguageCode,
 } from '../../utils/utils.js';
 
 const { appFilters, itemTitleLength } = appConfig;
@@ -32,6 +33,7 @@ class CatalogItems extends React.Component {
     }
 
     const books = bookCoverItems.map((element, i) => {
+      const langCode = mapLanguageCode(element.language);
       const target = createEncoreLink(element.bibNumber);
       const {
         title,
@@ -49,6 +51,7 @@ class CatalogItems extends React.Component {
           linkClass="item"
           simple={false}
           displayType={this.props.displayType}
+          lang={langCode.code}
         />
       );
       const simpleBookCover = (
@@ -60,6 +63,7 @@ class CatalogItems extends React.Component {
           format={element.format}
           linkClass="item"
           displayType={this.props.displayType}
+          lang={langCode.code}
         />
       );
       const format = _findWhere(formatData, { id: element.format });
@@ -77,6 +81,7 @@ class CatalogItems extends React.Component {
           callNumber={element.callNumber}
           description={element.description}
           date={date}
+          lang={langCode.code}
         />
       );
 
