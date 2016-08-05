@@ -193,7 +193,7 @@
     max-height: 250px;
   }
 
-  h3, p {
+  .list-title, p {
     @include Kievit-Book;
     font-weight: 400;
     margin-top: 5px;
@@ -204,16 +204,14 @@
 
   }
 
-  h3 {
-    margin-top: 15px;
+  .list-title {
     font-size: 24px;
+    color: #1da1d4;
+    margin: 15px 0;
+    display: inline-block;
 
-    @include min-screen(1024px) {
-      width: 60%;
-    }
-
-    a {
-      color: #1da1d4;
+    @include min-screen(768px) {
+      margin: 0 0 0 23px;
     }
   }
 

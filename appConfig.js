@@ -80,6 +80,18 @@ export default {
       active: '',
     },
   },
+  languageId: [
+    { id: 'English', code: 'en' },
+    { id: 'Spanish', code: 'es' },
+    { id: 'Chinese', code: 'zh' },
+    { id: 'Russian', code: 'ru' },
+    { id: 'French', code: 'fr' },
+    { id: 'Italian', code: 'it' },
+    { id: 'German', code: 'de' },
+    { id: 'Polish', code: 'pl' },
+    { id: 'Japanese', code: 'ja' },
+    { id: 'Arabic', code: 'ar' },
+  ],
   titleRemovedText: /(\[sound recording\])|(\[videorecording\])|(\[electronic resource\])/,
   authorRemovedText: /(\(Musical group.*\))|(\(Musician\))|(composer, performer.)|(performer, composer.)/,
   availability: {
