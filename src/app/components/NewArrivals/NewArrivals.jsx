@@ -132,7 +132,7 @@ class NewArrivals extends React.Component {
 
     return (
       <div className="newArrivals" id="mainContent" tabIndex="-1">
-        <h4>New Arrivals</h4>
+        <h1>New Arrivals</h1>
         <p className="newArrivals-introText">
           {introText}
         </p>
