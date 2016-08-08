@@ -7,6 +7,10 @@
   top: 5px;
   padding: 0;
 
+  &:active:focus {
+    outline: none;
+  }
+
   &-label {
     position: relative;
     z-index: 2;
@@ -81,7 +85,7 @@
   }
 
   legend {
-      @include visuallyHidden;
+    @include visuallyHidden;
   }
 
   svg {
@@ -126,8 +130,7 @@
         }
       }
 
-      &:checked + .label-right ~ .switch-selection,
-      &:focus + .label-right ~ .switch-selection {
+      &:checked + .label-right ~ .switch-selection {
         left: 80px;
       }
     }

@@ -28,6 +28,16 @@
     height: 35px;
     font-size: 14px;
 
+    input {
+      &:focus + label {
+        outline: 5px auto -webkit-focus-ring-color;
+      }
+
+      &:-moz-focusring + label {
+        outline: 1px dotted #000;
+      }
+    }
+
     label {
       cursor: pointer;
       display: block;
@@ -53,6 +63,20 @@
     &.active {
       background-color: #44433f;
     }
+  }
+
+  // Only focus on the fieldset when tabbing but not when clicking on 
+  // individual filter items.
+  &:active:focus {
+    outline: none;
+  }
+
+  &:focus {
+    outline: 5px auto -webkit-focus-ring-color;
+  }
+
+  &:-moz-focusring {
+    outline: 1px dotted #000;
   }
 
   @include min-screen(768px) {
