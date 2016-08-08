@@ -40,7 +40,9 @@ class ViewTypeButton extends React.Component {
           className="switch-label label-left"
           id="label-list"
         >
+          <span>
           {<ListIcon />} list
+          </span>
         </label>
         <input
           type="radio"
@@ -57,7 +59,9 @@ class ViewTypeButton extends React.Component {
           className="switch-label label-right"
           id="label-grid"
         >
+          <span>
           {<GridIcon />} grid
+          </span>
         </label>
         <span className="switch-selection"></span>
       </fieldset>
