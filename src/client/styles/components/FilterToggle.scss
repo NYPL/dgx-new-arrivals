@@ -53,11 +53,11 @@
     }
 
     &:focus + .switch-label > span {
-      outline: 5px auto #3b99fc;
+      outline: 3px auto #3b99fc;
     }
 
     // Specific styles for Firefox
-    &:-moz-focusring + .switch-label > span {
+    &::-moz-inner-focus + .switch-label > span {
       outline: 1px dotted #000;
     }
 

@@ -30,10 +30,10 @@
 
     input {
       &:focus + label {
-        outline: 5px auto #3b99fc;
+        outline: 3px auto #3b99fc;
       }
 
-      &:-moz-focusring + label {
+      &::-moz-focus-inner + label {
         outline: 1px dotted #000;
       }
     }
@@ -72,10 +72,10 @@
   }
 
   &:focus {
-    outline: 5px auto #3b99fc;
+    outline: 3px auto #3b99fc;
   }
 
-  &:-moz-focusring {
+  &::-moz-focus-inner {
     outline: 1px dotted #000;
   }
 
