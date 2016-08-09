@@ -89,39 +89,39 @@ class BookCover extends React.Component {
 
     switch (this.props.format) {
       case 'BOOK/TEXT':
-        icon = <BookIcon width="32" height="32" />;
+        icon = <BookIcon width="32" height="32" ariaHidden />;
         format = 'Book';
         break;
       case 'AUDIOBOOK':
-        icon = <AudioHeadphoneIcon />;
+        icon = <AudioHeadphoneIcon ariaHidden />;
         format = 'Audiobook';
         break;
       case 'BLU-RAY':
-        icon = <MediaBluRayIcon />;
+        icon = <MediaBluRayIcon ariaHidden />;
         format = 'Blu-ray';
         break;
       case 'DVD':
-        icon = <DvdDiscIcon />;
+        icon = <DvdDiscIcon ariaHidden />;
         format = 'DVD';
         break;
       case 'E-AUDIOBOOK':
-        icon = <AudioHeadphoneIcon />;
+        icon = <AudioHeadphoneIcon ariaHidden />;
         format = 'E-Audiobook';
         break;
       case 'E-BOOK':
-        icon = <EReaderIcon />;
+        icon = <EReaderIcon ariaHidden />;
         format = 'E-Book';
         break;
       case 'LARGE PRINT':
-        icon = <LargePrintIcon />;
+        icon = <LargePrintIcon ariaHidden />;
         format = 'Large Print';
         break;
       case 'MUSIC CD':
-        icon = <AudioDiscIcon />;
+        icon = <AudioDiscIcon ariaHidden />;
         format = 'Music CD';
         break;
       default:
-        icon = <BookIcon width="32" height="32" />;
+        icon = <BookIcon width="32" height="32" ariaHidden />;
         format = this.props.format;
         break;
     }
@@ -153,6 +153,7 @@ class BookCover extends React.Component {
 
     return (
       <a
+        tabIndex={this.props.tab ? '0' : '-1'}
         href={this.props.target}
         className={`${this.props.linkClass} ${imgClass}`}
         onClick={() =>
@@ -178,11 +179,13 @@ BookCover.propTypes = {
   displayType: React.PropTypes.string,
   simple: React.PropTypes.bool,
   lang: React.PropTypes.string,
+  tab: React.PropTypes.bool,
 };
 
 BookCover.defaultProps = {
   format: 'BOOK/TEXT',
   genre: '',
+  tab: true,
 };
 
 export default BookCover;

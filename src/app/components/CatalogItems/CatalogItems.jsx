@@ -64,6 +64,7 @@ class CatalogItems extends React.Component {
           linkClass="item"
           displayType={this.props.displayType}
           lang={langCode.code}
+          tab={false}
         />
       );
       const format = _findWhere(formatData, { id: element.format });
