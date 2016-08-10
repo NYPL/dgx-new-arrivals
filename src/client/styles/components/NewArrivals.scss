@@ -1,7 +1,11 @@
 #mainContent {
   position: relative;
-  border-top: 60px solid transparent;
+  border-top: 10px solid transparent;
   margin-top: 3px;
+
+  @include min-screen(768px) {
+    border-top: 60px solid transparent;
+  }
 }
 
 .newArrivals {
