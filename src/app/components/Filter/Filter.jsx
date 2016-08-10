@@ -188,15 +188,23 @@ class Filter extends React.Component {
           </ul>
         </div>
 
-        <ul className="filter-actions">
-          <li className="buttonItems">
-            <p>Filter by Publish Date</p>
-            <PublicationToggle
-              managePublicationType={this.managePublicationType}
-              publicationType={publicationType}
-            />
-          </li>
+        <div className="publication-filter">
+          <p>Filter by Publish Date</p>
+          <PublicationToggle
+            managePublicationType={this.managePublicationType}
+            publicationType={publicationType}
+          />
+        </div>
 
+        <fieldset className="filter-list" tabIndex="0">
+          <legend>Filter on the following categories</legend>
+          <FilterList list={formatData} manageSelected={this.manageSelected} />
+          <FilterList list={audienceData} manageSelected={this.manageSelected} />
+          <FilterList list={languageData} manageSelected={this.manageSelected} />
+          <FilterList list={genreData} manageSelected={this.manageSelected} />
+        </fieldset>
+
+        <ul className="filter-actions">
           <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
             <button className="PillButton apply" onClick={() => this.submitFilters('Filters')}>
               <CheckSoloIcon ariaHidden />
@@ -211,14 +219,6 @@ class Filter extends React.Component {
             </button>
           </li>
         </ul>
-
-        <fieldset className="filter-list" tabIndex="0">
-          <legend>Filter on the following categories</legend>
-          <FilterList list={formatData} manageSelected={this.manageSelected} />
-          <FilterList list={audienceData} manageSelected={this.manageSelected} />
-          <FilterList list={languageData} manageSelected={this.manageSelected} />
-          <FilterList list={genreData} manageSelected={this.manageSelected} />
-        </fieldset>
       </div>
     );
   }

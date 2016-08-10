@@ -26,10 +26,10 @@ $mobile-margin-top-bottom: 15px !default;
   }
 
   /* Mobile Layout (1 Column) */
-  @include add-grid(1);
-  .nyplNewArrivals-container {
-    padding: 0 14px;
-  }
+  // @include add-grid(1);
+  // .nyplNewArrivals-container {
+  //   padding: 0 14px;
+  // }
 
   /* Tablet Portrait Layout (7 Columns) */
   @include layout-at(( 'grid': 7, 'gutter': .3 ), $tablet-portrait) {
