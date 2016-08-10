@@ -77,7 +77,9 @@ const makeFrontEndQuery = (
 
   _mapObject(filters, (val, key) => {
     if (val !== '') {
-      query += `&${key}=${val}`;
+      if (val.indexOf('Any') === -1) {
+        query += `&${key}=${val}`;
+      }
     } else if (key === 'format') {
       query += `&format=${formatFilters()}`;
     }
@@ -169,7 +171,7 @@ const manageHistory = (opts = {}, history, reset = false) => {
 
   if (!reset) {
     _mapObject(filters, (val, key) => {
-      if (val) {
+      if (val && (val.indexOf('Any') === -1)) {
         query += `&${key}=${val}`;
       }
     });
