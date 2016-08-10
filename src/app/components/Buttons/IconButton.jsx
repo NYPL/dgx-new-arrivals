@@ -18,6 +18,7 @@ class IconButton extends React.Component {
         onClick={this.onClick}
       >
         {this.props.icon}
+        <span className="visuallyHidden">{this.props.label}</span>
       </button>
     );
   }
@@ -26,6 +27,7 @@ class IconButton extends React.Component {
 IconButton.propTypes = {
   onClick: React.PropTypes.func,
   className: React.PropTypes.string,
+  label: React.PropTypes.string,
   icon: React.PropTypes.object,
 };
 

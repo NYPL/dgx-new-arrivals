@@ -89,7 +89,7 @@ class ToggleDisplay extends React.Component {
             <div className="filterButton-wrapper">
               <PillButton
                 className="filterButton"
-                icon={<FilterIcon />}
+                icon={<FilterIcon ariaHidden />}
                 title={filterTitle}
                 value={!filterActive}
                 onClick={this.handleFilterView}

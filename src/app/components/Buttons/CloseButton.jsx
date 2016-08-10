@@ -8,6 +8,7 @@ const CloseButton = ({ className, onClick }) => (
     className={className}
     icon={<XIcon width="48" height="48" />}
     onClick={onClick}
+    label="Close"
   />
 );
 
