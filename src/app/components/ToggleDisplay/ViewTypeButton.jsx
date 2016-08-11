@@ -41,7 +41,7 @@ class ViewTypeButton extends React.Component {
           id="label-list"
         >
           <span>
-          {<ListIcon />} list
+          {<ListIcon ariaHidden />} list
           </span>
         </label>
         <input
@@ -60,7 +60,7 @@ class ViewTypeButton extends React.Component {
           id="label-grid"
         >
           <span>
-          {<GridIcon />} grid
+          {<GridIcon ariaHidden />} grid
           </span>
         </label>
         <span className="switch-selection"></span>

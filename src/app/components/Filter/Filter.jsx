@@ -159,22 +159,24 @@ class Filter extends React.Component {
     return (
       <div className={`filter ${this.props.active}`}>
         <div className="filter-header-mobile">
-          <FilterIcon className="mobile-filter" />
+          <FilterIcon className="mobile-filter" ariaHidden />
           <h2>Filter by</h2>
 
           <ul className="mobile-filter-buttons">
             <li>
               <IconButton
                 className={'apply'}
-                icon={<CheckSoloIcon />}
+                icon={<CheckSoloIcon ariaHidden />}
                 onClick={() => this.submitFilters('Mobile Filter Window')}
+                label="Apply Filters"
               />
             </li>
             <li>
               <IconButton
                 className={'reset'}
-                icon={<ResetIcon />}
+                icon={<ResetIcon ariaHidden />}
                 onClick={() => this.resetFilters('Mobile Filter Window')}
+                label="Reset All"
               />
             </li>
             <li>
@@ -197,14 +199,14 @@ class Filter extends React.Component {
 
           <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
             <button className="PillButton apply" onClick={() => this.submitFilters('Filters')}>
-              <CheckSoloIcon />
+              <CheckSoloIcon ariaHidden />
               <span>Apply</span>
             </button>
           </li>
           
           <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
             <button className="PillButton reset" onClick={() => this.resetFilters('Filters')}>
-              <ResetIcon />
+              <ResetIcon ariaHidden />
               <span>Reset All</span>
             </button>
           </li>
