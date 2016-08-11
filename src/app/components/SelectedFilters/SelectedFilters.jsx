@@ -49,6 +49,10 @@ class SelectedFilters extends React.Component {
       const value = filters[filter];
       const label = getFilterLabel(filter, value);
 
+      if (value.indexOf('Any') === 0) {
+        return null;
+      }
+
       if (value) {
         return (
           <li key={i}>

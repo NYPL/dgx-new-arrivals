@@ -18,10 +18,11 @@ class FilterList extends React.Component {
     const title = this.props.list.title;
     let gaAction = 'Select: ';
 
+    // console.log(this.refs.item);
     if (this.props.list.active === item) {
       this.props.manageSelected({
         filter: title,
-        selected: '',
+        selected: `Any${title}`,
       });
       gaAction = 'Unselect: ';
     } else {
