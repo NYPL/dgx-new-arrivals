@@ -63,13 +63,14 @@ const filterLanguages = (languagesArray, minCount) => {
     )
     .map(language =>
       ({
-        name: language.name,
+        id: language.name,
+        label: language.name,
         count: language.count,
       })
     )
     .value();
 
-  languages.splice(0, 0, {name: "Any", count: 100});
+  languages.splice(0, 0, { id: 'AnyLanguage', label: 'Any', count: 100 });
 
   return languages;
 };
@@ -104,7 +105,7 @@ const newArrivalsApp = (req, res, next) => {
           filters: {
             format: filters.format || 'AnyFormat',
             audience: filters.audience || 'AnyAudience',
-            language: filters.language || 'Any',
+            language: filters.language || 'AnyLanguage',
             genre: filters.genre || 'AnyGenre',
           },
           availabilityType: availability || 'New Arrival',
@@ -131,7 +132,7 @@ const newArrivalsApp = (req, res, next) => {
           filters: {
             format: 'AnyFormat',
             audience: 'AnyAudience',
-            language: 'Any',
+            language: 'AnyLanguage',
             genre: 'AnyGenre',
           },
           availabilityType: 'New Arrival',
