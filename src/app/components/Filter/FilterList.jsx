@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import { map as _map } from 'underscore';
 
@@ -16,14 +17,16 @@ class FilterList extends React.Component {
 
   setActive(item) {
     const title = this.props.list.title;
+    const anyId = `Any${title}`;
     let gaAction = 'Select: ';
 
-    // console.log(this.refs.item);
     if (this.props.list.active === item) {
       this.props.manageSelected({
         filter: title,
-        selected: `Any${title}`,
+        selected: anyId,
       });
+
+      this[anyId].refs[anyId].focus();
       gaAction = 'Unselect: ';
     } else {
       this.props.manageSelected({
@@ -38,15 +41,18 @@ class FilterList extends React.Component {
   renderList(list) {
     const activeItem = this.props.list.active;
 
-    return _map(list, (item, i) =>
-      (<FilterListItem
+    return _map(list, (item, i) => {
+      const itemIdWithoutSpaces = (item.id).replace(/\s+/g, '');
+
+      return (<FilterListItem
+        ref={(ref) => this[itemIdWithoutSpaces] = ref}
         item={item}
         filter={this.props.list.title}
         active={activeItem === item.id}
         key={i}
         onClick={() => this.setActive(item.id)}
-      />)
-    );
+      />);
+    });
   }
 
   render() {
