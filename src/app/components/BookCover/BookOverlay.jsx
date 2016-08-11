@@ -18,7 +18,7 @@ const BookOverlay = (props) => {
         <div className="title" lang={props.lang}>
           {props.name}
         </div>
-        <div className="details">
+        <div className="details" aria-hidden="true">
           <p className="author">{props.author}</p>
           <p className="format">{props.icon}{props.format}</p>
           {genre}
