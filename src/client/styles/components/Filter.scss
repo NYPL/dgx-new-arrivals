@@ -108,6 +108,18 @@
       @include visuallyHidden;
     }
 
+    &:active:focus {
+      outline: none;
+    }
+
+    &:focus {
+      outline: 3px auto #3b99fc;
+    }
+
+    &::-moz-focus-inner {
+      outline: 1px dotted #000;
+    }
+
     @include min-screen(768px) {
       padding-top: 30px;
     }

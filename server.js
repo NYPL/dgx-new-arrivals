@@ -10,6 +10,9 @@ import DocMeta from 'react-doc-meta';
 import Iso from 'iso';
 import alt from 'dgx-alt-center';
 
+// Feature Flags Module
+import FeatureFlags from 'dgx-feature-flags';
+
 import appConfig from './appConfig.js';
 import analytics from './analytics.js';
 import webpack from 'webpack';
@@ -25,6 +28,7 @@ const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
 const VIEWS_PATH = path.resolve(ROOT_PATH, 'src/views');
 const WEBPACK_DEV_PORT = appConfig.webpackDevServerPort || 3000;
 const isProduction = process.env.NODE_ENV === 'production';
+const appEnv = process.env.APP_ENV || 'no app env set';
 const app = express();
 
 app.use(compress());
@@ -59,6 +63,10 @@ app.use('/', (req, res) => {
   const iso = new Iso();
 
   const appString = ReactDOMServer.renderToString(React.createElement(Application));
+
+  // Fire off the Feature Flag prior to render
+  FeatureFlags.utils.activateFeature('shop-link');
+
   iso.add(appString, alt.flush());
 
   // First parameter references the ejs filename
@@ -68,9 +76,10 @@ app.use('/', (req, res) => {
     favicon: appConfig.favIconPath,
     gaCode: analytics.google.code(isProduction),
     webpackPort: WEBPACK_DEV_PORT,
-    isProduction,
     path: req.path,
     url: req.url,
+    isProduction,
+    appEnv,
   });
 });
 

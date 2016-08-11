@@ -147,6 +147,7 @@ class BookCover extends React.Component {
         format={format}
         genre={this.props.genre}
         simple={this.props.simple}
+        lang={this.props.lang}
       />);
     }
 
@@ -176,6 +177,7 @@ BookCover.propTypes = {
   genre: React.PropTypes.string,
   displayType: React.PropTypes.string,
   simple: React.PropTypes.bool,
+  lang: React.PropTypes.string,
 };
 
 BookCover.defaultProps = {

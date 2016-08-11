@@ -75,12 +75,16 @@ class FilterToggle extends React.Component {
           id="newArrivalInput"
           checked={this.state.availabilityType === newArrival.id}
           onChange={this.onChange}
+          aria-labelledby="label-newArrivals"
         />
         <label
           htmlFor="newArrivalInput"
           className="switch-label label-left"
+          id="label-newArrivals"
         >
+        <span>
           {newArrival.label}
+        </span>
         </label>
         <input
           type="radio"
@@ -90,12 +94,16 @@ class FilterToggle extends React.Component {
           id="onOrderInput"
           checked={this.state.availabilityType === onOrder.id}
           onChange={this.onChange}
+          aria-labelledby="label-onOrder"
         />
         <label
           htmlFor="onOrderInput"
           className="switch-label label-right"
+          id="label-onOrder"
         >
+        <span>
           {onOrder.label}
+        </span>
         </label>
         <span className="switch-selection"></span>
       </fieldset>

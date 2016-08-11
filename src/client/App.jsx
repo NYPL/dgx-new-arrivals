@@ -10,6 +10,12 @@ import App from '../app/components/Application/Application.jsx';
 import FeatureFlags from 'dgx-feature-flags';
 import ga from 'react-ga';
 
+import a11y from 'react-a11y';
+
+if (loadA11y) {
+  a11y(React, { ReactDOM, includeSrcNode: true });
+}
+
 window.onload = () => {
   if (!window.ga) {
     console.log('Analytics not available - loading through React.');
@@ -21,6 +27,9 @@ window.onload = () => {
   if (!window.dgxFeatureFlags) {
     window.dgxFeatureFlags = FeatureFlags.utils;
   }
+
+  // Fire off the Feature Flag prior to render
+  FeatureFlags.utils.activateFeature('shop-link');
 
   // Render Isomorphically
   Iso.bootstrap((state, container) => {

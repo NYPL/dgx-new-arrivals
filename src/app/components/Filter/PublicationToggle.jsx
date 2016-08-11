@@ -32,13 +32,17 @@ class PublicationToggle extends React.Component {
           id="recentlyReleased"
           checked={this.props.publicationType === recentlyReleased.id}
           onChange={this.onChange}
+          aria-labelledby="label-recentlyReleased"
         />
         <label
           htmlFor="recentlyReleased"
           className="switch-label label-left"
+          id="label-recentlyReleased"
         >
+          <span>
           <CheckSoloIcon width="24" height="24" />
           {recentlyReleased.label}
+          </span>
         </label>
         <input
           type="radio"
@@ -48,13 +52,17 @@ class PublicationToggle extends React.Component {
           id="anyYear"
           checked={this.props.publicationType === anyYear.id}
           onChange={this.onChange}
+          aria-labelledby="label-anyYear"
         />
         <label
           htmlFor="anyYear"
           className="switch-label label-right"
+          id="label-anyYear"
         >
+          <span>
           <CheckSoloIcon width="24" height="24" />
           {anyYear.label}
+          </span>
         </label>
         <span className="switch-selection"></span>
       </fieldset>

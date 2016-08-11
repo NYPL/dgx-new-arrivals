@@ -7,12 +7,16 @@
   top: 5px;
   padding: 0;
 
+  &:active:focus {
+    outline: none;
+  }
+
   &-label {
     position: relative;
     z-index: 2;
     float: left;
     width: 97px;
-    padding: 15px 0 13px;
+    padding: 0;
     font-size: 13px;
     @include Kievit-Medium;
     text-transform: uppercase;
@@ -28,6 +32,12 @@
       width: 110px;
     }
 
+    > span {
+      height: 12px;
+      width: 100px;
+      display: inline-block;
+      padding: 15px 0;
+    }
   }
 
   &-input {
@@ -40,6 +50,15 @@
       -moz-transition: 0.2s ease-out;
       -o-transition: 0.2s ease-out;
       transition: 0.2s ease-out;
+    }
+
+    &:focus + .switch-label > span {
+      outline: 3px auto #3b99fc;
+    }
+
+    // Specific styles for Firefox
+    &::-moz-inner-focus + .switch-label > span {
+      outline: 1px dotted #000;
     }
 
     &:checked + .label-right ~ .switch-selection {
@@ -66,7 +85,7 @@
   }
 
   legend {
-      @include visuallyHidden;
+    @include visuallyHidden;
   }
 
   svg {
@@ -88,9 +107,18 @@
 
   .switch {
     &-label {
-      padding: 5px 0;
       color: #9c9890;
       width: 85px;
+
+      > span {
+        height: 30px;
+        width: 90px;
+        padding: 5px 0;
+      }
+
+      &.label-left {
+        padding: 0;
+      }
     }
 
     &-input {
@@ -129,12 +157,20 @@
       width: 70px;
 
       &.label-left {
-        padding: 8px 13px;
+        // padding: 8px 13px;
+        padding: 0;
       }
 
       &.label-right {
         width: 90px;
-        padding: 8px 8px 8px 0;
+        padding: 0;
+        left: 25px;
+      }
+
+      > span {
+        height: 18px;
+        width: 83px;
+        padding: 10px;
       }
 
       svg {

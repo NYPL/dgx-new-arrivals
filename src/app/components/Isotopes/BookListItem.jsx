@@ -36,12 +36,14 @@ class BookListItem extends React.Component {
     return (
       <div className="list-item">
         {this.props.bookCover}
-
-        <h2>
-          <a href={this.props.target} onClick={this.trackTitle}>
-            {this.props.title}
-          </a>
-        </h2>
+        <a
+          href={this.props.target}
+          onClick={this.trackTitle}
+          lang={this.props.lang}
+          className="list-title"
+        >
+          {this.props.title}
+        </a>
         {this.createInfo(this.props.author, 'author')}
         {this.createInfo(publishInfo, 'publishInfo')}
         {this.createInfo(callNumber, 'callNumber')}
@@ -62,6 +64,7 @@ BookListItem.propTypes = {
   description: React.PropTypes.string,
   target: React.PropTypes.string,
   title: React.PropTypes.string,
+  lang: React.PropTypes.string,
 };
 
 export default BookListItem;

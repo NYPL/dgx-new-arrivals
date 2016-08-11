@@ -1,13 +1,17 @@
 #mainContent {
   position: relative;
-  border-top: 60px solid transparent;
+  border-top: 10px solid transparent;
   margin-top: 3px;
+
+  @include min-screen(768px) {
+    border-top: 60px solid transparent;
+  }
 }
 
 .newArrivals {
   min-height: 500px;
 
-  h4 {
+  h1 {
     display: inline-block;
     font-size: 20px;
     color: #ed1c24;

@@ -27,9 +27,6 @@ $mobile-margin-top-bottom: 15px !default;
 
   /* Mobile Layout (1 Column) */
   @include add-grid(1);
-  .sidebar {
-    @include grid-span(1);
-  }
   .nyplNewArrivals-container {
     padding: 0 14px;
   }

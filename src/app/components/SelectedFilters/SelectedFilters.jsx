@@ -54,7 +54,7 @@ class SelectedFilters extends React.Component {
           <li key={i}>
             <button onClick={() => this.removeFilter(filter)}>
               {label}
-              <XIcon height="20" width="20" />
+              <XIcon height="20" width="20" ariaHidden />
             </button>
           </li>
         );
