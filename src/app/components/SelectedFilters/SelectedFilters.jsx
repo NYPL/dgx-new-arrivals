@@ -53,7 +53,7 @@ class SelectedFilters extends React.Component {
         return (
           <li key={i}>
             <button onClick={() => this.removeFilter(filter)}>
-              {label}
+              <span aria-label={`${label}. Click to remove this filter`}>{label}</span>
               <XIcon height="20" width="20" ariaHidden />
             </button>
           </li>
