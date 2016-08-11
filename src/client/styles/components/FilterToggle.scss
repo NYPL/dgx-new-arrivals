@@ -146,10 +146,11 @@
   margin: 0;
   width: 200px;
   float: right;
+  margin-bottom: 15px;
 
   @include min-screen(768px) {
     float: left;
-    margin-left: 10px;
+    margin-bottom: 0;
   }
 
   .switch {
