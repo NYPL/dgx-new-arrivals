@@ -4,9 +4,9 @@
 
   &.active {
     position: absolute;
-    top: -65px;
-    left: -14px;
-    right: -14px;
+    top: 0;
+    left: 0;
+    right: 0;
     background-color: #737069;
     z-index: 5;
     display: block;
@@ -25,7 +25,7 @@
   }
 
   &-header-mobile {
-    padding: 0 20px;
+    padding: 0 15px;
 
     h2 {
       display: inline-block;
@@ -59,6 +59,25 @@
     }
   }
 
+  .publication-filter {
+    font-size: 14px;
+    text-align: right;
+    margin: 0 25px;
+    min-height: 70px;
+    @include Kievit-Regular;
+
+    @include min-screen(768px) {
+      float: left;
+      width: 100%;
+      margin-left: 35px;
+      text-align: left;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+  }
+
   &-actions {
     margin: 0 10px;
     padding: 0 25px !important;
@@ -68,13 +87,15 @@
       padding: 0 !important;
       list-style: none;
       margin: 0 25px !important;
+      position: absolute;
+      top: 0;
+      right: 0;
     }
 
     .buttonItems {
       float: left;
       @include Kievit-Regular;
       width: 25%;
-      margin-top: 15px;
       min-height: 65px;
 
       p {
@@ -141,7 +162,7 @@
       background-color: #737069;
       color: #fff;
       border: 2px solid #fff;
-      margin: 27px 10px 0;
+      margin: 40px 12px 0;
       display: block;
       font-size: 13px;
       width: 125px;

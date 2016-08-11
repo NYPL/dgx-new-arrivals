@@ -159,22 +159,24 @@ class Filter extends React.Component {
     return (
       <div className={`filter ${this.props.active}`}>
         <div className="filter-header-mobile">
-          <FilterIcon className="mobile-filter" />
+          <FilterIcon className="mobile-filter" ariaHidden />
           <h2>Filter by</h2>
 
           <ul className="mobile-filter-buttons">
             <li>
               <IconButton
                 className={'apply'}
-                icon={<CheckSoloIcon />}
+                icon={<CheckSoloIcon ariaHidden />}
                 onClick={() => this.submitFilters('Mobile Filter Window')}
+                label="Apply Filters"
               />
             </li>
             <li>
               <IconButton
                 className={'reset'}
-                icon={<ResetIcon />}
+                icon={<ResetIcon ariaHidden />}
                 onClick={() => this.resetFilters('Mobile Filter Window')}
+                label="Reset All"
               />
             </li>
             <li>
@@ -186,44 +188,19 @@ class Filter extends React.Component {
           </ul>
         </div>
 
-        <ul className="filter-actions">
-          <li className="buttonItems">
-            <p>Filter by Publish Date</p>
-            <PublicationToggle
-              managePublicationType={this.managePublicationType}
-              publicationType={publicationType}
-            />
-          </li>
-
-          <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
-            <button className="PillButton apply" onClick={() => this.submitFilters('Filters')}>
-              <CheckSoloIcon />
-              <span>Apply</span>
-            </button>
-          </li>
-
-          <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
-            <button className="PillButton reset" onClick={() => this.resetFilters('Filters')}>
-              <ResetIcon />
-              <span>Reset All</span>
-            </button>
-          </li>
-        </ul>
+        <div className="publication-filter">
+          <p>Filter by Publish Date</p>
+          <PublicationToggle
+            managePublicationType={this.managePublicationType}
+            publicationType={publicationType}
+          />
+        </div>
 
         <fieldset className="filter-list" tabIndex="0">
           <legend>Filter on the following categories</legend>
-          <FilterList
-            list={formatData}
-            manageSelected={this.manageSelected}
-          />
-          <FilterList
-            list={audienceData}
-            manageSelected={this.manageSelected}
-          />
-          <FilterList
-            list={languageData}
-            manageSelected={this.manageSelected}
-          />
+          <FilterList list={formatData} manageSelected={this.manageSelected} />
+          <FilterList list={audienceData} manageSelected={this.manageSelected} />
+          <FilterList list={languageData} manageSelected={this.manageSelected} />
           <FilterList
             list={genreData}
             manageSelected={this.manageSelected}
@@ -231,6 +208,23 @@ class Filter extends React.Component {
             dividerIndex={2}
           />
         </fieldset>
+
+        <ul className="filter-actions">
+          <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
+            <button className="PillButton apply" onClick={() => this.submitFilters('Filters')}>
+              <CheckSoloIcon ariaHidden />
+              <span>Apply</span>
+            </button>
+          </li>
+
+          <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
+            <button className="PillButton reset" onClick={() => this.resetFilters('Filters')}>
+              <ResetIcon ariaHidden />
+              <span>Reset All</span>
+            </button>
+          </li>
+        </ul>
+
       </div>
     );
   }

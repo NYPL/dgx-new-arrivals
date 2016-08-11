@@ -18,7 +18,7 @@ const FilterListItem = (props) => {
         aria-labelledby={`label-${formatId}`}
       />
       <label htmlFor={formatId} id={`label-${formatId}`}>
-        {props.active ? <CircleDashIcon /> : null}
+        {props.active ? <CircleDashIcon ariaHidden /> : null}
         {props.item.label}
       </label>
     </div>
