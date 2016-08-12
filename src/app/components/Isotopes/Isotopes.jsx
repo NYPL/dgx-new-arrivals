@@ -37,12 +37,12 @@ class Isotopes extends React.Component {
   componentDidUpdate() {
     setTimeout(() => {
       this.iso.reloadItems();
-    }, 150);
+    }, 250);
 
     if (this.iso != null) {
       setTimeout(() => {
         this.iso.arrange();
-      }, 200);
+      }, 250);
     }
   }
 
@@ -79,7 +79,11 @@ class Isotopes extends React.Component {
         style={{ opacity: '0' }}
         className={`isotopeGrid ${this.props.format}`}
       >
-        <CatalogItems items={booksArr} displayType={displayType} />
+        <CatalogItems
+          items={booksArr}
+          displayType={displayType}
+          ref="catalogItems"
+        />
       </div>
     );
   }

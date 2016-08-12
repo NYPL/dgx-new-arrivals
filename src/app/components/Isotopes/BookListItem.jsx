@@ -37,6 +37,7 @@ class BookListItem extends React.Component {
       <div className="list-item">
         {this.props.bookCover}
         <a
+          ref="list-title"
           href={this.props.target}
           onClick={this.trackTitle}
           lang={this.props.lang}

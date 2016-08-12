@@ -44,6 +44,7 @@ class CatalogItems extends React.Component {
           imgSrc={element.imageUrl[0] ? element.imageUrl[0] : undefined}
           id={element.bibNumber}
           name={title}
+          ref={`item-${i}`}
           author={author}
           format={element.format}
           target={target}
@@ -76,6 +77,7 @@ class CatalogItems extends React.Component {
           bookCover={simpleBookCover}
           title={element.title}
           target={target}
+          ref={`item-${i}`}
           author={element.author}
           format={formatLabel}
           publishYear={publishYear}
@@ -87,7 +89,7 @@ class CatalogItems extends React.Component {
       );
 
       return (
-        <li className={`catalogItem ${this.props.displayType}`} key={i}>
+        <li key={i} className={`catalogItem ${this.props.displayType}`}>
           {this.props.displayType === 'grid' ? bookCover : bookListItem}
         </li>
       );
