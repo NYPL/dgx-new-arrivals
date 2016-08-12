@@ -53,7 +53,7 @@ const getLanguageData = () => {
   return fetchApiData(languageApiUrl);
 };
 const filterLanguages = (languagesArray, minCount) => {
-  return _.chain(languagesArray)
+  const languages = _.chain(languagesArray)
     .filter(language =>
       (language.count >= minCount &&
       language.name !== 'Multiple languages' &&
@@ -63,11 +63,16 @@ const filterLanguages = (languagesArray, minCount) => {
     )
     .map(language =>
       ({
-        name: language.name,
+        id: language.name,
+        label: language.name,
         count: language.count,
       })
     )
     .value();
+
+  languages.splice(0, 0, { id: 'AnyLanguage', label: 'Any', count: 100 });
+
+  return languages;
 };
 
 const newArrivalsApp = (req, res, next) => {
@@ -98,10 +103,10 @@ const newArrivalsApp = (req, res, next) => {
           newArrivalsData: newArrivalsData.data,
           pageNum: pageNum || '1',
           filters: {
-            format: filters.format || '',
-            audience: filters.audience || '',
-            language: filters.language || '',
-            genre: filters.genre || '',
+            format: filters.format || 'AnyFormat',
+            audience: filters.audience || 'AnyAudience',
+            language: filters.language || 'AnyLanguage',
+            genre: filters.genre || 'AnyGenre',
           },
           availabilityType: availability || 'New Arrival',
           displayPagination: newArrivalsData.data.bibItems.length === 0 ? false : true,
@@ -125,10 +130,10 @@ const newArrivalsApp = (req, res, next) => {
           newArrivalsData: {},
           pageNum: '1',
           filters: {
-            format: '',
-            audience: '',
-            language: '',
-            genre: '',
+            format: 'AnyFormat',
+            audience: 'AnyAudience',
+            language: 'AnyLanguage',
+            genre: 'AnyGenre',
           },
           availabilityType: 'New Arrival',
           displayPagination: false,

@@ -39,6 +39,7 @@ export default {
     formatData: {
       title: 'Format',
       data:[
+        { id: 'AnyFormat', label: 'Any' },
         { id: 'BOOK/TEXT', label: 'Book' },
         { id: 'AUDIOBOOK', label: 'Audiobook' },
         { id: 'BLU-RAY', label: 'Blu-ray' },
@@ -48,21 +49,23 @@ export default {
         { id: 'LARGE PRINT', label: 'Large Print' },
         { id: 'MUSIC CD', label: 'Music CD' },
       ],
-      active: '',
+      active: 'AnyFormat',
     },
     audienceData: {
       title: 'Audience',
       data: [
+        { id: 'AnyAudience', label: 'Any' },
         { id: 'Adult', label: 'Adult' },
         { id: 'Children', label: 'Children' },
         { id: 'Young Adult', label: 'Young Adult' },
         { id: 'Research', label: 'Research' },
       ],
-      active: '',
+      active: 'AnyAudience',
     },
     languageData: {
       title: 'Language',
       data: [
+        { id: 'AnyLanguage', label: 'Any' },
         { id: 'English', label: 'English' },
         { id: 'Spanish', label: 'Spanish' },
         { id: 'Chinese', label: 'Chinese' },
@@ -75,16 +78,18 @@ export default {
         { id: 'Polish', label: 'Polish' },
         { id: 'Dutch', label: 'Dutch' },
         { id: 'Japanese', label: 'Japanese' },
+        { id: 'Arabic', code: 'Arabic' },
       ],
-      active: '',
+      active: 'AnyLanguage',
     },
     genreData: {
       title: 'Genre',
       data: [
+        { id: 'AnyGenre', label: 'Any' },
         { id: 'Fiction', label: 'Fiction' },
         { id: 'Non Fiction', label: 'Non Fiction' },
       ],
-      active: '',
+      active: 'AnyGenre',
     },
   },
   languageId: [
@@ -95,7 +100,10 @@ export default {
     { id: 'French', code: 'fr' },
     { id: 'Italian', code: 'it' },
     { id: 'German', code: 'de' },
+    { id: 'Portuguese', label: 'pt' },
+    { id: 'Hebrew', label: 'he' },
     { id: 'Polish', code: 'pl' },
+    { id: 'Dutch', code: 'nl' },
     { id: 'Japanese', code: 'ja' },
     { id: 'Arabic', code: 'ar' },
   ],

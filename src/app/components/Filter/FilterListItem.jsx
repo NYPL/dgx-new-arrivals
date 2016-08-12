@@ -1,29 +1,31 @@
 import React from 'react';
-
 import { CircleDashIcon } from 'dgx-svg-icons';
 
-const FilterListItem = (props) => {
-  const activeClass = props.active ? 'active' : '';
-  const formatId = (props.item.id).replace(/\s+/g, '');
+class FilterListItem extends React.Component {
+  render() {
+    const activeClass = this.props.active ? 'active' : '';
+    const itemIdWithoutSpaces = (this.props.item.id).replace(/\s+/g, '');
 
-  return (
-    <div className={activeClass}>
-      <input
-        type="radio"
-        className="switch-input"
-        id={formatId}
-        name={props.filter}
-        onClick={props.onClick}
-        value={props.item.label}
-        aria-labelledby={`label-${formatId}`}
-      />
-      <label htmlFor={formatId} id={`label-${formatId}`}>
-        {props.active ? <CircleDashIcon ariaHidden /> : null}
-        {props.item.label}
-      </label>
-    </div>
-  );
-};
+    return (
+      <div className={activeClass}>
+        <input
+          type="radio"
+          className="switch-input"
+          id={itemIdWithoutSpaces}
+          ref={itemIdWithoutSpaces}
+          name={this.props.filter}
+          onClick={this.props.onClick}
+          value={this.props.item.label}
+          aria-labelledby={`label-${itemIdWithoutSpaces}`}
+        />
+        <label htmlFor={itemIdWithoutSpaces} id={`label-${itemIdWithoutSpaces}`}>
+          {this.props.active ? <CircleDashIcon ariaHidden /> : null}
+          {this.props.item.label}
+        </label>
+      </div>
+    );
+  }
+}
 
 FilterListItem.propTypes = {
   onClick: React.PropTypes.func,
