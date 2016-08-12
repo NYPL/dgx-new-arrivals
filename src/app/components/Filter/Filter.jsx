@@ -198,14 +198,22 @@ class Filter extends React.Component {
 
         <ul className="filter-actions">
           <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
-            <button className="PillButton apply" onClick={() => this.submitFilters('Filters')}>
+            <button
+              className="PillButton apply"
+              onClick={() => this.submitFilters('Filters')}
+              aria-controls="isotopesContainer"
+            >
               <CheckSoloIcon ariaHidden />
               <span>Apply</span>
             </button>
           </li>
           
           <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
-            <button className="PillButton reset" onClick={() => this.resetFilters('Filters')}>
+            <button
+              className="PillButton reset"
+              onClick={() => this.resetFilters('Filters')} 
+              aria-controls="isotopesContainer"
+            >
               <ResetIcon ariaHidden />
               <span>Reset All</span>
             </button>

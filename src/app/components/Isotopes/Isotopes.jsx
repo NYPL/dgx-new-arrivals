@@ -78,7 +78,14 @@ class Isotopes extends React.Component {
         ref="isotopeContainer"
         style={{ opacity: '0' }}
         className={`isotopeGrid ${this.props.format}`}
+        role="region"
+        id="isotopesContainer"
+        aria-live="polite"
+        aria-relevant="additions"
       >
+        <span className="visuallyHidden">
+          List of catalog items has been updated.
+        </span>
         <CatalogItems items={booksArr} displayType={displayType} />
       </div>
     );
