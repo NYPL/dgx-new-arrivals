@@ -81,6 +81,7 @@ class Isotopes extends React.Component {
         role="region"
         id="isotopesContainer"
         aria-live="polite"
+        aria-atomic="true"
         aria-relevant="additions"
       >
         <span className="visuallyHidden">
