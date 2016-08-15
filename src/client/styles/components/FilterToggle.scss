@@ -1,7 +1,8 @@
 .switch {
   position: relative;
   height: 40px;
-  width: 218px;
+  // width: 218px;
+  width: 230px;
   background-color: #1980a9;
   border-radius: 25px;
   top: 5px;
@@ -15,7 +16,7 @@
     position: relative;
     z-index: 2;
     float: left;
-    width: 97px;
+    width: 115px;
     padding: 0;
     font-size: 13px;
     @include Kievit-Medium;
@@ -26,16 +27,16 @@
     cursor: pointer;
 
     &.label-left {
-      padding-left: 11px;
+      padding-left: 8px;
     }
 
     &.label-right {
-      width: 110px;
+      width: 100px;
     }
 
     > span {
-      height: 12px;
-      width: 100px;
+      height: 10px;
+      width: 110px;
       display: inline-block;
       padding: 15px 0;
     }
@@ -64,7 +65,7 @@
 
     &:checked + .label-right ~ .switch-selection {
       /* Note: left: 50% doesn't transition in WebKit */
-      left: 113px;
+      left: 126px;
       width: 101px;
     }
   }
@@ -75,7 +76,7 @@
     z-index: 1;
     top: 3px;
     left: 3px;
-    width: 114px;
+    width: 125px;
     height: 34px;
     background-color: #1da1d4;
     border-radius: 25px;
@@ -92,6 +93,11 @@
   svg {
     vertical-align: middle;
     fill: #FFF;
+  }
+
+  .smallDotClosedIcon,
+  .smallDotOpenIcon {
+    padding: 0 8px 1px 0;
   }
 }
 
