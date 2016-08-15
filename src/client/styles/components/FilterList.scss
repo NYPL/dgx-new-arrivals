@@ -65,7 +65,7 @@
     }
   }
 
-  // Only focus on the fieldset when tabbing but not when clicking on 
+  // Only focus on the fieldset when tabbing but not when clicking on
   // individual filter items.
   &:active:focus {
     outline: none;
@@ -80,7 +80,8 @@
   }
 
   @include min-screen(768px) {
-    width: 25%;
     font-size: 14px;
+    margin-right: 5px;
+    width: 23%;
   }
 }
