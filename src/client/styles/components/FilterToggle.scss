@@ -20,7 +20,8 @@
     font-size: 13px;
     @include Kievit-Medium;
     text-transform: uppercase;
-    color: #1da1d4;
+    color:#FFFFFF;
+    //color: #1da1d4;
     text-align: center;
     cursor: pointer;
 
@@ -90,7 +91,7 @@
 
   svg {
     vertical-align: middle;
-    fill: #fff;
+    fill: #FFF;
   }
 }
 
@@ -102,12 +103,12 @@
 
   svg {
     vertical-align: middle;
-    fill: #9c9890;
+    fill: #FFF;
   }
 
   .switch {
     &-label {
-      color: #9c9890;
+      color: #FFF;
       width: 85px;
 
       > span {

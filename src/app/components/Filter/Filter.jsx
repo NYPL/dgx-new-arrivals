@@ -116,10 +116,10 @@ class Filter extends React.Component {
 
   resetFilters(gaAction = 'Filters') {
     const filters = {
-      format: '',
-      audience: '',
-      language: '',
-      genre: '',
+      format: 'AnyFormat',
+      audience: 'AnyAudience',
+      language: 'AnyLanguage',
+      genre: 'AnyGenre',
     };
 
     trackNewArrivals(gaAction, 'Reset All');
@@ -141,15 +141,7 @@ class Filter extends React.Component {
     const active = _every(filters, f => f === '');
     const activeSubmitButtons = active ? '' : 'active';
 
-    const updatedLanguages = _map(languages, language =>
-      ({
-        id: language.name,
-        label: language.name,
-        count: language.count,
-      })
-    );
-
-    languageData.data = updatedLanguages;
+    languageData.data = languages;
 
     formatData.active = filters.format;
     audienceData.active = filters.audience;
