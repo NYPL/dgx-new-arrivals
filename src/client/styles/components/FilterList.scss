@@ -49,11 +49,11 @@
       .radioActiveIcon, {
         position: relative;
         float: right;
-        margin: -5px 40px 0px 0px;
+        margin: -2px 40px 0px 0px;
         fill: #fff;
 
         @include min-screen(768px) {
-          margin: -5px 15px 0px 0px;
+          margin: -2px 15px 0px 0px;
         }
       }
 
