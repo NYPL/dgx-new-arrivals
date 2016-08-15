@@ -37,12 +37,12 @@ class Isotopes extends React.Component {
   componentDidUpdate() {
     setTimeout(() => {
       this.iso.reloadItems();
-    }, 150);
+    }, 250);
 
     if (this.iso != null) {
       setTimeout(() => {
         this.iso.arrange();
-      }, 200);
+      }, 250);
     }
   }
 
@@ -87,7 +87,11 @@ class Isotopes extends React.Component {
         <span className="visuallyHidden">
           List of new arrivals has been updated.
         </span>
-        <CatalogItems items={booksArr} displayType={displayType} />
+        <CatalogItems
+          items={booksArr}
+          displayType={displayType}
+          ref="catalogItems"
+        />
       </div>
     );
   }
