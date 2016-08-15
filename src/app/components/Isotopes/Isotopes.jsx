@@ -85,7 +85,7 @@ class Isotopes extends React.Component {
         aria-relevant="additions"
       >
         <span className="visuallyHidden">
-          List of catalog items has been updated.
+          List of new arrivals has been updated.
         </span>
         <CatalogItems items={booksArr} displayType={displayType} />
       </div>
