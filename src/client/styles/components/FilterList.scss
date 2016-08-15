@@ -44,7 +44,9 @@
       color: #fff;
       padding: 10px 0 10px 50px;
 
-      .circle-dash-icon {
+      .circle-dash-icon,
+      .radioInactiveIcon,
+      .radioActiveIcon, {
         position: relative;
         float: right;
         margin: -5px 40px 0px 0px;

@@ -1,5 +1,8 @@
 import React from 'react';
-import { CircleDashIcon } from 'dgx-svg-icons';
+import {
+  RadioInactiveIcon,
+  RadioActiveIcon,
+} from 'dgx-svg-icons';
 
 class FilterListItem extends React.Component {
   render() {
@@ -19,7 +22,7 @@ class FilterListItem extends React.Component {
           aria-labelledby={`label-${itemIdWithoutSpaces}`}
         />
         <label htmlFor={itemIdWithoutSpaces} id={`label-${itemIdWithoutSpaces}`}>
-          {this.props.active ? <CircleDashIcon ariaHidden /> : null}
+          {this.props.active ? <RadioActiveIcon ariaHidden /> : <RadioInactiveIcon />}
           {this.props.item.label}
         </label>
       </div>
