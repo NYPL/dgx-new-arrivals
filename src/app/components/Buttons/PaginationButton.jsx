@@ -25,7 +25,7 @@ const PaginationButton = (props) => {
       className={`paginationButton ${props.className} ${props.hidden}`}
       onClick={props.onClick}
     >
-      <div
+      <span
         id={`${props.id}-list`}
         className={`paginationButton-list`}
       >
@@ -36,7 +36,7 @@ const PaginationButton = (props) => {
         >
           {props.label}
         </span>
-      </div>
+      </span>
     </button>
   );
 };
