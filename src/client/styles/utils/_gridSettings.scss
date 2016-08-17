@@ -25,34 +25,34 @@ $mobile-margin-top-bottom: 15px !default;
     padding: 0 $tablet-landscape-padding-left-right;
   }
 
-  /* Tablet Portrait Layout (7 Columns) */
-  @include layout-at(( 'grid': 7, 'gutter': .3 ), $tablet-portrait) {
+  /* Tablet Portrait Layout (9 Columns) */
+  @include layout-at(( 'grid': 9, 'gutter': .3 ), $tablet-portrait) {
     .sidebar {
-      @include grid-span(1, 1);
+      @include grid-span(2, 1);
     }
     .nyplNewArrivals-container {
       padding: 0;
-      @include grid-span(6, 2);
+      @include grid-span(7, 3);
     }
   }
 
-  /* Tablet Landscape Layout (9 Columns) */
-  @include layout-at(( 'grid': 9, 'gutter': .23 ), $tablet-landscape) {
+  /* Tablet Landscape Layout (13 Columns) */
+  @include layout-at(( 'grid': 13, 'gutter': .23 ), $tablet-landscape) {
     .sidebar {
-      @include grid-span(1, 1);
+      @include grid-span(2, 1);
     }
     .nyplNewArrivals-container {
-      @include grid-span(8, 2);
+      @include grid-span(11, 3);
     }
   }
 
-  /* Desktop Layout (9 Columns) */
-  @include layout-at(( 'grid': 9, 'gutter': .23 ), $desktop) {
+  /* Desktop Layout (17 Columns) */
+  @include layout-at(( 'grid': 17, 'gutter': .23 ), $desktop) {
     .sidebar {
-      @include grid-span(1, 1);
+      @include grid-span(2, 1);
     }
     .nyplNewArrivals-container {
-      @include grid-span(8, 2);
+      @include grid-span(15, 3);
     }
   }
 }
