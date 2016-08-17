@@ -49,12 +49,19 @@ class SelectedFilters extends React.Component {
       const value = filters[filter];
       const label = getFilterLabel(filter, value);
 
+      if (value.indexOf('Any') === 0) {
+        return null;
+      }
+
       if (value) {
         return (
           <li key={i}>
-            <button onClick={() => this.removeFilter(filter)}>
-              {label}
-              <XIcon height="20" width="20" />
+            <button
+              onClick={() => this.removeFilter(filter)}
+              aria-controls="isotopesContainer"
+            >
+              <span aria-label={`${label}. Click to remove this filter`}>{label}</span>
+              <XIcon height="20" width="20" ariaHidden />
             </button>
           </li>
         );

@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 import NewArrivalsStore from '../../stores/Store.js';
@@ -95,6 +96,7 @@ class NewArrivals extends React.Component {
       availabilityType,
       pageNum,
       publicationType,
+      displayType,
     } = this.state;
     const updatedPage = (parseInt(pageNum, 10)) + 1;
     const queries = makeFrontEndQuery(filters, availabilityType, updatedPage, publicationType);
@@ -116,6 +118,15 @@ class NewArrivals extends React.Component {
 
       this.setState({ isLoading: false });
     });
+
+    setTimeout(() => {
+      const refItemNumber = `item-${pageNum * 18}`;
+      const refToFind = (displayType === 'grid') ?
+        this.refs.isotopes.refs.catalogItems.refs[refItemNumber] :
+        this.refs.isotopes.refs.catalogItems.refs[refItemNumber].refs['list-title'];
+
+      ReactDOM.findDOMNode(refToFind).focus();
+    }, 1400);
   }
 
   render() {
@@ -132,7 +143,7 @@ class NewArrivals extends React.Component {
 
     return (
       <div className="newArrivals" id="mainContent" tabIndex="-1">
-        <h4>New Arrivals</h4>
+        <h1>New Arrivals</h1>
         <p className="newArrivals-introText">
           {introText}
         </p>
@@ -142,6 +153,7 @@ class NewArrivals extends React.Component {
           booksArr={books}
           displayType={displayType}
           format={layoutFormat}
+          ref="isotopes"
         />
         <PaginationButton
           id="page-button"
@@ -151,6 +163,7 @@ class NewArrivals extends React.Component {
           label="LOAD MORE"
           isLoading={isLoading}
           onClick={this.loadMore}
+          aria-controls="isotopesContainer"
         />
       </div>
     );

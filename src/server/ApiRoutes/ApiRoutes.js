@@ -18,7 +18,7 @@ const { HeaderItemModel } = Model;
 const {
   api,
   headerApi,
-  newArrivalsApi,
+  inventoryService,
   languageDays,
   languageItemCount,
   itemCount,
@@ -34,7 +34,9 @@ const fetchApiData = (url) => axios.get(url);
 
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
+const inventoryRoot = inventoryService.root['production'];
 const apiRoot = api.root[appEnvironment];
+
 const headerOptions = createOptions(headerApi);
 // Always the year before the current year.
 const minPublishYear = currentYear - 1;
@@ -45,12 +47,13 @@ const getHeaderData = () => {
 };
 const getLanguageData = () => {
   const languageApiUrl =
-    `${newArrivalsApi.languages}?&days=${languageDays}&minPublishYear=${minPublishYear}`;
+    `${inventoryRoot}${inventoryService.languages}?&days=` +
+    `${languageDays}&minPublishYear=${minPublishYear}`;
 
   return fetchApiData(languageApiUrl);
 };
 const filterLanguages = (languagesArray, minCount) => {
-  return _.chain(languagesArray)
+  const languages = _.chain(languagesArray)
     .filter(language =>
       (language.count >= minCount &&
       language.name !== 'Multiple languages' &&
@@ -60,11 +63,16 @@ const filterLanguages = (languagesArray, minCount) => {
     )
     .map(language =>
       ({
-        name: language.name,
+        id: language.name,
+        label: language.name,
         count: language.count,
       })
     )
     .value();
+
+  languages.splice(0, 0, { id: 'AnyLanguage', label: 'Any', count: 100 });
+
+  return languages;
 };
 
 const newArrivalsApp = (req, res, next) => {
@@ -95,10 +103,10 @@ const newArrivalsApp = (req, res, next) => {
           newArrivalsData: newArrivalsData.data,
           pageNum: pageNum || '1',
           filters: {
-            format: filters.format || '',
-            audience: filters.audience || '',
-            language: filters.language || '',
-            genre: filters.genre || '',
+            format: filters.format || 'AnyFormat',
+            audience: filters.audience || 'AnyAudience',
+            language: filters.language || 'AnyLanguage',
+            genre: filters.genre || 'AnyGenre',
           },
           availabilityType: availability || 'New Arrival',
           displayPagination: newArrivalsData.data.bibItems.length === 0 ? false : true,
@@ -122,10 +130,10 @@ const newArrivalsApp = (req, res, next) => {
           newArrivalsData: {},
           pageNum: '1',
           filters: {
-            format: '',
-            audience: '',
-            language: '',
-            genre: '',
+            format: 'AnyFormat',
+            audience: 'AnyAudience',
+            language: 'AnyLanguage',
+            genre: 'AnyGenre',
           },
           availabilityType: 'New Arrival',
           displayPagination: false,

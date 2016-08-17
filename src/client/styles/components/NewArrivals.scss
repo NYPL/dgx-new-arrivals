@@ -1,13 +1,21 @@
 #mainContent {
   position: relative;
-  border-top: 60px solid transparent;
-  margin-top: 3px;
+
+  @include min-screen(768px) {
+    border-top: 60px solid transparent;
+    margin-top: 3px;
+  }
 }
 
 .newArrivals {
   min-height: 500px;
+  padding: 15px 14px 0;
 
-  h4 {
+  @include min-screen(768px) {
+    padding: 0;
+  }
+
+  h1 {
     display: inline-block;
     font-size: 20px;
     color: #ed1c24;
@@ -31,6 +39,11 @@
     left: 0;
     right: 0;
     border-top: 2px solid #ed1c24;
+    margin: 13px 14px 0;
+
+    @include min-screen(768px) {
+      margin: 0;
+    }
   }
 
   &-introText {

@@ -15,8 +15,10 @@ const BookOverlay = (props) => {
   if (!props.simple) {
     details = (
       <div>
-        <h3>{props.name}</h3>
-        <div className="details">
+        <div className="title" lang={props.lang}>
+          {props.name}
+        </div>
+        <div className="details" aria-hidden="true">
           <p className="author">{props.author}</p>
           <p className="format">{props.icon}{props.format}</p>
           {genre}
@@ -41,6 +43,7 @@ BookOverlay.propTypes = {
   formatId: React.PropTypes.string,
   genre: React.PropTypes.string,
   simple: React.PropTypes.bool,
+  lang: React.PropTypes.string,
 };
 
 BookOverlay.defaultProps = {

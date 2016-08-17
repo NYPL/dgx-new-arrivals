@@ -37,12 +37,12 @@ class Isotopes extends React.Component {
   componentDidUpdate() {
     setTimeout(() => {
       this.iso.reloadItems();
-    }, 150);
+    }, 250);
 
     if (this.iso != null) {
       setTimeout(() => {
         this.iso.arrange();
-      }, 200);
+      }, 250);
     }
   }
 
@@ -74,13 +74,25 @@ class Isotopes extends React.Component {
     const displayType = this.props.displayType;
 
     return (
-      <ul
+      <div
         ref="isotopeContainer"
         style={{ opacity: '0' }}
         className={`isotopeGrid ${this.props.format}`}
+        role="region"
+        id="isotopesContainer"
+        aria-live="polite"
+        aria-atomic="true"
+        aria-relevant="additions"
       >
-        <CatalogItems items={booksArr} displayType={displayType} />
-      </ul>
+        <span className="visuallyHidden">
+          List of new arrivals has been updated.
+        </span>
+        <CatalogItems
+          items={booksArr}
+          displayType={displayType}
+          ref="catalogItems"
+        />
+      </div>
     );
   }
 }

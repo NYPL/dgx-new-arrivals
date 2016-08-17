@@ -17,12 +17,18 @@ const {
   appFilters,
   itemCount,
   pageNum,
-  newArrivalsApi,
+  inventoryService,
   currentYear,
   titleRemovedText,
   authorRemovedText,
+  languageId,
 } = config;
 const minPublishYear = currentYear - 1;
+const appEnvironment = process.env.APP_ENV || 'production';
+const inventoryRoot = inventoryService.root['production'];
+const mapLanguageCode = (langId) => (
+  _findWhere(languageId, { id: langId }) || { id: '', code: '' }
+);
 
 const formatFilters = () => {
   const formats = _map(appFilters.formatData.data, format => format.id);
@@ -71,7 +77,9 @@ const makeFrontEndQuery = (
 
   _mapObject(filters, (val, key) => {
     if (val !== '') {
-      query += `&${key}=${val}`;
+      if (val.indexOf('Any') === -1) {
+        query += `&${key}=${val}`;
+      }
     } else if (key === 'format') {
       query += `&format=${formatFilters()}`;
     }
@@ -93,7 +101,7 @@ const makeApiQuery = (
   publishYear = 'recentlyReleased',
   updateItems = false
 ) => {
-  let baseApiUrl = `${newArrivalsApi.bibItems}?`;
+  let baseApiUrl = `${inventoryRoot}${inventoryService.bibItems}?`;
   let itemsQuery = itemCount;
   let pageQuery = parseInt(pageNumber, 10) || 1;
 
@@ -163,7 +171,7 @@ const manageHistory = (opts = {}, history, reset = false) => {
 
   if (!reset) {
     _mapObject(filters, (val, key) => {
-      if (val) {
+      if (val && (val.indexOf('Any') === -1)) {
         query += `&${key}=${val}`;
       }
     });
@@ -226,4 +234,5 @@ export {
   createEncoreLink,
   getFilterLabel,
   trackNewArrivals,
+  mapLanguageCode,
 };

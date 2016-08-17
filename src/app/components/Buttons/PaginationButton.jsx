@@ -10,34 +10,34 @@ const PaginationButton = (props) => {
   // The number of the dots is determinated by the props.
   for (let i = 0; i < props.dots; i++) {
     dotElements.push(
-      <li
+      <span
         id={`${props.id}-list-dot-${i}`}
         className={`paginationButton-list-dot ${isLoading}`}
         key={i}
       >
-      </li>
+      </span>
     );
   }
 
   return (
-    <div
+    <button
       id={props.id}
       className={`paginationButton ${props.className} ${props.hidden}`}
       onClick={props.onClick}
     >
-      <ul
+      <span
         id={`${props.id}-list`}
         className={`paginationButton-list`}
       >
         {dotElements}
-        <li
+        <span
           id={`${props.id}-list-number`}
           className={`paginationButton-list-number`}
         >
           {props.label}
-        </li>
-      </ul>
-    </div>
+        </span>
+      </span>
+    </button>
   );
 };
 
