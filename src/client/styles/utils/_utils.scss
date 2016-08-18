@@ -7,6 +7,8 @@
 }
 
 // For FireFox
-:focus {
-  overflow: hidden;
+.nyplGrid-fullWidth {
+  :focus {
+    overflow: hidden;
+  }
 }

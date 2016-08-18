@@ -56,7 +56,10 @@ class SelectedFilters extends React.Component {
       if (value) {
         return (
           <li key={i}>
-            <button onClick={() => this.removeFilter(filter)}>
+            <button
+              onClick={() => this.removeFilter(filter)}
+              aria-controls="isotopesContainer"
+            >
               <span aria-label={`${label}. Click to remove this filter`}>{label}</span>
               <XIcon height="20" width="20" ariaHidden />
             </button>

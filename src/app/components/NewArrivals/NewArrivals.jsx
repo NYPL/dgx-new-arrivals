@@ -163,6 +163,7 @@ class NewArrivals extends React.Component {
           label="LOAD MORE"
           isLoading={isLoading}
           onClick={this.loadMore}
+          aria-controls="isotopesContainer"
         />
       </div>
     );
