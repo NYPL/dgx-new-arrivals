@@ -1,6 +1,7 @@
 .filter {
   color: #fff;
   display: none;
+  z-index: 1000;
 
   &.active {
     position: absolute;
