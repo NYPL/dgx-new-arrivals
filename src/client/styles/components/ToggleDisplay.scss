@@ -8,9 +8,11 @@
   > li {
     display: inline-block;
 
-    &:nth-child(n+2) {
-      margin-left: 5px;
-    }
+    @include min-screen($tablet-landscape) {
+      &:nth-child(n+2) {
+        margin-left: 5px;
+      }
+    } 
   }
 
   .filterButton {
