@@ -12,7 +12,7 @@
   padding: 0;
 
   @include min-screen($tablet-portrait) {
-    width: 130px;
+    width: 100px;
     color: #837e77;
     background-color: #fff;
     border: 2px solid #837e77;
@@ -24,12 +24,16 @@
 
   .icon {
     display: none;
-    padding: 0 0 0 15px;
+    padding: 0 0 0 0;
     vertical-align: 7px;
     font-size: 16px;
 
     @include min-screen($tablet-portrait) {
       display: inline-block;
+    }
+
+    @include min-screen($tablet-landscape) {
+      padding: 0 0 0 15px;
     }
   }
 
