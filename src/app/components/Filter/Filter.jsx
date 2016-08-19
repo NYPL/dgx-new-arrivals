@@ -155,20 +155,20 @@ class Filter extends React.Component {
     const basicGenres = genreData.data.slice(0, 3);
     let genreList;
 
-    if (advanceGenre) {
+    // if (advanceGenre) {
       genreData.data = allGenres;
       genreList = (
         <FilterList
           list={genreData}
           manageSelected={this.manageSelected}
           dividerTitle={genreData.title}
-          dividerIndex={3}
+          dividerIndex={13}
         />
       );
-    } else {
-      genreData.data = basicGenres;
-      genreList = <FilterList list={genreData} manageSelected={this.manageSelected} />;
-    }
+    // } else {
+    //   genreData.data = basicGenres;
+    //   genreList = <FilterList list={genreData} manageSelected={this.manageSelected} />;
+    // }
 
     languageData.data = languages;
 
