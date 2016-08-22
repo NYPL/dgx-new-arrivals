@@ -48,7 +48,7 @@ class CatalogItems extends React.Component {
           author={author}
           format={element.format}
           target={target}
-          genre={element.genres[0]}
+          genre={element.genres ? element.genres[0] : ''}
           linkClass="item"
           simple={false}
           displayType={this.props.displayType}

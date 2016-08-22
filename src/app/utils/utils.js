@@ -78,7 +78,7 @@ const makeFrontEndQuery = (
   _mapObject(filters, (val, key) => {
     if (val !== '') {
       if (val.indexOf('Any') === -1) {
-        query += `&${key}=${val}`;
+        query += `&${key}=${encodeURIComponent(val)}`;
       }
     } else if (key === 'format') {
       query += `&format=${formatFilters()}`;
@@ -112,7 +112,7 @@ const makeApiQuery = (
 
   _mapObject(filters, (val, key) => {
     if (val !== '') {
-      baseApiUrl += `&${key}=${val}`;
+      baseApiUrl += `&${key}=${v}`;
     } else if (key === 'format') {
       baseApiUrl += `&format=${formatFilters()}`;
     }
