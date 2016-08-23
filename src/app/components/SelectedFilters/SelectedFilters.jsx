@@ -82,7 +82,7 @@ class SelectedFilters extends React.Component {
     let update = true;
     let page = pageNum;
 
-    filters[filter] = '';
+    filters[filter] = `Any${filter[0].toUpperCase()}${filter.substring(1)}`;
 
     // If every filter is blank, then we want to remove the Active flag
     // for the toggle popup.
