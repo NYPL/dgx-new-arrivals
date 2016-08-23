@@ -172,7 +172,7 @@ const manageHistory = (opts = {}, history, reset = false) => {
   if (!reset) {
     _mapObject(filters, (val, key) => {
       if (val && (val.indexOf('Any') === -1)) {
-        query += `&${key}=${val}`;
+        query += `&${key}=${encodeURIComponent(val)}`;
       }
     });
 
