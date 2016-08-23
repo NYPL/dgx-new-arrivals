@@ -112,7 +112,7 @@ const makeApiQuery = (
 
   _mapObject(filters, (val, key) => {
     if (val !== '') {
-      baseApiUrl += `&${key}=${v}`;
+      baseApiUrl += `&${key}=${encodeURIComponent(val)}`;
     } else if (key === 'format') {
       baseApiUrl += `&format=${formatFilters()}`;
     }
