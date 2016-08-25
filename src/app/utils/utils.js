@@ -111,7 +111,9 @@ const makeApiQuery = (
   }
 
   _mapObject(filters, (val, key) => {
-    if (val !== '') {
+    if (key === 'genre') {
+      baseApiUrl += `&${key}=${JSON.stringify({'genre': val})}`;
+    } else if (val !== '') {
       baseApiUrl += `&${key}=${encodeURIComponent(val)}`;
     } else if (key === 'format') {
       baseApiUrl += `&format=${formatFilters()}`;
