@@ -17,10 +17,6 @@ const { appFilters, itemTitleLength } = appConfig;
 const formatData = appFilters.formatData.data;
 
 class CatalogItems extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const bookCoverItems = this.props.items || [];
 
