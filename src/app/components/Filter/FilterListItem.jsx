@@ -13,7 +13,7 @@ class FilterListItem extends React.Component {
         width="16px"
         height="16px"
         ariaHidden
-      /> : 
+      /> :
       <RadioInactiveIcon
         width="16px"
         height="16px"
