@@ -35,6 +35,11 @@ const formatFilters = () => {
   return formats.join(',');
 };
 
+const getFormatQuery = () => {
+  const formats = _map(appFilters.formatData.data, format => `&format=${format.id}`);
+  return formats.join('');
+};
+
 const titleAuthorShortener = (title, author, itemTitleLength = 65) => {
   if (!title) {
     return '';
@@ -111,18 +116,15 @@ const makeApiQuery = (
   }
 
   _mapObject(filters, (val, key) => {
-    if (key === 'genre' && val !== '') {
-      baseApiUrl += `&${key}=${JSON.stringify({'genre': encodeURIComponent(val)})}`;
-    } else if (val !== '') {
+    if (val !== '') {
       baseApiUrl += `&${key}=${encodeURIComponent(val)}`;
-    } else if (key === 'format') {
-      baseApiUrl += `&format=${formatFilters()}`;
     }
   });
 
   if (baseApiUrl.indexOf('format') === -1) {
-    baseApiUrl += `&format=${formatFilters()}`;
+    baseApiUrl += `${getFormatQuery()}`;
   }
+
   baseApiUrl += `&availability=${availability}&itemCount=${itemsQuery}&pageNum=${pageQuery}`;
 
   if (publishYear === 'recentlyReleased') {
