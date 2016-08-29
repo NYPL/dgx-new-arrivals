@@ -108,7 +108,8 @@ class NewArrivals extends React.Component {
     }, error => Promise.reject(error));
 
     makeApiCall(queries, response => {
-      const displayPagination = response.data.bibItems.length !== 0;
+      const bibItems = response.data.bibItems;
+      const displayPagination = !(bibItems.length < 18);
       Actions.updateDisplayPagination(displayPagination);
       Actions.addMoreItems(response.data.bibItems);
       Actions.updatePageNum(true);
