@@ -66,8 +66,59 @@ class FilterList extends React.Component {
     return returnedList;
   }
 
+  renderGenreList(list) {
+    const activeItem = this.props.list.active;
+    let fictionList, nonFictionList;
+    nonFictionList = (
+      <div className="nonFictionList">
+        {_map(list.slice(0, this.props.dividerIndex), (item, i) => {
+            const itemIdWithoutSpaces = (item.id).replace(/\s+/g, '');
+
+            return (
+              <FilterListItem
+                ref={(ref) => this[itemIdWithoutSpaces] = ref}
+                item={item}
+                filter={this.props.list.title}
+                active={activeItem === item.id}
+                key={i}
+                onClick={() => this.setActive(item.id)}
+              />
+            );
+          })
+        }
+        {this.renderDivider()}
+      </div>
+    );
+
+    fictionList = (
+      <div className="fictionList">
+        {_map(list.slice(this.props.dividerIndex), (item, i) => {
+            const itemIdWithoutSpaces = (item.id).replace(/\s+/g, '');
+
+            return (
+              <FilterListItem
+                ref={(ref) => this[itemIdWithoutSpaces] = ref}
+                item={item}
+                filter={this.props.list.title}
+                active={activeItem === item.id}
+                key={i}
+                onClick={() => this.setActive(item.id)}
+              />
+            );
+          })
+        }
+      </div>
+    );
+
+    return (<div>{nonFictionList}{fictionList}</div>);
+  }
+
   render() {
-    const list = this.renderList(this.props.list.data);
+    let list = this.renderList(this.props.list.data);
+
+    if (this.props.list.title === this.props.dividerTitle) {
+      list = this.renderGenreList(this.props.list.data);
+    }
 
     return (
       <fieldset tabIndex="0" className="filterList">
