@@ -2,8 +2,6 @@ import express from 'express';
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
 
-import { navConfig } from 'dgx-header-component';
-import Model from 'dgx-model-data';
 import _ from 'underscore';
 
 import config from '../../../appConfig.js';
@@ -13,11 +11,8 @@ import {
   makeApiQuery,
 } from '../../app/utils/utils.js';
 
-// Syntax that both ES6 and Babel 6 support
-const { HeaderItemModel } = Model;
 const {
   api,
-  headerApi,
   inventoryService,
   languageDays,
   languageItemCount,
@@ -37,14 +32,9 @@ const appEnvironment = process.env.APP_ENV || 'production';
 const inventoryRoot = inventoryService.root['production'];
 const apiRoot = api.root[appEnvironment];
 
-const headerOptions = createOptions(headerApi);
 // Always the year before the current year.
 const minPublishYear = currentYear - 1;
 
-const getHeaderData = () => {
-  const headerApiUrl = parser.getCompleteApi(headerOptions);
-  return fetchApiData(headerApiUrl);
-};
 const getLanguageData = () => {
   const languageApiUrl =
     `${inventoryRoot}${inventoryService.languages}?&days=` +
@@ -85,18 +75,11 @@ const newArrivalsApp = (req, res, next) => {
 
   const baseApiUrl = makeApiQuery(filters, availability, pageNum, publishYear, true);
 
-  console.log('first call', baseApiUrl);
-
-  axios.all([getHeaderData(), fetchApiData(baseApiUrl), getLanguageData()])
-    .then(axios.spread((headerData, newArrivalsData, languageData) => {
-      const headerParsed = parser.parse(headerData.data, headerOptions);
-      const headerModelData = HeaderItemModel.build(headerParsed);
+  axios.all([fetchApiData(baseApiUrl), getLanguageData()])
+    .then(axios.spread((newArrivalsData, languageData) => {
       const languages = filterLanguages(languageData.data, languageItemCount);
 
       res.locals.data = {
-        HeaderStore: {
-          headerData: navConfig.current,
-        },
         NewArrivalsStore: {
           displayType: 'grid',
           publicationType: publishYear || 'recentlyReleased',
@@ -121,9 +104,6 @@ const newArrivalsApp = (req, res, next) => {
       console.log(`Attempted to call : ${baseApiUrl}`);
 
       res.locals.data = {
-        HeaderStore: {
-          headerData: navConfig.current,
-        },
         NewArrivalsStore: {
           displayType: 'grid',
           publicationType: 'recentlyReleased',

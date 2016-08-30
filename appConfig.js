@@ -24,16 +24,6 @@ export default {
     languages: '/inventory/languages',
     availableQueries: ['audience', 'bibNumber', 'days', 'format', 'language', 'pageNum', 'itemCount'],
   },
-  headerApi: {
-    endpoint: '/api/nypl/ndo/v0.1/site-data/header-items',
-    includes: [
-      'children',
-      'related-container-slots.current-item.square-image',
-    ],
-    filters: {
-      'relationships': { 'parent': 'null' },
-    },
-  },
   itemTitleLength: 65,
   appFilters: {
     formatData: {
