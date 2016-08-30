@@ -13,6 +13,7 @@ describe('Application', () => {
   });
 
   it('should be wrapped in a .nyplNewArrivalsApp class', () => {
+    expect(component.find('.nyplNewArrivalsApp')).to.be.defined;
     expect(component.find('.nyplNewArrivalsApp')).to.have.length(1);
   });
 
