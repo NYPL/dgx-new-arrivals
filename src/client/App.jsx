@@ -17,19 +17,14 @@ if (loadA11y) {
 }
 
 window.onload = () => {
-  if (!window.ga) {
-    console.log('Analytics not available - loading through React.');
+  // if (!window.ga) {
     // const gaOpts = { debug: false };
-    // Passing in false for the dev GA code
     // ga.initialize('UA-1420324-122', gaOpts);
-  }
+  // }
 
   if (!window.dgxFeatureFlags) {
     window.dgxFeatureFlags = FeatureFlags.utils;
   }
-
-  // Fire off the Feature Flag prior to render
-  FeatureFlags.utils.activateFeature('shop-link');
 
   // Render Isomorphically
   Iso.bootstrap((state, container) => {
