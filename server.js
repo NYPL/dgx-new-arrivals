@@ -40,19 +40,12 @@ app.set('views', VIEWS_PATH);
 app.set('port', process.env.PORT || 3001);
 
 app.use(express.static(DIST_PATH));
-app.use('/browse/new-arrivals/', express.static(DIST_PATH));
+app.use('/books-music-dvds/new-arrivals/', express.static(DIST_PATH));
 
 // For images
 app.use('*/src/client', express.static(INDEX_PATH));
 
 app.use('/', apiRoutes);
-
-// app.use('/', (req, res, next) => {
-//   if (req.path !== '/browse/new-arrivals') {
-//     return res.redirect('/browse/new-arrivals');
-//   }
-//   next();
-// });
 
 app.use('/', (req, res) => {
   alt.bootstrap(JSON.stringify(res.locals.data || {}));

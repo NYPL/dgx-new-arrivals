@@ -161,7 +161,7 @@ router
   .get(newArrivalsApp);
 
 router
-  .route('/browse/new-arrivals')
+  .route('/books-music-dvds/new-arrivals')
   .get(newArrivalsApp);
 
 router
@@ -169,7 +169,7 @@ router
   .get(selectPage);
 
 router
-  .route('/browse/new-arrivals/api')
+  .route('/books-music-dvds/new-arrivals/api')
   .get(selectPage);
 
 

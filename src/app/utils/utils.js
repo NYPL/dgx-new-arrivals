@@ -133,7 +133,7 @@ const makeApiQuery = (
 const makeApiCall = (queries, callbackFn) => {
   const search = queries.replace(/\?/, '');
   axios
-    .get(`/browse/new-arrivals/api?${search}`)
+    .get(`/books-music-dvds/new-arrivals/api?${search}`)
     .then(callbackFn)
     .catch(error => {
       console.log(`error making ajax call: ${error}`);
@@ -195,7 +195,7 @@ const manageHistory = (opts = {}, history, reset = false) => {
   query = (query === '?') ? '' : query;
 
   history.push({
-    pathname: '/browse/new-arrivals',
+    pathname: '/books-music-dvds/new-arrivals',
     search: query,
     state: { newArrivals: true },
   });
