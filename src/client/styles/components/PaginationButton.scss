@@ -15,8 +15,8 @@
   line-height: 16.21px;
   overflow: hidden;
   padding: 5px 20px;
-  color: #A3A19E;
-  border: 2px solid #A3A19E;
+  color: $COOLGRAY_COLOR;
+  border: 2px solid $COOLGRAY_COLOR;
 
   &-list {
     display: block;
@@ -26,7 +26,7 @@
 
     &-dot {
       border-radius: 100%;
-      border: 3px solid #A3A19E;
+      border: 3px solid $COOLGRAY_COLOR;
       display: inline-block;
       margin: 0 4px 0 0;
       vertical-align: 1px;
