@@ -49,7 +49,6 @@
     "dgx-alt-center": "git+ssh://bitbucket.org/NYPL/dgx-alt-center.git#master",
     "dgx-feature-flags": "git+ssh://bitbucket.org/NYPL/dgx-feature-flags.git#master",
     "dgx-header-component": "git+ssh://bitbucket.org/NYPL/dgx-header-component.git#master",
-    "dgx-model-data": "git+ssh://bitbucket.org/NYPL/dgx-model-data.git#master",
     "dgx-react-buttons": "git+https://bitbucket.org/NYPL/dgx-react-buttons.git#v0.0.4",
     "dgx-react-footer": "git+ssh://bitbucket.org/NYPL/dgx-react-footer.git#master",
     "dgx-react-ga": "git+ssh://bitbucket.org/NYPL/dgx-react-ga.git#master",

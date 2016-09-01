@@ -1,6 +1,6 @@
 export default {
   appTitle: 'New Arrivals | The New York Public Library',
-  appName: 'Homepage',
+  appName: 'NewArrivals',
   favIconPath: '//d2znry4lg8s0tq.cloudfront.net/images/favicon.ico',
   port: 3001,
   webpackDevServerPort: 3000,
@@ -23,16 +23,6 @@ export default {
     formats: '/inventory/formats',
     languages: '/inventory/languages',
     availableQueries: ['audience', 'bibNumber', 'days', 'format', 'language', 'pageNum', 'itemCount'],
-  },
-  headerApi: {
-    endpoint: '/api/nypl/ndo/v0.1/site-data/header-items',
-    includes: [
-      'children',
-      'related-container-slots.current-item.square-image',
-    ],
-    filters: {
-      'relationships': { 'parent': 'null' },
-    },
   },
   itemTitleLength: 65,
   appFilters: {
