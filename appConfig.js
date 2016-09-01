@@ -1,6 +1,6 @@
 export default {
   appTitle: 'New Arrivals | The New York Public Library',
-  appName: 'Homepage',
+  appName: 'NewArrivals',
   favIconPath: '//d2znry4lg8s0tq.cloudfront.net/images/favicon.ico',
   port: 3001,
   webpackDevServerPort: 3000,
