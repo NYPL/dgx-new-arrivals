@@ -22,9 +22,9 @@ describe('Sidebar', () => {
     expect(link).be.defined;
     expect(link).to.have.length(1);
     expect(link.text()).to.equal('< BOOKS/MUSIC/DVDS');
-    expect(link.prop('href')).to.equal('/browse');
+    expect(link.prop('href')).to.equal('/books-music-dvds');
     // Similar:
-    // expect(link.props().href).to.equal('/browse');
+    // expect(link.props().href).to.equal('/books-music-dvds');
   });
 
   it('should have a span', () => {

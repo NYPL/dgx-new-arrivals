@@ -7,7 +7,7 @@
     "start": "node index",
     "doc": "./node_modules/.bin/esdoc -c esdoc.json",
     "dist": "NODE_ENV=production webpack --config webpack.config.js",
-    "test": "./node_modules/.bin/mocha -w test/browser.js test/*.test.js"
+    "test": "./node_modules/.bin/mocha -w test/helpers/browser.js test/*.test.js"
   },
   "repository": {
     "type": "git",
