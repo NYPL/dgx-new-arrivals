@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Header } from 'dgx-header-component';
+import { Header, navConfig } from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
 
 import NewArrivals from '../NewArrivals/NewArrivals.jsx';
@@ -12,7 +12,10 @@ import Sidebar from '../Sidebar/Sidebar.jsx';
  */
 const App = () => (
   <div className="nyplNewArrivalsApp">
-    <Header skipNav={{ target: 'mainContent' }} />
+    <Header
+      skipNav={{ target: 'mainContent' }}
+      navData={navConfig.current}
+    />
 
     <div className="nyplNewArrivals-grid nyplGrid-fullWidth">
 

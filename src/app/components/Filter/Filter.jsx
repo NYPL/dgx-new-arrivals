@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  map as _map,
   clone as _clone,
   every as _every,
   extend as _extend,
@@ -240,7 +239,7 @@ class Filter extends React.Component {
           <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
             <button
               className="PillButton reset"
-              onClick={() => this.resetFilters('Filters')} 
+              onClick={() => this.resetFilters('Filters')}
               aria-controls="isotopesContainer"
             >
               <ResetIcon ariaHidden />

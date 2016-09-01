@@ -40,8 +40,8 @@ class PublicationToggle extends React.Component {
           id="label-recentlyReleased"
         >
           <span>
-          <CheckSoloIcon width="24" height="24" ariaHidden />
-          {recentlyReleased.label}
+            <CheckSoloIcon width="24" height="24" ariaHidden />
+            {recentlyReleased.label}
           </span>
         </label>
         <input
@@ -60,8 +60,8 @@ class PublicationToggle extends React.Component {
           id="label-anyYear"
         >
           <span>
-          <CheckSoloIcon width="24" height="24" ariaHidden />
-          {anyYear.label}
+            <CheckSoloIcon width="24" height="24" ariaHidden />
+            {anyYear.label}
           </span>
         </label>
         <span className="switch-selection"></span>

@@ -1,7 +1,7 @@
+/* global $, Isotope */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import { findWhere as _findWhere } from 'underscore';
 
 import CatalogItems from '../CatalogItems/CatalogItems.jsx';
 

@@ -27,12 +27,12 @@ const PaginationButton = (props) => {
     >
       <span
         id={`${props.id}-list`}
-        className={`paginationButton-list`}
+        className="paginationButton-list"
       >
         {dotElements}
         <span
           id={`${props.id}-list-number`}
-          className={`paginationButton-list-number`}
+          className="paginationButton-list-number"
         >
           {props.label}
         </span>
