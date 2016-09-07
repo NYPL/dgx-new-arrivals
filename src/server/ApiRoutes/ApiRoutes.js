@@ -37,8 +37,7 @@ const minPublishYear = currentYear - 1;
 
 const getLanguageData = () => {
   const languageApiUrl =
-    `${inventoryRoot}${inventoryService.languages}?&days=` +
-    `${languageDays}&minPublishYear=${minPublishYear}`;
+    `${inventoryRoot}${inventoryService.languages}?minPublishYear=${minPublishYear}`;
 
   return fetchApiData(languageApiUrl);
 };
