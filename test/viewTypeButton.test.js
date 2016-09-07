@@ -37,12 +37,28 @@ describe('ViewTypeButton', () => {
     expect(component.find('#gridInput').props().checked).to.equal(true);
   });
 
-  it('should activate List when it is passed as a prop', () => {
+  it('should activate the List option when it is passed as a prop', () => {
+    // Set to Grid by default
+    expect(component.props().type).to.equal('grid');
+
     component.setProps({ type: 'list' });
 
     expect(component.props().type).to.equal('list');
 
     expect(component.find('#listInput').props().checked).to.equal(true);
     expect(component.find('#gridInput').props().checked).to.equal(false);
+  });
+
+  it('should activate the Grid option when it is passed as a prop', () => {
+    component.setProps({ type: 'list' });
+
+    expect(component.props().type).to.equal('list');
+
+    component.setProps({ type: 'grid' });
+
+    expect(component.props().type).to.equal('grid');
+
+    expect(component.find('#listInput').props().checked).to.equal(false);
+    expect(component.find('#gridInput').props().checked).to.equal(true);
   });
 });
