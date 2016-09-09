@@ -12,8 +12,6 @@ import {
   CheckSoloIcon,
 } from 'dgx-svg-icons';
 
-import FeatureFlags from 'dgx-feature-flags';
-
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
@@ -51,24 +49,20 @@ class Filter extends React.Component {
 
     this.state = _extend(
       { genreData: appFilters.genreData.data },
-      NewArrivalsStore.getState(),
-      { featureFlag: FeatureFlags.store.getState() });
+      NewArrivalsStore.getState()
+    );
   }
 
   componentDidMount() {
     NewArrivalsStore.listen(this.onChange);
-    FeatureFlags.store.listen(this.onChange);
   }
 
   componentWillUnmount() {
     NewArrivalsStore.unlisten(this.onChange);
-    FeatureFlags.store.unlisten(this.onChange);
   }
 
   onChange() {
-    this.setState(_extend({},
-      NewArrivalsStore.getState(),
-      { featureFlag: FeatureFlags.store.getState() }));
+    this.setState(_extend({}, NewArrivalsStore.getState()));
   }
 
   closeFilters(gaAction) {
@@ -136,7 +130,6 @@ class Filter extends React.Component {
   }
 
   render() {
-    const advanceGenre = this.state.featureFlag.get('advance-genre');
     const {
       filters,
       languages,
@@ -151,23 +144,18 @@ class Filter extends React.Component {
     const active = _every(filters, f => f === '');
     const activeSubmitButtons = active ? '' : 'active';
     const allGenres = this.state.genreData;
-    const basicGenres = genreData.data.slice(0, 3);
+    // const basicGenres = genreData.data.slice(0, 3);
     let genreList;
 
-    // if (advanceGenre) {
-      genreData.data = allGenres;
-      genreList = (
-        <FilterList
-          list={genreData}
-          manageSelected={this.manageSelected}
-          dividerTitle={genreData.title}
-          dividerIndex={13}
-        />
-      );
-    // } else {
-    //   genreData.data = basicGenres;
-    //   genreList = <FilterList list={genreData} manageSelected={this.manageSelected} />;
-    // }
+    genreData.data = allGenres;
+    genreList = (
+      <FilterList
+        list={genreData}
+        manageSelected={this.manageSelected}
+        dividerTitle={genreData.title}
+        dividerIndex={13}
+      />
+    );
 
     languageData.data = languages;
 

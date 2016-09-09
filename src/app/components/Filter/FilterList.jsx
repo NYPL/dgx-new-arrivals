@@ -70,7 +70,8 @@ class FilterList extends React.Component {
     let fictionList, nonFictionList;
     nonFictionList = (
       <div className="nonFictionList">
-        {_map(list.slice(0, this.props.dividerIndex), (item, i) => {
+        {
+          _map(list.slice(0, this.props.dividerIndex), (item, i) => {
             const itemIdWithoutSpaces = (item.id).replace(/\s+/g, '');
 
             return (
@@ -91,7 +92,8 @@ class FilterList extends React.Component {
 
     fictionList = (
       <div className="fictionList">
-        {_map(list.slice(this.props.dividerIndex), (item, i) => {
+        {
+          _map(list.slice(this.props.dividerIndex), (item, i) => {
             const itemIdWithoutSpaces = (item.id).replace(/\s+/g, '');
 
             return (
