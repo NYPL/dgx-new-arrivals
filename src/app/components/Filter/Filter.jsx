@@ -166,44 +166,7 @@ class Filter extends React.Component {
 
     return (
       <div className={`filter ${this.props.active}`}>
-        <div className="filter-header-mobile">
-          <FilterIcon className="mobile-filter" ariaHidden />
-          <h2>Filter by</h2>
-
-          <ul className="mobile-filter-buttons">
-            <li>
-              <IconButton
-                className={'apply'}
-                icon={<CheckSoloIcon ariaHidden />}
-                onClick={() => this.submitFilters('Mobile Filter Window')}
-                label="Apply Filters"
-              />
-            </li>
-            <li>
-              <IconButton
-                className={'reset'}
-                icon={<ResetIcon ariaHidden />}
-                onClick={() => this.resetFilters('Mobile Filter Window')}
-                label="Reset All"
-              />
-            </li>
-            <li>
-              <CloseButton
-                className="mobile-close"
-                onClick={() => this.closeFilters('Mobile Filter Window')}
-              />
-            </li>
-          </ul>
-        </div>
-
-        <div className="publication-filter">
-          <p>Filter by Publish Date</p>
-          <PublicationToggle
-            managePublicationType={this.managePublicationType}
-            publicationType={publicationType}
-          />
-        </div>
-
+        
         <fieldset className="filter-list" tabIndex="0">
           <legend>Filter on the following categories</legend>
           <FilterList list={formatData} manageSelected={this.manageSelected} />
@@ -212,29 +175,6 @@ class Filter extends React.Component {
           {genreList}
         </fieldset>
 
-        <ul className="filter-actions">
-          <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
-            <button
-              className="PillButton apply"
-              onClick={() => this.submitFilters('Filters')}
-              aria-controls="isotopesContainer"
-            >
-              <CheckSoloIcon ariaHidden />
-              <span>Apply</span>
-            </button>
-          </li>
-
-          <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
-            <button
-              className="PillButton reset"
-              onClick={() => this.resetFilters('Filters')}
-              aria-controls="isotopesContainer"
-            >
-              <ResetIcon ariaHidden />
-              <span>Reset All</span>
-            </button>
-          </li>
-        </ul>
 
       </div>
     );
