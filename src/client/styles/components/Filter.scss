@@ -9,8 +9,9 @@
     left: 0;
     right: 0;
     background-color: #737069;
-    z-index: 5;
+    z-index: 1000;
     display: block;
+    overflow: visible;
 
     @include min-screen(768px) {
       min-height: 450px;
