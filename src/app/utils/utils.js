@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ga } from 'dgx-react-ga';
+import { gaUtils } from 'dgx-react-ga';
 import {
   map as _map,
   mapObject as _mapObject,
@@ -224,7 +224,7 @@ const getFilterLabel = (filterType = '', id = '') => {
   return filter ? filter.label : '';
 };
 
-const trackNewArrivals = ga._trackEvent('New Arrivals');
+const trackNewArrivals = gaUtils.trackEvent('New Arrivals');
 
 export {
   formatFilters,

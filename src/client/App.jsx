@@ -7,7 +7,8 @@ import Iso from 'iso';
 import './styles/main.scss';
 
 import App from '../app/components/Application/Application.jsx';
-import ga from 'react-ga';
+
+import { ga } from 'dgx-react-ga';
 
 import a11y from 'react-a11y';
 
