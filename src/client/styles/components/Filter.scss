@@ -9,19 +9,20 @@
     left: 0;
     right: 0;
     background-color: #737069;
-    z-index: 5;
+    z-index: 1000;
     display: block;
+    overflow: visible;
 
     @include min-screen(768px) {
       min-height: 450px;
-      left: -520px;
-      width: 650px;
+      left: -610px;
+      width: 735px;
       top: 50px;
     }
 
     @include min-screen(1024px) {
-      left: -570px;
-      width: 720px;
+      left: -640px;
+      width: 790px;
     }
   }
 
@@ -87,7 +88,7 @@
     @include min-screen(768px) {
       padding: 0 !important;
       list-style: none;
-      margin: 0 50px 0 25px !important;
+      margin: 0 20px 0 25px !important;
       position: absolute;
       top: 0;
       right: 0;
@@ -143,6 +144,7 @@
     }
 
     @include min-screen(768px) {
+      padding: 5px 10px 0;
       padding-top: 30px;
     }
   }

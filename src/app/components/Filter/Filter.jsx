@@ -3,6 +3,7 @@ import React from 'react';
 import {
   clone as _clone,
   every as _every,
+  extend as _extend,
 } from 'underscore';
 
 import {
@@ -46,7 +47,10 @@ class Filter extends React.Component {
     this.managePublicationType = this.managePublicationType.bind(this);
     this.onChange = this.onChange.bind(this);
 
-    this.state = NewArrivalsStore.getState();
+    this.state = _extend(
+      { genreData: appFilters.genreData.data },
+      NewArrivalsStore.getState()
+    );
   }
 
   componentDidMount() {
@@ -58,7 +62,7 @@ class Filter extends React.Component {
   }
 
   onChange() {
-    this.setState(NewArrivalsStore.getState());
+    this.setState(_extend({}, NewArrivalsStore.getState()));
   }
 
   closeFilters(gaAction) {
@@ -139,6 +143,19 @@ class Filter extends React.Component {
     } = appFilters;
     const active = _every(filters, f => f === '');
     const activeSubmitButtons = active ? '' : 'active';
+    const allGenres = this.state.genreData;
+    // const basicGenres = genreData.data.slice(0, 3);
+    let genreList;
+
+    genreData.data = allGenres;
+    genreList = (
+      <FilterList
+        list={genreData}
+        manageSelected={this.manageSelected}
+        dividerTitle={genreData.title}
+        dividerIndex={13}
+      />
+    );
 
     languageData.data = languages;
 
@@ -192,7 +209,7 @@ class Filter extends React.Component {
           <FilterList list={formatData} manageSelected={this.manageSelected} />
           <FilterList list={audienceData} manageSelected={this.manageSelected} />
           <FilterList list={languageData} manageSelected={this.manageSelected} />
-          <FilterList list={genreData} manageSelected={this.manageSelected} />
+          {genreList}
         </fieldset>
 
         <ul className="filter-actions">
@@ -218,6 +235,7 @@ class Filter extends React.Component {
             </button>
           </li>
         </ul>
+
       </div>
     );
   }

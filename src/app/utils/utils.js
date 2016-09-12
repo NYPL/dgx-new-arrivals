@@ -25,7 +25,7 @@ const {
 } = config;
 const minPublishYear = currentYear - 1;
 const appEnvironment = process.env.APP_ENV || 'production';
-const inventoryRoot = inventoryService.root['production'];
+const inventoryRoot = inventoryService.root['development'];
 const mapLanguageCode = (langId) => (
   _findWhere(languageId, { id: langId }) || { id: '', code: '' }
 );
@@ -33,6 +33,11 @@ const mapLanguageCode = (langId) => (
 const formatFilters = () => {
   const formats = _map(appFilters.formatData.data, format => format.id);
   return formats.join(',');
+};
+
+const getFormatQuery = () => {
+  const formats = _map(appFilters.formatData.data, format => `&format=${format.id}`);
+  return formats.join('');
 };
 
 const titleAuthorShortener = (title, author, itemTitleLength = 65) => {
@@ -78,7 +83,7 @@ const makeFrontEndQuery = (
   _mapObject(filters, (val, key) => {
     if (val !== '') {
       if (val.indexOf('Any') === -1) {
-        query += `&${key}=${val}`;
+        query += `&${key}=${encodeURIComponent(val)}`;
       }
     } else if (key === 'format') {
       query += `&format=${formatFilters()}`;
@@ -112,15 +117,14 @@ const makeApiQuery = (
 
   _mapObject(filters, (val, key) => {
     if (val !== '') {
-      baseApiUrl += `&${key}=${val}`;
-    } else if (key === 'format') {
-      baseApiUrl += `&format=${formatFilters()}`;
+      baseApiUrl += `&${key}=${encodeURIComponent(val)}`;
     }
   });
 
   if (baseApiUrl.indexOf('format') === -1) {
-    baseApiUrl += `&format=${formatFilters()}`;
+    baseApiUrl += `${getFormatQuery()}`;
   }
+
   baseApiUrl += `&availability=${availability}&itemCount=${itemsQuery}&pageNum=${pageQuery}`;
 
   if (publishYear === 'recentlyReleased') {
@@ -172,7 +176,7 @@ const manageHistory = (opts = {}, history, reset = false) => {
   if (!reset) {
     _mapObject(filters, (val, key) => {
       if (val && (val.indexOf('Any') === -1)) {
-        query += `&${key}=${val}`;
+        query += `&${key}=${encodeURIComponent(val)}`;
       }
     });
 
