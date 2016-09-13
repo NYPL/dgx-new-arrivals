@@ -219,7 +219,7 @@ const getFilterLabel = (filterType = '', id = '') => {
   }
 
   const filterArray = appFilters[`${filterType}Data`].data;
-  const filter = _findWhere(filterArray, { id: id });
+  const filter = _findWhere(filterArray, { id });
 
   return filter ? filter.label : '';
 };

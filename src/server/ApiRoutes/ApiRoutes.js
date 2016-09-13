@@ -1,36 +1,24 @@
 import express from 'express';
 import axios from 'axios';
-import parser from 'jsonapi-parserinator';
 
 import _ from 'underscore';
 
 import config from '../../../appConfig.js';
-import {
-  formatFilters,
-  makeQuery,
-  makeApiQuery,
-} from '../../app/utils/utils.js';
+import { makeApiQuery } from '../../app/utils/utils.js';
 
 const {
   api,
   inventoryService,
   languageDays,
   languageItemCount,
-  itemCount,
   currentYear,
 } = config;
 
-const createOptions = (apiValue) => ({
-  endpoint: `${apiRoot}${apiValue.endpoint}`,
-  includes: apiValue.includes,
-  filters: apiValue.filters,
-});
 const fetchApiData = (url) => axios.get(url);
 
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
 const inventoryRoot = inventoryService.root['development'];
-const apiRoot = api.root[appEnvironment];
 
 // Always the year before the current year.
 const minPublishYear = currentYear - 1;
