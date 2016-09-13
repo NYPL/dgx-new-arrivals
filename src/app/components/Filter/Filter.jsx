@@ -17,7 +17,7 @@ import Actions from '../../actions/Actions.js';
 
 import FilterList from './FilterList.jsx';
 import CloseButton from '../Buttons/CloseButton.jsx';
-import PublicationToggle from './PublicationToggle.jsx';
+import PublicationToggle from '../ToggleUIs/PublicationToggle.jsx';
 
 import IconButton from '../Buttons/IconButton.jsx';
 
