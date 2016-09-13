@@ -19,7 +19,6 @@ const fetchApiData = (url) => axios.get(url);
 const router = express.Router();
 const appEnvironment = process.env.APP_ENV || 'production';
 const inventoryRoot = inventoryService.root['development'];
-const apiRoot = api.root[appEnvironment];
 
 // Always the year before the current year.
 const minPublishYear = currentYear - 1;
