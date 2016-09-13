@@ -15,9 +15,9 @@ import {
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
-import FilterList from './FilterList.jsx';
+import FilterList from '../FilterList/FilterList.jsx';
 import CloseButton from '../Buttons/CloseButton.jsx';
-import PublicationToggle from './PublicationToggle.jsx';
+import PublicationToggle from '../ToggleUIs/PublicationToggle.jsx';
 
 import IconButton from '../Buttons/IconButton.jsx';
 
@@ -165,8 +165,8 @@ class Filter extends React.Component {
     genreData.active = filters.genre;
 
     return (
-      <div className={`filter ${this.props.active}`}>
-        <div className="filter-header-mobile">
+      <div className={`filterDialog ${this.props.active}`}>
+        <div className="filterDialog-header-mobile">
           <FilterIcon className="mobile-filter" ariaHidden />
           <h2>Filter by</h2>
 
@@ -204,7 +204,7 @@ class Filter extends React.Component {
           />
         </div>
 
-        <fieldset className="filter-list" tabIndex="0">
+        <fieldset className="filterDialog-list" tabIndex="0">
           <legend>Filter on the following categories</legend>
           <FilterList list={formatData} manageSelected={this.manageSelected} />
           <FilterList list={audienceData} manageSelected={this.manageSelected} />
@@ -212,7 +212,7 @@ class Filter extends React.Component {
           {genreList}
         </fieldset>
 
-        <ul className="filter-actions">
+        <ul className="filterDialog-actions">
           <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
             <button
               className="PillButton apply"

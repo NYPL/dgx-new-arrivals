@@ -9,9 +9,9 @@ import PillButton from '../Buttons/PillButton.jsx';
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
-import Filter from '../Filter/Filter.jsx';
-import FilterToggle from '../Filter/FilterToggle.jsx';
-import ViewTypeButton from './ViewTypeButton.jsx';
+import FilterDialog from '../FilterDialog/FilterDialog.jsx';
+import AvailabilityToggle from '../ToggleUIs/AvailabilityToggle.jsx';
+import ViewTypeButton from '../ToggleUIs/ViewTypeButton.jsx';
 
 import { trackNewArrivals } from '../../utils/utils.js';
 
@@ -76,7 +76,7 @@ class ToggleDisplay extends React.Component {
     return (
       <ul className="toggleDisplay">
         <li>
-          <FilterToggle />
+          <AvailabilityToggle />
         </li>
         <li>
           <ViewTypeButton type={displayType} />
@@ -95,7 +95,7 @@ class ToggleDisplay extends React.Component {
                 onClick={this.handleFilterView}
                 iconClass={iconClass}
               />
-              <Filter active={filterIconClass} />
+              <FilterDialog active={filterIconClass} />
             </div>
           </ClickOutHandler>
         </li>
