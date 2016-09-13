@@ -5,7 +5,6 @@ import colors from 'colors';
 
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import DocMeta from 'react-doc-meta';
 
 import Iso from 'iso';
 import alt from 'dgx-alt-center';

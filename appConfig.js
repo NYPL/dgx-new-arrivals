@@ -23,13 +23,14 @@ export default {
     formats: '/inventory/formats',
     languages: '/inventory/languages',
     genre: '/inventory/genre',
-    availableQueries: ['audience', 'bibNumber', 'days', 'format', 'language', 'pageNum', 'itemCount'],
+    availableQueries: ['audience', 'bibNumber', 'days', 'format', 'language',
+      'pageNum', 'itemCount'],
   },
   itemTitleLength: 65,
   appFilters: {
     formatData: {
       title: 'Format',
-      data:[
+      data: [
         { id: 'AnyFormat', label: 'Any' },
         { id: 'BOOK/TEXT', label: 'Book' },
         { id: 'AUDIOBOOK', label: 'Audiobook' },
