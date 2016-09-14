@@ -8,6 +8,12 @@
   border: none;
   outline: none;
 
+  .fictionList {
+    @include min-screen(768px) {
+      margin-top: 30px;
+    }
+  }
+
   .title {
     margin: 0;
     width: 100%;
@@ -24,8 +30,19 @@
     }
   }
 
+  .subdivider {
+    min-height: 15px !important;
+    border-top: 2px solid white;
+    margin-top: 10px;
+    margin-left: 50px;
+
+    @include min-screen(768px) {
+      display: none;
+    }
+  }
+
   div {
-    height: 35px;
+    min-height: 35px;
     font-size: 14px;
 
     input {
@@ -84,6 +101,27 @@
   @include min-screen(768px) {
     font-size: 14px;
     margin-right: 5px;
-    width: 23%;
+    width: 20%;
+
+    &:nth-child(5) {
+      width: 36%;
+
+      .title {
+        width: 88%;
+      }
+    }
+
+    .nonFictionList,
+    .fictionList {
+      width: 49%;
+      float: left;
+      display: inline-block;
+    }
+  }
+
+  @include min-screen(1024px) {
+    &:nth-child(5) {
+      width: 37%;
+    }
   }
 }

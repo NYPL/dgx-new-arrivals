@@ -7,8 +7,8 @@ import Iso from 'iso';
 import './styles/main.scss';
 
 import App from '../app/components/Application/Application.jsx';
-import FeatureFlags from 'dgx-feature-flags';
-import ga from 'react-ga';
+
+import { ga } from 'dgx-react-ga';
 
 import a11y from 'react-a11y';
 
@@ -21,10 +21,6 @@ window.onload = () => {
     // const gaOpts = { debug: false };
     // ga.initialize('UA-1420324-122', gaOpts);
   // }
-
-  if (!window.dgxFeatureFlags) {
-    window.dgxFeatureFlags = FeatureFlags.utils;
-  }
 
   // Render Isomorphically
   Iso.bootstrap((state, container) => {

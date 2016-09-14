@@ -3,6 +3,7 @@ import React from 'react';
 import {
   clone as _clone,
   every as _every,
+  extend as _extend,
 } from 'underscore';
 
 import {
@@ -14,9 +15,9 @@ import {
 import NewArrivalsStore from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
-import FilterList from './FilterList.jsx';
+import FilterList from '../FilterList/FilterList.jsx';
 import CloseButton from '../Buttons/CloseButton.jsx';
-import PublicationToggle from './PublicationToggle.jsx';
+import PublicationToggle from '../ToggleUIs/PublicationToggle.jsx';
 
 import IconButton from '../Buttons/IconButton.jsx';
 
@@ -46,7 +47,10 @@ class Filter extends React.Component {
     this.managePublicationType = this.managePublicationType.bind(this);
     this.onChange = this.onChange.bind(this);
 
-    this.state = NewArrivalsStore.getState();
+    this.state = _extend(
+      { genreData: appFilters.genreData.data },
+      NewArrivalsStore.getState()
+    );
   }
 
   componentDidMount() {
@@ -58,7 +62,7 @@ class Filter extends React.Component {
   }
 
   onChange() {
-    this.setState(NewArrivalsStore.getState());
+    this.setState(_extend({}, NewArrivalsStore.getState()));
   }
 
   closeFilters(gaAction) {
@@ -139,6 +143,19 @@ class Filter extends React.Component {
     } = appFilters;
     const active = _every(filters, f => f === '');
     const activeSubmitButtons = active ? '' : 'active';
+    const allGenres = this.state.genreData;
+    // const basicGenres = genreData.data.slice(0, 3);
+    let genreList;
+
+    genreData.data = allGenres;
+    genreList = (
+      <FilterList
+        list={genreData}
+        manageSelected={this.manageSelected}
+        dividerTitle={genreData.title}
+        dividerIndex={13}
+      />
+    );
 
     languageData.data = languages;
 
@@ -148,8 +165,8 @@ class Filter extends React.Component {
     genreData.active = filters.genre;
 
     return (
-      <div className={`filter ${this.props.active}`}>
-        <div className="filter-header-mobile">
+      <div className={`filterDialog ${this.props.active}`}>
+        <div className="filterDialog-header-mobile">
           <FilterIcon className="mobile-filter" ariaHidden />
           <h2>Filter by</h2>
 
@@ -187,15 +204,15 @@ class Filter extends React.Component {
           />
         </div>
 
-        <fieldset className="filter-list" tabIndex="0">
+        <fieldset className="filterDialog-list" tabIndex="0">
           <legend>Filter on the following categories</legend>
           <FilterList list={formatData} manageSelected={this.manageSelected} />
           <FilterList list={audienceData} manageSelected={this.manageSelected} />
           <FilterList list={languageData} manageSelected={this.manageSelected} />
-          <FilterList list={genreData} manageSelected={this.manageSelected} />
+          {genreList}
         </fieldset>
 
-        <ul className="filter-actions">
+        <ul className="filterDialog-actions">
           <li className={`submit-buttons buttonItems ${activeSubmitButtons}`}>
             <button
               className="PillButton apply"
@@ -218,6 +235,7 @@ class Filter extends React.Component {
             </button>
           </li>
         </ul>
+
       </div>
     );
   }

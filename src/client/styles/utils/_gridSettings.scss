@@ -26,15 +26,15 @@ $mobile-margin-top-bottom: 15px !default;
   }
 
   /* Tablet Portrait Layout (9 Columns) */
-  @include layout-at(( 'grid': 9, 'gutter': .3 ), $tablet-portrait) {
-    .sidebar {
-      @include grid-span(2, 1);
-    }
-    .nyplNewArrivals-container {
-      padding: 0;
-      @include grid-span(7, 3);
-    }
-  }
+  // @include layout-at(( 'grid': 9, 'gutter': .3 ), $tablet-portrait) {
+  //   .sidebar {
+  //     @include grid-span(2, 1);
+  //   }
+  //   .nyplNewArrivals-container {
+  //     padding: 0;
+  //     @include grid-span(7, 3);
+  //   }
+  // }
 
   /* Tablet Landscape Layout (13 Columns) */
   @include layout-at(( 'grid': 13, 'gutter': .23 ), $tablet-landscape) {

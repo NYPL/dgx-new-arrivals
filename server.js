@@ -5,7 +5,6 @@ import colors from 'colors';
 
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import DocMeta from 'react-doc-meta';
 
 import Iso from 'iso';
 import alt from 'dgx-alt-center';
@@ -121,6 +120,6 @@ if (!isProduction) {
     if (error) {
       console.log(colors.red(error));
     }
-    console.log(colors.magenta('Webpack Dev Server listening at'), colors.cyan('localhost3000'));
+    console.log(colors.magenta('Webpack Dev Server listening at'), colors.cyan('localhost: 3000'));
   });
 }
