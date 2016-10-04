@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Header, navConfig } from 'dgx-header-component';
-import Footer from 'dgx-react-footer';
+import { Header, navConfig } from '@nypl/dgx-header-component';
+import Footer from '@nypl/dgx-react-footer';
 
 import NewArrivals from '../NewArrivals/NewArrivals.jsx';
 import Sidebar from '../Sidebar/Sidebar.jsx';

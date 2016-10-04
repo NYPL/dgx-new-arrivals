@@ -28,6 +28,8 @@
   "devDependencies": {
   },
   "dependencies": {
+    "@nypl/dgx-header-component": "1.4.1",
+    "@nypl/dgx-react-footer": "^0.3.0",
     "alt": "^0.18.2",
     "axios": "^0.9.1",
     "babel": "^6.5.2",
@@ -43,9 +45,7 @@
     "compression": "^1.5.2",
     "css-loader": "^0.23.1",
     "dgx-alt-center": "git+ssh://bitbucket.org/NYPL/dgx-alt-center.git#master",
-    "dgx-header-component": "git+ssh://bitbucket.org/NYPL/dgx-header-component.git#master",
     "dgx-react-buttons": "git+https://bitbucket.org/NYPL/dgx-react-buttons.git#v0.0.4",
-    "dgx-react-footer": "git+ssh://bitbucket.org/NYPL/dgx-react-footer.git#master",
     "dgx-react-ga": "git+ssh://bitbucket.org/NYPL/dgx-react-ga.git#master",
     "dgx-svg-icons": "git+ssh://bitbucket.org/NYPL/dgx-svg-icons.git#master",
     "ejs": "^2.3.3",
