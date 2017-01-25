@@ -30,3 +30,9 @@ To simulate what the production server would serve up, run:
 $ npm run dist
 $ NODE_ENV=production npm start
 ```
+
+## Changelog
+
+### v1.3.3
+#### Added
+- Enabled Feature Flags plugin on the client-side and added Optimizely script in the index.ejs file.
