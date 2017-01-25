@@ -1,6 +1,6 @@
 {
   "name": "newArrivals",
-  "version": "1.0.0",
+  "version": "1.3.3",
   "description": "NYPL New Arrivals",
   "main": "index.js",
   "scripts": {
@@ -46,6 +46,7 @@
     "compression": "^1.5.2",
     "css-loader": "^0.23.1",
     "dgx-alt-center": "git+ssh://bitbucket.org/NYPL/dgx-alt-center.git#master",
+    "dgx-feature-flags": "git+https://git@bitbucket.org/NYPL/dgx-feature-flags.git#master",
     "dgx-react-buttons": "git+https://bitbucket.org/NYPL/dgx-react-buttons.git#v0.0.4",
     "dgx-react-ga": "git+ssh://bitbucket.org/NYPL/dgx-react-ga.git#master",
     "dgx-svg-icons": "git+ssh://bitbucket.org/NYPL/dgx-svg-icons.git#master",
