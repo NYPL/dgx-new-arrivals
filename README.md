@@ -34,8 +34,8 @@ $ NODE_ENV=production npm start
 ## Changelog
 
 ### v1.3.4
-#### Added
-- Added HTTPS fix and the JavaScript fallback for log in button on the Header Component.
+#### Updated
+- Updated the Header Component to v1.5.1. The update includes HTTPS fix and the JavaScript fallback for the log in button on the Header Component.
 
 ### v1.3.3
 #### Added
