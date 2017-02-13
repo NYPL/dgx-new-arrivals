@@ -33,6 +33,10 @@ $ NODE_ENV=production npm start
 
 ## Changelog
 
+### v1.3.4
+#### Added
+- Added HTTPS fix and the JavaScript fallback for log in button on the Header Component.
+
 ### v1.3.3
 #### Added
 - Enabled Feature Flags plugin on the client-side and added Optimizely script in the index.ejs file.
