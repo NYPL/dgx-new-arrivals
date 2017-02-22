@@ -33,6 +33,12 @@ $ NODE_ENV=production npm start
 
 ## Changelog
 
+### v1.3.5
+#### Updated
+- Updated the Header Component to v1.5.3. The update is to remove console loggings for patron token expiration.
+
+- Updated the Header Component to v1.5.2. The update is to turn off the feature flag of OAuth Login and set it as default.
+
 ### v1.3.4
 #### Updated
 - Updated the Header Component to v1.5.1. The update includes HTTPS fix and the JavaScript fallback for the log in button on the Header Component.
