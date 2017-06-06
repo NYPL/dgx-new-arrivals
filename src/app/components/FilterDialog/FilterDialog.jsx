@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {
   clone as _clone,
   every as _every,
@@ -242,7 +242,7 @@ class Filter extends React.Component {
 }
 
 Filter.propTypes = {
-  active: React.PropTypes.string,
+  active: PropTypes.string,
 };
 
 export default Filter;

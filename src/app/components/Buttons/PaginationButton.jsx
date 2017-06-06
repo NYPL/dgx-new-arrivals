@@ -1,5 +1,6 @@
 // Import React Libraries
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const PaginationButton = (props) => {
   const dotElements = [];
@@ -42,15 +43,15 @@ const PaginationButton = (props) => {
 };
 
 PaginationButton.propTypes = {
-  id: React.PropTypes.string.isRequired,
-  className: React.PropTypes.string.isRequired,
-  name: React.PropTypes.string,
-  label: React.PropTypes.string,
-  lang: React.PropTypes.string,
-  isLoading: React.PropTypes.bool.isRequired,
-  dots: React.PropTypes.number,
-  hidden: React.PropTypes.string,
-  onClick: React.PropTypes.func,
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  label: PropTypes.string,
+  lang: PropTypes.string,
+  isLoading: PropTypes.bool.isRequired,
+  dots: PropTypes.number,
+  hidden: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 PaginationButton.defaultProps = {

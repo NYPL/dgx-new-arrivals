@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   ListIcon,
   GridIcon,
@@ -70,7 +71,7 @@ class ViewTypeButton extends React.Component {
 }
 
 ViewTypeButton.propTypes = {
-  type: React.PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 ViewTypeButton.defaultProps = {

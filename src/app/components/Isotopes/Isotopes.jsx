@@ -1,7 +1,7 @@
 /* global $, Isotope */
-
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 import CatalogItems from '../CatalogItems/CatalogItems.jsx';
 
@@ -98,9 +98,9 @@ class Isotopes extends React.Component {
 }
 
 Isotopes.propTypes = {
-  booksArr: React.PropTypes.array,
-  displayType: React.PropTypes.string,
-  format: React.PropTypes.string,
+  booksArr: PropTypes.array,
+  displayType: PropTypes.string,
+  format: PropTypes.string,
 };
 
 Isotopes.defaultProps = {

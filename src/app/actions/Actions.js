@@ -8,62 +8,62 @@ class Actions {
    * @param {array} data - Data for the New Arrivals app.
    */
   updateNewArrivalsData(data) {
-    this.dispatch(data);
+    return data;
   }
 
   /**
    * @param {string} displayType - Either 'grid' or 'list'.
    */
   updateDisplayView(displayType) {
-    this.dispatch(displayType);
+    return displayType;
   }
 
   /**
    * @param {boolean} toggle - To display or hide the list of filters.
    */
   toggleFilters(toggle) {
-    this.dispatch(toggle);
+    return toggle;
   }
 
   /**
    * @param {string} value - The value of the drop down.
    */
   updateDropDownValue(value) {
-    this.dispatch(value);
+    return value;
   }
 
   /**
    * @param {object} obj - The key/value pairs of the selected filters.
    */
   updateFiltered(obj) {
-    this.dispatch(obj);
+    return obj;
   }
 
   /**
    * @param {boolean} bool - Whether there's at least one selected filter.
    */
   updateActiveFilters(bool) {
-    this.dispatch(bool);
+    return bool;
   }
 
   addMoreItems(data) {
-    this.dispatch(data);
+    return data;
   }
 
   updatePageNum(bool) {
-    this.dispatch(bool);
+    return bool;
   }
 
   updateAvailabilityType(type) {
-    this.dispatch(type);
+    return type;
   }
 
   updatePublicationType(type) {
-    this.dispatch(type);
+    return type;
   }
 
   updateDisplayPagination(bool) {
-    this.dispatch(bool);
+    return bool;
   }
 }
 

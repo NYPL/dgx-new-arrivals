@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { CheckSoloIcon } from 'dgx-svg-icons';
 
 import { trackNewArrivals } from '../../utils/utils.js';
@@ -71,8 +72,8 @@ class PublicationToggle extends React.Component {
 }
 
 PublicationToggle.propTypes = {
-  managePublicationType: React.PropTypes.func,
-  publicationType: React.PropTypes.string,
+  managePublicationType: PropTypes.func,
+  publicationType: PropTypes.string,
 };
 
 export default PublicationToggle;
