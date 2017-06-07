@@ -1,7 +1,7 @@
 ## Changelog
 
 ### v1.4.0
-- Upgrading to React v15 and updating packages to specific versions.
+- Upgraded to React v15 and updating packages to specific versions.
 
 ### v1.3.5
 #### Updated
