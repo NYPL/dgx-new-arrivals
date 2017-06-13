@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { XIcon } from 'dgx-svg-icons';
 
 import IconButton from './IconButton.jsx';
@@ -13,8 +14,8 @@ const CloseButton = ({ className, onClick }) => (
 );
 
 CloseButton.propTypes = {
-  className: React.PropTypes.string,
-  onClick: React.PropTypes.func,
+  className: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default CloseButton;

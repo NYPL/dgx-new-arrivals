@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * Button used to display an icon and text. Should be updated with an svg
@@ -44,12 +45,12 @@ class PillButton extends React.Component {
 }
 
 PillButton.propTypes = {
-  onClick: React.PropTypes.func,
-  className: React.PropTypes.string,
-  value: React.PropTypes.any,
-  iconClass: React.PropTypes.string,
-  icon: React.PropTypes.object,
-  title: React.PropTypes.string,
+  onClick: PropTypes.func,
+  className: PropTypes.string,
+  value: PropTypes.any,
+  iconClass: PropTypes.string,
+  icon: PropTypes.object,
+  title: PropTypes.string,
 };
 
 export default PillButton;

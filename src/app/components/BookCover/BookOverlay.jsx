@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const BookOverlay = (props) => {
   // Remove spaces for the format ID for the class name.
@@ -35,15 +36,15 @@ const BookOverlay = (props) => {
 };
 
 BookOverlay.propTypes = {
-  imgClass: React.PropTypes.string,
-  name: React.PropTypes.string,
-  author: React.PropTypes.string,
-  icon: React.PropTypes.object,
-  format: React.PropTypes.string,
-  formatId: React.PropTypes.string,
-  genre: React.PropTypes.string,
-  simple: React.PropTypes.bool,
-  lang: React.PropTypes.string,
+  imgClass: PropTypes.string,
+  name: PropTypes.string,
+  author: PropTypes.string,
+  icon: PropTypes.object,
+  format: PropTypes.string,
+  formatId: PropTypes.string,
+  genre: PropTypes.string,
+  simple: PropTypes.bool,
+  lang: PropTypes.string,
 };
 
 BookOverlay.defaultProps = {

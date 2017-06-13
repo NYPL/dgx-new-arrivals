@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { map as _map } from 'underscore';
 
 import FilterListItem from './FilterListItem.jsx';
@@ -131,10 +131,10 @@ class FilterList extends React.Component {
 }
 
 FilterList.propTypes = {
-  manageSelected: React.PropTypes.func,
-  list: React.PropTypes.object,
-  dividerTitle: React.PropTypes.string,
-  dividerIndex: React.PropTypes.number,
+  manageSelected: PropTypes.func,
+  list: PropTypes.object,
+  dividerTitle: PropTypes.string,
+  dividerIndex: PropTypes.number,
 };
 
 FilterListItem.defaultProps = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   RadioInactiveIcon,
   RadioActiveIcon,
@@ -42,10 +43,10 @@ class FilterListItem extends React.Component {
 }
 
 FilterListItem.propTypes = {
-  onClick: React.PropTypes.func,
-  item: React.PropTypes.object,
-  active: React.PropTypes.bool,
-  filter: React.PropTypes.string,
+  onClick: PropTypes.func,
+  item: PropTypes.object,
+  active: PropTypes.bool,
+  filter: PropTypes.string,
 };
 
 export default FilterListItem;

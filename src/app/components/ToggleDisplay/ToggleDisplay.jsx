@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import ClickOutHandler from 'react-onclickout';
@@ -110,8 +111,8 @@ ToggleDisplay.defaultProps = {
 };
 
 ToggleDisplay.propTypes = {
-  id: React.PropTypes.string,
-  className: React.PropTypes.string,
+  id: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default ToggleDisplay;

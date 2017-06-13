@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {
   AudioHeadphoneIcon,
   MediaBluRayIcon,
@@ -35,6 +35,12 @@ class BookCover extends React.Component {
     const coverImage = this.refs.coverImage;
     if (coverImage && coverImage.naturalWidth) {
       this.checkImageWidth(coverImage.naturalWidth);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.state.imageSrc !== nextProps.imgSrc) {
+      this.setState({ imageSrc: nextProps.imgSrc });
     }
   }
 
@@ -166,19 +172,19 @@ class BookCover extends React.Component {
 }
 
 BookCover.propTypes = {
-  id: React.PropTypes.number,
-  name: React.PropTypes.string,
-  format: React.PropTypes.string,
-  imageArgument: React.PropTypes.string,
-  target: React.PropTypes.string,
-  linkClass: React.PropTypes.string,
-  imgSrc: React.PropTypes.string,
-  author: React.PropTypes.string,
-  genre: React.PropTypes.string,
-  displayType: React.PropTypes.string,
-  simple: React.PropTypes.bool,
-  lang: React.PropTypes.string,
-  tab: React.PropTypes.bool,
+  id: PropTypes.number,
+  name: PropTypes.string,
+  format: PropTypes.string,
+  imageArgument: PropTypes.string,
+  target: PropTypes.string,
+  linkClass: PropTypes.string,
+  imgSrc: PropTypes.string,
+  author: PropTypes.string,
+  genre: PropTypes.string,
+  displayType: PropTypes.string,
+  simple: PropTypes.bool,
+  lang: PropTypes.string,
+  tab: PropTypes.bool,
 };
 
 BookCover.defaultProps = {

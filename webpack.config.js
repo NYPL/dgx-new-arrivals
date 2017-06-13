@@ -18,18 +18,18 @@ var commonSettings = {
   // This is the path and file of our top level
   // React App that is to be rendered.
   entry: [
-   'babel-polyfill',
-    path.resolve(ROOT_PATH, 'src/client/App.jsx')
+    'babel-polyfill',
+    path.resolve(ROOT_PATH, 'src/client/App.jsx'),
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
   },
   output: {
     // Sets the output path to ROOT_PATH/dist
     path: path.resolve(ROOT_PATH, 'dist'),
     // Sets the name of the bundled application files
     // Additionally we can isolate vendor files as well
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   plugins: [
     // Cleans the Dist folder after every build.
@@ -40,7 +40,7 @@ var commonSettings = {
     new webpack.DefinePlugin({
       'loadA11y': process.env.loadA11y || false,
     }),
-  ]
+  ],
 };
 
 /**
@@ -60,32 +60,35 @@ if (ENV === 'development') {
       'webpack-dev-server/client?http://localhost:3000',
       'webpack/hot/only-dev-server',
       'babel-polyfill',
-      path.resolve(ROOT_PATH, 'src/client/App.jsx')
+      path.resolve(ROOT_PATH, 'src/client/App.jsx'),
     ],
     output: {
-      publicPath: 'http://localhost:3000/'
+      publicPath: 'http://localhost:3000/',
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin(),
     ],
     resolve: {
-      extensions: ['', '.js', '.jsx', '.scss']
+      extensions: ['', '.js', '.jsx', '.scss'],
     },
     module: {
       loaders: [
         {
           test: /\.jsx?$/,
           exclude: /(node_modules|bower_components)/,
-          loaders: ['react-hot', 'babel']
+          loader: 'babel',
+          query: {
+            presets: ['es2015', 'react'],
+          },
         },
         {
           test: /\.scss?$/,
           loader: 'style!css!sass',
-          include: path.resolve(ROOT_PATH, 'src')
-        }
-      ]
-    }
+          include: path.resolve(ROOT_PATH, 'src'),
+        },
+      ],
+    },
   });
 }
 
@@ -107,8 +110,8 @@ if (ENV === 'production') {
           exclude: /(node_modules|bower_components)/,
           loader: 'babel',
           query: {
-            presets: ['es2015', 'react']
-          }
+            presets: ['es2015', 'react'],
+          },
         },
         {
           test: /\.scss$/,
@@ -117,17 +120,22 @@ if (ENV === 'production') {
             // activate source maps via loader query
             'css?sourceMap!' +
             'sass?sourceMap'
-          )
-        }
-      ]
+          ),
+        },
+      ],
     },
     plugins: [
       // Minification (Utilized in Production)
       new webpack.optimize.UglifyJsPlugin({
         compress: {
-          warnings: false
-        }
+          warnings: false,
+        },
       }),
-    ]
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify('production'),
+        },
+      }),
+    ],
   });
 }
