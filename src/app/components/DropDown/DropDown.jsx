@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import Actions from '../../actions/Actions.js';
@@ -82,8 +83,8 @@ class DropDown extends React.Component {
 }
 
 DropDown.propTypes = {
-  selected: React.PropTypes.string,
-  list: React.PropTypes.array,
+  selected: PropTypes.string,
+  list: PropTypes.array,
 };
 
 export default DropDown;

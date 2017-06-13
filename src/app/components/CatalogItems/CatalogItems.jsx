@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { findWhere as _findWhere } from 'underscore';
 
 import BookCover from '../BookCover/BookCover.jsx';
@@ -96,8 +96,8 @@ class CatalogItems extends React.Component {
 }
 
 CatalogItems.propTypes = {
-  items: React.PropTypes.array,
-  displayType: React.PropTypes.string,
+  items: PropTypes.array,
+  displayType: PropTypes.string,
 };
 
 export default CatalogItems;

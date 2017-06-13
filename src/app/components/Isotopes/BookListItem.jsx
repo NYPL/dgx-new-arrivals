@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { trackNewArrivals } from '../../utils/utils.js';
 
 /**
@@ -56,16 +56,16 @@ class BookListItem extends React.Component {
 }
 
 BookListItem.propTypes = {
-  date: React.PropTypes.string,
-  callNumber: React.PropTypes.string,
-  format: React.PropTypes.string,
-  publishYear: React.PropTypes.string,
-  bookCover: React.PropTypes.object,
-  author: React.PropTypes.string,
-  description: React.PropTypes.string,
-  target: React.PropTypes.string,
-  title: React.PropTypes.string,
-  lang: React.PropTypes.string,
+  date: PropTypes.string,
+  callNumber: PropTypes.string,
+  format: PropTypes.string,
+  publishYear: PropTypes.string,
+  bookCover: PropTypes.object,
+  author: PropTypes.string,
+  description: PropTypes.string,
+  target: PropTypes.string,
+  title: PropTypes.string,
+  lang: PropTypes.string,
 };
 
 export default BookListItem;
