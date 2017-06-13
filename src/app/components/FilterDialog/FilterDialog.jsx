@@ -182,7 +182,7 @@ class Filter extends React.Component {
             <li>
               <IconButton
                 className={'reset'}
-                icon={<ResetIcon ariaHidden />}
+                icon={<ResetIcon ariaHidden fill="#fff" />}
                 onClick={() => this.resetFilters('Mobile Filter Window')}
                 label="Reset All"
               />
@@ -230,7 +230,7 @@ class Filter extends React.Component {
               onClick={() => this.resetFilters('Filters')}
               aria-controls="isotopesContainer"
             >
-              <ResetIcon ariaHidden />
+              <ResetIcon ariaHidden fill="#fff" />
               <span>Reset All</span>
             </button>
           </li>
