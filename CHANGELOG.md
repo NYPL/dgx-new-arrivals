@@ -1,6 +1,9 @@
 ## Changelog
 
 ### v1.4.0
+- Updating the Header to version 2.1.0.
+
+### v1.4.0
 - Upgraded to React v15 and updating packages to specific versions.
 
 ### v1.3.5
