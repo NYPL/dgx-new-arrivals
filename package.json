@@ -1,6 +1,6 @@
 {
   "name": "newArrivals",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "NYPL New Arrivals",
   "main": "index.js",
   "scripts": {
