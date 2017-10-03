@@ -149,7 +149,7 @@ router
   .get(newArrivalsApp);
 
 router
-  .route('/books-music-dvds/new-arrivals')
+  .route('/books-music-dvds/new-arrivals/')
   .get(newArrivalsApp);
 
 router
