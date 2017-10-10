@@ -1,5 +1,8 @@
 ## Changelog
 
+### v1.5.1
+- Updating the Header to version 2.1.1.
+
 ### v1.5.0
 - XSS vulnerability fix.
 
