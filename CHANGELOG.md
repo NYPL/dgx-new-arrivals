@@ -1,5 +1,8 @@
 ## Changelog
 
+### v1.5.2
+- Adding redirect for the internal API endpoint to be able to filter.
+
 ### v1.5.1
 - Updating the Header to version 2.1.1.
 

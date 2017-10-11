@@ -129,8 +129,6 @@ function selectPage(req, res) {
 
   const apiUrl = makeApiQuery(filters, availability, pageNum, publishYear);
 
-  console.log('ajax call', apiUrl);
-
   axios
     .get(apiUrl)
     .then(response => res.json(response.data))
