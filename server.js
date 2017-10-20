@@ -44,15 +44,6 @@ app.use('*/dist/', express.static(DIST_PATH));
 // For images
 app.use('*/src/client', express.static(INDEX_PATH));
 
-app.use('/', (req, res, next) => {
-  if (req.path !== '/books-music-dvds/new-arrivals/') {
-    if (req.path !== '/books-music-dvds/new-arrivals/api') {
-      return res.redirect('/books-music-dvds/new-arrivals/');
-    }
-  }
-  next();
-});
-
 app.use('/', apiRoutes);
 
 app.use('/', (req, res) => {
