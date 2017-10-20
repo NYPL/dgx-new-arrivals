@@ -1,5 +1,8 @@
 ## Changelog
 
+### v1.5.3
+- Adding hotfix for dist folder compiled files reference in the index html file.
+
 ### v1.5.2
 - Adding redirect for the internal API endpoint to be able to filter.
 
