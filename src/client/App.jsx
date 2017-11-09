@@ -35,7 +35,6 @@ window.onload = () => {
   // Render Isomorphically
   Iso.bootstrap((state, container) => {
     alt.bootstrap(state);
-
     ReactDOM.render(React.createElement(App), container);
   });
 
