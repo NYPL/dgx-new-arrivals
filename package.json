@@ -25,6 +25,8 @@
   "bugs": {
     "url": "https://github.com//issues"
   },
+  "devDependencies": {
+  },
   "dependencies": {
     "@nypl/dgx-header-component": "2.2.0",
     "@nypl/dgx-react-footer": "0.4.0",
