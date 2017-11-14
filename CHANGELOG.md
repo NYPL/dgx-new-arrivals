@@ -1,5 +1,9 @@
 ## Changelog
 
+### v1.5.4
+- Updating the Header to version 2.2.0.
+- Updating GA initialization configurations.
+
 ### v1.5.3
 - Adding hotfix for dist folder compiled files reference in the index html file.
 
