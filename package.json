@@ -28,7 +28,7 @@
   "devDependencies": {
   },
   "dependencies": {
-    "@nypl/dgx-header-component": "2.2.0",
+    "@nypl/dgx-header-component": "git+https://bitbucket.org/NYPL/dgx-header-component.git#integrate-fundraising-component",
     "@nypl/dgx-react-footer": "0.4.0",
     "alt": "0.18.2",
     "axios": "0.9.1",
