@@ -1,7 +1,7 @@
 # NYPL New Arrivals
 
 ## Version
-> v1.5.4
+> v1.5.5
 
 Get bib items that are new arrivals or on order at NYPL.
 
