@@ -1,6 +1,6 @@
 {
   "name": "newArrivals",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "NYPL New Arrivals",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,7 @@
   "devDependencies": {
   },
   "dependencies": {
-    "@nypl/dgx-header-component": "git+https://bitbucket.org/NYPL/dgx-header-component.git#integrate-fundraising-component",
+    "@nypl/dgx-header-component": "2.3.0",
     "@nypl/dgx-react-footer": "0.4.0",
     "alt": "0.18.2",
     "axios": "0.9.1",
