@@ -1,5 +1,8 @@
 ## Changelog
 
+### v1.5.7
+- Updating the Header component to v2.4.0.
+
 ### v1.5.6
 - Updating the Header component to v2.3.0 -- Integrating Fundraising Banner.
 
