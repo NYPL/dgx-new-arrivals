@@ -1,5 +1,8 @@
 ## Changelog
 
+### v1.5.8
+- Updating the Header component to v2.4.1 and footer component to v0.4.1.
+
 ### v1.5.7
 - Updating the Header component to v2.4.0.
 
