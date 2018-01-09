@@ -30,7 +30,7 @@
     "chai": "3.5.0",
     "esdoc": "0.4.5",
     "mocha": "3.0.2",
-    "react-hot-loader": "1.2.8",
+    "react-hot-loader": "1.2.8"
   },
   "dependencies": {
     "@nypl/dgx-header-component": "2.4.2",
