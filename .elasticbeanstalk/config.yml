@@ -1,6 +1,6 @@
 branch-defaults:
   aws-eb:
-    environment: new-arrivals-dev
+    environment: new-arrivals-qa
     group_suffix: null
   development:
     environment: new-arrivals-dev
