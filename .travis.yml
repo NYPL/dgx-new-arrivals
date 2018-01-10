@@ -7,7 +7,7 @@ cache:
 install: npm install
 before_script: "echo 'No unit test coverage for New Arrivals; Will attempt to build distribution assets as a safety'"
 script: npm run dist
-before_deploy: "echo 'Successfully build distribution assets for New Arrivals; Preparing to deploy New Arrivals to AWS'"
+before_deploy: "echo 'Successfully built distribution assets for New Arrivals; Preparing to deploy New Arrivals to AWS'"
 deploy:
   skip_cleanup: true
   provider: elasticbeanstalk
@@ -20,5 +20,5 @@ deploy:
   bucket_path: $AWS_APP_NAME
   on:
     repo: NYPL/dgx-new-arrivals
-    branch: setup-travis-ci-aws
+    branch: master
 after_deploy: "echo 'Successfully executed deploy trigger for New Arrivals on AWS'"
