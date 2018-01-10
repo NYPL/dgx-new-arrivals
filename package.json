@@ -1,6 +1,6 @@
 {
   "name": "newArrivals",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "description": "NYPL New Arrivals",
   "main": "index.js",
   "scripts": {
@@ -28,8 +28,8 @@
   "devDependencies": {
   },
   "dependencies": {
-    "@nypl/dgx-header-component": "2.4.0",
-    "@nypl/dgx-react-footer": "0.4.0",
+    "@nypl/dgx-header-component": "2.4.2",
+    "@nypl/dgx-react-footer": "0.4.1",
     "alt": "0.18.2",
     "axios": "0.9.1",
     "babel": "6.5.2",
@@ -51,7 +51,7 @@
     "dgx-react-buttons": "git+https://bitbucket.org/NYPL/dgx-react-buttons.git#master",
     "dgx-react-ga": "git+ssh://bitbucket.org/NYPL/dgx-react-ga.git#master",
     "dgx-svg-icons": "git+ssh://bitbucket.org/NYPL/dgx-svg-icons.git#master",
-    "ejs": "2.3.3",
+    "ejs": "2.5.5",
     "enzyme": "2.4.1",
     "esdoc": "0.4.5",
     "eslint": "2.2.0",
