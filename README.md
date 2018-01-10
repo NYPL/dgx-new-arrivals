@@ -20,7 +20,7 @@ The following command starts the application using a hot-reload server environme
 $ npm start
 ```
 
-You can also set the `APP_ENV` variable to `development`, `qa`, or production to use those respective environments.
+You can also set the `APP_ENV` variable to `development`, `qa`, or `production` to use those respective environments.
 
 > The default is **production**.
 
