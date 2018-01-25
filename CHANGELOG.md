@@ -1,5 +1,17 @@
 ## Changelog
 
+### v1.5.9
+- Updating the Header component to v2.4.3.
+
+### v1.5.8
+- Updating the Header component to v2.4.2 and footer component to v0.4.1.
+
+### v1.5.7
+- Updating the Header component to v2.4.0.
+
+### v1.5.6
+- Updating the Header component to v2.3.0 -- Integrating Fundraising Banner.
+
 ### v1.5.5
 - Updating the parameters for gaUtils.trackPageview() in App.jsx. It removed unnecessary parameters.
 
