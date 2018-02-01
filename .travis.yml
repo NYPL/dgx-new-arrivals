@@ -42,7 +42,7 @@ deploy:
   region: us-east-1
   app: "$aws_app_name"
   env: "$aws_environment_name_development"
-  bucket_name: elasticbeanstalk-us-east-1-946183545209
+  bucket_name: elasticbeanstalk-us-east-1-224280085904
   bucket_path: "$aws_app_name"
   on:
     repo: NYPL/dgx-new-arrivals
