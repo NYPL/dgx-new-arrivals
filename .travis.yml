@@ -14,7 +14,7 @@ deploy:
 - provider: elasticbeanstalk
   skip_cleanup: true
   access_key_id: "$aws_access_key_id_production"
-  secret_access_key: "aws_secret_access_key_production"
+  secret_access_key: "$aws_secret_access_key_production"
   region: us-east-1
   app: "$aws_app_name"
   env: "$aws_environment_name_production"
@@ -26,7 +26,7 @@ deploy:
 - provider: elasticbeanstalk
   skip_cleanup: true
   access_key_id: "$aws_access_key_id_production"
-  secret_access_key: "aws_secret_access_key_production"
+  secret_access_key: "$aws_secret_access_key_production"
   region: us-east-1
   app: "$aws_app_name"
   env: "$aws_environment_name_qa"
@@ -38,7 +38,7 @@ deploy:
 - provider: elasticbeanstalk
   skip_cleanup: true
   access_key_id: "$aws_access_key_id_development"
-  secret_access_key: "aws_secret_access_key_development"
+  secret_access_key: "$aws_secret_access_key_development"
   region: us-east-1
   app: "$aws_app_name"
   env: "$aws_environment_name_development"
