@@ -1,24 +1,53 @@
 language: node_js
 node_js:
-  - "6"
+- '6'
 cache:
   directories:
-    - node_modules
+  - node_modules
 install: npm install
-before_script: "echo 'No unit test coverage for New Arrivals; Will attempt to build distribution assets as a safety'"
+before_script: echo 'No unit test coverage for New Arrivals; Will attempt to build
+  distribution assets as a safety'
 script: npm run dist
-before_deploy: "echo 'Successfully built distribution assets for New Arrivals; Preparing to deploy New Arrivals to AWS'"
+before_deploy: echo 'Successfully built distribution assets for New Arrivals; Preparing
+  to deploy New Arrivals to AWS'
 deploy:
+- provider: elasticbeanstalk
   skip_cleanup: true
-  provider: elasticbeanstalk
-  access_key_id: $AWS_PRODUCTION_ACCESS_KEY_ID
-  secret_access_key: "$AWS_PRODUCTION_ACCESS_SECRET"
+  access_key_id: "$aws_access_key_id_production"
+  secret_access_key: "aws_secret_access_key_production"
   region: us-east-1
-  app: $AWS_APP_NAME
-  env: $AWS_ENVIRONMENT_NAME
+  app: "$aws_app_name"
+  env: "$aws_environment_name_production"
   bucket_name: elasticbeanstalk-us-east-1-946183545209
-  bucket_path: $AWS_APP_NAME
+  bucket_path: "$aws_app_name"
   on:
     repo: NYPL/dgx-new-arrivals
     branch: master
-after_deploy: "echo 'Successfully executed deploy trigger for New Arrivals on AWS'"
+- provider: elasticbeanstalk
+  skip_cleanup: true
+  access_key_id: "$aws_access_key_id_production"
+  secret_access_key: "aws_secret_access_key_production"
+  region: us-east-1
+  app: "$aws_app_name"
+  env: "$aws_environment_name_qa"
+  bucket_name: elasticbeanstalk-us-east-1-946183545209
+  bucket_path: "$aws_app_name"
+  on:
+    repo: NYPL/dgx-new-arrivals
+    branch: setup-travis-ci-aws
+- provider: elasticbeanstalk
+  skip_cleanup: true
+  access_key_id: "$aws_access_key_id_development"
+  secret_access_key: "aws_secret_access_key_development"
+  region: us-east-1
+  app: "$aws_app_name"
+  env: "$aws_environment_name_development"
+  bucket_name: elasticbeanstalk-us-east-1-946183545209
+  bucket_path: "$aws_app_name"
+  on:
+    repo: NYPL/dgx-new-arrivals
+    branch: development
+after_deploy: echo 'Successfully executed deploy trigger for New Arrivals on AWS'
+env:
+  global:
+    secure: rRM1Gieko/lnoUsWD9sao9ZNM21Bj9KeoHkRw1gsvZf9i+dU4ilPq+CiVdm5Gs9lW8EZarXEQ6kbjRS4O2WgbRlWVK+Ysgk948MM0OWLk5qys6WuevXEfrV7wvSXry8JR8SUYZA6DCtJNUs9nS9uAMJidzl69o9jsv569Y9OcsC69rPvxEYzOg4QisSluXdymBogy99z+At/F7H2SOPtKcx9iuaJ0B4MRcTEWzusRtEvIi/No/58XmADvZjcPcVaNlRrQIeG+QWIoqmR2jyn+4a0tg6d9hq7f3tOdeEalQ0cCIsrMRqadTnqNojuJweuUQXIXbtX9XghWSe7wwX14S7+CHwsJy1Tnfo6u00lmJaQwej/IhXcsuIZn8VdQe2lcGeu6bwYkae6aGcNUFojy53qTciSIn7JSyK/pCTC0cyOsI6Y5D7v92kMyWzFP8vRjmezQNMPIVbYv3JvQLO8JFG3h8XiynYOZG9WHkFUu2Bls8Js9Af9zEMZNAxNRZtYY7WxLtqWi7ThqjgJnvBeQCqIfGkR6IE4MaF/f3ZTvGaW/xhF0CfJUU3sv3y4dB1Fgv2NmXLc//32zKqhEtwfgldXFiD6Zjb1FuCEfHp3MSLy6HU34l1m/uXMqpm4oSCL63Qs2nAGvsuSaMdeahimfI6ieV4OEa5Oxx63M0PRv/c=
