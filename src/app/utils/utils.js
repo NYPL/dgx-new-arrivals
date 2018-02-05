@@ -22,6 +22,7 @@ const {
   titleRemovedText,
   authorRemovedText,
   languageId,
+  appUrl,
 } = config;
 const minPublishYear = currentYear - 1;
 const appEnvironment = process.env.APP_ENV || 'production';
@@ -137,7 +138,7 @@ const makeApiQuery = (
 const makeApiCall = (queries, callbackFn) => {
   const search = queries.replace(/\?/, '');
   axios
-    .get(`/books-music-dvds/new-arrivals/api?${search}`)
+    .get(`${appUrl}/api?${search}`)
     .then(callbackFn)
     .catch(error => {
       console.log(`error making ajax call: ${error}`);
@@ -199,7 +200,7 @@ const manageHistory = (opts = {}, history, reset = false) => {
   query = (query === '?') ? '' : query;
 
   history.push({
-    pathname: '/books-music-dvds/new-arrivals',
+    pathname: appUrl,
     search: query,
     state: { newArrivals: true },
   });

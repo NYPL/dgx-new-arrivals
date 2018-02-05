@@ -1,6 +1,18 @@
+# Folders
 dist
 node_modules
+esdoc
+coverage/
+.idea/
+.nyc_output
+
+# Files
 npm-debug.log
 .DS_STORE
-esdoc
-.elasticbeanstalk/config.yml
+assets.json
+package-lock.json
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

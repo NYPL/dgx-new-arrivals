@@ -1,9 +1,9 @@
 # NYPL New Arrivals
 
 ## Version
-> v1.5.9
+> v1.6.0
 
-Get bib items that are new arrivals or on order at NYPL.
+A React/Node Universal JavaScript Application focused on displaying bib items that are new arrivals or on order at NYPL.
 
 ## Installation
 Install all npm dependencies listed under `package.json`
@@ -19,7 +19,10 @@ We use Webpack to fire off a hot-reloading development server. This allows for c
 $ npm start // Starts localhost:3001 defaulting to APP_ENV=development
 ```
 
-You can also set the `APP_ENV` variable which dictates what API environment to use as the main source.
+You can also set the `APP_ENV` variable to `development`, `qa`, or `production` to use those respective environments.
+
+> The default is **production**.
+
 ```sh
 $ APP_ENV=development|qa|production npm start // Starts localhost:3001 with set APP_ENV
 ```
