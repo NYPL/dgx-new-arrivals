@@ -11,6 +11,7 @@ export default {
       production: 'https://refinery.nypl.org',
     },
   },
+  appUrl: '/books-music-movies/new-arrivals',
   inventoryService: {
     root: {
       development: 'https://dev-inventory.nypl.org',

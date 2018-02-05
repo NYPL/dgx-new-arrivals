@@ -12,6 +12,7 @@ const {
   languageDays,
   languageItemCount,
   currentYear,
+  appUrl,
 } = config;
 
 const fetchApiData = (url) => axios.get(url);
@@ -147,7 +148,7 @@ router
   .get(newArrivalsApp);
 
 router
-  .route('/books-music-dvds/new-arrivals/')
+  .route(`${appUrl}/`)
   .get(newArrivalsApp);
 
 router
@@ -155,7 +156,7 @@ router
   .get(selectPage);
 
 router
-  .route('/books-music-dvds/new-arrivals/api')
+  .route(`${appUrl}/api`)
   .get(selectPage);
 
 
