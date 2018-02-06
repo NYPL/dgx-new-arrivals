@@ -1,5 +1,8 @@
 ## Changelog
 
+### v1.6.1
+- Hotfix for ejs file dist path for CSS and JS.
+
 ### v1.6.0
 - Adding travis config file and updating base url.
 
