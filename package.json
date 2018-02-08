@@ -1,6 +1,6 @@
 {
-  "name": "new-arrivals",
-  "version": "1.6.1",
+  "name": "dgx-new-arrivals",
+  "version": "1.6.2",
   "description": "NYPL New Arrivals",
   "main": "index.js",
   "scripts": {

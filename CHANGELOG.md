@@ -1,4 +1,7 @@
-## Changelog
+## CHANGELOG
+### v1.6.2
+- Added AWS/Travis CI/CD Pipeline.
+- Added swap-space configuration in `./ebextensions`
 
 ### v1.6.1
 - Hotfix for ejs file dist path for CSS and JS.
