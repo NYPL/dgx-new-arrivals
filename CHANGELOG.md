@@ -9,6 +9,9 @@
 ### v1.6.0
 - Adding travis config file and updating base url.
 
+### v1.5.10
+- Updating the Header component to v2.4.5.
+
 ### v1.5.9
 - Updating the Header component to v2.4.3.
 
