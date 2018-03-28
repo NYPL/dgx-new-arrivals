@@ -1,3 +1,9 @@
+# Deprecated. Please make sure to check the repo on Github which we currently use:
+[dgx-new-arrivals](https://github.com/NYPL/dgx-new-arrivals)
+
+This repo is no longer supported. The Github repo uses Travis for testing and deployments on AWS.
+
+
 # NYPL New Arrivals
 
 ## Version
