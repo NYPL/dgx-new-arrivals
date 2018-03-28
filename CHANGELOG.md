@@ -1,4 +1,8 @@
 ## CHANGELOG
+
+### v1.7.0
+- Added OptinMonster script and updated Header to 2.4.7.
+
 ### v1.6.2
 - Added AWS/Travis CI/CD Pipeline.
 - Added swap-space configuration in `./ebextensions`
