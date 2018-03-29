@@ -2,6 +2,7 @@
 
 ### v1.7.0
 - Added OptinMonster script and updated Header to 2.4.7.
+- Updating Travis CI configuration for CD to AWS Elastic Beanstalk.
 
 ### v1.6.2
 - Added AWS/Travis CI/CD Pipeline.
