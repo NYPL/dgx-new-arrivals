@@ -13,41 +13,41 @@ before_deploy: echo 'Successfully built distribution assets for New Arrivals; Pr
 deploy:
 - provider: elasticbeanstalk
   skip_cleanup: true
-  access_key_id: "$aws_access_key_id_production"
-  secret_access_key: "$aws_secret_access_key_production"
+  access_key_id: "$AWS_ACCESS_KEY_ID_PRODUCTION"
+  secret_access_key: "$AWS_SECRET_ACCESS_KEY_PRODUCTION"
   region: us-east-1
-  app: "$aws_app_name"
-  env: "$aws_environment_name_production"
+  app: new-arrivals-app
+  env: new-arrivals-production
   bucket_name: elasticbeanstalk-us-east-1-946183545209
-  bucket_path: "$aws_app_name"
+  bucket_path: new-arrivals-production
   on:
     repo: NYPL/dgx-new-arrivals
     branch: master
 - provider: elasticbeanstalk
   skip_cleanup: true
-  access_key_id: "$aws_access_key_id_production"
-  secret_access_key: "$aws_secret_access_key_production"
+  access_key_id: "$AWS_ACCESS_KEY_ID_PRODUCTION"
+  secret_access_key: "$AWS_SECRET_ACCESS_KEY_PRODUCTION"
   region: us-east-1
-  app: "$aws_app_name"
-  env: "$aws_environment_name_qa"
+  app: new-arrivals-app
+  env: new-arrivals-qa
   bucket_name: elasticbeanstalk-us-east-1-946183545209
-  bucket_path: "$aws_app_name"
+  bucket_path: new-arrivals-qa
   on:
     repo: NYPL/dgx-new-arrivals
     branch: qa
 - provider: elasticbeanstalk
   skip_cleanup: true
-  access_key_id: "$aws_access_key_id_development"
-  secret_access_key: "$aws_secret_access_key_development"
+  access_key_id: "$AWS_ACCESS_KEY_ID_DEVELOPMENT"
+  secret_access_key: "$AWS_SECRET_ACCESS_KEY_DEVELOPMENT"
   region: us-east-1
-  app: "$aws_app_name"
-  env: "$aws_environment_name_development"
+  app: new-arrivals-app
+  env: new-arrivals-development
   bucket_name: elasticbeanstalk-us-east-1-224280085904
-  bucket_path: "$aws_app_name"
+  bucket_path: new-arrivals-development
   on:
     repo: NYPL/dgx-new-arrivals
     branch: development
 after_deploy: echo 'Successfully executed deploy trigger for New Arrivals on AWS'
 env:
   global:
-    secure: rRM1Gieko/lnoUsWD9sao9ZNM21Bj9KeoHkRw1gsvZf9i+dU4ilPq+CiVdm5Gs9lW8EZarXEQ6kbjRS4O2WgbRlWVK+Ysgk948MM0OWLk5qys6WuevXEfrV7wvSXry8JR8SUYZA6DCtJNUs9nS9uAMJidzl69o9jsv569Y9OcsC69rPvxEYzOg4QisSluXdymBogy99z+At/F7H2SOPtKcx9iuaJ0B4MRcTEWzusRtEvIi/No/58XmADvZjcPcVaNlRrQIeG+QWIoqmR2jyn+4a0tg6d9hq7f3tOdeEalQ0cCIsrMRqadTnqNojuJweuUQXIXbtX9XghWSe7wwX14S7+CHwsJy1Tnfo6u00lmJaQwej/IhXcsuIZn8VdQe2lcGeu6bwYkae6aGcNUFojy53qTciSIn7JSyK/pCTC0cyOsI6Y5D7v92kMyWzFP8vRjmezQNMPIVbYv3JvQLO8JFG3h8XiynYOZG9WHkFUu2Bls8Js9Af9zEMZNAxNRZtYY7WxLtqWi7ThqjgJnvBeQCqIfGkR6IE4MaF/f3ZTvGaW/xhF0CfJUU3sv3y4dB1Fgv2NmXLc//32zKqhEtwfgldXFiD6Zjb1FuCEfHp3MSLy6HU34l1m/uXMqpm4oSCL63Qs2nAGvsuSaMdeahimfI6ieV4OEa5Oxx63M0PRv/c=
+    secure: eYPSZFjzsbNUBW1VcLcVz0QvhGJtMMHcCMx+dbPYbxKmI7bZAbKYrr1vndtBqt5EuTeowA6+N9BSBiuiVXHyKcsdf1PMHTfo1VluMThrOtwndUXyV5LZJHDSqRS7Bhg61zKFpx7jWYJqtwQQG8T/MImH2+COvNTG/CGMTy4aidSaifPgxGG01ysirsoWDsGhUDmeBuDkY5F5oIqCIymq6uCFWY8PdmAxApOGTrQblw+nVQhkE7ysrUGh9zJP5Jqjftt0R+g39SGdtMTP7JifF42Hv2Mce+kAwAQ9NVBGUb8HosYOParxMqwmQeBTpgT2r7jEPmihBK/H55jOayTo6jRQCGkSU44iV6eWyQqzne5r9jhG4kFM2CZgdGUQJO9+IAjS8etL/3Abe0F0HR+zAAxDGA1FzAGMRAbttoogt1HldRFR+YbyLt0Lhu6VUUQNZ3G348D3lYXNcKSHXtePXPr0w0PD6AfBHKS42PFY36zhxNqzOoIQhYhTVMGKXGIj0DigwrKBI1697NOIAiCdHHZG5T4v04dS3AGR6udCtpOyo0PBPvM9EkLAN/2uLUeaB1T1xIIl5Ho3dYbxUqsohxUdGPokf7vjgM5UgZ2w6P1Ui4gkXs1v3bYGeya6AvckrZFS6Qz+IvJJb8bmDOuqbwb6DSf6rBv0RXHr2u9ZJj0=
