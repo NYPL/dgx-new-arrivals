@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+### v1.7.1
+- Updating @nypl/dgx-react-footer version to 0.5.0 and @nypl/dgx-header-component to 2.4.8.
+
 ### v1.7.0
 - Added OptinMonster script and updated Header to 2.4.7.
 - Updating Travis CI configuration for CD to AWS Elastic Beanstalk.
