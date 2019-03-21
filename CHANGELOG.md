@@ -1,4 +1,33 @@
 ## CHANGELOG
+
+### v1.7.8
+- Updating @nypl/dgx-react-footer to 0.5.2.
+
+### v1.7.7
+- Updating @nypl/dgx-header-component to 2.4.19
+
+### v1.7.6
+- Updating @nypl/dgx-header-component to 2.4.15 and checking for QA in APP_ENV.
+
+### v1.7.5
+- Updating @nypl/dgx-header-component to 2.4.14 and setting APP_ENV.
+
+### v1.7.4
+- Updating @nypl/dgx-header-component to 2.4.13.
+
+### v1.7.3
+- Updating @nypl/dgx-header-component to 2.4.12.
+
+### v1.7.2
+- Updating @nypl/dgx-react-footer version to 0.5.1 and @nypl/dgx-header-component to 2.4.11.
+
+### v1.7.1
+- Updating @nypl/dgx-react-footer version to 0.5.0 and @nypl/dgx-header-component to 2.4.8.
+
+### v1.7.0
+- Added OptinMonster script and updated Header to 2.4.7.
+- Updating Travis CI configuration for CD to AWS Elastic Beanstalk.
+
 ### v1.6.2
 - Added AWS/Travis CI/CD Pipeline.
 - Added swap-space configuration in `./ebextensions`

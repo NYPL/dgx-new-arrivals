@@ -1,6 +1,6 @@
 {
   "name": "dgx-new-arrivals",
-  "version": "1.6.2",
+  "version": "1.7.8",
   "description": "NYPL New Arrivals",
   "main": "index.js",
   "scripts": {
@@ -34,8 +34,8 @@
     "react-hot-loader": "1.2.8"
   },
   "dependencies": {
-    "@nypl/dgx-header-component": "2.4.5",
-    "@nypl/dgx-react-footer": "0.4.1",
+    "@nypl/dgx-header-component": "2.4.19",
+    "@nypl/dgx-react-footer": "0.5.2",
     "alt": "0.18.2",
     "axios": "0.9.1",
     "babel": "6.5.2",
