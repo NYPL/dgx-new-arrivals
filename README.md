@@ -7,7 +7,7 @@ This repo is no longer supported. The Github repo uses Travis for testing and de
 # NYPL New Arrivals
 
 ## Version
-> v1.7.8
+> v1.7.9
 
 A React/Node Universal JavaScript Application focused on displaying bib items that are new arrivals or on order at NYPL.
 
