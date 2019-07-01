@@ -25,8 +25,8 @@ deploy:
     branch: master
 - provider: elasticbeanstalk
   skip_cleanup: true
-  access_key_id: "$AWS_ACCESS_KEY_ID_PRODUCTION"
-  secret_access_key: "$AWS_SECRET_ACCESS_KEY_PRODUCTION"
+  access_key_id: "$AWS_ACCESS_KEY_ID_QA"
+  secret_access_key: "$AWS_SECRET_ACCESS_KEY_QA"
   region: us-east-1
   app: new-arrivals-app
   env: new-arrivals-qa
@@ -47,7 +47,9 @@ deploy:
   on:
     repo: NYPL/dgx-new-arrivals
     branch: development
+    # We've removed development EB, so skip deploy:
+    condition: 1 == 0
 after_deploy: echo 'Successfully executed deploy trigger for New Arrivals on AWS'
 env:
   global:
-    secure: eYPSZFjzsbNUBW1VcLcVz0QvhGJtMMHcCMx+dbPYbxKmI7bZAbKYrr1vndtBqt5EuTeowA6+N9BSBiuiVXHyKcsdf1PMHTfo1VluMThrOtwndUXyV5LZJHDSqRS7Bhg61zKFpx7jWYJqtwQQG8T/MImH2+COvNTG/CGMTy4aidSaifPgxGG01ysirsoWDsGhUDmeBuDkY5F5oIqCIymq6uCFWY8PdmAxApOGTrQblw+nVQhkE7ysrUGh9zJP5Jqjftt0R+g39SGdtMTP7JifF42Hv2Mce+kAwAQ9NVBGUb8HosYOParxMqwmQeBTpgT2r7jEPmihBK/H55jOayTo6jRQCGkSU44iV6eWyQqzne5r9jhG4kFM2CZgdGUQJO9+IAjS8etL/3Abe0F0HR+zAAxDGA1FzAGMRAbttoogt1HldRFR+YbyLt0Lhu6VUUQNZ3G348D3lYXNcKSHXtePXPr0w0PD6AfBHKS42PFY36zhxNqzOoIQhYhTVMGKXGIj0DigwrKBI1697NOIAiCdHHZG5T4v04dS3AGR6udCtpOyo0PBPvM9EkLAN/2uLUeaB1T1xIIl5Ho3dYbxUqsohxUdGPokf7vjgM5UgZ2w6P1Ui4gkXs1v3bYGeya6AvckrZFS6Qz+IvJJb8bmDOuqbwb6DSf6rBv0RXHr2u9ZJj0=
+  - secure: rapGIGUwg358lzuhipYBqKYbiVynK8Dq0aYhX7kT27lAmpGr2eFiFILfUkeDTMPXfEG/BtExBZkYUDAqCZygNRinPMurbqhBR5MR09RDFjMosGduqzEvsmszBC2CEi5QUv/wElidrX3B3Ws/qUw9ToHYtCZxUNsdWQc5EROLsBB5vT4haODThDGctmRHnv8shy4FTYZXWNAvdnFKKRbF4nb1OZqqqpqlooNTMcRF5RAb83Btlo9EwBkilYeMjohNDGHgs15V2riKREpW+ITY5PNRCOXUtJi0E4rs3nnpVGcZpzLxZt+j8Aapt4fBQGoXBTtAOgHGqkju5NMZHqR9pO6wiE8GWZFyCHYDD9iP3IHuzBe6zPWlB5ER0BchLgLCURBtlsHxj80imjw6eRtKqSatKaqL8c4pDG972+ZOz+o7Oix3Y9hBe6Ar+9vcHuO+6AIrd8ugCqZVh7+xC+pDTcdDqLbxgIkmPdnzcpTMjiSjcvchOArt1j9/YjY3GiNAzxX2fZ00NXRSktvBRWR05xBYM6l+wp1KKZq6at2QiwmfBrVX69gsMNKZtcq1CrguJA6jalKXx59h1KygDSk9vOCm5vKBTqHmF7rtmtJrM0ZhY0G2FiILXa+FbgBvsrkGgggWlOJb0dRpQRCNXT8JJaqRcfhOI2EtIYNfQGTFrQU=
