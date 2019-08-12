@@ -1,5 +1,7 @@
 # NYPL New Arrivals
 
+This is the front-end viewer for new arrivals data made available by the [InventoryService](https://bitbucket.org/NYPL/inventoryservice/src/master/). It's a single-page-app, written in Node with React.
+
 ## Version
 > v1.7.10
 
@@ -83,6 +85,14 @@ Our Travis CI/CD pipeline will execute the following steps for each deployment t
 * Developers do not need to manually deploy the application unless an error occurred via Travis
 
 ## Troubleshooting
+
+### No data
+
+With `APP_ENV=qa`, The app connects to `qa-inventory.nypl.org`. At writing, that endpoint doesn't resolve. Use production data by setting `APP_ENV=production`, e.g.:
+
+```
+APP_ENV=production npm start
+```
 
 ### Stacktraces in logs
 
