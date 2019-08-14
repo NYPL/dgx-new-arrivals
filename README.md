@@ -7,7 +7,7 @@ This repo is no longer supported. The Github repo uses Travis for testing and de
 # NYPL New Arrivals
 
 ## Version
-> v1.7.10
+> v1.7.11
 
 A React/Node Universal JavaScript Application focused on displaying bib items that are new arrivals or on order at NYPL.
 
@@ -17,12 +17,21 @@ Install all npm dependencies listed under `package.json`
 $ npm install
 ```
 
+**In OSX, if you encounter install issues**, you may be helped by [this SO post](https://stackoverflow.com/a/52633713/2092409) - which, depending on the state of your Command Line Tools, may just boil down to running:
+
+```
+CXXFLAGS="-mmacosx-version-min=10.9" LDFLAGS="-mmacosx-version-min=10.9" npm install
+```
+
 ## Running the Application
+
+*Note: Running `npm start` or `npm run dist` may dump a bunch of stack traces to stdout. [They may be safe to ignore](#stacktraces-in-logs)*
+
 ### Development Mode
 We use Webpack to fire off a hot-reloading development server. This allows for continuous code changes without the need to refresh your browser.
 
 ```sh
-$ npm start // Starts localhost:3001 defaulting to APP_ENV=development
+$ npm start # Starts localhost:3001 defaulting to APP_ENV=production
 ```
 
 You can also set the `APP_ENV` variable to `development`, `qa`, or `production` to use those respective environments.
@@ -78,3 +87,28 @@ Our Travis CI/CD pipeline will execute the following steps for each deployment t
 * Run the npm task to build the distribution assets
 * Execute the `deploy` hook only for `development`, `qa` and `master` branches to adhere to our AWS Elastic Beanstalk `development`, `qa` and `production` servers
 * Developers do not need to manually deploy the application unless an error occurred via Travis
+
+## Troubleshooting
+
+### Stacktraces in logs
+
+Under Node v6.11.5 (and v6.10.3), installed dependencies seem to spew a lot of warnings like this:
+
+```
+$ npm run dist
+
+> dgx-new-arrivals@1.7.10 dist /Users/_/projects/nypl/dgx-new-arrivals
+> NODE_ENV=production webpack --config webpack.config.js
+
+(node) v8::ObjectTemplate::Set() with non-primitive values is deprecated
+(node) and will stop working in the next major release.
+
+==== JS stack trace =========================================
+
+Security context: 0x82e30dcf781 <JS Object>#0#
+    1: .node [module.js:597] [pc=0x2bc9140e59a4] (this=0x16c8a9094499 <an Object with deprecated map 0x28d5bec1ba11>#1#,module=0x1ddb77ab5461 <a Module with map 0x28d5bec1cf61>#2#,filename=0x1ddb77ab3ae1 <String[107]: /Users/_/projects/nypl/dgx-new-arrivals/node_modules/node-sass/vendor/darwin-x64-48/binding.node>)
+    2: load [module.js:~478] [pc=0x2bc913b82323] (this=0x1ddb77ab5461 <a Module with map 0x28d5bec1cf61>#2#,filename=0x1ddb77ab3ae1 <String[107]: /Users/_/projects/nypl/dgx-new-arrivals/node_modules/node-sass/vendor/darwin-x64-48/binding.node>)
+    3: tryModuleLoad(aka tryModuleLoad) [module.js:446] [pc=0x2bc913842afd] (this=0x82e30d04381 <undefined>,module=0x1ddb77ab5461 <a Module with map 0x28d5bec1cf61>#2#,filename=0x1ddb77ab3ae1 <String[107]: /Users/_/projects/nypl/dgx-new-arrivals/node_modules/node-sass/vendor/darwin-x64-48/binding.node>)
+```
+
+This is happening in the production EB deployment too. Apparently these are [just warnings](https://stackoverflow.com/questions/36897992/nodejs-upgrade-causing-stack-trace) where old packages are hitting deprecation warnings in Node v6. Upgrading a few packages may cuase the warnings to disappear.
