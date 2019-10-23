@@ -1,7 +1,7 @@
 # NYPL New Arrivals
 
 ## Version
-> v1.7.12
+> v1.7.13
 
 A React/Node Universal JavaScript Application focused on displaying bib items that are new arrivals or on order at NYPL.
 
