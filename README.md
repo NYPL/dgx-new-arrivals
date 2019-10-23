@@ -1,9 +1,3 @@
-# Deprecated. Please make sure to check the repo on Github which we currently use:
-[dgx-new-arrivals](https://github.com/NYPL/dgx-new-arrivals)
-
-This repo is no longer supported. The Github repo uses Travis for testing and deployments on AWS.
-
-
 # NYPL New Arrivals
 
 ## Version
@@ -87,6 +81,14 @@ Our Travis CI/CD pipeline will execute the following steps for each deployment t
 * Run the npm task to build the distribution assets
 * Execute the `deploy` hook only for `development`, `qa` and `master` branches to adhere to our AWS Elastic Beanstalk `development`, `qa` and `production` servers
 * Developers do not need to manually deploy the application unless an error occurred via Travis
+
+## Testing
+
+Note: The test suite for this app is currently broken. Our `.travis.yml` doesn't run any tests.
+
+```
+npm test
+```
 
 ## Troubleshooting
 
