@@ -37,7 +37,7 @@
     "@nypl/dgx-header-component": "2.6.0",
     "@nypl/dgx-react-footer": "0.5.2",
     "alt": "0.18.2",
-    "axios": "0.9.1",
+    "axios": "0.19.0",
     "babel": "6.5.2",
     "babel-core": "6.5.2",
     "babel-loader": "6.2.3",
