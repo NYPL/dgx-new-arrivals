@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+### v1.7.15
+- Updating @nypl/dgx-react-footer to 0.5.5.
+
 ### v1.7.14
 - Updating node-sass to 4.13.1
 - Updating @nypl/dgx-react-footer to 0.5.4.
