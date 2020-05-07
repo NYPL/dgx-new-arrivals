@@ -1,6 +1,7 @@
 ## CHANGELOG
 
 ### v1.7.15
+- Updating @nypl/dgx-react-footer to 0.5.5.
 - Updating Falcon Crowdstrike to 5.29.
 
 ### v1.7.14
