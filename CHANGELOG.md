@@ -1,5 +1,14 @@
 ## CHANGELOG
 
+### v1.7.15
+- Updating @nypl/dgx-react-footer to 0.5.5.
+- Updating Falcon Crowdstrike to 5.29.
+
+### v1.7.14
+- Updating node-sass to 4.13.1
+- Updating @nypl/dgx-react-footer to 0.5.4.
+- Remove old Bitbucket deprecation notice from README.
+
 ### v1.7.13
 - Updating @nypl/dgx-header-component to 2.6.0
 
