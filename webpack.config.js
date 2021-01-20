@@ -106,7 +106,7 @@ if (ENV === 'development') {
 **/
 if (ENV === 'production') {
   module.exports = merge(commonSettings, {
-    devtool: 'source-map',
+    //devtool: 'source-map',
     module: {
       loaders: [
         {
