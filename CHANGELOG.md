@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+### v1.7.17
+- Updating @nypl/dgx-header-component to 2.7.1.
+
 ### v1.7.16
 - Updating @nypl/dgx-react-footer to 0.5.6.
 
