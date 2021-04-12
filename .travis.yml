@@ -29,7 +29,7 @@ deploy:
   secret_access_key: "$AWS_SECRET_ACCESS_KEY_QA"
   region: us-east-1
   app: new-arrivals-app
-  env: new-arrivals-qa
+  env: new-arrivals-qa-1
   bucket_name: elasticbeanstalk-us-east-1-946183545209
   bucket_path: new-arrivals-qa
   on:
